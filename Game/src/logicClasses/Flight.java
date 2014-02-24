@@ -257,7 +257,8 @@ public class Flight {
 		g.setWorldClip(150, 0, Game.MAXIMUMWIDTH -150, Game.MAXIMUMHEIGHT);
 
 
-		float shadowScale = (float) (36 - (this.currentAltitude / 1000))/10; // Scale the shadow in accordance to the altitude of the flight
+		// Scale the shadow in accordance to the altitude of the flight
+		float shadowScale = (float) (14 - (this.currentAltitude / 1000))/10; 
 		shadowImage.setRotation((int) currentHeading);
 		shadowImage.draw((int) this.x-35, (int) this.y, shadowScale);
 
@@ -295,7 +296,7 @@ public class Flight {
 			g.setColor(Color.white);
 			g.drawString(this.flightName, (int) this.x-24, (int) this.y-44);
 			g.drawString(Math.round(this.currentAltitude) + " ft",(int) this.x-30, (int) this.y + 10);
-			g.drawString(Math.round(this.currentHeading) + "°",(int) this.x - 13, (int) this.y + 25);//-15,20
+			g.drawString(Math.round(this.currentHeading) + "ï¿½",(int) this.x - 13, (int) this.y + 25);//-15,20
 
 			if (this.flightPlan.getCurrentRoute().size() > 0) {
 				g.drawString("Aim: "+this.flightPlan.getPointByIndex(0).getPointRef(),(int) this.x -22, (int)this.y-28);
