@@ -5,6 +5,7 @@ import java.io.InputStream;
 
 import logicClasses.Achievements;
 import logicClasses.Airspace;
+import logicClasses.ScoreTracking;
 import logicClasses.Controls;
 import logicClasses.Flight;
 
@@ -203,6 +204,10 @@ public class PlayState extends BasicGameState {
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
 			throws SlickException {
 		
+		g.setAntiAlias(true);
+		
+		
+		
 		// Checks whether the user is still choosing the difficulty
 		
 		if(settingDifficulty){
@@ -245,6 +250,10 @@ public class PlayState extends BasicGameState {
 			
 			// Drawing Score
 			g.drawString(airspace.getScore().toString(), 10, 35);
+			if (airspace.getScore().getCurrentMultiplier() != 1){
+				g.drawString("x" + String.valueOf(airspace.getScore().getCurrentMultiplier()), 120,35);
+			}
+			
 						
 			{	//draw flight information panels	
 				int baseY = 60;	
@@ -260,7 +269,14 @@ public class PlayState extends BasicGameState {
 			windImage.draw(14, 550);
 			g.drawString("Wind:", 60, 550);
 			g.drawString(String.valueOf(Math.round(windImage.getRotation())), 65, 565);
-		
+			
+			
+			if(airspace.getScore().getProgressionTowardsNextMultiplier() != 0){
+				g.setColor(Color.cyan);
+				g.fillRect(139, 600 - (float)(0.6 * airspace.getScore().getProgressionTowardsNextMultiplier()) , 11, (float)0.6 * airspace.getScore().getProgressionTowardsNextMultiplier());
+				g.setColor(Color.white);
+			}
+			g.drawString(String.valueOf( airspace.getScore().getProgressionTowardsNextMultiplier()), 100, 400);
 			
 			// Drawing Achievements
 			g.drawString(airspace.getScore().scoreAchievement(), 
@@ -268,6 +284,8 @@ public class PlayState extends BasicGameState {
 			g.drawString(achievementMessage, 
 					stateContainer.Game.MAXIMUMWIDTH -10 -font.getWidth(achievementMessage), 40);
 		}	
+		
+		
 	}
 	
 	private void renderFlightPanel(Flight f, Graphics g, int baseY){						

@@ -57,6 +57,7 @@ public class Airspace {
 		this.numberOfGameLoopsWhenDifficultyIncreases = 3600;
 		this.separationRules.setGameOverViolation(false); // Prevents user immediately entering game over state upon replay
 		this.controls.setSelectedFlight(null); // Prevents information about flight from previous game being displayed 	
+		
 	}
 	
 	/**
@@ -277,6 +278,7 @@ public class Airspace {
 			}
 			else if (this.checkIfFlightHasLeftAirspace(this.getListOfFlights().get(i))) {
 				score.reduceScoreOnFlightLost();
+				score. reduceMultiplierOnFlightLost();
 				this.removeSpecificFlight(i);
 			}
 			
