@@ -3,6 +3,7 @@ package unitTests;
 import static org.junit.Assert.*;
 import logicClasses.*;
 
+
 import org.junit.Test;
 import org.junit.Before;
 
@@ -12,7 +13,7 @@ public class Airspace_Tests {
 	private  Flight flight1;
 	
 	@Before
-	public void setUp(){
+	public void setUp() throws Exception {
     	airspace = new Airspace();
     	// Waypoints
     	airspace.newWaypoint(350, 150, "A");
@@ -35,7 +36,7 @@ public class Airspace_Tests {
     	airspace.newExitPoint(1200, 300, "3");
     	// Get a Flight
     	flight1 = new Flight(airspace);
-    	
+    	System.out.println("Got Here");
     	airspace.setDifficultyValueOfGame(1);
     	airspace.createAndSetSeparationRules();
 

@@ -17,7 +17,9 @@ public class FlightPlan_Tests {
 
 	@Before
 	public void setUp(){
+		System.out.println("Got Here");
     	airspace = new Airspace();
+    	System.out.println("Got Here");
     	//Waypoints
     	airspace.newWaypoint(350, 150, "A");
     	airspace.newWaypoint(400, 470, "B");
@@ -37,8 +39,12 @@ public class FlightPlan_Tests {
     	airspace.newExitPoint(800, 0, "1");
     	airspace.newExitPoint(150, 200, "2");
     	airspace.newExitPoint(1200, 300, "3");
+    	System.out.println("Got Here");
     	flight1 = new Flight(airspace);
+    	System.out.println("Got Here");
     	flightplan = new FlightPlan(airspace, flight1);
+    	System.out.println("Got Here");
+    	
     	
 		
 	}

@@ -62,7 +62,7 @@ public class FlightPlan {
 	public EntryPoint generateEntryPoint(Airspace airspace){
 		
 		Random rand = new Random();
-		int randomNumber = rand.nextInt(4);
+		int randomNumber = rand.nextInt(airspace.getListOfEntryPoints().size()-1);
 		//randomNumber = 3;
 		// Setting flights x and y to the coordinates of it's entrypoint
 		flight.setX(airspace.getListOfEntryPoints().get(randomNumber).getX()); // choose one a get the x and y values
@@ -80,6 +80,7 @@ public class FlightPlan {
 	 */
 	
 	public ArrayList<Point> buildRoute(Airspace airspace, EntryPoint entryPoint) {
+		System.out.println("Got Here");
 		ArrayList<Point> tempRoute = new ArrayList<Point>();  // Create the array lists for route and points
 		ArrayList<Point> tempListOfWaypoints = new ArrayList<Point>();
 		ArrayList<ExitPoint> tempListOfExitPoints = new ArrayList<ExitPoint>();
@@ -477,6 +478,7 @@ public class FlightPlan {
 					
 					
 					}
+		System.out.println("Got Here");
 							
 		return tempRoute;
 	}
