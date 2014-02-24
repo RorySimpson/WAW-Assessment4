@@ -62,7 +62,7 @@ public class FlightPlan {
 	public EntryPoint generateEntryPoint(Airspace airspace){
 		
 		Random rand = new Random();
-		int randomNumber = rand.nextInt(airspace.getListOfEntryPoints().size()-1);
+		int randomNumber = rand.nextInt(airspace.getListOfEntryPoints().size());
 		//randomNumber = 3;
 		// Setting flights x and y to the coordinates of it's entrypoint
 		flight.setX(airspace.getListOfEntryPoints().get(randomNumber).getX()); // choose one a get the x and y values
@@ -102,30 +102,32 @@ public class FlightPlan {
 				// Adding ExitPoint to Plan
 				
 				int ExitPointIndex = rand.nextInt(tempListOfExitPoints.size());
+				
+				
 				while (exitpointAdded == false){
-					// if entrypoint.y is 0 then top point so remove top exit point
-					if ((entryPoint.getY() == 0) && (entryPoint.getY() == tempListOfExitPoints.get(ExitPointIndex).getY())){
-						//tempListOfExitPoints.remove(ExitPointIndex);
+					
+					if (this.entryPoint.getY() == tempListOfExitPoints.get(ExitPointIndex).getY()){
+						tempListOfExitPoints.remove(ExitPointIndex);
 						ExitPointIndex = rand.nextInt(tempListOfExitPoints.size());
 					}
-					// if entrypoint.x is 150 then left point so remove left exit point
-					else if ((entryPoint.getX() == 150) && (entryPoint.getX() == tempListOfExitPoints.get(ExitPointIndex).getX())){
-						//tempListOfExitPoints.remove(ExitPointIndex);
+					
+					else if (this.entryPoint.getX() == tempListOfExitPoints.get(ExitPointIndex).getX()){
+						tempListOfExitPoints.remove(ExitPointIndex);
 						ExitPointIndex = rand.nextInt(tempListOfExitPoints.size());
 					}
-					// if entrypoint.x is 1200
-					else if ((entryPoint.getX() == 1200) && (entryPoint.getX() == tempListOfExitPoints.get(ExitPointIndex).getX())){
-						//tempListOfExitPoints.remove(ExitPointIndex);
-						ExitPointIndex = rand.nextInt(tempListOfExitPoints.size());
-					}else if(entryPoint.isRunway() == tempListOfExitPoints.get(ExitPointIndex).isRunway()){
+					
+					else if(entryPoint.getX() == 760 && tempListOfExitPoints.get(ExitPointIndex).getX() == 590){ // This will need to be changed when the airport is moved
+						tempListOfExitPoints.remove(ExitPointIndex);
 						ExitPointIndex = rand.nextInt(tempListOfExitPoints.size());
 					}
 					else{
 						tempRoute.add(tempListOfExitPoints.get(ExitPointIndex));
 						exitpointAdded = true;
+						exitPoint =  tempListOfExitPoints.get(ExitPointIndex);
 					}
-					exitPoint =  tempListOfExitPoints.get(ExitPointIndex);
 				}
+				
+				
 				
 					for ( int i = 0; i < airspace.getListOfEntryPoints().size(); i ++){
 						if(entryPoint == airspace.getListOfEntryPoints().get(i)){
