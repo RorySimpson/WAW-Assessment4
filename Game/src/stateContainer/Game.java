@@ -12,6 +12,7 @@ import states.PlayCoopState;
 import states.PlayState;
 import states.CreditsState;
 import states.ControlsState;
+import states.ScoreState;
 import states.SplashState;
 
 public class Game extends StateBasedGame {

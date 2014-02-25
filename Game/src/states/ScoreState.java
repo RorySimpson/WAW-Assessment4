@@ -27,7 +27,7 @@ public class ScoreState extends BasicGameState {
 	private String[][] credits;	//[section, line]
 
 	
-	public CreditsState(int state){
+	public ScoreState(int state){
 		
 	}
 	
