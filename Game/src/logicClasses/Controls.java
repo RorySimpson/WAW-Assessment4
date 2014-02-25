@@ -17,14 +17,17 @@ public class Controls {
 	private FlightMenu menu;
 	private boolean mouseHeldDownOnFlight, headingAlreadyChangedByMouse;
 	private Flight selectedFlight;
+	private Airspace airspace;
 	
 	
 	// CONSTRUCTOR
-	public Controls() {
+	public Controls(Airspace airspace) {
 		//Initializes all boolean values controlling selections to false
 		mouseHeldDownOnFlight = false;
 		headingAlreadyChangedByMouse = false;
 		selectedFlight = null;
+		this.airspace = airspace;
+		
 	}
 
 
@@ -94,6 +97,8 @@ public class Controls {
 				minimumDistanceBetweenFlightAndMouseClick = d;
 			}
 		}
+		
+		
 
 		// Working out whether the nearest flight to click is close enough
 		// to be selected.
@@ -102,6 +107,12 @@ public class Controls {
 			if (nearestFlight == selectedFlight){ //If you are clicking on the currently selected flight then change the airspace mode instead of changing flight
 				changeModeByClickingOnFlight();
 			}
+			
+			if (!nearestFlight.isCommandable()){
+				return;
+			}
+			
+			
 			//only allow switching flights if not in navigator mode
 			else {
 				

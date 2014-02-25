@@ -27,7 +27,8 @@ public class Controls_Tests {
 
 	@Before
 	public void Setup(){
-		controlsInstance = new Controls();
+		Airspace newAirspace2 = new Airspace();
+		controlsInstance = new Controls(newAirspace2);
 	}
 
 	@Test

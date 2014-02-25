@@ -24,7 +24,7 @@ public class Flight {
 	private double
 		accel = 20/60.0,
 		climbRate = 60/60.0,
-		turnRate = 30/60.0;	//20 mph per second
+		turnRate = 0.9;	//20 mph per second
 	
 	private int flightNumber;
 	private String flightName;
@@ -46,6 +46,7 @@ public class Flight {
 									  // can be away from the waypoint once it has 
 									  // been checked that the plane is inside the waypoint
 	private int distanceFromWaypoint;
+	private double landingDescentRate = 0;
 
 	private boolean 
 		takingOff = false,
@@ -97,7 +98,7 @@ public class Flight {
  * @return The heading between the flight and first waypoint.
  */
 	
-	public double calculateHeadingToFirstWaypoint(double desX, double desY) {
+	public double calculateHeadingToNextWaypoint(double desX, double desY) {
 		
 		double deltaX;
 		double deltaY;
@@ -228,17 +229,34 @@ public class Flight {
 	}
 	public void land(){	
 		// if next point is an exit point
+		
+		if (this.getFlightPlan().getCurrentRoute().get(0) != this.airspace.getAirport().getBeginningOfRunway()){
+			return;
+		}
+		
+		System.out.println(this.currentHeading);
+		
 		if (!landing){
-			if(getFlightPlan().getPointByIndex(0)==getFlightPlan().getExitPoint() && getFlightPlan().getExitPoint().isRunway()){
-	
-				landing = true;
-								
-				//point towards exitpoint
-				double heading = Math.atan2(flightPlan.getExitPoint().getY() -y, flightPlan.getExitPoint().getX() -x) +PI/2; 
-				heading = (heading< 0) ? heading+(2*PI) : heading;
-				giveHeading((int)Math.round(Math.toDegrees(heading)));
-				setTargetVelocity(velocity);
+			if (this.airspace.getAirport().getLandingApproachArea()
+												.contains((float)this.x, (float)this.y) 
+						&& this.currentHeading >= 45 && this.currentHeading <= 135 && this.currentAltitude <= 2000)
+			{
+				//this.currentGame.getAirport().setPlaneLanding(true);
+
+				this.landing 		= true;
+
+				
+				this.landingDescentRate = this.findLandingDescentRate();
+
+				this.airspace.getControls().setSelectedFlight(null);	
+				System.out.println("Here");
 			}
+		}
+	}
+	
+	public void steerLandingFlight(){
+		if (this.flightPlan.getCurrentRoute().size() != 0){
+			this.targetHeading = calculateHeadingToNextWaypoint(this.getFlightPlan().getCurrentRoute().get(0).getX(),this.getFlightPlan().getCurrentRoute().get(0).getY());
 		}
 	}
 	
@@ -246,19 +264,19 @@ public class Flight {
      * that by the time it reaches the runway, its altitude is 0
      * @return Rate at which plane needs to descend
      */
-//	public double findLandingDescentRate()
-//	{
-//		double rate;
-//
-//		//Find distance to runway waypoint
-//		double distanceFromRunway 	=  Math.sqrt(Math.pow(this.x-this.airspace.getAirport().getBeginningOfRunway().getX(), 2)
-//													+ Math.pow(this.y-this.currentGame.getAirport().getBeginningOfRunway().getY(), 2));
-//		double descentPerPixel 		= this.altitude/distanceFromRunway;
-//
-//		rate = descentPerPixel* (this.velocity) * this.currentGame.getSpeedDifficulty();
-//
-//		return rate;
-//	}
+	public double findLandingDescentRate()
+	{
+		double rate;
+
+		//Find distance to runway waypoint
+		double distanceFromRunway 	=  Math.sqrt(Math.pow(this.x-this.airspace.getAirport().getBeginningOfRunway().getX(), 2)
+													+ Math.pow(this.y-this.airspace.getAirport().getBeginningOfRunway().getY(), 2));
+		double descentPerPixel 		= this.currentAltitude/distanceFromRunway;
+
+		rate = descentPerPixel* (this.velocity * gameScale);
+
+		return rate;
+	}
 	
 	// DRAWING METHODS
 	
@@ -401,12 +419,30 @@ public class Flight {
 	 */
 	
 	public void updateAltitude() {
-		if (this.currentAltitude > this.targetAltitude&& !takingOff) {
-			this.currentAltitude -= climbRate;
-		}
+		
+		if(this.landingDescentRate != 0)
+		{
+			if(this.currentAltitude < 0)
+			{
+				this.currentAltitude			= 0;
+				this.landingDescentRate = 0;
+				this.targetAltitude		= 0;
+			}
+			else
+			{
+				this.currentAltitude  = this.currentAltitude - (int)Math.round(this.landingDescentRate);
+			}
 
-		else if (this.currentAltitude < this.targetAltitude && !takingOff) {
-			this.currentAltitude += climbRate;
+		}
+		else{
+
+			if (this.currentAltitude > this.targetAltitude&& !takingOff) {
+				this.currentAltitude -= climbRate;
+			}
+
+			else if (this.currentAltitude < this.targetAltitude && !takingOff) {
+				this.currentAltitude += climbRate;
+			}
 		}
 	}
 	
@@ -418,7 +454,8 @@ public class Flight {
 
 	public void updateCurrentHeading() {
 	
-		if (Math.round(this.targetHeading) != Math.round(this.currentHeading)) {
+		if ((Math.round(this.targetHeading) <= Math.round(this.currentHeading) - 3 
+				|| Math.round(this.targetHeading) >= Math.round(this.currentHeading) + 3)) {
 			
 
 			/*
@@ -526,50 +563,55 @@ public class Flight {
 
 	public void update(ScoreTracking score) {
 		
+		
 		this.updateVelocity();
 		this.updateCurrentHeading();
 		this.updateXYCoordinates();
 		this.updateAltitude();
 		this.flightPlan.update(score);
-		if (landing){
-			if (!circling && !finalApproach)
-				if (withinTolerance(currentHeading, targetHeading, turnRate)){
-					if (withinTolerance(currentHeading, airspace.getAirport().getRunwayHeading(), 5)){
-						//{!} test still lined up and far enough away
-						setTargetAltitude(500);
-						//System.out.println(this.getFlightName() + " starts circling");
-						circling = true;
-						partCircling = false;
-					}
-					else {
-						landing = false;
-						//System.out.println(this.getFlightName() + " aborts");
-					}
-				}
-			if (circling){
-				if (withinTolerance(currentHeading, targetHeading, turnRate)){
-					//System.out.println(this.getFlightName() + "finishes a part-circle");
-					partCircling = false;
-					if (currentAltitude==targetAltitude && withinTolerance(currentHeading,airspace.getAirport().getRunwayHeading(),30)){
-						//{!} final  approach starts
-						circling = false;
-						finalApproach = true;
-						setTargetAltitude(0);
-						double heading = Math.atan2(flightPlan.getExitPoint().getY() -y, flightPlan.getExitPoint().getX() -x) +PI/2; 
-						heading = (heading< 0) ? heading+(2*PI) : heading;
-						giveHeading((int)Math.round(Math.toDegrees(heading)));
-						//System.out.println(this.getFlightName() + " starts final approach");
-					}
-				}
-				if(circling && !partCircling){
-					partCircling = true;
-					giveHeading((int)Math.round(currentHeading + 120));
-					//System.out.println(this.getFlightName() + " starts new part-circle");
-				}
-			}
+//		if (landing){
+//			if (!circling && !finalApproach)
+//				if (withinTolerance(currentHeading, targetHeading, turnRate)){
+//					if (withinTolerance(currentHeading, airspace.getAirport().getRunwayHeading(), 5)){
+//						//{!} test still lined up and far enough away
+//						setTargetAltitude(500);
+//						//System.out.println(this.getFlightName() + " starts circling");
+//						circling = true;
+//						partCircling = false;
+//					}
+//					else {
+//						landing = false;
+//						//System.out.println(this.getFlightName() + " aborts");
+//					}
+//				}
+//			if (circling){
+//				if (withinTolerance(currentHeading, targetHeading, turnRate)){
+//					//System.out.println(this.getFlightName() + "finishes a part-circle");
+//					partCircling = false;
+//					if (currentAltitude==targetAltitude && withinTolerance(currentHeading,airspace.getAirport().getRunwayHeading(),30)){
+//						//{!} final  approach starts
+//						circling = false;
+//						finalApproach = true;
+//						setTargetAltitude(0);
+//						double heading = Math.atan2(flightPlan.getExitPoint().getY() -y, flightPlan.getExitPoint().getX() -x) +PI/2; 
+//						heading = (heading< 0) ? heading+(2*PI) : heading;
+//						giveHeading((int)Math.round(Math.toDegrees(heading)));
+//						//System.out.println(this.getFlightName() + " starts final approach");
+//					}
+//				}
+//				if(circling && !partCircling){
+//					partCircling = true;
+//					giveHeading((int)Math.round(currentHeading + 120));
+//					//System.out.println(this.getFlightName() + " starts new part-circle");
+//				}
+//			}
+		if(this.landing){
+			this.steerLandingFlight();
+		}
 						
 			
-		}
+		
+		
 	}
 	
 public boolean withinTolerance(double x1, double x2,double tolerance){

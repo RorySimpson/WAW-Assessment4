@@ -56,7 +56,7 @@ public class Flight_Tests {
 		//Testing it calculates the heading to the first waypoint.
 		flight1.setX(150);
 		flight1.setY(400);
-		assertEquals(38.65, flight1.calculateHeadingToFirstWaypoint(350,150), 0.01);
+		assertEquals(38.65, flight1.calculateHeadingToNextWaypoint(350,150), 0.01);
 		
 	}
 	
@@ -65,7 +65,7 @@ public class Flight_Tests {
 		//Testing it calculates the heading to the first waypoint. 
 		flight1.setX(350);
 		flight1.setY(400);
-		assertEquals(321.34, flight1.calculateHeadingToFirstWaypoint(150,150), 0.01);
+		assertEquals(321.34, flight1.calculateHeadingToNextWaypoint(150,150), 0.01);
 		
 	}
 	

@@ -36,6 +36,46 @@ public class Airport extends Point {
 	}
 
 
+	public boolean isFlightLanding() {
+		return flightLanding;
+	}
+
+
+	public void setFlightLanding(boolean flightLanding) {
+		this.flightLanding = flightLanding;
+	}
+
+
+	public Flight getPlaneWaitingtoTakeoff() {
+		return planeWaitingtoTakeoff;
+	}
+
+
+	public void setPlaneWaitingtoTakeoff(Flight planeWaitingtoTakeoff) {
+		this.planeWaitingtoTakeoff = planeWaitingtoTakeoff;
+	}
+
+
+	public Polygon getLandingApproachArea() {
+		return landingApproachArea;
+	}
+
+
+	public void setLandingApproachArea(Polygon landingApproachArea) {
+		this.landingApproachArea = landingApproachArea;
+	}
+
+
+	public Image getLandingApproachImage() {
+		return landingApproachImage;
+	}
+
+
+	public void setLandingApproachImage(Image landingApproachImage) {
+		this.landingApproachImage = landingApproachImage;
+	}
+
+
 	Airport (int x, int y, Airspace airspace) {
 		// Placing the airport off screen as the airport graphics are part of the graphics already
 		super(x,y);
@@ -47,15 +87,15 @@ public class Airport extends Point {
     	this.planeWaitingtoTakeoff	 	= null;
     	
     	// Creating the runway waypoints
-    	this.beginningOfRunway 			= new ExitPoint(950, 480, "AP");
-    	this.endOfRunway 				= new EntryPoint(1180, 480);
+    	this.beginningOfRunway 			= new ExitPoint(1040, 465, "AP");
+    	this.endOfRunway 				= new EntryPoint(1180, 465);
     	
     	// Creating the landing area. This is the triangle that appears when a flight needs to land. It
     	// is used to check whether the flights have the right approach.
     	landingApproachArea 			= new Polygon();
-    	landingApproachArea.addPoint(880, 520);
-    	landingApproachArea.addPoint(580, 400);
-    	landingApproachArea.addPoint(580, 560);
+    	landingApproachArea.addPoint(1040, 465);
+    	landingApproachArea.addPoint(720, 344);
+    	landingApproachArea.addPoint(720, 576);
     }
 		
 		
@@ -99,10 +139,11 @@ public class Airport extends Point {
 		
 		// Airport image centred in middle of airspace
 		airportImage.setRotation(runwayHeading);
-		airportImage.drawCentered(1100, 480);
+		airportImage.drawCentered(1100, 465);
 		if(this.airspace.getControls().getSelectedFlight() != null){
 			if(this.airspace.getControls().getSelectedFlight().getFlightPlan().getCurrentRoute().get(0) == this.beginningOfRunway){
-				landingApproachImage.drawCentered(880, 480);
+				landingApproachImage.drawCentered(880, 465);
+				
 			}
 		}
 		

@@ -46,7 +46,7 @@ public class Airspace {
 		this.numberOfGameLoopsWhenDifficultyIncreases = 3600; 
 		
 		this.randomNumberForFlightGeneration = 500;
-		this.controls = new Controls();
+		this.controls = new Controls(this);
 		
 		// This value will be changed when the user selects a difficulty in the playstate
 		this.difficultyValueOfGame = 0; 
@@ -214,7 +214,7 @@ public class Airspace {
 					}
 					else
 					{
-						heading = tempFlight.calculateHeadingToFirstWaypoint(
+						heading = tempFlight.calculateHeadingToNextWaypoint(
 										tempFlight.getFlightPlan().getPointByIndex(0).getX() ,
 										tempFlight.getFlightPlan().getPointByIndex(0).getY());
 					}

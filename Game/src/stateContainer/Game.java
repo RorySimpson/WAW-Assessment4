@@ -15,7 +15,7 @@ import states.SplashState;
 
 public class Game extends StateBasedGame {
 
-	public static final String NAME = "Turbulence";
+	public static final String NAME = "When Planes Collide";
 	
 	public static final int 
 		SPLASHSTATE = 0,
