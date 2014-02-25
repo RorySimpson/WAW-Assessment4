@@ -70,7 +70,7 @@ public class ExitPoint extends Point {
 	public void render(Graphics g, Airspace airspace) throws SlickException {
 		if(exitPointLeft != null){
 			exitPointRunway = exitPointLeft.copy();
-			exitPointRunway.setRotation(45);
+			exitPointRunway.setRotation(0);
 		}
 	
 		if(y == 0){

@@ -242,6 +242,24 @@ public class Flight {
 		}
 	}
 	
+	/** Calculates the rate at which a plane has to descend, given its current altitude, such
+     * that by the time it reaches the runway, its altitude is 0
+     * @return Rate at which plane needs to descend
+     */
+//	public double findLandingDescentRate()
+//	{
+//		double rate;
+//
+//		//Find distance to runway waypoint
+//		double distanceFromRunway 	=  Math.sqrt(Math.pow(this.x-this.airspace.getAirport().getBeginningOfRunway().getX(), 2)
+//													+ Math.pow(this.y-this.currentGame.getAirport().getBeginningOfRunway().getY(), 2));
+//		double descentPerPixel 		= this.altitude/distanceFromRunway;
+//
+//		rate = descentPerPixel* (this.velocity) * this.currentGame.getSpeedDifficulty();
+//
+//		return rate;
+//	}
+	
 	// DRAWING METHODS
 	
 	/**
@@ -295,28 +313,33 @@ public class Flight {
 		// If flight is selected then also display current heading
 
 		if (this.selected){
-			g.setColor(Color.white);
-			g.drawString(this.flightName, (int) this.x-24, (int) this.y-44);
-			g.drawString(Math.round(this.currentAltitude) + " ft",(int) this.x-30, (int) this.y + 10);
-			//g.drawString(Math.round(this.currentHeading) + "�",(int) this.x - 13, (int) this.y + 25);//-15,20
+			if (this.currentAltitude != 0){
+				g.setColor(Color.white);
+				g.drawString(this.flightName, (int) this.x-24, (int) this.y-44);
+				g.drawString(Math.round(this.currentAltitude) + " ft",(int) this.x-30, (int) this.y + 10);
+				//g.drawString(Math.round(this.currentHeading) + "�",(int) this.x - 13, (int) this.y + 25);//-15,20
 
-			if (this.flightPlan.getCurrentRoute().size() > 0) {
-				g.drawString("Aim: "+this.flightPlan.getPointByIndex(0).getPointRef(),(int) this.x -22, (int)this.y-28);
+				if (this.flightPlan.getCurrentRoute().size() > 0) {
+					g.drawString("Aim: "+this.flightPlan.getPointByIndex(0).getPointRef(),(int) this.x -22, (int)this.y-28);
 
+				}
 			}
 
 		}
 
 		// If flight isn't selected then don't display current heading
 		else{
-			g.setColor(Color.lightGray);
-			g.drawString(this.flightName, (int) this.x-24, (int) this.y-44);
-			g.drawString(Math.round(this.currentAltitude) + " ft",(int) this.x-30, (int) this.y + 10);
+			if (this.currentAltitude != 0){
+				g.setColor(Color.lightGray);
+				g.drawString(this.flightName, (int) this.x-24, (int) this.y-44);
+				g.drawString(Math.round(this.currentAltitude) + " ft",(int) this.x-30, (int) this.y + 10);
 
-			if (this.flightPlan.getCurrentRoute().size() > 0) {
-				g.drawString("Aim: "+this.flightPlan.getPointByIndex(0).getPointRef(),(int) this.x -22, (int)this.y-28);
+				if (this.flightPlan.getCurrentRoute().size() > 0) {
+					g.drawString("Aim: "+this.flightPlan.getPointByIndex(0).getPointRef(),(int) this.x -22, (int)this.y-28);
+				}
+				
+				g.drawOval((int) this.x - 50, (int) this.y - 50, 100, 100);
 			}
-			g.drawOval((int) this.x - 50, (int) this.y - 50, 100, 100);
 		}
 
 		g.setWorldClip(0, 0, Game.MAXIMUMWIDTH, Game.MAXIMUMHEIGHT);

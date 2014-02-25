@@ -34,7 +34,7 @@ public class Airspace {
 		this.listOfWayppoints 					= new ArrayList<Waypoint>();
 		this.listOfEntryPoints 					= new ArrayList<EntryPoint>();
 		this.listOfExitPoints 					= new ArrayList<ExitPoint>();
-		this.airport							 = new Airport();
+		this.airport							 = new Airport(1150, 520, this);
 		
 		// Stores how many loops since the last flight was spawned before another flight can enter
 		this.numberOfGameLoopsSinceLastFlightAdded = 0;
@@ -502,5 +502,9 @@ public class Airspace {
 	public String toString() {
 		String s = "Airspace: "+ airport.toString();
 		return s;
+	}
+
+	public void setControls(Controls controls) {
+		this.controls = controls;
 	}
 }
