@@ -100,6 +100,8 @@ public class Flight {
 	
 	public double calculateHeadingToNextWaypoint(double desX, double desY) {
 		
+		this.turningLeft = false;
+		this.turningRight = false;
 		double deltaX;
 		double deltaY;
 		deltaY = desY - this.y;
@@ -197,7 +199,7 @@ public class Flight {
 					System.out.println("Here");
 					if (((ExitPoint)waypoint).isRunway()){
 						System.out.println("Here");
-						
+						System.out.println(currentAltitude<1000);
 						return currentAltitude<1000;
 					}
 					else return true;					
