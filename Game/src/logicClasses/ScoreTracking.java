@@ -14,6 +14,7 @@ public class ScoreTracking {
 	private static final int WAYPOINTREACHEDMULIPLIERINCREASE = 200;
 	private static final int MULTIPLIERINCREASEINTERVAL = 1000;
 	private Achievements achievements;
+	private boolean negMult = false;
 		
 	//CONSTRUCTOR
 	public ScoreTracking() {
@@ -65,7 +66,7 @@ public class ScoreTracking {
 	public int reduceMultiplierOnFlightLost(){
 		if (progressionTowardsNextMultiplier - FLIGHTLOSTMUTLIPLIERREDUCTION >= 0){
 			progressionTowardsNextMultiplier -= FLIGHTLOSTMUTLIPLIERREDUCTION;
-			
+			negMult = true;	
 		}
 		
 		else if(progressionTowardsNextMultiplier - FLIGHTLOSTMUTLIPLIERREDUCTION < 0 && currentMultiplier == 1){
@@ -137,7 +138,13 @@ public class ScoreTracking {
 		currentMultiplier = 1;
 	}
 	
-
+	public boolean getNegMult(){
+		return this.negMult;
+	}
+	
+	public void setNegMult(boolean newVal){
+		this.negMult = newVal;
+	}
 	
 	public int getScore(){
 		return currentScore;

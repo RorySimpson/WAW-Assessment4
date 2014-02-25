@@ -47,6 +47,10 @@ public class PlayState extends BasicGameState {
 	
 	private Achievements achievement;
 	private String achievementMessage = "";
+	
+	private int counter = 0;
+	private float currentCoord = 0;
+	private float targetCoord;
 
 	public PlayState(int state) {
 		achievement = new Achievements();
@@ -270,11 +274,38 @@ public class PlayState extends BasicGameState {
 			g.drawString("Wind:", 60, 550);
 			g.drawString(String.valueOf(Math.round(windImage.getRotation())), 65, 565);
 			
-			
+			// Multiplier
 			if(airspace.getScore().getProgressionTowardsNextMultiplier() != 0){
-				g.setColor(Color.cyan);
-				g.fillRect(139, 600 - (float)(0.6 * airspace.getScore().getProgressionTowardsNextMultiplier()) , 11, (float)0.6 * airspace.getScore().getProgressionTowardsNextMultiplier());
-				g.setColor(Color.white);
+				
+				this.targetCoord = (float) (0.6 * airspace.getScore().getProgressionTowardsNextMultiplier()); 
+				
+				if (this.counter % 2 == 0){
+					if (this.currentCoord != this.targetCoord && airspace.getScore().getNegMult() == false){
+						g.setColor(Color.cyan);
+						g.fillRect(139, 0, 11, this.currentCoord);
+						g.setColor(Color.white);
+						this.currentCoord ++;
+						this.counter ++;
+					}
+					else if (this.currentCoord != this.targetCoord && airspace.getScore().getNegMult() == true){
+						g.setColor(Color.cyan);
+						g.fillRect(139, 0, 11, this.currentCoord);
+						g.setColor(Color.white);
+						this.currentCoord --;
+						this.counter ++;
+					}
+					else {
+						g.setColor(Color.cyan);
+						g.fillRect(139, 0, 11, this.currentCoord);
+						g.setColor(Color.white);
+					}
+				}
+				else{
+					g.setColor(Color.cyan);
+					g.fillRect(139, 0, 11, this.currentCoord);
+					g.setColor(Color.white);
+					counter ++;
+				}
 			}
 			
 			
