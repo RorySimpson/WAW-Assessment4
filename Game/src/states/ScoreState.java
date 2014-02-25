@@ -125,7 +125,7 @@ public class ScoreState extends BasicGameState {
 
 	@Override
 	public int getID(){
-		return stateContainer.Game.CREDITSSTATE;
+		return stateContainer.Game.SCORESTATE;
 	}	
 	
 }
