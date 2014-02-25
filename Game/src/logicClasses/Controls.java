@@ -108,7 +108,7 @@ public class Controls {
 				changeModeByClickingOnFlight();
 			}
 			
-			if (!nearestFlight.isCommandable()){
+			if (nearestFlight.isLanding()){
 				return;
 			}
 			

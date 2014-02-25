@@ -191,10 +191,14 @@ public class Flight {
 		
 		if ((distanceX <= RADIUS) && (distanceY <= RADIUS)) {
 			// The plane is going away from the way point
-			if (closestDistance < distanceFromWaypoint){				
+			if (closestDistance < distanceFromWaypoint){
+				System.out.println("Here");
 				if (waypoint instanceof ExitPoint){
+					System.out.println("Here");
 					if (((ExitPoint)waypoint).isRunway()){
-						return currentAltitude==0;
+						System.out.println("Here");
+						
+						return currentAltitude<1000;
 					}
 					else return true;					
 				}
@@ -258,6 +262,7 @@ public class Flight {
 		if (this.flightPlan.getCurrentRoute().size() != 0){
 			this.targetHeading = calculateHeadingToNextWaypoint(this.getFlightPlan().getCurrentRoute().get(0).getX(),this.getFlightPlan().getCurrentRoute().get(0).getY());
 		}
+		
 	}
 	
 	/** Calculates the rate at which a plane has to descend, given its current altitude, such
@@ -783,6 +788,10 @@ public boolean withinTolerance(double x1, double x2,double tolerance){
 	}
 	public FlightPlan getFlightPlan() {
 		return flightPlan;
+	}
+	
+	public boolean isLanding(){
+		return landing;
 	}
 	
 
