@@ -258,10 +258,12 @@ public class Flight {
 
 
 		// Scale the shadow in accordance to the altitude of the flight
-		float shadowScale = (float) (14 - (this.currentAltitude / 1000))/10; 
-		shadowImage.setRotation((int) currentHeading);
-		shadowImage.draw((int) this.x-35, (int) this.y, shadowScale);
-
+		if (this.currentAltitude > 50)
+		{
+			float shadowScale = (float) (14 - (this.currentAltitude / 1000))/10; 
+			shadowImage.setRotation((int) currentHeading);
+			shadowImage.draw((int) this.x-35, (int) this.y, shadowScale);
+		}
 		//Depending on a plane's speed, different images for the plane are drawn
 
 		if(velocity <= 275){	//{!} not converted to using min/max
