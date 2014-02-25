@@ -3,10 +3,16 @@ package logicClasses;
 public class ScoreTracking {
 	
 	private int currentScore = 0;
+	private int currentMultiplier = 1;
+	private int progressionTowardsNextMultiplier = 0;
+	
 	private int waypointScore;
 	private static final int TIMESCORE = 2;		//constant for the time scoring
 	private static final int FLIGHTPLANCHANGE = 10;
 	private static final int FLIGHTLOST = 50;
+	private static final int FLIGHTLOSTMUTLIPLIERREDUCTION = 100;
+	private static final int WAYPOINTREACHEDMULIPLIERINCREASE = 200;
+	private static final int MULTIPLIERINCREASEINTERVAL = 1000;
 	private Achievements achievements;
 		
 	//CONSTRUCTOR
@@ -35,7 +41,7 @@ public class ScoreTracking {
 	}
 		
 	public int updateScore(int score){
-		return currentScore+=score;			//increase the current score by the score passed by parameter
+		return currentScore+= currentMultiplier * score;			//increase the current score by the score passed by parameter
 	}
 	
 	public String scoreAchievement(){
@@ -44,7 +50,7 @@ public class ScoreTracking {
 	}
 	
 	public int updateTimeScore(){
-		currentScore += TIMESCORE;
+		currentScore +=  currentMultiplier * TIMESCORE;
 		achievements.pointsAchievement(currentScore);
 		return currentScore;
 	}
@@ -56,6 +62,70 @@ public class ScoreTracking {
 		return currentScore;
 	}
 	
+	public int reduceMultiplierOnFlightLost(){
+		if (progressionTowardsNextMultiplier - FLIGHTLOSTMUTLIPLIERREDUCTION >= 0){
+			progressionTowardsNextMultiplier -= FLIGHTLOSTMUTLIPLIERREDUCTION;
+			
+		}
+		
+		else if(progressionTowardsNextMultiplier - FLIGHTLOSTMUTLIPLIERREDUCTION < 0 && currentMultiplier == 1){
+			progressionTowardsNextMultiplier = 0;
+			
+		}
+		
+		else if(progressionTowardsNextMultiplier - FLIGHTLOSTMUTLIPLIERREDUCTION < 0 && currentMultiplier != 1){
+			currentMultiplier -= 1;
+			progressionTowardsNextMultiplier = MULTIPLIERINCREASEINTERVAL + ( progressionTowardsNextMultiplier - FLIGHTLOSTMUTLIPLIERREDUCTION );
+			
+		}
+		
+		
+		
+		
+		
+		return progressionTowardsNextMultiplier;
+	}
+	
+	public static float getMultiplierincreaseinterval() {
+		return MULTIPLIERINCREASEINTERVAL;
+	}
+
+	public int getCurrentScore() {
+		return currentScore;
+	}
+
+	public void setCurrentScore(int currentScore) {
+		this.currentScore = currentScore;
+	}
+
+	public int getCurrentMultiplier() {
+		return currentMultiplier;
+	}
+
+	public void setCurrentMultiplier(int currentMultiplier) {
+		this.currentMultiplier = currentMultiplier;
+	}
+
+	public float getProgressionTowardsNextMultiplier() {
+		return progressionTowardsNextMultiplier;
+	}
+
+	public void setProgressionTowardsNextMultiplier(
+			int progressionTowardsNextMultiplier) {
+		this.progressionTowardsNextMultiplier = progressionTowardsNextMultiplier;
+	}
+
+	public int increaseMultiplierOnWaypointPassed(){
+		progressionTowardsNextMultiplier +=  WAYPOINTREACHEDMULIPLIERINCREASE;
+		if (progressionTowardsNextMultiplier >= MULTIPLIERINCREASEINTERVAL ){
+			currentMultiplier += 1;
+			progressionTowardsNextMultiplier = progressionTowardsNextMultiplier - MULTIPLIERINCREASEINTERVAL;
+			
+		}
+		return progressionTowardsNextMultiplier;
+	}
+	
+	
 	public int reduceScoreOnFlightLost(){
 		currentScore -= FLIGHTLOST;
 		return currentScore;
@@ -63,7 +133,11 @@ public class ScoreTracking {
 	
 	public void resetScore(){
 		currentScore = 0;
+		progressionTowardsNextMultiplier = 0;
+		currentMultiplier = 1;
 	}
+	
+
 	
 	public int getScore(){
 		return currentScore;

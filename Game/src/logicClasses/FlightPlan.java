@@ -538,10 +538,12 @@ public class FlightPlan {
 				closestDistance = this.flight.minDistanceFromWaypoint(this.currentRoute.get(0)); // get the closest distance from the waypoint
 				flight.resetMinDistanceFromWaypoint();
 				waypointScore = score.updateWaypointScore(closestDistance); // update the score based on how close to the waypoints
+				score.increaseMultiplierOnWaypointPassed();
 
 				this.currentRoute.remove(0);
 			}
 			score.updateScore(waypointScore);
+			
 		}
 
 	}
