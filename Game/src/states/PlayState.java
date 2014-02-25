@@ -276,7 +276,7 @@ public class PlayState extends BasicGameState {
 				g.fillRect(139, 600 - (float)(0.6 * airspace.getScore().getProgressionTowardsNextMultiplier()) , 11, (float)0.6 * airspace.getScore().getProgressionTowardsNextMultiplier());
 				g.setColor(Color.white);
 			}
-			g.drawString(String.valueOf( airspace.getScore().getProgressionTowardsNextMultiplier()), 100, 400);
+			
 			
 			// Drawing Achievements
 			g.drawString(airspace.getScore().scoreAchievement(), 
@@ -330,6 +330,8 @@ public class PlayState extends BasicGameState {
 	    	settingDifficulty = true;
 	    	airspace.getScore().resetScore();
 		}
+		
+		
 		
 		// Checks whether the user is still choosing the difficulty
 		
