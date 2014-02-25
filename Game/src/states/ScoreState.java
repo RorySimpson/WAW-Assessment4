@@ -1,7 +1,5 @@
 package states;
 
-//import java.awt.Font;
-//import java.io.InputStream;
 
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.Color;
@@ -13,9 +11,11 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.loading.LoadingList;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
+import java.net.*;
+import java.io.*;
 
 import util.DeferredFile;
-//import org.newdawn.slick.util.ResourceLoader;
+
 
 
 public class ScoreState extends BasicGameState {
@@ -35,7 +35,6 @@ public class ScoreState extends BasicGameState {
 	@Override
 	public void init(GameContainer gc, StateBasedGame sbg)
 			throws SlickException {
-		
 		{
 			LoadingList loading = LoadingList.get();
 
@@ -71,8 +70,30 @@ public class ScoreState extends BasicGameState {
 					"COMING SOON!",
 				},
 		};
+		
+		
+		//WIP
+		URL oracle;
+		try {
+			oracle = new URL("http://www.oracle.com/");
+			URLConnection yc = oracle.openConnection();
+	        BufferedReader in = new BufferedReader(new InputStreamReader(
+	        yc.getInputStream()));
+	        String inputLine;
+	        while ((inputLine = in.readLine()) != null)
+	       // System.out.println(inputLine);
+	        in.close();
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
+		
 	}
-
+	
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
 			throws SlickException{
