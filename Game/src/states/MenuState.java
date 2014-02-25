@@ -19,11 +19,11 @@ public class MenuState extends BasicGameState {
 
 	private static Image 
 		menuBackground,
-		playButton, quitButton, creditsButton, controlsButton, 
-		playHover, quitHover, creditsHover, controlsHover;
+		playButton, quitButton, creditsButton, controlsButton, scoreButton,
+		playHover, quitHover, creditsHover, controlsHover, scoreHover;
 	
 	private HoverImage
-		play, quit, credits, controls;
+		play, quit, credits, controls, score;
 	
 	private boolean mouseBeenReleased;
 
@@ -90,6 +90,18 @@ public class MenuState extends BasicGameState {
 				controlsHover = new Image(filename);
 			}
 		});
+		
+		loading.add(new DeferredFile("res/menu_graphics/new/credits.png"){
+			public void loadFile(String filename) throws SlickException{
+				scoreButton = new Image(filename);
+			}
+		});
+		
+		loading.add(new DeferredFile("res/menu_graphics/new/controls_hover.png"){
+			public void loadFile(String filename) throws SlickException{
+				scoreHover = new Image(filename);
+			}
+		});
 
 		loading.add(new DeferredResource(){
 			public String getDescription() {
@@ -101,6 +113,7 @@ public class MenuState extends BasicGameState {
 				quit = new HoverImage(quitButton, quitHover, 1078, 534);
 				credits = new HoverImage(creditsButton, creditsHover, 20, 534);
 				controls = new HoverImage(controlsButton, controlsHover, 490, 534);
+				score = new HoverImage(scoreButton, scoreHover, 200, 349);
 			}
 		});
 
@@ -120,6 +133,7 @@ public class MenuState extends BasicGameState {
 		quit.render(posX, posY);
 		credits.render(posX, posY);
 		controls.render(posX, posY);
+		score.render(posX, posY);
 	}
 
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
@@ -151,6 +165,10 @@ public class MenuState extends BasicGameState {
 
 				if (credits.isMouseOver(posX, posY)) {	
 					sbg.enterState(stateContainer.Game.CREDITSSTATE);
+				}
+				
+				if (score.isMouseOver(posX, posY)) {	
+					sbg.enterState(stateContainer.Game.SCORESTATE);
 				}
 			}
 			/* else mouse is dragged*/
