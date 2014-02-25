@@ -26,6 +26,7 @@ public class Game extends StateBasedGame {
 		PAUSESTATE = 4,
 		CREDITSSTATE = 5,
 		CONTROLSSTATE = 6,
+		SCORESTATE = 7;
 		PLAYCOOPSTATE = 7;
 	
 	public static final int 
@@ -52,6 +53,7 @@ public class Game extends StateBasedGame {
 		addState(new PauseState(PAUSESTATE));
 		addState(new CreditsState(CREDITSSTATE));
 		addState(new ControlsState(CONTROLSSTATE));
+		addState(new ScoreState(SCORESTATE));
 		addState(new PlayCoopState(PLAYCOOPSTATE));
 	}
 
