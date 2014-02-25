@@ -26,7 +26,7 @@ public class Airport extends Point {
 	private EntryPoint endOfRunway;
 	private Polygon 	landingApproachArea;
 	private Airspace airspace;
-	private Image triangle;
+	private Image landingApproachImage;
 	
 	
 	//CONSTRUCTOR
@@ -47,15 +47,15 @@ public class Airport extends Point {
     	this.planeWaitingtoTakeoff	 	= null;
     	
     	// Creating the runway waypoints
-    	this.beginningOfRunway 			= new ExitPoint(950, 520, "");
-    	this.endOfRunway 				= new EntryPoint(1180, 520);
+    	this.beginningOfRunway 			= new ExitPoint(950, 480, "AP");
+    	this.endOfRunway 				= new EntryPoint(1180, 480);
     	
     	// Creating the landing area. This is the triangle that appears when a flight needs to land. It
     	// is used to check whether the flights have the right approach.
     	landingApproachArea 			= new Polygon();
-    	landingApproachArea.addPoint(900, 520);
-    	landingApproachArea.addPoint(580, 440);
-    	landingApproachArea.addPoint(580, 600);
+    	landingApproachArea.addPoint(880, 520);
+    	landingApproachArea.addPoint(580, 400);
+    	landingApproachArea.addPoint(580, 560);
     }
 		
 		
@@ -92,17 +92,17 @@ public class Airport extends Point {
                 runwayLength = airportImage.getHeight();
             }	
 		});
-		triangle = new Image("res/graphics/new/airspaceIndicatorGreen.png");
+		landingApproachImage = new Image("res/graphics/new/airspaceIndicatorGreen.png");
 	}
 	
 	public void render(Graphics g, GameContainer gc) throws SlickException { 
 		
 		// Airport image centred in middle of airspace
 		airportImage.setRotation(runwayHeading);
-		airportImage.drawCentered(1100, 520);
+		airportImage.drawCentered(1100, 480);
 		if(this.airspace.getControls().getSelectedFlight() != null){
 			if(this.airspace.getControls().getSelectedFlight().getFlightPlan().getCurrentRoute().get(0) == this.beginningOfRunway){
-				triangle.drawCentered(900, 520);
+				landingApproachImage.drawCentered(880, 480);
 			}
 		}
 		

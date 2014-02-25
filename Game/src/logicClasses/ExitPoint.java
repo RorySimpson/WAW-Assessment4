@@ -84,7 +84,7 @@ public class ExitPoint extends Point {
 		else if(x == 1200){
 			exitPointRight.draw((int)x-40, (int)y-20);
 		} else {
-			exitPointRunway.draw((int)x-20, (int)y-20);
+			
 		}
 		
 
@@ -99,7 +99,6 @@ public class ExitPoint extends Point {
 		else if(x ==1200){
 			g.drawString(pointRef, (int)x-35, (int)y-7);
 		}else{
-			g.drawString(pointRef, (int)x-35, (int)y-7);
 			runway = true;
 		}
 

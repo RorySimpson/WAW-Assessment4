@@ -75,7 +75,6 @@ public class EntryPoint extends Point {
 		else if(x == 1200){
 			entryPointRight.draw((int)x-40, (int)y-20);
 		}else{
-			entryPointRunway.draw((int)x-20, (int)y-20);
 			runway = true;
 		}
     }
