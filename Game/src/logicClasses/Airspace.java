@@ -545,4 +545,8 @@ public class Airspace {
 	public void setListOfExitPoints(List<ExitPoint> listOfExitPoints) {
 		this.listOfExitPoints = listOfExitPoints;
 	}
+
+	public void setScore(ScoreTracking score) {
+		this.score = score;
+	}
 }

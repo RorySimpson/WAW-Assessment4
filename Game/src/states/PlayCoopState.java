@@ -5,6 +5,7 @@ import java.io.InputStream;
 
 import logicClasses.Achievements;
 import logicClasses.Airspace;
+import logicClasses.AirspaceCoop;
 import logicClasses.Controls;
 import logicClasses.Flight;
 
@@ -39,7 +40,7 @@ private static TrueTypeFont
 	font, panelFont;	
 public static float time;
 
-private Airspace airspace;
+private AirspaceCoop airspace;
 private String stringTime;
 private boolean settingDifficulty, gameEnded;
 
@@ -60,7 +61,7 @@ public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
 	gameEnded = false;
 	settingDifficulty = true;
 	time = 0;
-	airspace = new Airspace();
+	airspace = new AirspaceCoop();
 	this.stringTime="";
 	
 	gc.setAlwaysRender(true);
@@ -437,7 +438,7 @@ public void update(GameContainer gc, StateBasedGame sbg, int delta)
 					
 		// Updating Airspace
 					
-		airspace.newFlight(gc);
+		airspace.newCoopFlight(gc);
 		airspace.update(gc);
 		if (airspace.getSeparationRules().getGameOverViolation() == true){
 			achievementMessage = achievement.crashAchievement((int) time); //pass the game time as of game over into the crashAchievement
@@ -476,7 +477,7 @@ public Airspace getAirspace() {
 	return airspace;
 }
 
-public void setAirspace(Airspace airspace) {
+public void setAirspace(AirspaceCoop airspace) {
 	this.airspace = airspace;
 }
 }

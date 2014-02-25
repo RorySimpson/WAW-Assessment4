@@ -39,18 +39,47 @@ public class AirspaceCoop extends Airspace {
 	}
 	
 	public void newCoopFlight(GameContainer gc) throws SlickException {
-		this.newFlight(gc);
-		Flight addedFlight = this.getListOfFlights().get(this.getListOfFlights().size()-1);
-		if(this.addPlayer1Flight) {
-			this.addPlayer1Flight=false;
-			this.listOfFlightsPlayer1.add(addedFlight);
+		if(this.newFlight(gc)){
+			Flight addedFlight = this.getListOfFlightsInAirspace().get(this.getListOfFlightsInAirspace().size()-1);
+			if(this.addPlayer1Flight) {
+				this.addPlayer1Flight=false;
+				this.listOfFlightsPlayer1.add(addedFlight);
+				System.out.println("Added a flight to player 1");
 			
-		}
-		else {
-			this.addPlayer1Flight=true;
-			this.listOfFlightsPlayer2.add(addedFlight);
+			}
+			else {
+				this.addPlayer1Flight=true;
+				this.listOfFlightsPlayer2.add(addedFlight);
+			}
 		}
 	}
+	
+	/*@Override
+	public void update(GameContainer gc) {
+		
+		this.setNumberOfGameLoopsSinceLastFlightAdded(this.getNumberOfGameLoopsSinceLastFlightAdded()+1);
+		this.setNumberOfGameLoops(this.getNumberOfGameLoops()+1);
+		if (this.getNumberOfGameLoops() >= this.getNumberOfGameLoopsWhenDifficultyIncreases()) {
+			this.increaseDifficulty();
+	
+		}
+		
+		for (int i = 0; i < this.getListOfFlightsInAirspace().size(); i++) {
+			this.getListOfFlightsInAirspace().get(i).update(this.getScore());
+			if(this.getListOfFlightsInAirspace().get(i).getFlightPlan().getCurrentRoute().size()==0) {
+				this.removeSpecificFlight(i);
+			}
+			else if (this.checkIfFlightHasLeftAirspace(this.getListOfFlights().get(i))) {
+				this.getScore().reduceScoreOnFlightLost();
+				this.getScore(). reduceMultiplierOnFlightLost();
+				this.removeSpecificFlight(i);
+			}
+			
+		}
+		
+		this.getSeparationRules().update(this);
+		this.getControls().update(gc, this);
+	}*/
 
 	public ArrayList<Flight> getListOfFlightsPlayer1() {
 		return listOfFlightsPlayer1;
