@@ -507,4 +507,42 @@ public class Airspace {
 	public void setControls(Controls controls) {
 		this.controls = controls;
 	}
+
+	public int getNumberOfGameLoopsSinceLastFlightAdded() {
+		return numberOfGameLoopsSinceLastFlightAdded;
+	}
+
+	public void setNumberOfGameLoopsSinceLastFlightAdded(
+			int numberOfGameLoopsSinceLastFlightAdded) {
+		this.numberOfGameLoopsSinceLastFlightAdded = numberOfGameLoopsSinceLastFlightAdded;
+	}
+
+	public List<Flight> getListOfFlightsInAirspace() {
+		return listOfFlightsInAirspace;
+	}
+
+	public void setListOfFlightsInAirspace(List<Flight> listOfFlightsInAirspace) {
+		this.listOfFlightsInAirspace = listOfFlightsInAirspace;
+	}
+
+	public List<Waypoint> getListOfWayppoints() {
+		return listOfWayppoints;
+	}
+
+	public void setListOfWayppoints(List<Waypoint> listOfWayppoints) {
+		this.listOfWayppoints = listOfWayppoints;
+	}
+
+	public void setNumberOfGameLoops(int numberOfGameLoops) {
+		this.numberOfGameLoops = numberOfGameLoops;
+	}
+
+	public void setNumberOfGameLoopsWhenDifficultyIncreases(
+			int numberOfGameLoopsWhenDifficultyIncreases) {
+		this.numberOfGameLoopsWhenDifficultyIncreases = numberOfGameLoopsWhenDifficultyIncreases;
+	}
+
+	public void setListOfExitPoints(List<ExitPoint> listOfExitPoints) {
+		this.listOfExitPoints = listOfExitPoints;
+	}
 }
