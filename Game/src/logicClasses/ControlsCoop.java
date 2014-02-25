@@ -21,11 +21,21 @@ public class ControlsCoop extends Controls {
 		
 	}
 	
-	@Override
-	public void update(GameContainer gc, Airspace airspace) {
+	
+	public void update(GameContainer gc, AirspaceCoop airspace) {
 		Input input = new Input(Input.ANY_CONTROLLER);
 		if(input.isKeyDown(Input.KEY_LSHIFT)) {
-			
+			if(airspace.getListOfFlightsPlayer1().size()>0) {
+				if(this.selectedFlight1==null) {
+					this.selectedFlight1 = airspace.getListOfFlightsPlayer1().get(0);
+				}
+				else {
+					if(airspace.getListOfFlightsPlayer1().indexOf(selectedFlight1)==airspace.getListOfFlightsPlayer1().size()-1) {
+						this.selectedFlight1 = airspace.getListOfFlightsPlayer1().get(0);
+					}
+						this.selectedFlight1 = airspace.getListOfFlightsPlayer1().get(airspace.getListOfFlightsPlayer1().indexOf(selectedFlight1)+1);
+				}
+			}
 		}
 	}
 	

@@ -51,5 +51,21 @@ public class AirspaceCoop extends Airspace {
 			this.listOfFlightsPlayer2.add(addedFlight);
 		}
 	}
+
+	public ArrayList<Flight> getListOfFlightsPlayer1() {
+		return listOfFlightsPlayer1;
+	}
+
+	public void setListOfFlightsPlayer1(ArrayList<Flight> listOfFlightsPlayer1) {
+		this.listOfFlightsPlayer1 = listOfFlightsPlayer1;
+	}
+
+	public ArrayList<Flight> getListOfFlightsPlayer2() {
+		return listOfFlightsPlayer2;
+	}
+
+	public void setListOfFlightsPlayer2(ArrayList<Flight> listOfFlightsPlayer2) {
+		this.listOfFlightsPlayer2 = listOfFlightsPlayer2;
+	}
 	
 }
