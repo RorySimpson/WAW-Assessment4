@@ -372,7 +372,7 @@ public class PlayState extends BasicGameState {
 			// Updating Clock and Time
 			
 			time += delta;
-			achievement.timeAchievement((int)time);
+			achievement.timeAchievement((int) time);
 			float decMins=time/1000/60;
 			int mins = (int) decMins;
 			float decSecs=decMins-mins;
@@ -409,7 +409,7 @@ public class PlayState extends BasicGameState {
 			airspace.newFlight(gc);
 			airspace.update(gc);
 			if (airspace.getSeparationRules().getGameOverViolation() == true){
-				achievementMessage = achievement.crashAchievement((int)time); //pass the game time as of game over into the crashAchievement
+				achievementMessage = achievement.crashAchievement((int) time); //pass the game time as of game over into the crashAchievement
 				airspace.getSeparationRules().setGameOverViolation(false);
 				airspace.resetAirspace();
 				gameplayMusic.stop();

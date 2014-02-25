@@ -7,6 +7,8 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
+import stateContainer.Game;
+
 
 
 public class Airspace {
@@ -14,31 +16,40 @@ public class Airspace {
 	private int maximumNumberOfFlightsInAirspace;
 	private int	numberOfGameLoopsSinceLastFlightAdded, numberOfGameLoops,
 		numberOfGameLoopsWhenDifficultyIncreases, randomNumberForFlightGeneration;
-	private List<Flight> listOfFlightsInAirspace;
-	private List<Waypoint> listOfWayppoints;
-	private List<EntryPoint> listOfEntryPoints;
-	private List<ExitPoint> listOfExitPoints;
-	private SeparationRules separationRules;
-	private Airport airport;
-	private int difficultyValueOfGame; 
-	private Controls controls;
-	private ScoreTracking score;
+	private List<Flight> 		listOfFlightsInAirspace;
+	private List<Waypoint> 		listOfWayppoints;
+	private List<EntryPoint>	listOfEntryPoints;
+	private List<ExitPoint> 	listOfExitPoints;
+	private SeparationRules 	separationRules;
+	private Airport 			airport;
+	private int 				difficultyValueOfGame; 
+	private Controls 			controls;
+	private ScoreTracking 		score;
 	
 	
 	// CONSTRUCTOR
 	public Airspace() {
-		this.maximumNumberOfFlightsInAirspace = 10;
-		this.listOfFlightsInAirspace = new ArrayList<Flight>();
-		this.listOfWayppoints = new ArrayList<Waypoint>();
-		this.listOfEntryPoints = new ArrayList<EntryPoint>();
-		this.listOfExitPoints = new ArrayList<ExitPoint>();
-		this.airport = new Airport();
-		this.numberOfGameLoopsSinceLastFlightAdded = 0; // Stores how many loops since the last flight was spawned before another flight can enter
-		this.numberOfGameLoops = 0; // Stores how many loops there have been in total
-		this.numberOfGameLoopsWhenDifficultyIncreases = 3600; // this is how many loops until planes come more quickly, difficulty increase once a minute
+		this.maximumNumberOfFlightsInAirspace 	= 10;
+		this.listOfFlightsInAirspace 			= new ArrayList<Flight>();
+		this.listOfWayppoints 					= new ArrayList<Waypoint>();
+		this.listOfEntryPoints 					= new ArrayList<EntryPoint>();
+		this.listOfExitPoints 					= new ArrayList<ExitPoint>();
+		this.airport							 = new Airport();
+		
+		// Stores how many loops since the last flight was spawned before another flight can enter
+		this.numberOfGameLoopsSinceLastFlightAdded = 0;
+		
+		// Stores how many loops there have been in total
+		this.numberOfGameLoops = 0; 
+		
+		// this is how many loops until planes come more quickly, difficulty increase once a minute
+		this.numberOfGameLoopsWhenDifficultyIncreases = 3600; 
+		
 		this.randomNumberForFlightGeneration = 500;
 		this.controls = new Controls();
-		this.difficultyValueOfGame = 0; // This value will be changed when the user selects a difficulty in the playstate
+		
+		// This value will be changed when the user selects a difficulty in the playstate
+		this.difficultyValueOfGame = 0; 
 		this.score = new ScoreTracking();	
 	}
 
@@ -55,8 +66,12 @@ public class Airspace {
 		this.numberOfGameLoopsSinceLastFlightAdded = 0; 
 		this.numberOfGameLoops = 0; 
 		this.numberOfGameLoopsWhenDifficultyIncreases = 3600;
-		this.separationRules.setGameOverViolation(false); // Prevents user immediately entering game over state upon replay
-		this.controls.setSelectedFlight(null); // Prevents information about flight from previous game being displayed 	
+		
+		// Prevents user immediately entering game over state upon replay
+		this.separationRules.setGameOverViolation(false);
+		
+		// Prevents information about flight from previous game being displayed
+		this.controls.setSelectedFlight(null);  	
 		
 	}
 	
@@ -69,6 +84,24 @@ public class Airspace {
 	}
 	
 	/**
+	 * Checks whether a point is within the airpsace
+	 * 
+	 * @param x  -  x coordinate
+	 * @param y  -  y coordinate
+	 * @return   -  whether it is or not 
+	 */
+	public boolean withinAirspace(int x, int y)
+	{
+		if (x < Game.MAXIMUMWIDTH + 50 && x > 150 && y < Game.MAXIMUMHEIGHT + 50 && y > -50)
+		{
+			return true;
+		}
+		
+		return false;
+	}
+	
+	
+	/**
 	 * newWaypoint: Add a new waypoint to the list of waypoints in the airspace
 	 * @param x The x coordinate of the waypoint
 	 * @param y The y coordinate of the waypoint
@@ -76,15 +109,18 @@ public class Airspace {
 	 */
 	
 	public boolean newWaypoint(int x, int y, String name)  {
-		if (x<1250 && x>150 && y<650 && y>-50){ 
+		if (withinAirspace(x, y))
+		{ 
 			// x and y must be within these bounds to be within screen space
 			
 			Waypoint tmpWp = new Waypoint(x, y, name);
 			
 			if (this.addWaypoint(tmpWp)) {
 				return true;
-			}
-		} return false;
+			}	
+		} 
+		
+		return false;
 	}
 	
 	/**
@@ -95,7 +131,8 @@ public class Airspace {
 	 */
 	
 	public boolean newExitPoint(int x, int y, String name) {
-		if (x<1250 && x>100 && y<650 && y>-50){
+		if (withinAirspace(x, y))
+		{
 			// x and y must be within these bounds to be within screen space
 			
 			ExitPoint tmpEp = new ExitPoint(x, y, name);
@@ -104,7 +141,9 @@ public class Airspace {
 			if (this.addExitPoint(tmpEp)) {
 				return true;
 			}
-		} return false;
+		} 
+		
+		return false;
 	}
 	
 	/**
@@ -114,7 +153,7 @@ public class Airspace {
 	 */
 	
 	public boolean newEntryPoint(int x, int y)  {
-		if (x<1250 && x>100 && y<650 && y>-50){
+		if (withinAirspace(x, y)){
 			
 			EntryPoint tmpEp = new EntryPoint(x, y);
 			
@@ -125,7 +164,8 @@ public class Airspace {
 	}
 	
 	/**
-	 * newFlight: Add a new flight to the list of flights in the airspace if it has been long enough since the last flight was added and if random number satisfies condition
+	 * newFlight: Add a new flight to the list of flights in the airspace if it has been long enough since the last flight was added 
+	 * and if random number satisfies condition
 	 * The flight is also given a name 
 	 * @param gc Game container required by Slick2d
 	 * @throws SlickException
@@ -140,12 +180,16 @@ public class Airspace {
 				Random rand = new Random();
 				int checkNumber;
 					
-				if (this.listOfFlightsInAirspace.isEmpty()) {
-						checkNumber = rand.nextInt(100); // A random number (checkNumber) is generated in the range [0, 100) 
+				if (this.listOfFlightsInAirspace.isEmpty())
+				{
+					// A random number (checkNumber) is generated in the range [0, 100)
+						checkNumber = rand.nextInt(100);  
 				} 
 					
-				else {
-					checkNumber = rand.nextInt(this.randomNumberForFlightGeneration); // A random number (checkNumber) is generated in range [0, randomNumberForFlightGeneration)
+				else
+				{
+					// A random number (checkNumber) is generated in range [0, randomNumberForFlightGeneration)
+					checkNumber = rand.nextInt(this.randomNumberForFlightGeneration); 
 				}
 				
 				/* 
@@ -159,12 +203,17 @@ public class Airspace {
 				if (checkNumber == 1) {
 			
 					Flight tempFlight = new Flight(this);
+					
 					tempFlight.setFlightName(this.generateFlightName());
 					tempFlight.setTargetAltitude(tempFlight.getAltitude());
+					
 					double heading;
-					if (tempFlight.getFlightPlan().getEntryPoint().isRunway()){
+					if (tempFlight.getFlightPlan().getEntryPoint().isRunway())
+					{
 						heading = airport.getRunwayHeading();
-					}else{
+					}
+					else
+					{
 						heading = tempFlight.calculateHeadingToFirstWaypoint(
 										tempFlight.getFlightPlan().getPointByIndex(0).getX() ,
 										tempFlight.getFlightPlan().getPointByIndex(0).getY());
@@ -207,10 +256,13 @@ public class Airspace {
 	 */
 
 	public boolean checkIfFlightHasLeftAirspace(Flight flight) {
-
-		if (flight.getX() > 1250 || flight.getX() < 100 || flight.getY() > 650 || flight.getY() < -50) { // x and y must be within these bounds to be within screen space
+		// x and y must be within these bounds to be within screen space
+		// Not quite the same with withinAirspace method
+		if (flight.getX() > 1250 || flight.getX() < 100 || flight.getY() > 650 || flight.getY() < -50) { 
 			return true;
-		} else {
+		}
+		else 
+		{
 			return false;
 		}
 
@@ -269,7 +321,6 @@ public class Airspace {
 			this.increaseDifficulty();
 	
 		}
-		
 		
 		for (int i = 0; i < this.listOfFlightsInAirspace.size(); i++) {
 			this.listOfFlightsInAirspace.get(i).update(score);

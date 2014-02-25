@@ -3,34 +3,32 @@ package logicClasses;
 public class Achievements {
 
 	//FIELDS
+	private int numberOfAchievements 			= 0;
+	private static final int MAXACHIEVEMENTS 	= 9;
+	private static final int ACHIEVEMENTTIME 	= 600000;
+	private String achievementMessage 			= "";
 	
-	private int numberOfAchievements = 0;
-	private static final int MAXACHIEVEMENTS = 9;
-	private static final int ACHIEVEMENTTIME = 600000;
-	private String achievementMessage = "";
-	
-	//achievements gained booleans
-	private boolean silverAchievementGained = false;
-	private boolean goldAchievementGained = false;
-	private boolean timeAchievementGained = false;
-	private boolean noPlaneLossAchievementGained = false;
-	private boolean planesLandedAchievementGained = false;
-	private boolean flightPlanChangedAchievementGained = false;
+	//Achievements gained booleans
+	private boolean silverAchievementGained 			= false;
+	private boolean goldAchievementGained 				= false;
+	private boolean timeAchievementGained 				= false;
+	private boolean noPlaneLossAchievementGained 		= false;
+	private boolean planesLandedAchievementGained 		= false;
+	private boolean flightPlanChangedAchievementGained 	= false;
 		
 	//CONSTRUCTOR
-	
 	public Achievements(){
 
 	}
 	
 	//METHODS
-	
 	public String pointsAchievement(int pointsTotal){
 		
 		if (silverAchievementGained == false){
 			if (pointsTotal >= 1000){
 				//then display silver achievement
 				achievementMessage = "Silver Achievement Gained";
+				
 				silverAchievementGained = true;
 				completeAchievement();
 			}
@@ -40,6 +38,7 @@ public class Achievements {
 			if (pointsTotal >= 2000){
 				//then display gold achievement
 				achievementMessage = "Gold Achievement Gained";
+				
 				goldAchievementGained = true;
 				completeAchievement();
 			}	
@@ -56,10 +55,10 @@ public class Achievements {
 		numberOfAchievements += 1;
 	}
 	
-	public void timeAchievement(int time){
+	public void timeAchievement(int gameTime){
 		
 		if (timeAchievementGained == false){
-			if (time >= ACHIEVEMENTTIME){
+			if (gameTime >= ACHIEVEMENTTIME){
 				//then display achievement
 				System.out.println("Time Achievement Gained");
 				completeAchievement();
