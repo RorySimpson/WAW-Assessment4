@@ -123,7 +123,12 @@ public class MenuState extends BasicGameState {
 	}
 
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
-
+		
+		Input input = new Input(Input.ANY_CONTROLLER);
+		if(input.isKeyDown(Input.KEY_C)) {
+			sbg.enterState(stateContainer.Game.PLAYCOOPSTATE);
+		}
+		
 		int	posX = Mouse.getX(),
 			posY = stateContainer.Game.MAXIMUMHEIGHT -Mouse.getY();
 				// Mapping Mouse coords onto graphics coords
