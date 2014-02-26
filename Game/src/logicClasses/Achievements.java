@@ -15,6 +15,7 @@ public class Achievements {
 	private boolean noPlaneLossAchievementGained 		= false;
 	private boolean planesLandedAchievementGained 		= false;
 	private boolean flightPlanChangedAchievementGained 	= false;
+	private boolean achievementGained                   = true;
 		
 	//CONSTRUCTOR
 	public Achievements(){
@@ -124,5 +125,13 @@ public class Achievements {
 	
 	public void setNumberOfAchievements(int noAchieved){
 		numberOfAchievements += noAchieved;
+	}
+	
+	public boolean getAchievementGained(){
+		return achievementGained;
+	}
+	
+	public void setAchievementGained(boolean achievementGained){
+		this.achievementGained = achievementGained;
 	}
 }

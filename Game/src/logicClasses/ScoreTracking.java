@@ -147,5 +147,8 @@ public class ScoreTracking {
 		String s = "Score = " + currentScore;
 		return s;
 	}
-		
+	
+	public Achievements getAchievements(){
+		return this.achievements;
+	}	
 }
