@@ -92,7 +92,7 @@ public class Airspace {
 	 */
 	public boolean withinAirspace(int x, int y)
 	{
-		if (x < Game.MAXIMUMWIDTH + 50 && x > 150 && y < Game.MAXIMUMHEIGHT + 50 && y > -50)
+		if (x < Game.MAXIMUMWIDTH + 50 && x >= 150 && y < Game.MAXIMUMHEIGHT + 50 && y > -50)
 		{
 			return true;
 		}

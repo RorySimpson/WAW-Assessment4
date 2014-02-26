@@ -365,12 +365,16 @@ public class Flight {
 				g.drawString(Math.round(this.currentAltitude) + " ft",(int) this.x-30, (int) this.y + 10);
 
 				if (this.flightPlan.getCurrentRoute().size() > 0) {
-					if (this.flightPlan.getCurrentRoute().get(0) == this.airspace.getAirport().getBeginningOfRunway() && this.currentAltitude != 2000){
+					if (this.flightPlan.getCurrentRoute().get(0) == this.airspace.getAirport().getBeginningOfRunway() && this.currentAltitude > 2000){
 						g.drawString("Lower Me",(int) this.x -29, (int)this.y-28);
 					}
 					
 					else if (this.flightPlan.getCurrentRoute().get(0) == this.airspace.getAirport().getBeginningOfRunway() && this.currentAltitude <= 2000){
 						g.drawString("Line Me Up",(int) this.x -33, (int)this.y-28);
+					}
+					
+					else if (this.flightPlan.getCurrentRoute().get(0) == this.airspace.getAirport().getBeginningOfRunway() && this.currentAltitude <= 2000){
+						g.drawString("Landing",(int) this.x -33, (int)this.y-28);
 					}
 					
 					else{

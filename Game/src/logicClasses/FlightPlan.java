@@ -63,7 +63,7 @@ public class FlightPlan {
 		
 		Random rand = new Random();
 		int randomNumber = rand.nextInt(airspace.getListOfEntryPoints().size());
-		//randomNumber = 3;
+	
 		// Setting flights x and y to the coordinates of it's entrypoint
 		flight.setX(airspace.getListOfEntryPoints().get(randomNumber).getX()); // choose one a get the x and y values
 		flight.setY(airspace.getListOfEntryPoints().get(randomNumber).getY());
