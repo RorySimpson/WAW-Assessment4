@@ -236,6 +236,7 @@ public class PlayState extends BasicGameState {
 		
 		
 		
+		
 		// Checks whether the user is still choosing the difficulty
 		
 		if(settingDifficulty){
@@ -325,6 +326,12 @@ public class PlayState extends BasicGameState {
 			else {
 				this.currentCoord = 0;
 			}
+			
+			g.setColor(Color.black);
+			g.drawLine(139, 120, 150, 120);
+			g.drawLine(139, 240, 150, 240);
+			g.drawLine(139, 360, 150, 360);
+			g.drawLine(139, 480, 150, 480);
 			
 			Input input = gc.getInput();
 			
