@@ -10,7 +10,7 @@ import util.DeferredFile;
 
 
 
-public class Airport extends Point {
+public class Airport {
 	
 	//FIELDS
 	private static Image airportImage;
@@ -19,7 +19,7 @@ public class Airport extends Point {
 	
 	private float x, y;
 	private float runwayHeading = 270;
-	private int runwayLength;
+	private int runwayLength, airportNumber;
 	private boolean flightLanding;
 	private Flight 		planeWaitingtoTakeoff;
 	private ExitPoint 	beginningOfRunway;
@@ -31,55 +31,14 @@ public class Airport extends Point {
 	
 	//CONSTRUCTOR
 	
-	public int getRunwayLength() {
-		return runwayLength - 10;
-	}
 
 
-	public boolean isFlightLanding() {
-		return flightLanding;
-	}
 
-
-	public void setFlightLanding(boolean flightLanding) {
-		this.flightLanding = flightLanding;
-	}
-
-
-	public Flight getPlaneWaitingtoTakeoff() {
-		return planeWaitingtoTakeoff;
-	}
-
-
-	public void setPlaneWaitingtoTakeoff(Flight planeWaitingtoTakeoff) {
-		this.planeWaitingtoTakeoff = planeWaitingtoTakeoff;
-	}
-
-
-	public Polygon getLandingApproachArea() {
-		return landingApproachArea;
-	}
-
-
-	public void setLandingApproachArea(Polygon landingApproachArea) {
-		this.landingApproachArea = landingApproachArea;
-	}
-
-
-	public Image getLandingApproachImage() {
-		return landingApproachImage;
-	}
-
-
-	public void setLandingApproachImage(Image landingApproachImage) {
-		this.landingApproachImage = landingApproachImage;
-	}
-
-
-	Airport (int x, int y, Airspace airspace) {
+	Airport (int airportNumber,Airspace airspace) {
 		// Placing the airport off screen as the airport graphics are part of the graphics already
-		super(x,y);
+		
 		this.airspace = airspace;
+		this.airportNumber = airportNumber;
     	
     	
     	// Airport status
@@ -87,15 +46,22 @@ public class Airport extends Point {
     	this.planeWaitingtoTakeoff	 	= null;
     	
     	// Creating the runway waypoints
-    	this.beginningOfRunway 			= new ExitPoint(1060, 495, "AP");
-    	this.endOfRunway 				= new EntryPoint(1180, 495);
     	
-    	// Creating the landing area. This is the triangle that appears when a flight needs to land. It
-    	// is used to check whether the flights have the right approach.
-    	landingApproachArea 			= new Polygon();
-    	landingApproachArea.addPoint(1025, 495);
-    	landingApproachArea.addPoint(775, 405);
-    	landingApproachArea.addPoint(775, 585);
+    	if(this.airportNumber == 1){
+    		this.beginningOfRunway 			= new ExitPoint(1060, 495, "AP");
+    		this.endOfRunway 				= new EntryPoint(1180, 495);
+
+    		// Creating the landing area. This is the triangle that appears when a flight needs to land. It
+    		// is used to check whether the flights have the right approach.
+    		landingApproachArea 			= new Polygon();
+    		landingApproachArea.addPoint(1025, 495);
+    		landingApproachArea.addPoint(775, 405);
+    		landingApproachArea.addPoint(775, 585);
+    	}
+    	
+    	else if(this.airportNumber ==2){
+    		;
+    	}
     }
 		
 		
@@ -160,6 +126,50 @@ public class Airport extends Point {
 
 	public float getRunwayHeading() {
 		return runwayHeading;
+	}
+	
+	public int getRunwayLength() {
+		return runwayLength - 10;
+	}
+
+
+	public boolean isFlightLanding() {
+		return flightLanding;
+	}
+
+
+	public void setFlightLanding(boolean flightLanding) {
+		this.flightLanding = flightLanding;
+	}
+
+
+	public Flight getPlaneWaitingtoTakeoff() {
+		return planeWaitingtoTakeoff;
+	}
+
+
+	public void setPlaneWaitingtoTakeoff(Flight planeWaitingtoTakeoff) {
+		this.planeWaitingtoTakeoff = planeWaitingtoTakeoff;
+	}
+
+
+	public Polygon getLandingApproachArea() {
+		return landingApproachArea;
+	}
+
+
+	public void setLandingApproachArea(Polygon landingApproachArea) {
+		this.landingApproachArea = landingApproachArea;
+	}
+
+
+	public Image getLandingApproachImage() {
+		return landingApproachImage;
+	}
+
+
+	public void setLandingApproachImage(Image landingApproachImage) {
+		this.landingApproachImage = landingApproachImage;
 	}
 
 

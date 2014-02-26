@@ -17,11 +17,11 @@ public class Airspace {
 	private int	numberOfGameLoopsSinceLastFlightAdded, numberOfGameLoops,
 		numberOfGameLoopsWhenDifficultyIncreases, randomNumberForFlightGeneration;
 	private List<Flight> 		listOfFlightsInAirspace;
-	private List<Waypoint> 		listOfWayppoints;
+	private List<Waypoint> 		listOfWaypoints;
 	private List<EntryPoint>	listOfEntryPoints;
 	private List<ExitPoint> 	listOfExitPoints;
 	private SeparationRules 	separationRules;
-	private Airport 			airport;
+	private Airport 			airport1, airport2;
 	private int 				difficultyValueOfGame; 
 	private Controls 			controls;
 	private ScoreTracking 		score;
@@ -31,10 +31,12 @@ public class Airspace {
 	public Airspace() {
 		this.maximumNumberOfFlightsInAirspace 	= 10;
 		this.listOfFlightsInAirspace 			= new ArrayList<Flight>();
-		this.listOfWayppoints 					= new ArrayList<Waypoint>();
+		this.listOfWaypoints 					= new ArrayList<Waypoint>();
 		this.listOfEntryPoints 					= new ArrayList<EntryPoint>();
 		this.listOfExitPoints 					= new ArrayList<ExitPoint>();
-		this.airport							 = new Airport(1150, 520, this);
+		this.airport1							= new Airport(1,this);
+		this.airport2						    = new Airport(2, this);
+		
 		
 		// Stores how many loops since the last flight was spawned before another flight can enter
 		this.numberOfGameLoopsSinceLastFlightAdded = 0;
@@ -92,7 +94,7 @@ public class Airspace {
 	 */
 	public boolean withinAirspace(int x, int y)
 	{
-		if (x < Game.MAXIMUMWIDTH + 50 && x >= 150 && y < Game.MAXIMUMHEIGHT + 50 && y > -50)
+		if (x < Game.MAXIMUMWIDTH + 50 && x >= 0 && y < Game.MAXIMUMHEIGHT + 50 && y > -50)
 		{
 			return true;
 		}
@@ -210,7 +212,7 @@ public class Airspace {
 					double heading;
 					if (tempFlight.getFlightPlan().getEntryPoint().isRunway())
 					{
-						heading = airport.getRunwayHeading();
+						heading = airport1.getRunwayHeading();
 					}
 					else
 					{
@@ -292,10 +294,10 @@ public class Airspace {
 	public void init(GameContainer gc) throws SlickException {
 		
 		this.controls.init(gc);
-		this.airport.init(gc);
+		this.airport1.init(gc);
 		
-		for (int i = 0; i < this.listOfWayppoints.size(); i++) { // Initialising waypoints
-			this.listOfWayppoints.get(i).init(gc);
+		for (int i = 0; i < this.listOfWaypoints.size(); i++) { // Initialising waypoints
+			this.listOfWaypoints.get(i).init(gc);
 		}
 		
 		for (int i = 0; i < this.listOfExitPoints.size(); i++) { // Initailising exit points
@@ -351,9 +353,9 @@ public class Airspace {
 	 */
 	public void render(Graphics g, GameContainer gc) throws SlickException { 
 		
-		this.airport.render(g, gc);
+		this.airport1.render(g, gc);
 
-		for (Waypoint w:listOfWayppoints) { // Draws waypoints
+		for (Waypoint w:listOfWaypoints) { // Draws waypoints
 			w.render(g, this);
 		}
 		for (ExitPoint e:listOfExitPoints) { // Draws exit points
@@ -383,7 +385,7 @@ public class Airspace {
 	}
 
 	public List<Waypoint> getListOfWaypoints() {
-		return this.listOfWayppoints;
+		return this.listOfWaypoints;
 	}
 
 	public List<EntryPoint> getListOfEntryPoints() {
@@ -399,10 +401,10 @@ public class Airspace {
 	}
 
 	public boolean addWaypoint(Waypoint waypoint) {
-		if (this.listOfWayppoints.contains(waypoint)) {
+		if (this.listOfWaypoints.contains(waypoint)) {
 			return false;
 		} else {
-			this.listOfWayppoints.add(waypoint);
+			this.listOfWaypoints.add(waypoint);
 			return true;
 		}
 	}
@@ -453,7 +455,7 @@ public class Airspace {
 	}
 
 	public void removeWaypoint(Waypoint waypoint) {
-		this.listOfWayppoints.remove(waypoint);
+		this.listOfWaypoints.remove(waypoint);
 	}
 
 	public void removeEntryPoint(EntryPoint entrypoint) {
@@ -495,12 +497,12 @@ public class Airspace {
 	}
 	
 	public Airport getAirport() {
-		return airport;
+		return airport1;
 	}
 	
 	@Override
 	public String toString() {
-		String s = "Airspace: "+ airport.toString();
+		String s = "Airspace: "+ airport1.toString();
 		return s;
 	}
 
@@ -526,11 +528,11 @@ public class Airspace {
 	}
 
 	public List<Waypoint> getListOfWayppoints() {
-		return listOfWayppoints;
+		return listOfWaypoints;
 	}
 
 	public void setListOfWayppoints(List<Waypoint> listOfWayppoints) {
-		this.listOfWayppoints = listOfWayppoints;
+		this.listOfWaypoints = listOfWayppoints;
 	}
 
 	public void setNumberOfGameLoops(int numberOfGameLoops) {
