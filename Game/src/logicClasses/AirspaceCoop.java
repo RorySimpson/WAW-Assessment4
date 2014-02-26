@@ -55,7 +55,14 @@ public class AirspaceCoop extends Airspace {
 	}
 	@Override
 	public void removeSpecificFlight(int flight) {
+		if(this.listOfFlightsPlayer1.contains(this.getListOfFlightsInAirspace().get(flight))) {
+			this.listOfFlightsPlayer1.remove(this.getListOfFlightsInAirspace().get(flight));
+		}
+		else if(this.listOfFlightsPlayer2.contains(this.getListOfFlightsInAirspace().get(flight))) {
+			this.listOfFlightsPlayer2.remove(this.getListOfFlightsInAirspace().get(flight));
+		}
 		this.getListOfFlightsInAirspace().remove(flight);
+		
 		Flight selected1 = ((ControlsCoop) this.getControls()).getSelectedFlight1();
 		Flight selected2 = ((ControlsCoop) this.getControls()).getSelectedFlight2();
 		// If flight was selected, de-select it
