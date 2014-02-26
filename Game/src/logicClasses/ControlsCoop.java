@@ -29,61 +29,74 @@ public class ControlsCoop extends Controls {
 	
 	@Override
 	public void update(GameContainer gc, Airspace airspace) {
-		Input input = new Input(0);
-		if(input.isKeyDown(Input.KEY_LSHIFT)) {
-			if(this.airspaceCoop.getListOfFlightsPlayer1().size()>0){
-				this.selectedFlight1 = airspaceCoop.getListOfFlightsPlayer1().get(0);
-				this.selectedFlight1.setSelected(true);
-			}
-			/*if(airspaceCoop.getListOfFlightsPlayer1().size()>0) {
+
+		if(gc.getInput().isKeyPressed(Input.KEY_LSHIFT)) {
+			if(airspaceCoop.getListOfFlightsPlayer1().size()>0) {
 				if(this.selectedFlight1==null) {
 					this.selectedFlight1 = airspaceCoop.getListOfFlightsPlayer1().get(0);
+					this.selectedFlight1.setSelected(true);
 				}
 				else {
 					if(airspaceCoop.getListOfFlightsPlayer1().indexOf(selectedFlight1)==airspaceCoop.getListOfFlightsPlayer1().size()-1) {
 						this.selectedFlight1 = airspaceCoop.getListOfFlightsPlayer1().get(0);
-					}
+						this.selectedFlight1.setSelected(true);
+					} 
+					else {
 						this.selectedFlight1 = airspaceCoop.getListOfFlightsPlayer1().get(airspaceCoop.getListOfFlightsPlayer1().indexOf(selectedFlight1)+1);
+						this.selectedFlight1.setSelected(true);
+					}
 				}
-			}*/
+			}
 		}
-		if(input.isKeyDown(Input.KEY_RSHIFT)) {
-			if(this.airspaceCoop.getListOfFlightsPlayer2().size()>0) {
-				this.selectedFlight2 = airspaceCoop.getListOfFlightsPlayer2().get(0);
-				this.selectedFlight2.setSelected(true);
+		if(gc.getInput().isKeyPressed(Input.KEY_RSHIFT)) {
+			if(airspaceCoop.getListOfFlightsPlayer2().size()>0) {
+				if(this.selectedFlight2==null) {
+					this.selectedFlight2 = airspaceCoop.getListOfFlightsPlayer2().get(0);
+					this.selectedFlight2.setSelected(true);
+				}
+				else {
+					if(airspaceCoop.getListOfFlightsPlayer2().indexOf(selectedFlight2)==airspaceCoop.getListOfFlightsPlayer2().size()-1) {
+						this.selectedFlight2 = airspaceCoop.getListOfFlightsPlayer2().get(0);
+						this.selectedFlight2.setSelected(true);
+					} 
+					else {
+						this.selectedFlight2 = airspaceCoop.getListOfFlightsPlayer2().get(airspaceCoop.getListOfFlightsPlayer2().indexOf(selectedFlight2)+1);
+						this.selectedFlight2.setSelected(true);
+					}
+				}
 			}
 		}
 		if(this.selectedFlight1!=null) {
-			if(input.isKeyDown(Input.KEY_A)) {
+			if(gc.getInput().isKeyDown(Input.KEY_A)) {
 				this.selectedFlight1.decrementHeading();
 			}
-			if(input.isKeyDown(Input.KEY_D)) {
+			if(gc.getInput().isKeyDown(Input.KEY_D)) {
 				this.selectedFlight1.incrementHeading();
 			}
-			if(input.isKeyDown(Input.KEY_S)) {
+			if(gc.getInput().isKeyPressed(Input.KEY_S)) {
 				this.selectedFlight1.setTargetAltitude(this.selectedFlight1.getTargetAltitude()-1000);
 			}
-			if(input.isKeyDown(Input.KEY_W)) {
+			if(gc.getInput().isKeyPressed(Input.KEY_W)) {
 				this.selectedFlight1.setTargetAltitude(this.selectedFlight1.getTargetAltitude()+1000);
 			}
-			if(input.isKeyDown(Input.KEY_T)) {
+			if(gc.getInput().isKeyDown(Input.KEY_T)) {
 				this.selectedFlight1.takeOff();
 			}
 		}
 		if(this.selectedFlight2!=null) {
-			if(input.isKeyDown(Input.KEY_LEFT)) {
+			if(gc.getInput().isKeyDown(Input.KEY_LEFT)) {
 				this.selectedFlight2.decrementHeading();
 			}
-			if(input.isKeyDown(Input.KEY_RIGHT)) {
+			if(gc.getInput().isKeyDown(Input.KEY_RIGHT)) {
 				this.selectedFlight2.incrementHeading();
 			}
-			if(input.isKeyDown(Input.KEY_DOWN)) {
+			if(gc.getInput().isKeyPressed(Input.KEY_DOWN)) {
 				this.selectedFlight2.setTargetAltitude(this.selectedFlight1.getTargetAltitude()-1000);
 			}
-			if(input.isKeyDown(Input.KEY_UP)) {
+			if(gc.getInput().isKeyPressed(Input.KEY_UP)) {
 				this.selectedFlight2.setTargetAltitude(this.selectedFlight1.getTargetAltitude()+1000);
 			}
-			if(input.isKeyDown(Input.KEY_APOSTROPHE)) {
+			if(gc.getInput().isKeyDown(Input.KEY_APOSTROPHE)) {
 				this.selectedFlight2.takeOff();
 			}
 		}

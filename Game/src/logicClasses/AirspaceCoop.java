@@ -36,7 +36,7 @@ public class AirspaceCoop extends Airspace {
 		this.getSeparationRules().setGameOverViolation(false);
 		
 		// Prevents information about flight from previous game being displayed
-		this.getControls().setSelectedFlight(null);  	
+		//this.getControls().setSelectedFlight(null);  	
 		((ControlsCoop) this.getControls()).setSelectedFlight1(null);
 		((ControlsCoop) this.getControls()).setSelectedFlight2(null);
 		
