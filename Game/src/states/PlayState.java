@@ -330,7 +330,15 @@ public class PlayState extends BasicGameState {
 				}
 			}
 			else {
-				this.currentCoord = 0;
+				if (this.currentCoord != 0){
+					g.setColor(Color.cyan);
+					g.fillRect(139, 0, 11, this.currentCoord);
+					g.setColor(Color.white);
+					this.currentCoord --;
+				}
+				else{
+					;
+				}
 			}
 			
 			// Segmenting multiplier bar
