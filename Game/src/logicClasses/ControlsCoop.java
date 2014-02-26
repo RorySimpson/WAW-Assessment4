@@ -33,6 +33,7 @@ public class ControlsCoop extends Controls {
 		if(input.isKeyDown(Input.KEY_LSHIFT)) {
 			if(this.airspaceCoop.getListOfFlightsPlayer1().size()>0){
 				this.selectedFlight1 = airspaceCoop.getListOfFlightsPlayer1().get(0);
+				this.selectedFlight1.setSelected(true);
 			}
 			/*if(airspaceCoop.getListOfFlightsPlayer1().size()>0) {
 				if(this.selectedFlight1==null) {
@@ -49,6 +50,41 @@ public class ControlsCoop extends Controls {
 		if(input.isKeyDown(Input.KEY_RSHIFT)) {
 			if(this.airspaceCoop.getListOfFlightsPlayer2().size()>0) {
 				this.selectedFlight2 = airspaceCoop.getListOfFlightsPlayer2().get(0);
+				this.selectedFlight2.setSelected(true);
+			}
+		}
+		if(this.selectedFlight1!=null) {
+			if(input.isKeyDown(Input.KEY_A)) {
+				this.selectedFlight1.decrementHeading();
+			}
+			if(input.isKeyDown(Input.KEY_D)) {
+				this.selectedFlight1.incrementHeading();
+			}
+			if(input.isKeyDown(Input.KEY_S)) {
+				this.selectedFlight1.setTargetAltitude(this.selectedFlight1.getTargetAltitude()-1000);
+			}
+			if(input.isKeyDown(Input.KEY_W)) {
+				this.selectedFlight1.setTargetAltitude(this.selectedFlight1.getTargetAltitude()+1000);
+			}
+			if(input.isKeyDown(Input.KEY_T)) {
+				this.selectedFlight1.takeOff();
+			}
+		}
+		if(this.selectedFlight2!=null) {
+			if(input.isKeyDown(Input.KEY_LEFT)) {
+				this.selectedFlight2.decrementHeading();
+			}
+			if(input.isKeyDown(Input.KEY_RIGHT)) {
+				this.selectedFlight2.incrementHeading();
+			}
+			if(input.isKeyDown(Input.KEY_DOWN)) {
+				this.selectedFlight2.setTargetAltitude(this.selectedFlight1.getTargetAltitude()-1000);
+			}
+			if(input.isKeyDown(Input.KEY_UP)) {
+				this.selectedFlight2.setTargetAltitude(this.selectedFlight1.getTargetAltitude()+1000);
+			}
+			if(input.isKeyDown(Input.KEY_APOSTROPHE)) {
+				this.selectedFlight2.takeOff();
 			}
 		}
 		
@@ -60,7 +96,7 @@ public class ControlsCoop extends Controls {
 			
 			if(!selectedFlight1.getFlightPlan().getChangingPlan()){
 				g.setColor(Color.white);
-				g.drawString("I am selected", (int)this.selectedFlight1.getX(), (int)this.selectedFlight1.getY());
+				g.drawString("Player 1", (int)this.selectedFlight1.getX()-50, (int)this.selectedFlight1.getY());
 			}	
 			
 		}
@@ -69,7 +105,7 @@ public class ControlsCoop extends Controls {
 			
 			if(!selectedFlight2.getFlightPlan().getChangingPlan()){
 				g.setColor(Color.white);
-				g.drawString("I am selected", (int)this.selectedFlight2.getX(), (int)this.selectedFlight2.getY());
+				g.drawString("Player2", (int)this.selectedFlight2.getX()-50, (int)this.selectedFlight2.getY());
 			}	
 			
 		}

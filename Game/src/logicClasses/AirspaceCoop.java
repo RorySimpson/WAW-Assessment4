@@ -21,6 +21,8 @@ public class AirspaceCoop extends Airspace {
 		
 	}
 	
+	
+	// override reset to reset the two selected flights to null
 	@Override
 	public void resetAirspace() {
 		
@@ -35,9 +37,14 @@ public class AirspaceCoop extends Airspace {
 		
 		// Prevents information about flight from previous game being displayed
 		this.getControls().setSelectedFlight(null);  	
+		((ControlsCoop) this.getControls()).setSelectedFlight1(null);
+		((ControlsCoop) this.getControls()).setSelectedFlight2(null);
+		
 		
 	}
 	
+	//a new method for creating flights that calls the old one, but also adds
+	//the flight to either the player 1 or 2 list
 	public void newCoopFlight(GameContainer gc) throws SlickException {
 		if(this.newFlight(gc)){
 			Flight addedFlight = this.getListOfFlightsInAirspace().get(this.getListOfFlightsInAirspace().size()-1);
@@ -53,6 +60,7 @@ public class AirspaceCoop extends Airspace {
 			}
 		}
 	}
+	// override the method for removing flights to include the two selected flight lists
 	@Override
 	public void removeSpecificFlight(int flight) {
 		if(this.listOfFlightsPlayer1.contains(this.getListOfFlightsInAirspace().get(flight))) {
@@ -75,6 +83,7 @@ public class AirspaceCoop extends Airspace {
 
 		}
 	}
+	//Don't think this needs to be changed, but leaving it just in case
 	/*@Override
 	public void update(GameContainer gc) {
 		

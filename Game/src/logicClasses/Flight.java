@@ -168,6 +168,28 @@ public class Flight {
 		this.targetHeading = newHeading;
 	}
 	
+	public void incrementHeading() {
+		this.targetHeading+=1;
+		this.currentHeading+=1;
+		if(this.targetHeading>=360) {
+			this.targetHeading=0;
+		}
+		if(this.currentHeading>=360) {
+			this.currentHeading=0;
+		}
+	}
+	
+	public void decrementHeading() {
+		this.targetHeading-=1;
+		this.currentHeading-=1;
+		if(this.targetHeading<=0) {
+			this.targetHeading=360;
+		}
+		if(this.currentHeading<=0) {
+			this.currentHeading=360;
+		}
+	}
+	
 	/**
 	 * checkIfFlightAtWaypoint: checks whether a flight is close enough to the next waypoint in it's plan
 	 * for it to be considered at that waypoint. Update the closestDistance so that it knows how close the plane
