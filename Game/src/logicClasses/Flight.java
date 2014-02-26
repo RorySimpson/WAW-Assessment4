@@ -331,7 +331,7 @@ public class Flight {
 
 		// Drawing Separation Circle
 
-		g.drawOval((int) this.x - 50, (int) this.y - 50, 100, 100);
+		
 
 
 		// Drawing information around flight
@@ -348,6 +348,8 @@ public class Flight {
 					g.drawString("Aim: "+this.flightPlan.getPointByIndex(0).getPointRef(),(int) this.x -22, (int)this.y-28);
 
 				}
+				
+				g.drawOval((int) this.x - 50, (int) this.y - 50, 100, 100);
 			}
 
 		}
@@ -576,42 +578,7 @@ public class Flight {
 		this.updateXYCoordinates();
 		this.updateAltitude();
 		this.flightPlan.update(score);
-//		if (landing){
-//			if (!circling && !finalApproach)
-//				if (withinTolerance(currentHeading, targetHeading, turnRate)){
-//					if (withinTolerance(currentHeading, airspace.getAirport().getRunwayHeading(), 5)){
-//						//{!} test still lined up and far enough away
-//						setTargetAltitude(500);
-//						//System.out.println(this.getFlightName() + " starts circling");
-//						circling = true;
-//						partCircling = false;
-//					}
-//					else {
-//						landing = false;
-//						//System.out.println(this.getFlightName() + " aborts");
-//					}
-//				}
-//			if (circling){
-//				if (withinTolerance(currentHeading, targetHeading, turnRate)){
-//					//System.out.println(this.getFlightName() + "finishes a part-circle");
-//					partCircling = false;
-//					if (currentAltitude==targetAltitude && withinTolerance(currentHeading,airspace.getAirport().getRunwayHeading(),30)){
-//						//{!} final  approach starts
-//						circling = false;
-//						finalApproach = true;
-//						setTargetAltitude(0);
-//						double heading = Math.atan2(flightPlan.getExitPoint().getY() -y, flightPlan.getExitPoint().getX() -x) +PI/2; 
-//						heading = (heading< 0) ? heading+(2*PI) : heading;
-//						giveHeading((int)Math.round(Math.toDegrees(heading)));
-//						//System.out.println(this.getFlightName() + " starts final approach");
-//					}
-//				}
-//				if(circling && !partCircling){
-//					partCircling = true;
-//					giveHeading((int)Math.round(currentHeading + 120));
-//					//System.out.println(this.getFlightName() + " starts new part-circle");
-//				}
-//			}
+
 		if(this.landing){
 			this.steerLandingFlight();
 		}
@@ -794,6 +761,10 @@ public boolean withinTolerance(double x1, double x2,double tolerance){
 	
 	public boolean isLanding(){
 		return landing;
+	}
+	
+	public boolean isTakingOff(){
+		return takingOff;
 	}
 	
 

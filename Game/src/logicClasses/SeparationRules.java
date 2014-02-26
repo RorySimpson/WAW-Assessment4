@@ -72,7 +72,9 @@ public class SeparationRules {
 				
 				if ((lateralDistanceBetweenFlights(airspace.getListOfFlights().get(i), airspace.getListOfFlights().get(j)) < this.gameOverLateralSeparation)){
 					if ((verticalDistanceBetweenFlights(airspace.getListOfFlights().get(i), airspace.getListOfFlights().get(j)) < this.gameOverVerticalSeparation)){
-					this.gameOverViolation = true;
+						if(!(airspace.getListOfFlights().get(i).isGrounded() || airspace.getListOfFlights().get(j).isGrounded())){
+							this.gameOverViolation = true;
+						}
 					}
 				}
 			}
@@ -87,32 +89,33 @@ public class SeparationRules {
 	 * @param airspace - The airspace object is passed as the render method requires knowledge of
 	 * flights in the airspace, which is stored within the airspace. 
 	 */
-	
+
 	public void render(Graphics g, GameContainer gc, Airspace airspace){
-		
+
 		for (int i = 0; i < airspace.getListOfFlights().size(); i++) {
-			
+
 			for (int j = i + 1; j < airspace.getListOfFlights().size(); j++ ) {	
-				
+
 				if (this.lateralDistanceBetweenFlights(airspace.getListOfFlights().get(i), 
 						airspace.getListOfFlights().get(j)) <= this.getWarningLateralSeparation()) {
-					
+
 					if (this.verticalDistanceBetweenFlights(airspace.getListOfFlights().get(i), 
 							airspace.getListOfFlights().get(j)) <= this.getWarningVerticalSeparation()) {
-						
-						float f1x = (float) airspace.getListOfFlights().get(i).getX();
-						float f1y = (float) airspace.getListOfFlights().get(i).getY();
-						float f2x = (float) airspace.getListOfFlights().get(j).getX();
-						float f2y = (float) airspace.getListOfFlights().get(j).getY();
-						g.setColor(Color.red);
-						g.setLineWidth(2);
-						g.drawLine(f1x, f1y, f2x, f2y);
-						g.setLineWidth(1);
-						
-				}}
+
+						if(!(airspace.getListOfFlights().get(i).isGrounded() || airspace.getListOfFlights().get(j).isGrounded())){
+							float f1x = (float) airspace.getListOfFlights().get(i).getX();
+							float f1y = (float) airspace.getListOfFlights().get(i).getY();
+							float f2x = (float) airspace.getListOfFlights().get(j).getX();
+							float f2y = (float) airspace.getListOfFlights().get(j).getY();
+							g.setColor(Color.red);
+							g.setLineWidth(2);
+							g.drawLine(f1x, f1y, f2x, f2y);
+							g.setLineWidth(1);
+						}
+					}}
 			}
 		}
-		
+
 	}
 	
 	/**

@@ -177,7 +177,7 @@ public class FlightMenu implements MouseListener{
 				}
 			}
 			
-			if (flight.getAltitude() == 0){
+			if (flight.getAltitude() == 0 && !flight.isTakingOff()){
 
 				if (CMD == mode)
 					drawImage(aButtonSelect, cmdPos);
