@@ -80,6 +80,60 @@ public class FlightPlan {
 	 */
 	
 	public ArrayList<Point> buildRoute(Airspace airspace, EntryPoint entryPoint) {
+		ArrayList<Point> tempRoute = new ArrayList<Point>();  // Create the array lists for route and points
+		ArrayList<Point> tempListOfWaypoints = new ArrayList<Point>();
+		ArrayList<Point> tempListOfExitPoints = new ArrayList<Point>();
+		Boolean exitpointAdded = false;
+		
+		if (!airspace.getListOfWaypoints().isEmpty()&& !airspace.getListOfExitPoints().isEmpty()) { // if there is a list of waypoints and a list of exit points
+				Random rand = new Random();
+				
+				// Initialising Temporary Lists
+				
+				for (int i = 0; i < airspace.getListOfWaypoints().size(); i++) { //loop through all waypoints and add them to tempwaypoints
+					tempListOfWaypoints.add(airspace.getListOfWaypoints().get(i));
+				}
+				
+				for (int i = 0; i < airspace.getListOfExitPoints().size(); i++) {// loop through all exit points and add them to temppoints
+					tempListOfExitPoints.add(airspace.getListOfExitPoints().get(i));
+				}
+				
+				// Adding Waypoints to Plan
+				
+				int pointsInPlan = rand.nextInt(3) + 3; 
+				
+				for (int i = 0; i < pointsInPlan - 1; i++) {
+					int waypointIndex = rand.nextInt(tempListOfWaypoints.size());
+					tempRoute.add(tempListOfWaypoints.get(waypointIndex));
+					tempListOfWaypoints.remove(waypointIndex);
+				}
+				
+				// Adding ExitPoint to Plan
+				
+				int ExitPointIndex = rand.nextInt(tempListOfExitPoints.size());
+				
+				while (exitpointAdded == false){
+					
+					if (this.entryPoint.getY() == tempListOfExitPoints.get(ExitPointIndex).getY()){
+						tempListOfExitPoints.remove(ExitPointIndex);
+						ExitPointIndex = rand.nextInt(tempListOfExitPoints.size());
+					}
+					
+					else if (this.entryPoint.getX() == tempListOfExitPoints.get(ExitPointIndex).getX()){
+						tempListOfExitPoints.remove(ExitPointIndex);
+						ExitPointIndex = rand.nextInt(tempListOfExitPoints.size());
+					}
+					else{
+						tempRoute.add(tempListOfExitPoints.get(ExitPointIndex));
+						exitpointAdded = true;
+					}
+				}
+		}
+		
+		return tempRoute;
+	}
+	/*
+	public ArrayList<Point> buildRoute(Airspace airspace, EntryPoint entryPoint) {
 		System.out.println("Got Here");
 		ArrayList<Point> tempRoute = new ArrayList<Point>();  // Create the array lists for route and points
 		ArrayList<Point> tempListOfWaypoints = new ArrayList<Point>();
@@ -487,7 +541,7 @@ public class FlightPlan {
 		System.out.println("Got Here");
 							
 		return tempRoute;
-	}
+	}*/
 	
 	/**
 	 * generateVelocity: Creates a velocity from a range of values
