@@ -27,6 +27,8 @@ public class AirspaceCoop extends Airspace {
 	public void resetAirspace() {
 		
 		this.setListOfFlightsInAirspace(new ArrayList<Flight>());
+		this.listOfFlightsPlayer1 = new ArrayList<Flight>();
+		this.listOfFlightsPlayer2 = new ArrayList<Flight>();
 		
 		this.setNumberOfGameLoopsSinceLastFlightAdded(0); 
 		this.setNumberOfGameLoops(0); 
