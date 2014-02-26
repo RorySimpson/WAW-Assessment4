@@ -362,12 +362,20 @@ public class Flight {
 		if (this.selected){
 			if (this.currentAltitude != 0){
 				g.setColor(Color.white);
-				g.drawString(this.flightName, (int) this.x-24, (int) this.y-44);
 				g.drawString(Math.round(this.currentAltitude) + " ft",(int) this.x-30, (int) this.y + 10);
-				//g.drawString(Math.round(this.currentHeading) + "�",(int) this.x - 13, (int) this.y + 25);//-15,20
 
 				if (this.flightPlan.getCurrentRoute().size() > 0) {
-					g.drawString("Aim: "+this.flightPlan.getPointByIndex(0).getPointRef(),(int) this.x -22, (int)this.y-28);
+					if (this.flightPlan.getCurrentRoute().get(0) == this.airspace.getAirport().getBeginningOfRunway() && this.currentAltitude != 2000){
+						g.drawString("Lower Me",(int) this.x -29, (int)this.y-28);
+					}
+					
+					else if (this.flightPlan.getCurrentRoute().get(0) == this.airspace.getAirport().getBeginningOfRunway() && this.currentAltitude <= 2000){
+						g.drawString("Line Me Up",(int) this.x -33, (int)this.y-28);
+					}
+					
+					else{
+						g.drawString("Aim: "+this.flightPlan.getPointByIndex(0).getPointRef(),(int) this.x -22, (int)this.y-28);
+					}
 
 				}
 				
@@ -380,14 +388,22 @@ public class Flight {
 		else{
 			if (this.currentAltitude != 0){
 				g.setColor(Color.lightGray);
-				g.drawString(this.flightName, (int) this.x-24, (int) this.y-44);
 				g.drawString(Math.round(this.currentAltitude) + " ft",(int) this.x-30, (int) this.y + 10);
 
 				if (this.flightPlan.getCurrentRoute().size() > 0) {
-					g.drawString("Aim: "+this.flightPlan.getPointByIndex(0).getPointRef(),(int) this.x -22, (int)this.y-28);
+					if (this.flightPlan.getCurrentRoute().get(0) == this.airspace.getAirport().getBeginningOfRunway()){
+						g.drawString("Land Me",(int) this.x -29, (int)this.y-28);
+					}
+					
+					else{
+						g.drawString("Aim: "+this.flightPlan.getPointByIndex(0).getPointRef(),(int) this.x -22, (int)this.y-28);
+					}
 				}
-				
 				g.drawOval((int) this.x - 50, (int) this.y - 50, 100, 100);
+			}
+			
+			else if (this.currentAltitude == 0 && takingOff != true){
+				g.drawString("Take me off!",(int) this.x-80 , (int)this.y+28);
 			}
 		}
 
