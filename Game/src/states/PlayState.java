@@ -55,7 +55,7 @@ public class PlayState extends BasicGameState {
 	private float targetCoord;
 	private static final int GAMEOVERTIME = 90;
 	private int countdownToGameOverState;
-	private int synch;
+	private int synch = 180;
 
 	private boolean musicPaused = false;
 	
@@ -327,6 +327,13 @@ public class PlayState extends BasicGameState {
 				this.currentCoord = 0;
 			}
 			
+			// Segmenting multiplier bar
+			g.setColor(Color.black);
+			g.drawLine(139, 120, 149, 120);
+			g.drawLine(139, 240, 149, 240);
+			g.drawLine(139, 360, 149, 360);
+			g.drawLine(139, 480, 149, 480);
+			
 			Input input = gc.getInput();
 			
 			if (gameJustFinished)
@@ -337,15 +344,16 @@ public class PlayState extends BasicGameState {
 			
 			// Drawing Achievements
 			if (airspace.getScore().getAchievements().getAchievementGained()){
-				while (synch > 0){
 					g.drawString(airspace.getScore().scoreAchievement(), 
 							stateContainer.Game.MAXIMUMWIDTH -font.getWidth(airspace.getScore().scoreAchievement()) -10, 30);
 					g.drawString(achievementMessage, 
 							stateContainer.Game.MAXIMUMWIDTH -10 -font.getWidth(achievementMessage), 40);
-					synch--;
-				}
-				airspace.getScore().getAchievements().setAchievementGained(false);
-				synch = 5000;
+					synch --;
+				
+					if (synch == 0){
+					airspace.getScore().getAchievements().setAchievementGained(false);
+					synch = 180;
+					}
 			}
 		}	
 		
