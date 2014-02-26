@@ -96,7 +96,7 @@ public class ControlsCoop extends Controls {
 			if(gc.getInput().isKeyPressed(Input.KEY_UP)) {
 				this.selectedFlight2.setTargetAltitude(this.selectedFlight1.getTargetAltitude()+1000);
 			}
-			if(gc.getInput().isKeyDown(Input.KEY_APOSTROPHE)) {
+			if(gc.getInput().isKeyDown(Input.KEY_SLASH)) {
 				this.selectedFlight2.takeOff();
 			}
 		}
