@@ -45,7 +45,7 @@ public class PlayState extends BasicGameState {
 
 	private Airspace airspace;
 	private String stringTime;
-	private boolean settingDifficulty, gameEnded;
+	private boolean settingDifficulty, gameEnded, gameJustFinished = false;
 	
 	private Achievements achievement;
 	private String achievementMessage = "";
@@ -53,6 +53,8 @@ public class PlayState extends BasicGameState {
 	private int counter = 0;
 	private float currentCoord = 0;
 	private float targetCoord;
+	private static final int GAMEOVERTIME = 180;
+	private int countdownToGameOverState;
 
 	public PlayState(int state) {
 		achievement = new Achievements();
@@ -375,7 +377,7 @@ public class PlayState extends BasicGameState {
 		
 		// Checks if the game has been retried and if it has resets the airspace
 		
-		if (gameEnded){
+		if (gameEnded && !gameJustFinished){
 	
 			airspace.resetAirspace();
 	    	time = 0;
@@ -464,6 +466,7 @@ public class PlayState extends BasicGameState {
 			airspace.newFlight(gc);
 			airspace.update(gc);
 			if (airspace.getSeparationRules().getGameOverViolation() == true){
+				
 				achievementMessage = achievement.crashAchievement((int) time); //pass the game time as of game over into the crashAchievement
 				airspace.getSeparationRules().setGameOverViolation(false);
 				airspace.resetAirspace();
