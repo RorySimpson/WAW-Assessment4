@@ -178,7 +178,7 @@ public class PlayState extends BasicGameState {
 				}
 			});	
 			
-			SpriteSheet sheet = new SpriteSheet("res/graphics/explosion.png", 128, 128);
+			//SpriteSheet sheet = new SpriteSheet("res/graphics/explosion.png", 128, 128);
 	        explosion = new Animation();
 	        explosion.setAutoUpdate(true);
 	        
@@ -186,7 +186,7 @@ public class PlayState extends BasicGameState {
 	      
             for(int col=0;col<9;col++)
             {
-               explosion.addFrame(sheet.getSprite(spriteNumber,0), 100);
+               //explosion.addFrame(sheet.getSprite(spriteNumber,0), 100);
                spriteNumber++;
             }
          
@@ -304,7 +304,6 @@ public class PlayState extends BasicGameState {
 					g.fillRect(139, 0, 11, this.currentCoord);
 					g.setColor(Color.white);
 					this.currentCoord ++;
-					this.counter ++;
 				}
 				else if (this.currentCoord != this.targetCoord && airspace.getScore().getNegMult() == true){
 					g.setColor(Color.cyan);
@@ -312,7 +311,6 @@ public class PlayState extends BasicGameState {
 					g.setColor(Color.white);
 					this.currentCoord --;
 					if (this.currentCoord == this.targetCoord) { airspace.getScore().setNegMult(false); }
-					this.counter ++;
 				}
 				else {
 					g.setColor(Color.cyan);
@@ -321,7 +319,7 @@ public class PlayState extends BasicGameState {
 				}
 			}
 			else {
-				;
+				this.currentCoord = 0;
 			}
 			
 			Input input = gc.getInput();
