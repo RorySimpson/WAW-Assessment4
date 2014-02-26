@@ -54,8 +54,10 @@ public class Controls {
 	 * @param nearestFlight Flight object
 	 */
 	public void changeModeByClickingOnFlight(){
+		
 		selectedFlight.getFlightPlan().setChangingPlan(
 				!selectedFlight.getFlightPlan().getChangingPlan());
+		System.out.println(selectedFlight.getFlightPlan().getChangingPlan());
 	}
 	
 	/**
@@ -103,14 +105,19 @@ public class Controls {
 		// Working out whether the nearest flight to click is close enough
 		// to be selected.
 		if (minimumDistanceBetweenFlightAndMouseClick <= 50){ // If the mouse if further from the flight than 50 then it cannot be selected
-
+			
+			if (nearestFlight.isLanding()){
+				
+				return;
+			}
+			
+			System.out.println(nearestFlight == selectedFlight);
 			if (nearestFlight == selectedFlight){ //If you are clicking on the currently selected flight then change the airspace mode instead of changing flight
+				System.out.println("inside if");
 				changeModeByClickingOnFlight();
 			}
 			
-			if (nearestFlight.isLanding()){
-				return;
-			}
+
 			
 			
 			//only allow switching flights if not in navigator mode
