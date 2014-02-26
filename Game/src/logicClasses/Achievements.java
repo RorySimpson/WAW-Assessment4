@@ -54,6 +54,7 @@ public class Achievements {
 			//then display achievement
 		}
 		numberOfAchievements += 1;
+		achievementGained = true;
 	}
 	
 	public void timeAchievement(int gameTime){
