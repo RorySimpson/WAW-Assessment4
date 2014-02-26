@@ -291,6 +291,7 @@ public class PlayState extends BasicGameState {
 					g.fillRect(139, 0, 11, this.currentCoord);
 					g.setColor(Color.white);
 					this.currentCoord --;
+					if (this.currentCoord == this.targetCoord) { airspace.getScore().setNegMult(false); }
 					this.counter ++;
 				}
 				else {
@@ -298,6 +299,9 @@ public class PlayState extends BasicGameState {
 					g.fillRect(139, 0, 11, this.currentCoord);
 					g.setColor(Color.white);
 				}
+			}
+			else {
+				;
 			}
 			
 			
