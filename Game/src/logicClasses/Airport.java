@@ -87,15 +87,15 @@ public class Airport extends Point {
     	this.planeWaitingtoTakeoff	 	= null;
     	
     	// Creating the runway waypoints
-    	this.beginningOfRunway 			= new ExitPoint(1040, 465, "AP");
-    	this.endOfRunway 				= new EntryPoint(1180, 465);
+    	this.beginningOfRunway 			= new ExitPoint(1060, 495, "AP");
+    	this.endOfRunway 				= new EntryPoint(1180, 495);
     	
     	// Creating the landing area. This is the triangle that appears when a flight needs to land. It
     	// is used to check whether the flights have the right approach.
     	landingApproachArea 			= new Polygon();
-    	landingApproachArea.addPoint(1040, 465);
-    	landingApproachArea.addPoint(720, 344);
-    	landingApproachArea.addPoint(720, 576);
+    	landingApproachArea.addPoint(1025, 495);
+    	landingApproachArea.addPoint(775, 405);
+    	landingApproachArea.addPoint(775, 585);
     }
 		
 		
@@ -139,10 +139,10 @@ public class Airport extends Point {
 		
 		// Airport image centred in middle of airspace
 		airportImage.setRotation(runwayHeading);
-		airportImage.drawCentered(1100, 465);
+		airportImage.drawCentered(1120, 495);
 		if(this.airspace.getControls().getSelectedFlight() != null){
 			if(this.airspace.getControls().getSelectedFlight().getFlightPlan().getCurrentRoute().get(0) == this.beginningOfRunway){
-				landingApproachImage.drawCentered(880, 465);
+				landingApproachImage.drawCentered(900, 495);
 				
 			}
 		}
