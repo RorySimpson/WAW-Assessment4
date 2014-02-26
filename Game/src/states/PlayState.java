@@ -35,7 +35,7 @@ public class PlayState extends BasicGameState {
 		backgroundImage, difficultyBackground,
 		statusBarImage, clockImage, windImage,
 		flightIcon,
-		cursorImg;
+		cursorImg, achievementBox;
 	private Animation explosion;
 	private static Sound endOfGameSound;
 	private static Music gameplayMusic;
@@ -182,6 +182,12 @@ public class PlayState extends BasicGameState {
 					hardHover = new Image(filename);
 				}
 			});	
+			
+			loading.add(new DeferredFile("res/graphics/new/achivementBox.png"){
+				public void loadFile(String filename) throws SlickException{
+					achievementBox = new Image(filename);
+				}
+			});
 			
 			SpriteSheet sheet = new SpriteSheet("res/graphics/explosion.png", 128, 128);
 	        explosion = new Animation();
@@ -344,16 +350,19 @@ public class PlayState extends BasicGameState {
 			
 			// Drawing Achievements
 			if (airspace.getScore().getAchievements().getAchievementGained()){
-					g.drawString(airspace.getScore().scoreAchievement(), 
-							stateContainer.Game.MAXIMUMWIDTH -font.getWidth(airspace.getScore().scoreAchievement()) -10, 30);
-					g.drawString(achievementMessage, 
-							stateContainer.Game.MAXIMUMWIDTH -10 -font.getWidth(achievementMessage), 40);
-					synch --;
 				
-					if (synch == 0){
-					airspace.getScore().getAchievements().setAchievementGained(false);
-					synch = 180;
-					}
+				achievementBox.draw(900, 0);
+			
+				g.drawString(airspace.getScore().scoreAchievement(), 
+						stateContainer.Game.MAXIMUMWIDTH -font.getWidth(airspace.getScore().scoreAchievement()) -10, 30);
+				g.drawString(achievementMessage, 
+						stateContainer.Game.MAXIMUMWIDTH -10 -font.getWidth(achievementMessage), 40);
+				synch --;
+			
+				if (synch == 0){
+				airspace.getScore().getAchievements().setAchievementGained(false);
+				synch = 180;
+				}
 			}
 		}	
 		

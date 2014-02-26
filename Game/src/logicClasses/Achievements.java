@@ -15,7 +15,7 @@ public class Achievements {
 	private boolean noPlaneLossAchievementGained 		= false;
 	private boolean planesLandedAchievementGained 		= false;
 	private boolean flightPlanChangedAchievementGained 	= false;
-	private boolean achievementGained                   = true;
+	private boolean achievementGained                   = false;
 		
 	//CONSTRUCTOR
 	public Achievements(){
