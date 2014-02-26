@@ -10,7 +10,7 @@ public class ScoreTracking {
 	private static final int TIMESCORE = 2;		//constant for the time scoring
 	private static final int FLIGHTPLANCHANGE = 10;
 	private static final int FLIGHTLOST = 50;
-	private static final int FLIGHTLOSTMUTLIPLIERREDUCTION = 100;
+	private static final int FLIGHTLOSTMUTLIPLIERREDUCTION = 200;
 	private static final int WAYPOINTREACHEDMULIPLIERINCREASE = 200;
 	private static final int MULTIPLIERINCREASEINTERVAL = 1000;
 	private Achievements achievements;
@@ -68,22 +68,15 @@ public class ScoreTracking {
 			progressionTowardsNextMultiplier -= FLIGHTLOSTMUTLIPLIERREDUCTION;
 			negMult = true;	
 		}
-		
 		else if(progressionTowardsNextMultiplier - FLIGHTLOSTMUTLIPLIERREDUCTION < 0 && currentMultiplier == 1){
 			progressionTowardsNextMultiplier = 0;
-			
+			negMult = true;
 		}
-		
 		else if(progressionTowardsNextMultiplier - FLIGHTLOSTMUTLIPLIERREDUCTION < 0 && currentMultiplier != 1){
 			currentMultiplier -= 1;
-			progressionTowardsNextMultiplier = MULTIPLIERINCREASEINTERVAL + ( progressionTowardsNextMultiplier - FLIGHTLOSTMUTLIPLIERREDUCTION );
-			
+			progressionTowardsNextMultiplier = 0;
+			negMult = true;
 		}
-		
-		
-		
-		
-		
 		return progressionTowardsNextMultiplier;
 	}
 	
@@ -111,16 +104,16 @@ public class ScoreTracking {
 		return progressionTowardsNextMultiplier;
 	}
 
-	public void setProgressionTowardsNextMultiplier(
-			int progressionTowardsNextMultiplier) {
+	public void setProgressionTowardsNextMultiplier(int progressionTowardsNextMultiplier) {
 		this.progressionTowardsNextMultiplier = progressionTowardsNextMultiplier;
 	}
 
 	public int increaseMultiplierOnWaypointPassed(){
 		progressionTowardsNextMultiplier +=  WAYPOINTREACHEDMULIPLIERINCREASE;
-		if (progressionTowardsNextMultiplier >= MULTIPLIERINCREASEINTERVAL ){
+		negMult = false;
+		if (progressionTowardsNextMultiplier > MULTIPLIERINCREASEINTERVAL ){
 			currentMultiplier += 1;
-			progressionTowardsNextMultiplier = progressionTowardsNextMultiplier - MULTIPLIERINCREASEINTERVAL;
+			progressionTowardsNextMultiplier = 0;
 			
 		}
 		return progressionTowardsNextMultiplier;
