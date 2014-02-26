@@ -329,7 +329,7 @@ public class Airspace {
 			}
 			else if (this.checkIfFlightHasLeftAirspace(this.getListOfFlights().get(i))) {
 				score.reduceScoreOnFlightLost();
-				score. reduceMultiplierOnFlightLost();
+				score.reduceMultiplierOnFlightLost();
 				this.removeSpecificFlight(i);
 			}
 			
