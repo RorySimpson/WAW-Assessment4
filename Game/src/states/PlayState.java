@@ -330,7 +330,11 @@ public class PlayState extends BasicGameState {
 				}
 			}
 			else {
-				if (this.currentCoord != 600){
+				if (airspace.getScore().getMultiplierInc()){
+					airspace.getScore().setMultiplierInc(false);
+					this.currentCoord = 600;
+				}
+				else if (this.currentCoord != 600){
 					g.setColor(Color.cyan);
 					g.fillRect(139, this.currentCoord, 11, (600-this.currentCoord));
 					g.setColor(Color.white);

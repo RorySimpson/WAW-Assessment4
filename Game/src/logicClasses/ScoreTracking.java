@@ -15,6 +15,7 @@ public class ScoreTracking {
 	private static final int MULTIPLIERINCREASEINTERVAL = 1000;
 	private Achievements achievements;
 	private boolean negMult = false;
+	private boolean multiplierInc = false;
 		
 	//CONSTRUCTOR
 	public ScoreTracking() {
@@ -113,6 +114,7 @@ public class ScoreTracking {
 		negMult = false;
 		if (progressionTowardsNextMultiplier > MULTIPLIERINCREASEINTERVAL ){
 			currentMultiplier += 1;
+			multiplierInc = true;
 			progressionTowardsNextMultiplier = 0;
 			
 		}
@@ -151,4 +153,12 @@ public class ScoreTracking {
 	public Achievements getAchievements(){
 		return this.achievements;
 	}	
+	
+	public boolean getMultiplierInc(){
+		return multiplierInc;
+	}
+	
+	public void setMultiplierInc(boolean multiplierInc){
+		this.multiplierInc = multiplierInc;
+	}
 }
