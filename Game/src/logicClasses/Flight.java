@@ -395,36 +395,7 @@ public class Flight {
 
 	}
 	
-	/**
-	 * drawSelectedFlightInformation: draws the selected flight's information in the bottom left hand corner.
-	 * @param g - Graphics libraries required by slick2d.
-	 * @param gc - GameContainer required by slick2d.
-	 */
-	
-	public void drawSelectedFlightInformation(Graphics g, GameContainer gc) {
-		
-		/*selectedFlightInformationBackgroundImage.draw(0,450);
-		g.setColor(Color.white);
-		g.drawString(this.flightName,  10, 460);
-		g.drawString("Plan: ",  10, 480);
-		String plan = "";
-		
-		for(int i=0; i<this.flightPlan.getCurrentRoute().size(); i++) {
-			plan += this.flightPlan.getCurrentRoute().get(i).getPointRef()+", ";
-		}
-		
-		
-		g.setColor(Color.white);
-		g.drawString(plan, 10, 500);
-		g.drawString(Math.round(this.currentAltitude) + " Ft",
-			 10, 520);
-		g.drawString(Math.round(this.currentHeading) + " DEG",
-			10, 540);
-		g.drawString(Math.round(velocity) + " MPH",
-			10, 560);
-			*/
-		
-	}
+
 	
 	// UPDATE METHODS
 	
@@ -625,11 +596,7 @@ public boolean withinTolerance(double x1, double x2,double tolerance){
 		this.drawFlight(g, gc);
 		this.flightPlan.render(g,gc);
 
-		if(this.selected) {
-			this.drawSelectedFlightInformation(g, gc);
-			
 
-		}
 		
 	}
 	

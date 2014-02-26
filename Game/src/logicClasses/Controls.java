@@ -34,7 +34,7 @@ public class Controls {
 	// INIT
 	public void init(GameContainer gc) throws SlickException {	
 		
-		menu = new FlightMenu();
+		menu = new FlightMenu(this.airspace);
 		menu.init();
 		menu.setInput(gc.getInput());
 	}

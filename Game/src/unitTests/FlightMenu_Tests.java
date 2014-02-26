@@ -22,10 +22,12 @@ import stateContainer.Game;
 public class FlightMenu_Tests {
 	
 	private FlightMenu flightMenuInstance;
+	private Airspace airspace;
 	
 	@Before
 	public void setUp() throws SlickException {
-		 flightMenuInstance = new FlightMenu();
+		airspace = new Airspace();
+		flightMenuInstance = new FlightMenu(airspace);
 	}
 
 	@After
@@ -48,7 +50,7 @@ public class FlightMenu_Tests {
 
             @Override
             public void init(GameContainer container) throws SlickException {
-            	flightMenuInstance = new FlightMenu();
+            	flightMenuInstance = new FlightMenu(airspace);
             	// no flight added test
 				boolean acceptingInput = true;
 				boolean actualAcceptingInput = flightMenuInstance.isAcceptingInput();

@@ -46,6 +46,7 @@ public class FlightMenu implements MouseListener{
 		
 	private Input input;
 	private Flight flight;	//bound Flight
+	private Airspace airspace;
 	
 	private int mode = NONE;	//active subcomponent
 	private static final int
@@ -54,8 +55,9 @@ public class FlightMenu implements MouseListener{
 		altIndicator, speedIndicator, headingIndicator;
 
 
-	public FlightMenu() {
+	public FlightMenu(Airspace airspace) {
 		//initialise objects, initialise layout
+		this.airspace = airspace;
 		altPos = new Point2D.Float();
 		speedPos = new Point2D.Float();
 		headingPos = new Point2D.Float();
@@ -154,7 +156,10 @@ public class FlightMenu implements MouseListener{
 			}
 			
 			//draw command button and label
-			if(flight.getFlightPlan().getPointByIndex(0)== flight.getFlightPlan().getExitPoint() && flight.getFlightPlan().getExitPoint().isRunway()){
+			if(flight.getFlightPlan().getPointByIndex(0)== flight.getFlightPlan().getExitPoint() && flight.getFlightPlan().getExitPoint().isRunway()
+					&& this.airspace.getAirport().getLandingApproachArea()
+					.contains((float)flight.getX(), (float)flight.getY()) 
+					&& flight.getCurrentHeading() >= 45 && flight.getCurrentHeading() <= 135 && flight.getCurrentAltitude() <= 2000){
 				if (CMD == mode)
 					drawImage(aButtonSelect, cmdPos);
 				else drawImage(aButton, cmdPos);
@@ -166,16 +171,6 @@ public class FlightMenu implements MouseListener{
 				}
 			}
 			
-			if(flight.isCommandable()){
-				if(flight.getFlightPlan().getPointByIndex(0)== flight.getFlightPlan().getExitPoint() && flight.getFlightPlan().getExitPoint().isRunway()){
-					//draw abort button and label
-					if (ABORT == mode)
-						drawImage(aButtonSelect, abortPos);
-					else drawImage(aButton, abortPos);
-					drawString("Abort", buttonFont, buttonColor, 
-							abortPos.x +(buttonWidth/2.0f), abortPos.y +(buttonHeight/2.0f));
-				}
-			}
 			
 			if (flight.getAltitude() == 0 && !flight.isTakingOff()){
 
