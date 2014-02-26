@@ -51,7 +51,7 @@ public class PlayState extends BasicGameState {
 	private String achievementMessage = "";
 	
 	private int counter = 0;
-	private float currentCoord = 0;
+	private float currentCoord = 600;
 	private float targetCoord;
 	private static final int GAMEOVERTIME = 90;
 	private int countdownToGameOverState;
@@ -308,35 +308,35 @@ public class PlayState extends BasicGameState {
 			// Multiplier
 			if(airspace.getScore().getProgressionTowardsNextMultiplier() != 0){
 				
-				this.targetCoord = (float) (0.6 * airspace.getScore().getProgressionTowardsNextMultiplier()); 
+				this.targetCoord = 600 - (float) (0.6 * airspace.getScore().getProgressionTowardsNextMultiplier()); 
 				
 				if (this.currentCoord != this.targetCoord && airspace.getScore().getNegMult() == false){
 					g.setColor(Color.cyan);
-					g.fillRect(139, 0, 11, this.currentCoord);
+					g.fillRect(139, this.currentCoord, 11, (600-this.currentCoord));
 					g.setColor(Color.white);
-					this.currentCoord ++;
+					this.currentCoord --;
 				}
 				else if (this.currentCoord != this.targetCoord && airspace.getScore().getNegMult() == true){
 					g.setColor(Color.cyan);
-					g.fillRect(139, 0, 11, this.currentCoord);
+					g.fillRect(139, this.currentCoord, 11, (600-this.currentCoord));
 					g.setColor(Color.white);
-					this.currentCoord --;
+					this.currentCoord ++;
 					if (this.currentCoord == this.targetCoord) { airspace.getScore().setNegMult(false); }
 				}
 				else {
 					g.setColor(Color.cyan);
-					g.fillRect(139, 0, 11, this.currentCoord);
+					g.fillRect(139, this.currentCoord, 11, (600-this.currentCoord));
 					g.setColor(Color.white);
 				}
 			}
 			else {
-				if (this.currentCoord != 0){
+				if (this.currentCoord != 600){
 					g.setColor(Color.cyan);
-					g.fillRect(139, 0, 11, this.currentCoord);
+					g.fillRect(139, this.currentCoord, 11, (600-this.currentCoord));
 					g.setColor(Color.white);
-					this.currentCoord --;
+					this.currentCoord ++;
 				}
-				else{
+				else {
 					;
 				}
 			}
