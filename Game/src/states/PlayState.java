@@ -53,7 +53,7 @@ public class PlayState extends BasicGameState {
 	private int counter = 0;
 	private float currentCoord = 0;
 	private float targetCoord;
-	private static final int GAMEOVERTIME = 180;
+	private static final int GAMEOVERTIME = 90;
 	private int countdownToGameOverState;
 
 	public PlayState(int state) {
@@ -180,7 +180,7 @@ public class PlayState extends BasicGameState {
 				}
 			});	
 			
-			//SpriteSheet sheet = new SpriteSheet("res/graphics/explosion.png", 128, 128);
+			SpriteSheet sheet = new SpriteSheet("res/graphics/explosion.png", 128, 128);
 	        explosion = new Animation();
 	        explosion.setAutoUpdate(true);
 	        
@@ -188,7 +188,7 @@ public class PlayState extends BasicGameState {
 	      
             for(int col=0;col<9;col++)
             {
-               //explosion.addFrame(sheet.getSprite(spriteNumber,0), 100);
+               explosion.addFrame(sheet.getSprite(spriteNumber,0), 100);
                spriteNumber++;
             }
          
@@ -326,10 +326,11 @@ public class PlayState extends BasicGameState {
 			
 			Input input = gc.getInput();
 			
-			if (input.isKeyDown(Input.KEY_M))
+			if (gameJustFinished)
 			{	
-				explosion.draw(300, 300);
+				explosion.draw((float)airspace.getSeparationRules().getPointOfCrash().getX() -50, (float)airspace.getSeparationRules().getPointOfCrash().getY() -90 );
 			}
+
 			
 			// Drawing Achievements
 			g.drawString(airspace.getScore().scoreAchievement(), 
@@ -373,6 +374,18 @@ public class PlayState extends BasicGameState {
 	public void update(GameContainer gc, StateBasedGame sbg, int delta)
 			throws SlickException {
 		
+		if(gameJustFinished){
+			if(countdownToGameOverState < GAMEOVERTIME){
+				countdownToGameOverState += 1;
+				
+			}
+			else{
+				gameJustFinished = false;
+				sbg.enterState(stateContainer.Game.GAMEOVERSTATE);
+				
+			}
+		}
+		
 		// Checks if the game has been retried and if it has resets the airspace
 		
 		if (gameEnded && !gameJustFinished){
@@ -382,6 +395,7 @@ public class PlayState extends BasicGameState {
 	    	gameEnded = false;
 	    	settingDifficulty = true;
 	    	airspace.getScore().resetScore();
+	    	
 		}
 		
 		
@@ -470,8 +484,10 @@ public class PlayState extends BasicGameState {
 				airspace.resetAirspace();
 				gameplayMusic.stop();
 				endOfGameSound.play();
-				sbg.enterState(stateContainer.Game.GAMEOVERSTATE);
+				gameJustFinished = true;
 				gameEnded = true;
+				
+				
 				
 						
 			}					

@@ -1,4 +1,6 @@
 package logicClasses;
+import java.awt.geom.Point2D;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -11,12 +13,14 @@ public class SeparationRules {
 	private int warningLateralSeparation, warningVerticalSeparation; 
 	private int gameOverLateralSeparation, gameOverVerticalSeparation;
 	private boolean gameOverViolation; 
+	private Point2D pointOfCrash;
 	
 	//CONSTRUCTOR
 	public SeparationRules(int difficultyVal){
 		this.warningLateralSeparation = 100; 
 		this.warningVerticalSeparation = 999; 
 	 	this.gameOverViolation = false;
+	 	pointOfCrash = new Point2D.Float();
 	 	
 		if (difficultyVal == 1) { // Easy: Only a Crash will cause a Game Over
 			this.gameOverLateralSeparation = 30;
@@ -74,6 +78,7 @@ public class SeparationRules {
 					if ((verticalDistanceBetweenFlights(airspace.getListOfFlights().get(i), airspace.getListOfFlights().get(j)) < this.gameOverVerticalSeparation)){
 						if(!(airspace.getListOfFlights().get(i).isGrounded() || airspace.getListOfFlights().get(j).isGrounded())){
 							this.gameOverViolation = true;
+							this.pointOfCrash.setLocation(airspace.getListOfFlights().get(i).getX(), airspace.getListOfFlights().get(i).getY());
 						}
 					}
 				}
@@ -164,6 +169,14 @@ public class SeparationRules {
 	
 	public boolean getGameOverViolation(){
 		return this.gameOverViolation;
+	}
+
+	public Point2D getPointOfCrash() {
+		return pointOfCrash;
+	}
+
+	public void setPointOfCrash(Point2D pointOfCrash) {
+		this.pointOfCrash = pointOfCrash;
 	}
 
 }
