@@ -84,7 +84,7 @@ public class PlayState extends BasicGameState {
 		{
 			LoadingList loading = LoadingList.get();
 			
-			loading.add(new DeferredFile("res/blue_highway_font/bluehigh.ttf"){
+			loading.add(new DeferredFile("res/GoodDog/GoodDog.otf"){
 				public void loadFile(String filename) {
 					InputStream inputStream = ResourceLoader.getResourceAsStream(filename);
 					try {
