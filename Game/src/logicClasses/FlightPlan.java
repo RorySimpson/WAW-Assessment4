@@ -81,8 +81,8 @@ public class FlightPlan {
 	
 	public ArrayList<Point> buildRoute(Airspace airspace, EntryPoint entryPoint) {
 		ArrayList<Point> tempRoute = new ArrayList<Point>();  // Create the array lists for route and points
-		ArrayList<Point> tempListOfWaypoints = new ArrayList<Point>();
-		ArrayList<Point> tempListOfExitPoints = new ArrayList<Point>();
+		ArrayList<Waypoint> tempListOfWaypoints = new ArrayList<Waypoint>();
+		ArrayList<ExitPoint> tempListOfExitPoints = new ArrayList<ExitPoint>();
 		Boolean exitpointAdded = false;
 		
 		if (!airspace.getListOfWaypoints().isEmpty()&& !airspace.getListOfExitPoints().isEmpty()) { // if there is a list of waypoints and a list of exit points
@@ -108,9 +108,11 @@ public class FlightPlan {
 					tempListOfWaypoints.remove(waypointIndex);
 				}
 				
+				
 				// Adding ExitPoint to Plan
 				
 				int ExitPointIndex = rand.nextInt(tempListOfExitPoints.size());
+				
 				
 				while (exitpointAdded == false){
 					
@@ -123,10 +125,20 @@ public class FlightPlan {
 						tempListOfExitPoints.remove(ExitPointIndex);
 						ExitPointIndex = rand.nextInt(tempListOfExitPoints.size());
 					}
+					
+					else if(entryPoint.getX() == 760 && tempListOfExitPoints.get(ExitPointIndex).getX() == 590){ // This will need to be changed when the airport is moved
+						tempListOfExitPoints.remove(ExitPointIndex);
+						ExitPointIndex = rand.nextInt(tempListOfExitPoints.size());
+					}
 					else{
 						tempRoute.add(tempListOfExitPoints.get(ExitPointIndex));
 						exitpointAdded = true;
+						exitPoint =  tempListOfExitPoints.get(ExitPointIndex);
 					}
+				}
+				
+				if (exitPoint == airspace.getAirport().getBeginningOfRunway()){
+					tempRoute.add(airspace.getAirport().getEndOfRunway());
 				}
 		}
 		
