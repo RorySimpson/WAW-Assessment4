@@ -56,6 +56,8 @@ public class PlayState extends BasicGameState {
 	private static final int GAMEOVERTIME = 90;
 	private int countdownToGameOverState;
 
+	private boolean musicPaused = false;
+	
 	public PlayState(int state) {
 		achievement = new Achievements();
 	}
@@ -499,9 +501,23 @@ public class PlayState extends BasicGameState {
 			if (input.isKeyPressed(Input.KEY_P)) {
 				sbg.enterState(stateContainer.Game.PAUSESTATE);
 			}			
-						
-			if (!gameplayMusic.playing()){
-				//Loops gameplay music based on random number created in init
+			
+			if (input.isKeyPressed(Input.KEY_M)) {
+				if (!musicPaused)
+				{
+					gameplayMusic.pause();
+					musicPaused = true;
+				}
+				else
+				{
+					gameplayMusic.resume();
+					musicPaused = false;
+				}
+			
+			}
+			
+			if (!gameplayMusic.playing() && (!musicPaused)){
+				//Loops gameplay music based on random number created in init (what?)
 							
 				gameplayMusic.loop(1.0f, 0.5f);
 			}			
