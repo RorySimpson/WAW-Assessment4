@@ -5,24 +5,25 @@ import java.io.InputStream;
 
 import logicClasses.Achievements;
 import logicClasses.Airspace;
-import logicClasses.ScoreTracking;
 import logicClasses.Controls;
 import logicClasses.Flight;
 
 import org.lwjgl.input.Mouse;
-import org.newdawn.slick.loading.LoadingList;
-import org.newdawn.slick.state.BasicGameState;
-import org.newdawn.slick.state.StateBasedGame;
-import org.newdawn.slick.util.ResourceLoader;
+import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Sound;
+import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.TrueTypeFont;
-import org.newdawn.slick.Image;
+import org.newdawn.slick.loading.LoadingList;
+import org.newdawn.slick.state.BasicGameState;
+import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.util.ResourceLoader;
 
 import util.DeferredFile;
 
@@ -35,6 +36,7 @@ public class PlayState extends BasicGameState {
 		statusBarImage, clockImage, windImage,
 		flightIcon,
 		cursorImg;
+	private Animation explosion;
 	private static Sound endOfGameSound;
 	private static Music gameplayMusic;
 	private static TrueTypeFont
@@ -55,6 +57,7 @@ public class PlayState extends BasicGameState {
 	public PlayState(int state) {
 		achievement = new Achievements();
 	}
+
 
 	@Override
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
@@ -173,8 +176,25 @@ public class PlayState extends BasicGameState {
 				public void loadFile(String filename) throws SlickException{
 					hardHover = new Image(filename);
 				}
-			});
+			});	
+			
+			SpriteSheet sheet = new SpriteSheet("res/graphics/explosion.png", 128, 128);
+	        explosion = new Animation();
+	        explosion.setAutoUpdate(true);
+	        
+	        int spriteNumber = 0;
+	      
+            for(int col=0;col<9;col++)
+            {
+               explosion.addFrame(sheet.getSprite(spriteNumber,0), 100);
+               spriteNumber++;
+            }
+         
+	         
+			
 		}
+		
+		
 		
 		//initialise the airspace object;
 		//Waypoints
@@ -308,6 +328,12 @@ public class PlayState extends BasicGameState {
 				}
 			}
 			
+			Input input = gc.getInput();
+			
+			if (input.isKeyDown(Input.KEY_M))
+			{	
+				explosion.draw(300, 300);
+			}
 			
 			// Drawing Achievements
 			g.drawString(airspace.getScore().scoreAchievement(), 
@@ -449,7 +475,8 @@ public class PlayState extends BasicGameState {
 				endOfGameSound.play();
 				sbg.enterState(stateContainer.Game.GAMEOVERSTATE);
 				gameEnded = true;
-							
+				
+						
 			}					
 			
 			Input input = gc.getInput();
