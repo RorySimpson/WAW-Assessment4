@@ -279,32 +279,24 @@ public class PlayState extends BasicGameState {
 				
 				this.targetCoord = (float) (0.6 * airspace.getScore().getProgressionTowardsNextMultiplier()); 
 				
-				if (this.counter % 2 == 0){
-					if (this.currentCoord != this.targetCoord && airspace.getScore().getNegMult() == false){
-						g.setColor(Color.cyan);
-						g.fillRect(139, 0, 11, this.currentCoord);
-						g.setColor(Color.white);
-						this.currentCoord ++;
-						this.counter ++;
-					}
-					else if (this.currentCoord != this.targetCoord && airspace.getScore().getNegMult() == true){
-						g.setColor(Color.cyan);
-						g.fillRect(139, 0, 11, this.currentCoord);
-						g.setColor(Color.white);
-						this.currentCoord --;
-						this.counter ++;
-					}
-					else {
-						g.setColor(Color.cyan);
-						g.fillRect(139, 0, 11, this.currentCoord);
-						g.setColor(Color.white);
-					}
-				}
-				else{
+				if (this.currentCoord != this.targetCoord && airspace.getScore().getNegMult() == false){
 					g.setColor(Color.cyan);
 					g.fillRect(139, 0, 11, this.currentCoord);
 					g.setColor(Color.white);
-					counter ++;
+					this.currentCoord ++;
+					this.counter ++;
+				}
+				else if (this.currentCoord != this.targetCoord && airspace.getScore().getNegMult() == true){
+					g.setColor(Color.cyan);
+					g.fillRect(139, 0, 11, this.currentCoord);
+					g.setColor(Color.white);
+					this.currentCoord --;
+					this.counter ++;
+				}
+				else {
+					g.setColor(Color.cyan);
+					g.fillRect(139, 0, 11, this.currentCoord);
+					g.setColor(Color.white);
 				}
 			}
 			
