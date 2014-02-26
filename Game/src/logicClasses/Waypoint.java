@@ -63,6 +63,9 @@ public class Waypoint extends Point {
 		if(airspace.getControls().getSelectedFlight() !=null){ // If there is a selected flight use its next waypoint and draw it as next
 			if (airspace.getControls().getSelectedFlight().getFlightPlan().getCurrentRoute().indexOf(this)==0){
 				image = nextWaypointImage;
+				g.setColor(Color.white);
+				g.drawOval((float)this.x-20, (float)this.y-20, 40, 40);
+				g.setColor(Color.black);
 			} else {
 				image = waypointImage;
 			}
