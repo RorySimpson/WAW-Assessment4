@@ -45,7 +45,7 @@ public class PlayState extends BasicGameState {
 
 	private Airspace airspace;
 	private String stringTime;
-	private boolean settingDifficulty, gameEnded;
+	private boolean settingDifficulty, gameEnded, gameJustFinished = false;
 	
 	private Achievements achievement;
 	private String achievementMessage = "";
@@ -53,6 +53,8 @@ public class PlayState extends BasicGameState {
 	private int counter = 0;
 	private float currentCoord = 0;
 	private float targetCoord;
+	private static final int GAMEOVERTIME = 90;
+	private int countdownToGameOverState;
 
 	public PlayState(int state) {
 		achievement = new Achievements();
@@ -178,7 +180,7 @@ public class PlayState extends BasicGameState {
 				}
 			});	
 			
-			//SpriteSheet sheet = new SpriteSheet("res/graphics/explosion.png", 128, 128);
+			SpriteSheet sheet = new SpriteSheet("res/graphics/explosion.png", 128, 128);
 	        explosion = new Animation();
 	        explosion.setAutoUpdate(true);
 	        
@@ -186,7 +188,7 @@ public class PlayState extends BasicGameState {
 	      
             for(int col=0;col<9;col++)
             {
-               //explosion.addFrame(sheet.getSprite(spriteNumber,0), 100);
+               explosion.addFrame(sheet.getSprite(spriteNumber,0), 100);
                spriteNumber++;
             }
          
@@ -324,10 +326,11 @@ public class PlayState extends BasicGameState {
 			
 			Input input = gc.getInput();
 			
-			if (input.isKeyDown(Input.KEY_M))
+			if (gameJustFinished)
 			{	
-				explosion.draw(300, 300);
+				explosion.draw((float)airspace.getSeparationRules().getPointOfCrash().getX() -50, (float)airspace.getSeparationRules().getPointOfCrash().getY() -90 );
 			}
+
 			
 			// Drawing Achievements
 			g.drawString(airspace.getScore().scoreAchievement(), 
@@ -371,15 +374,28 @@ public class PlayState extends BasicGameState {
 	public void update(GameContainer gc, StateBasedGame sbg, int delta)
 			throws SlickException {
 		
+		if(gameJustFinished){
+			if(countdownToGameOverState < GAMEOVERTIME){
+				countdownToGameOverState += 1;
+				
+			}
+			else{
+				gameJustFinished = false;
+				sbg.enterState(stateContainer.Game.GAMEOVERSTATE);
+				
+			}
+		}
+		
 		// Checks if the game has been retried and if it has resets the airspace
 		
-		if (gameEnded){
+		if (gameEnded && !gameJustFinished){
 	
 			airspace.resetAirspace();
 	    	time = 0;
 	    	gameEnded = false;
 	    	settingDifficulty = true;
 	    	airspace.getScore().resetScore();
+	    	
 		}
 		
 		
@@ -462,13 +478,16 @@ public class PlayState extends BasicGameState {
 			airspace.newFlight(gc);
 			airspace.update(gc);
 			if (airspace.getSeparationRules().getGameOverViolation() == true){
+				
 				achievementMessage = achievement.crashAchievement((int) time); //pass the game time as of game over into the crashAchievement
 				airspace.getSeparationRules().setGameOverViolation(false);
 				airspace.resetAirspace();
 				gameplayMusic.stop();
 				endOfGameSound.play();
-				sbg.enterState(stateContainer.Game.GAMEOVERSTATE);
+				gameJustFinished = true;
 				gameEnded = true;
+				
+				
 				
 						
 			}					
