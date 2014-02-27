@@ -211,9 +211,14 @@ public class Airspace {
 					tempFlight.setTargetAltitude(tempFlight.getAltitude());
 					
 					double heading;
-					if (tempFlight.getFlightPlan().getEntryPoint().isRunway())
+					if (tempFlight.getFlightPlan().getEntryPoint() == this.airportLeft.getEndOfRunway())
 					{
 						heading = airportLeft.getRunwayHeading();
+					}
+					
+					else if(tempFlight.getFlightPlan().getEntryPoint() == this.airportRight.getEndOfRunway()){
+						
+						heading = airportRight.getRunwayHeading();
 					}
 					else
 					{
@@ -296,6 +301,7 @@ public class Airspace {
 		
 		this.controls.init(gc);
 		this.airportLeft.init(gc);
+		this.airportRight.init(gc);
 		
 		for (int i = 0; i < this.listOfWaypoints.size(); i++) { // Initialising waypoints
 			this.listOfWaypoints.get(i).init(gc);

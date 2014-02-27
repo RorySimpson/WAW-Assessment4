@@ -275,11 +275,12 @@ public class PlayState extends BasicGameState {
 			
 			// Drawing Side Images
 			backgroundImage.draw(0,0);
-			statusBarImage.draw(0,0);
+			
 			
 			// Drawing Airspace and elements within it
 			g.setColor(Color.white);
 			airspace.render(g, gc);
+			statusBarImage.draw(0,0);
 					
 			// Drawing Clock and Time
 			g.setColor(Color.white);

@@ -258,21 +258,14 @@ public class Flight {
 	public void land(){	
 		// if next point is an exit point
 		
-		if (this.getFlightPlan().getCurrentRoute().get(0) != this.airspace.getAirportLeft().getBeginningOfRunway()){
-			return;
-		}
-		
-		if (this.getFlightPlan().getCurrentRoute().get(0) != this.airspace.getAirportRight().getBeginningOfRunway()){
-			return;
-		}
 		
 		
 		
 		if (!landing){
-			if (this.airspace.getAirportLeft().getLandingApproachArea()
+			if (this.airspace.getAirportRight().getLandingApproachArea()
 					.contains((float)this.x, (float)this.y) 
 					&& this.currentHeading >= 45 && this.currentHeading <= 135 && this.currentAltitude <= 2000
-					&& this.getFlightPlan().getCurrentRoute().get(0) == this.airspace.getAirportLeft().getBeginningOfRunway())
+					&& this.getFlightPlan().getCurrentRoute().get(0) == this.airspace.getAirportRight().getBeginningOfRunway())
 			{
 
 
@@ -284,11 +277,14 @@ public class Flight {
 				this.airspace.getControls().setSelectedFlight(null);	
 
 			}
-
-			if (this.airspace.getAirportRight().getLandingApproachArea()
+			
+			System.out.println(this.airspace.getAirportLeft().getLandingApproachArea()
+					.contains((float)this.x, (float)this.y));
+			
+			if (this.airspace.getAirportLeft().getLandingApproachArea()
 					.contains((float)this.x, (float)this.y) 
-					&& this.currentHeading >= 45 && this.currentHeading <= 135 && this.currentAltitude <= 2000
-					&& this.getFlightPlan().getCurrentRoute().get(0) == this.airspace.getAirportRight().getBeginningOfRunway())
+					&& this.currentHeading >= 225 && this.currentHeading <= 305 && this.currentAltitude <= 2000
+					&& this.getFlightPlan().getCurrentRoute().get(0) == this.airspace.getAirportLeft().getBeginningOfRunway())
 			{
 
 

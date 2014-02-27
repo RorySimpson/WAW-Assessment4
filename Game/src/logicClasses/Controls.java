@@ -223,6 +223,7 @@ public class Controls {
 	public void update(GameContainer gc, Airspace airspace) {
 		int posX = Mouse.getX();
 		int posY = stateContainer.Game.MAXIMUMHEIGHT -Mouse.getY();
+		
 
 		if (selectedFlight != null ){	//if controls are active
 
@@ -233,6 +234,16 @@ public class Controls {
 					giveHeadingWithMouse(posX, posY, airspace);
 				}			
 			}
+			
+			
+			if((gc.getInput().isKeyDown(Input.KEY_T))){ // TODO This should be removed eventually
+				System.out.println("Here");
+				if(selectedFlight.getAltitude() == 0 || !selectedFlight.isTakingOff() ){
+					System.out.println("In Here");
+					selectedFlight.takeOff();
+				}
+			}
+			
 			
 		}
 		

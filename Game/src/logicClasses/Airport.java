@@ -48,7 +48,7 @@ public class Airport {
     	// Creating the runway waypoints
     	
     	if(this.airportNumber == 1){
-    		runwayHeading = 90;
+    		runwayHeading = 270;
     		this.beginningOfRunway 			= new ExitPoint(1060, 495, "APR");
     		this.endOfRunway 				= new EntryPoint(1180, 495);
 
@@ -61,16 +61,16 @@ public class Airport {
     	}
     	
     	else if(this.airportNumber ==2){
-    		runwayHeading = 270;
+    		runwayHeading = 90;
        		this.beginningOfRunway 			= new ExitPoint(151, 495, "APL");
     		this.endOfRunway 				= new EntryPoint(31, 495);
 
     		// Creating the landing area. This is the triangle that appears when a flight needs to land. It
     		// is used to check whether the flights have the right approach.
     		landingApproachArea 			= new Polygon();
-    		landingApproachArea.addPoint(116, 495);
-    		landingApproachArea.addPoint(366, 405);
-    		landingApproachArea.addPoint(366, 585);
+    		landingApproachArea.addPoint(184, 495);
+    		landingApproachArea.addPoint(434, 405);
+    		landingApproachArea.addPoint(434, 585);
     	}
     }
 		
@@ -106,10 +106,13 @@ public class Airport {
                 x = (stateContainer.Game.MAXIMUMWIDTH)/2;
                 y = stateContainer.Game.MAXIMUMHEIGHT/2;
                 runwayLength = airportImage.getHeight();
+                
             }	
 		});
+		
 		landingApproachImageRight = new Image("res/graphics/new/airspaceIndicatorGreen.png");
 		landingApproachImageLeft = new Image("res/graphics/new/airspaceIndicatorGreenLeft.png");
+		
 		
 		
 	}
@@ -125,6 +128,7 @@ public class Airport {
 		else{
 			airportImage.drawCentered(91, 495);
 		}
+		
 		
 		
 		
