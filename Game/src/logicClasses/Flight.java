@@ -84,7 +84,7 @@ public class Flight {
 			return 0;
 		}else{
 		Random rand = new Random();
-		int check = rand.nextInt(((maxAltitude-minAltitude)/1000) - 2);
+		int check = rand.nextInt(((maxAltitude-minAltitude)/1000) - 1);
 		return minAltitude + (check + 1) * 1000;
 		}
 	}
