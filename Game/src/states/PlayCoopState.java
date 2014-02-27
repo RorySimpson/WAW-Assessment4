@@ -10,6 +10,7 @@ import logicClasses.Controls;
 import logicClasses.Flight;
 
 import org.lwjgl.input.Mouse;
+import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -18,6 +19,7 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Sound;
+import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.loading.LoadingList;
 import org.newdawn.slick.state.BasicGameState;
@@ -33,23 +35,27 @@ public class PlayCoopState extends BasicGameState {
 	backgroundImage, difficultyBackground,
 	statusBarImage, clockImage, windImage,
 	flightIcon,
-	cursorImg;
+	cursorImg, achievementBox;
 private static Sound endOfGameSound;
 private static Music gameplayMusic;
 private static TrueTypeFont
 	font, panelFont;	
 public static float time;
+private Animation explosion;
 
 private AirspaceCoop airspace;
 private String stringTime;
-private boolean settingDifficulty, gameEnded;
+private boolean settingDifficulty, gameEnded, gameJustFinished = false;;
 
 private Achievements achievement;
 private String achievementMessage = "";
 
 private int counter = 0;
-private float currentCoord = 0;
+private float currentCoord = 600;
 private float targetCoord;
+private static final int GAMEOVERTIME = 90;
+private int countdownToGameOverState;
+private int synch = 180;
 
 public PlayCoopState(int state) {
 	achievement = new Achievements();
@@ -173,6 +179,24 @@ public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
 				hardHover = new Image(filename);
 			}
 		});
+		
+		loading.add(new DeferredFile("res/graphics/new/achivementBox.png"){
+			public void loadFile(String filename) throws SlickException{
+				achievementBox = new Image(filename);
+			}
+		});
+		
+		SpriteSheet sheet = new SpriteSheet("res/graphics/explosion.png", 128, 128);
+        explosion = new Animation();
+        explosion.setAutoUpdate(true);
+        
+        int spriteNumber = 0;
+      
+        for(int col=0;col<9;col++)
+        {
+           explosion.addFrame(sheet.getSprite(spriteNumber,0), 100);
+           spriteNumber++;
+        }
 	}
 	
 	//initialise the airspace object;
@@ -276,44 +300,74 @@ public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
 		// Multiplier
 		if(airspace.getScore().getProgressionTowardsNextMultiplier() != 0){
 			
-			this.targetCoord = (float) (0.6 * airspace.getScore().getProgressionTowardsNextMultiplier()); 
+			this.targetCoord = 600 - (float) (0.6 * airspace.getScore().getProgressionTowardsNextMultiplier()); 
 			
-			if (this.counter % 2 == 0){
-				if (this.currentCoord != this.targetCoord && airspace.getScore().getNegMult() == false){
-					g.setColor(Color.cyan);
-					g.fillRect(139, 0, 11, this.currentCoord);
-					g.setColor(Color.white);
-					this.currentCoord ++;
-					this.counter ++;
-				}
-				else if (this.currentCoord != this.targetCoord && airspace.getScore().getNegMult() == true){
-					g.setColor(Color.cyan);
-					g.fillRect(139, 0, 11, this.currentCoord);
-					g.setColor(Color.white);
-					this.currentCoord --;
-					this.counter ++;
-				}
-				else {
-					g.setColor(Color.cyan);
-					g.fillRect(139, 0, 11, this.currentCoord);
-					g.setColor(Color.white);
-				}
-			}
-			else{
+			if (this.currentCoord != this.targetCoord && airspace.getScore().getNegMult() == false){
 				g.setColor(Color.cyan);
-				g.fillRect(139, 0, 11, this.currentCoord);
+				g.fillRect(139, this.currentCoord, 11, (600-this.currentCoord));
 				g.setColor(Color.white);
-				counter ++;
+				this.currentCoord --;
+			}
+			else if (this.currentCoord != this.targetCoord && airspace.getScore().getNegMult() == true){
+				g.setColor(Color.cyan);
+				g.fillRect(139, this.currentCoord, 11, (600-this.currentCoord));
+				g.setColor(Color.white);
+				this.currentCoord ++;
+				if (this.currentCoord == this.targetCoord) { airspace.getScore().setNegMult(false); }
+			}
+			else {
+				g.setColor(Color.cyan);
+				g.fillRect(139, this.currentCoord, 11, (600-this.currentCoord));
+				g.setColor(Color.white);
+			}
+		}
+		else {
+			if (airspace.getScore().getMultiplierInc()){
+				airspace.getScore().setMultiplierInc(false);
+				this.currentCoord = 600;
+			}
+			else if (this.currentCoord != 600){
+				g.setColor(Color.cyan);
+				g.fillRect(139, this.currentCoord, 11, (600-this.currentCoord));
+				g.setColor(Color.white);
+				this.currentCoord ++;
+			}
+			else {
+				;
 			}
 		}
 		
+		// Segmenting multiplier bar
+		g.setColor(Color.black);
+		g.drawLine(139, 120, 149, 120);
+		g.drawLine(139, 240, 149, 240);
+		g.drawLine(139, 360, 149, 360);
+		g.drawLine(139, 480, 149, 480);
+		
+		Input input = gc.getInput();
+		
+		if (gameJustFinished){	
+			explosion.draw((float)airspace.getSeparationRules().getPointOfCrash().getX() -50, (float)airspace.getSeparationRules().getPointOfCrash().getY() -90 );
+		}
+
 		
 		// Drawing Achievements
-		g.drawString(airspace.getScore().scoreAchievement(), 
-				stateContainer.Game.MAXIMUMWIDTH -font.getWidth(airspace.getScore().scoreAchievement()) -10, 30);
-		g.drawString(achievementMessage, 
-				stateContainer.Game.MAXIMUMWIDTH -10 -font.getWidth(achievementMessage), 40);
-	}	
+		if (airspace.getScore().getAchievements().getAchievementGained()){
+			
+			achievementBox.draw(900, 0);
+			
+			g.drawString(airspace.getScore().scoreAchievement(), 
+					stateContainer.Game.MAXIMUMWIDTH -font.getWidth(airspace.getScore().scoreAchievement()) -10, 30);
+			g.drawString(achievementMessage, 
+					stateContainer.Game.MAXIMUMWIDTH -10 -font.getWidth(achievementMessage), 40);
+			synch --;
+		
+			if (synch == 0){
+			airspace.getScore().getAchievements().setAchievementGained(false);
+			synch = 180;
+			}
+		}
+		}	
 	
 	
 }
