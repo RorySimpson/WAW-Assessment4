@@ -12,6 +12,7 @@ import org.newdawn.slick.loading.LoadingList;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import java.net.*;
+import java.util.ArrayList;
 import java.io.*;
 
 import util.DeferredFile;
@@ -25,12 +26,16 @@ public class ScoreState extends BasicGameState {
 	//private static TrueTypeFont font;
 	
 	private String[][] credits;	//[section, line]
+	private String scoreString;
 
 	
 	public ScoreState(int state){
 		
 	}
-	
+	@Override
+	public void enter(GameContainer gc, StateBasedGame sbg){
+		connection();
+	}
 	
 	@Override
 	public void init(GameContainer gc, StateBasedGame sbg)
@@ -62,11 +67,11 @@ public class ScoreState extends BasicGameState {
 					"COMING SOON!",
 				},
 		};
-		connection();
 	}
 	
 	public void connection(){
 		URL address;
+		
 		try {
 			address = new URL("http://teamwaw.co.uk/whenPlanesCollide/connection.php");
 			//URLConnection yc = oracle.openConnection();        Server 403s's when using URL connection so we are now using http
@@ -76,7 +81,8 @@ public class ScoreState extends BasicGameState {
 	        httpcon.getInputStream()));
 	        String inputLine;
 	        while ((inputLine = in.readLine()) != null)
-	        	System.out.println(inputLine);
+	        	
+	        scoreString = scoreString + inputLine;
 	       in.close();
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
@@ -114,6 +120,7 @@ public class ScoreState extends BasicGameState {
 				}
 				y += 30;
 			}
+		g.drawString(scoreString, 100, 300);
 		}
 		
 	}
