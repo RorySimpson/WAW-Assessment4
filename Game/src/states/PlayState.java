@@ -33,7 +33,7 @@ public class PlayState extends BasicGameState {
 		easyButton, mediumButton,hardButton,  
 		easyHover, mediumHover, hardHover,  
 		backgroundImage, difficultyBackground,
-		/*statusBarImage,*/ clockImage, windImage,
+		statusBarImage, clockImage, windImage,
 		flightIcon,
 		cursorImg, achievementBox;
 	private Animation explosion;
@@ -111,11 +111,11 @@ public class PlayState extends BasicGameState {
 			});
 
 			//Images
-/*			loading.add(new DeferredFile("res/graphics/new/control_bar_vertical.png"){
+			loading.add(new DeferredFile("res/graphics/new/control_bar_vertical.png"){
 				public void loadFile(String filename) throws SlickException{
 					statusBarImage = new Image(filename);
 				}
-			});*/
+			});
 
 			loading.add(new DeferredFile("res/graphics/clock.png"){
 				public void loadFile(String filename) throws SlickException{
@@ -272,7 +272,7 @@ public class PlayState extends BasicGameState {
 			
 			// Drawing Side Images
 			backgroundImage.draw(0,0);
-			//statusBarImage.draw(0,0);
+			statusBarImage.draw(0,0);
 			
 			// Drawing Airspace and elements within it
 			g.setColor(Color.white);
@@ -311,21 +311,21 @@ public class PlayState extends BasicGameState {
 				this.targetCoord = 600 - (float) (0.6 * airspace.getScore().getProgressionTowardsNextMultiplier()); 
 				
 				if (this.currentCoord != this.targetCoord && airspace.getScore().getNegMult() == false){
-					g.setColor(Color.cyan);
-					g.fillRect(139, this.currentCoord, 11, (600-this.currentCoord));
+					g.setColor(Color.orange);
+					g.fillRect(0, this.currentCoord, 11, (600-this.currentCoord));
 					g.setColor(Color.white);
 					this.currentCoord --;
 				}
 				else if (this.currentCoord != this.targetCoord && airspace.getScore().getNegMult() == true){
-					g.setColor(Color.cyan);
-					g.fillRect(139, this.currentCoord, 11, (600-this.currentCoord));
+					g.setColor(Color.orange);
+					g.fillRect(0, this.currentCoord, 11, (600-this.currentCoord));
 					g.setColor(Color.white);
 					this.currentCoord ++;
 					if (this.currentCoord == this.targetCoord) { airspace.getScore().setNegMult(false); }
 				}
 				else {
-					g.setColor(Color.cyan);
-					g.fillRect(139, this.currentCoord, 11, (600-this.currentCoord));
+					g.setColor(Color.orange);
+					g.fillRect(0, this.currentCoord, 11, (600-this.currentCoord));
 					g.setColor(Color.white);
 				}
 			}
@@ -335,8 +335,8 @@ public class PlayState extends BasicGameState {
 					this.currentCoord = 600;
 				}
 				else if (this.currentCoord != 600){
-					g.setColor(Color.cyan);
-					g.fillRect(139, this.currentCoord, 11, (600-this.currentCoord));
+					g.setColor(Color.orange);
+					g.fillRect(0, this.currentCoord, 11, (600-this.currentCoord));
 					g.setColor(Color.white);
 					this.currentCoord ++;
 				}
@@ -347,10 +347,10 @@ public class PlayState extends BasicGameState {
 			
 			// Segmenting multiplier bar
 			g.setColor(Color.black);
-			g.drawLine(139, 120, 149, 120);
-			g.drawLine(139, 240, 149, 240);
-			g.drawLine(139, 360, 149, 360);
-			g.drawLine(139, 480, 149, 480);
+			g.drawLine(0, 120, 10, 120);
+			g.drawLine(0, 240, 10, 240);
+			g.drawLine(0, 360, 10, 360);
+			g.drawLine(0, 480, 10, 480);
 			
 			Input input = gc.getInput();
 			
