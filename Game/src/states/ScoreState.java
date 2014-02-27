@@ -56,23 +56,16 @@ public class ScoreState extends BasicGameState {
 				}
 			});
 		}
-
 		
-		/*try {
-			Font awtFont = new Font("Courier New", Font.PLAIN, 20);
-			font = new TrueTypeFont(awtFont, false);
-		} catch(Exception e){
-			e.printStackTrace();
-		}*/
-
 		credits = new String[][] {
 				{"Scores",
 					"COMING SOON!",
 				},
 		};
-		
-		
-		//WIP
+		connection();
+	}
+	
+	public void connection(){
 		URL oracle;
 		try {
 			oracle = new URL("http://www.oracle.com/");
@@ -81,7 +74,7 @@ public class ScoreState extends BasicGameState {
 	        yc.getInputStream()));
 	        String inputLine;
 	        while ((inputLine = in.readLine()) != null)
-	       // System.out.println(inputLine);
+	        	System.out.println(inputLine);
 	        in.close();
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
@@ -90,8 +83,6 @@ public class ScoreState extends BasicGameState {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        
-		
 	}
 	
 	@Override
