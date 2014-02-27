@@ -27,8 +27,8 @@ public class Game extends StateBasedGame {
 		PAUSESTATE = 4,
 		CREDITSSTATE = 5,
 		CONTROLSSTATE = 6,
-		SCORESTATE = 7;
-		PLAYCOOPSTATE = 7;
+		SCORESTATE = 7,
+		PLAYCOOPSTATE = 8;
 	
 	public static final int 
 		MAXIMUMWIDTH = 1200, MAXIMUMHEIGHT = 600;
