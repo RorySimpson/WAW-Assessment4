@@ -16,7 +16,6 @@
 			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="/Users/Adam/Desktop/WAW-SEPR-Flighty-master/Flighty/lib/natives/macosx"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="lib/jars/jorbis-0.0.17-1.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/jars/jorbis-0.0.17-1.jar"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="output" path="bin"/>
