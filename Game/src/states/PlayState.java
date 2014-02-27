@@ -7,6 +7,7 @@ import logicClasses.Achievements;
 import logicClasses.Airspace;
 import logicClasses.Controls;
 import logicClasses.Flight;
+import stateContainer.Game;
 
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.Animation;
@@ -513,6 +514,7 @@ public class PlayState extends BasicGameState {
 				
 				achievementMessage = achievement.crashAchievement((int) time); //pass the game time as of game over into the crashAchievement
 				airspace.getSeparationRules().setGameOverViolation(false);
+				((Game)sbg).setCurrentScore(airspace.getScore().getCurrentScore());
 				airspace.resetAirspace();
 				gameplayMusic.stop();
 				endOfGameSound.play();

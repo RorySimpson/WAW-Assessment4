@@ -32,6 +32,8 @@ public class Game extends StateBasedGame {
 	
 	public static final int 
 		MAXIMUMWIDTH = 1200, MAXIMUMHEIGHT = 600;
+	
+	private int currentScore;
 
 
 	/**
@@ -56,6 +58,16 @@ public class Game extends StateBasedGame {
 		addState(new ControlsState(CONTROLSSTATE));
 		addState(new ScoreState(SCORESTATE));
 		addState(new PlayCoopState(PLAYCOOPSTATE));
+	}
+	
+	
+
+	public int getCurrentScore() {
+		return currentScore;
+	}
+
+	public void setCurrentScore(int currentScore) {
+		this.currentScore = currentScore;
 	}
 
 	public static void main(String[] args) {

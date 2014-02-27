@@ -1,5 +1,6 @@
 package states;
 import logicClasses.Achievements;
+import stateContainer.Game;
 
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.Color;
@@ -85,6 +86,8 @@ public class GameOverState extends BasicGameState {
 				throws SlickException{
 		
 		gameOverBackground.draw(0,0);
+		
+		g.drawString(Integer.toString(((Game)sbg).getCurrentScore()), 600, 500);
 		
 		int	posX = Mouse.getX();
 		int posY = stateContainer.Game.MAXIMUMHEIGHT -Mouse.getY();
