@@ -18,7 +18,7 @@ public class Airport {
 	private String airportName = "Nothing"; // {!} needs a name
 	
 	private float x, y;
-	private float runwayHeading = 270;
+	private float runwayHeading;
 	private int runwayLength, airportNumber;
 	private boolean flightLanding;
 	private Flight 		planeWaitingtoTakeoff;
@@ -26,7 +26,7 @@ public class Airport {
 	private EntryPoint endOfRunway;
 	private Polygon 	landingApproachArea;
 	private Airspace airspace;
-	private Image landingApproachImage;
+	private Image landingApproachImageRight, landingApproachImageLeft;
 	
 	
 	//CONSTRUCTOR
@@ -48,7 +48,8 @@ public class Airport {
     	// Creating the runway waypoints
     	
     	if(this.airportNumber == 1){
-    		this.beginningOfRunway 			= new ExitPoint(1060, 495, "AP");
+    		runwayHeading = 90;
+    		this.beginningOfRunway 			= new ExitPoint(1060, 495, "APR");
     		this.endOfRunway 				= new EntryPoint(1180, 495);
 
     		// Creating the landing area. This is the triangle that appears when a flight needs to land. It
@@ -60,7 +61,16 @@ public class Airport {
     	}
     	
     	else if(this.airportNumber ==2){
-    		;
+    		runwayHeading = 270;
+       		this.beginningOfRunway 			= new ExitPoint(151, 495, "APL");
+    		this.endOfRunway 				= new EntryPoint(31, 495);
+
+    		// Creating the landing area. This is the triangle that appears when a flight needs to land. It
+    		// is used to check whether the flights have the right approach.
+    		landingApproachArea 			= new Polygon();
+    		landingApproachArea.addPoint(116, 495);
+    		landingApproachArea.addPoint(366, 405);
+    		landingApproachArea.addPoint(366, 585);
     	}
     }
 		
@@ -98,17 +108,31 @@ public class Airport {
                 runwayLength = airportImage.getHeight();
             }	
 		});
-		landingApproachImage = new Image("res/graphics/new/airspaceIndicatorGreen.png");
+		landingApproachImageRight = new Image("res/graphics/new/airspaceIndicatorGreen.png");
+		landingApproachImageLeft = new Image("res/graphics/new/airspaceIndicatorGreenLeft.png");
+		
+		
 	}
 	
 	public void render(Graphics g, GameContainer gc) throws SlickException { 
 		
-		// Airport image centred in middle of airspace
 		airportImage.setRotation(runwayHeading);
-		airportImage.drawCentered(1120, 495);
+		// Airport image centred in middle of airspace
+		if (airportNumber == 1){
+			airportImage.drawCentered(1120, 495);
+		}
+		
+		else{
+			airportImage.drawCentered(91, 495);
+		}
+		
+		
+		
 		if(this.airspace.getControls().getSelectedFlight() != null){
 			if(this.airspace.getControls().getSelectedFlight().getFlightPlan().getCurrentRoute().get(0) == this.beginningOfRunway){
-				landingApproachImage.drawCentered(900, 495);
+				if (airportNumber == 1) landingApproachImageRight.drawCentered(900, 495);
+				if (airportNumber == 2) landingApproachImageLeft.drawCentered(311, 495);
+				
 				
 			}
 		}
@@ -164,12 +188,12 @@ public class Airport {
 
 
 	public Image getLandingApproachImage() {
-		return landingApproachImage;
+		return landingApproachImageRight;
 	}
 
 
 	public void setLandingApproachImage(Image landingApproachImage) {
-		this.landingApproachImage = landingApproachImage;
+		this.landingApproachImageRight = landingApproachImage;
 	}
 
 

@@ -258,35 +258,57 @@ public class Flight {
 	public void land(){	
 		// if next point is an exit point
 		
-		if (this.getFlightPlan().getCurrentRoute().get(0) != this.airspace.getAirport().getBeginningOfRunway()){
+		if (this.getFlightPlan().getCurrentRoute().get(0) != this.airspace.getAirportLeft().getBeginningOfRunway()){
 			return;
 		}
 		
-		System.out.println(this.currentHeading);
+		if (this.getFlightPlan().getCurrentRoute().get(0) != this.airspace.getAirportRight().getBeginningOfRunway()){
+			return;
+		}
+		
+		
 		
 		if (!landing){
-			if (this.airspace.getAirport().getLandingApproachArea()
-												.contains((float)this.x, (float)this.y) 
-						&& this.currentHeading >= 45 && this.currentHeading <= 135 && this.currentAltitude <= 2000)
+			if (this.airspace.getAirportLeft().getLandingApproachArea()
+					.contains((float)this.x, (float)this.y) 
+					&& this.currentHeading >= 45 && this.currentHeading <= 135 && this.currentAltitude <= 2000
+					&& this.getFlightPlan().getCurrentRoute().get(0) == this.airspace.getAirportLeft().getBeginningOfRunway())
 			{
-				//this.currentGame.getAirport().setPlaneLanding(true);
+
 
 				this.landing 		= true;
 
-				
+
 				this.landingDescentRate = this.findLandingDescentRate();
 
 				this.airspace.getControls().setSelectedFlight(null);	
-				System.out.println("Here");
+
 			}
+
+			if (this.airspace.getAirportRight().getLandingApproachArea()
+					.contains((float)this.x, (float)this.y) 
+					&& this.currentHeading >= 45 && this.currentHeading <= 135 && this.currentAltitude <= 2000
+					&& this.getFlightPlan().getCurrentRoute().get(0) == this.airspace.getAirportRight().getBeginningOfRunway())
+			{
+
+
+				this.landing 		= true;
+
+
+				this.landingDescentRate = this.findLandingDescentRate();
+
+				this.airspace.getControls().setSelectedFlight(null);	
+
+			}
+
 		}
 	}
-	
+
 	public void steerLandingFlight(){
 		if (this.flightPlan.getCurrentRoute().size() != 0){
 			this.targetHeading = calculateHeadingToNextWaypoint(this.getFlightPlan().getCurrentRoute().get(0).getX(),this.getFlightPlan().getCurrentRoute().get(0).getY());
 		}
-		
+
 	}
 	
 	/** Calculates the rate at which a plane has to descend, given its current altitude, such
@@ -298,8 +320,8 @@ public class Flight {
 		double rate;
 
 		//Find distance to runway waypoint
-		double distanceFromRunway 	=  Math.sqrt(Math.pow(this.x-this.airspace.getAirport().getBeginningOfRunway().getX(), 2)
-													+ Math.pow(this.y-this.airspace.getAirport().getBeginningOfRunway().getY(), 2));
+		double distanceFromRunway 	=  Math.sqrt(Math.pow(this.x-this.airspace.getAirportLeft().getBeginningOfRunway().getX(), 2)
+													+ Math.pow(this.y-this.airspace.getAirportLeft().getBeginningOfRunway().getY(), 2));
 		double descentPerPixel 		= this.currentAltitude/distanceFromRunway;
 
 		rate = descentPerPixel* (this.velocity * gameScale);
@@ -365,15 +387,15 @@ public class Flight {
 				g.drawString(Math.round(this.currentAltitude) + " ft",(int) this.x-30, (int) this.y + 10);
 
 				if (this.flightPlan.getCurrentRoute().size() > 0) {
-					if (this.flightPlan.getCurrentRoute().get(0) == this.airspace.getAirport().getBeginningOfRunway() && this.currentAltitude > 2000){
+					if (this.flightPlan.getCurrentRoute().get(0) == this.airspace.getAirportLeft().getBeginningOfRunway() && this.currentAltitude > 2000){
 						g.drawString("Lower Me",(int) this.x -29, (int)this.y-28);
 					}
 					
-					else if (this.flightPlan.getCurrentRoute().get(0) == this.airspace.getAirport().getBeginningOfRunway() && this.currentAltitude <= 2000){
+					else if (this.flightPlan.getCurrentRoute().get(0) == this.airspace.getAirportLeft().getBeginningOfRunway() && this.currentAltitude <= 2000){
 						g.drawString("Line Me Up",(int) this.x -33, (int)this.y-28);
 					}
 					
-					else if (this.flightPlan.getCurrentRoute().get(0) == this.airspace.getAirport().getBeginningOfRunway() && this.currentAltitude <= 2000){
+					else if (this.flightPlan.getCurrentRoute().get(0) == this.airspace.getAirportLeft().getBeginningOfRunway() && this.currentAltitude <= 2000){
 						g.drawString("Landing",(int) this.x -33, (int)this.y-28);
 					}
 					
@@ -395,7 +417,7 @@ public class Flight {
 				g.drawString(Math.round(this.currentAltitude) + " ft",(int) this.x-30, (int) this.y + 10);
 
 				if (this.flightPlan.getCurrentRoute().size() > 0) {
-					if (this.flightPlan.getCurrentRoute().get(0) == this.airspace.getAirport().getBeginningOfRunway()){
+					if (this.flightPlan.getCurrentRoute().get(0) == this.airspace.getAirportLeft().getBeginningOfRunway()){
 						g.drawString("Land Me",(int) this.x -29, (int)this.y-28);
 					}
 					

@@ -157,7 +157,7 @@ public class FlightMenu implements MouseListener{
 			
 			//draw command button and label
 			if(flight.getFlightPlan().getPointByIndex(0)== flight.getFlightPlan().getExitPoint() && flight.getFlightPlan().getExitPoint().isRunway()
-					&& this.airspace.getAirport().getLandingApproachArea()
+					&& this.airspace.getAirportLeft().getLandingApproachArea()
 					.contains((float)flight.getX(), (float)flight.getY()) 
 					&& flight.getCurrentHeading() >= 45 && flight.getCurrentHeading() <= 135 && flight.getCurrentAltitude() <= 2000){
 				if (CMD == mode)

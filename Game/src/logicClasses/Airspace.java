@@ -21,7 +21,7 @@ public class Airspace {
 	private List<EntryPoint>	listOfEntryPoints;
 	private List<ExitPoint> 	listOfExitPoints;
 	private SeparationRules 	separationRules;
-	private Airport 			airport1, airport2;
+	private Airport 			airportLeft, airportRight;
 	private int 				difficultyValueOfGame; 
 	private Controls 			controls;
 	private ScoreTracking 		score;
@@ -34,8 +34,9 @@ public class Airspace {
 		this.listOfWaypoints 					= new ArrayList<Waypoint>();
 		this.listOfEntryPoints 					= new ArrayList<EntryPoint>();
 		this.listOfExitPoints 					= new ArrayList<ExitPoint>();
-		this.airport1							= new Airport(1,this);
-		this.airport2						    = new Airport(2, this);
+		this.airportRight						    = new Airport(1, this);
+		this.airportLeft							= new Airport(2,this);
+		
 		
 		
 		// Stores how many loops since the last flight was spawned before another flight can enter
@@ -212,7 +213,7 @@ public class Airspace {
 					double heading;
 					if (tempFlight.getFlightPlan().getEntryPoint().isRunway())
 					{
-						heading = airport1.getRunwayHeading();
+						heading = airportLeft.getRunwayHeading();
 					}
 					else
 					{
@@ -294,7 +295,7 @@ public class Airspace {
 	public void init(GameContainer gc) throws SlickException {
 		
 		this.controls.init(gc);
-		this.airport1.init(gc);
+		this.airportLeft.init(gc);
 		
 		for (int i = 0; i < this.listOfWaypoints.size(); i++) { // Initialising waypoints
 			this.listOfWaypoints.get(i).init(gc);
@@ -353,7 +354,8 @@ public class Airspace {
 	 */
 	public void render(Graphics g, GameContainer gc) throws SlickException { 
 		
-		this.airport1.render(g, gc);
+		this.airportLeft.render(g, gc);
+		this.airportRight.render(g, gc);
 
 		for (Waypoint w:listOfWaypoints) { // Draws waypoints
 			w.render(g, this);
@@ -496,13 +498,16 @@ public class Airspace {
 		return this.numberOfGameLoopsWhenDifficultyIncreases;
 	}
 	
-	public Airport getAirport() {
-		return airport1;
+	public Airport getAirportLeft() {
+		return airportLeft;
+	}
+	public Airport getAirportRight(){
+		return airportRight;
 	}
 	
 	@Override
 	public String toString() {
-		String s = "Airspace: "+ airport1.toString();
+		String s = "Airspace: "+ airportLeft.toString();
 		return s;
 	}
 

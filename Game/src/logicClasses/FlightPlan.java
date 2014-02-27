@@ -137,8 +137,12 @@ public class FlightPlan {
 					}
 				}
 				
-				if (exitPoint == airspace.getAirport().getBeginningOfRunway()){
-					tempRoute.add(airspace.getAirport().getEndOfRunway());
+				if (exitPoint == airspace.getAirportLeft().getBeginningOfRunway()){
+					tempRoute.add(airspace.getAirportLeft().getEndOfRunway());
+				}
+				
+				else if (exitPoint == airspace.getAirportRight().getBeginningOfRunway()){
+					tempRoute.add(airspace.getAirportRight().getEndOfRunway());
 				}
 		}
 		

@@ -217,12 +217,12 @@ public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
 	airspace.newEntryPoint(150, 400);
 	airspace.newEntryPoint(1200, 200);
 	airspace.newEntryPoint(600, 0);
-	airspace.getListOfEntryPoints().add(airspace.getAirport().getEndOfRunway());
+	airspace.getListOfEntryPoints().add(airspace.getAirportLeft().getEndOfRunway());
 	// Exit Points
 	airspace.newExitPoint(800, 0, "1");
 	airspace.newExitPoint(150, 200, "2");
 	airspace.newExitPoint(1200, 300, "3");
-	airspace.getListOfExitPoints().add(airspace.getAirport().getBeginningOfRunway());
+	airspace.getListOfExitPoints().add(airspace.getAirportLeft().getBeginningOfRunway());
 			
     airspace.init(gc);
 }

@@ -225,12 +225,15 @@ public class PlayState extends BasicGameState {
 		airspace.newEntryPoint( 11, 400);
 		airspace.newEntryPoint(1200, 200);
 		airspace.newEntryPoint( 600,   0);
-		airspace.getListOfEntryPoints().add(airspace.getAirport().getEndOfRunway());
+		airspace.getListOfEntryPoints().add(airspace.getAirportLeft().getEndOfRunway());
+		airspace.getListOfEntryPoints().add(airspace.getAirportRight().getEndOfRunway());
+		
 		// Exit Points
 		airspace.newExitPoint( 800,   0, "1");
 		airspace.newExitPoint( 11, 200, "2");
 		airspace.newExitPoint(1200, 300, "3");
-		airspace.getListOfExitPoints().add(airspace.getAirport().getBeginningOfRunway());
+		airspace.getListOfExitPoints().add(airspace.getAirportLeft().getBeginningOfRunway());
+		airspace.getListOfExitPoints().add(airspace.getAirportRight().getBeginningOfRunway());
 				
 	    airspace.init(gc);
 	}
@@ -286,7 +289,7 @@ public class PlayState extends BasicGameState {
 			// Drawing Score
 			g.drawString(airspace.getScore().toString(), 16, 35);
 			if (airspace.getScore().getCurrentMultiplier() != 1){
-				g.drawString("x" + String.valueOf(airspace.getScore().getCurrentMultiplier()), 126,35);
+				g.drawString("x" + String.valueOf(airspace.getScore().getCurrentMultiplier()), 96,35);
 			}
 			
 						
