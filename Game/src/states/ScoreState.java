@@ -61,21 +61,27 @@ public class ScoreState extends BasicGameState {
 			});
 		}
 	}
-	
+	/**
+	 * connection: Opens a http connection to a php page which returns the highscore data, this is then saved in a hashmap
+	 */
 	public void connection(){
 	    try {
+		
+		//Attempt to Open connection
 		URL address = new URL("http://teamwaw.co.uk/whenPlanesCollide/connection.php");
-		//URLConnection yc = oracle.openConnection();        Server 403s's when using URL connection so we are now using http
 		HttpURLConnection httpcon = (HttpURLConnection) address.openConnection(); 
 		httpcon.addRequestProperty("User-Agent", "WhenPlanesCollide"); 
 		BufferedReader in = new BufferedReader(new InputStreamReader(
 		httpcon.getInputStream()));
 	        
+		//Store returned data to hashtable. The data is in the format name:score, with each key => value pair being on a newline.
 		String inputLine;
 		while ((inputLine = in.readLine()) != null){
 		    String[] parts = inputLine.split(":");
 		    scoreMap.put(parts[0], parts[1]);
 		}
+		
+		//close connection
 		in.close();
 	    } 
 	    catch (MalformedURLException e) {
@@ -83,6 +89,7 @@ public class ScoreState extends BasicGameState {
 	    } 
 	    catch (IOException e) {
 		e.printStackTrace();
+		scoreMap.put("ERROR:","Sorry, highscores couldn't be loaded at this time!");
 	    }
 	}
 	
@@ -109,6 +116,8 @@ public class ScoreState extends BasicGameState {
 		
 		g.setColor(Color.white);
 		int y = 300;
+		
+		//Iterate through the hashtable and print out each key => value pair
 		for (Map.Entry<String, String> entry : scoreMap.entrySet()) {
 		    String key = entry.getKey();
 		    String value = entry.getValue();
