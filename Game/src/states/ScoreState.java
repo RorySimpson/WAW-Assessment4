@@ -7,11 +7,13 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.loading.LoadingList;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 import java.net.*;
+import java.awt.Font;
 import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
@@ -30,6 +32,9 @@ public class ScoreState extends BasicGameState {
 	public void enter(GameContainer gc, StateBasedGame sbg){
 		connection();
 	}
+	
+	private TrueTypeFont
+        	titleFont = new TrueTypeFont(new Font(Font.SANS_SERIF, Font.BOLD, 36), false);
 	
 	@Override
 	public void init(GameContainer gc, StateBasedGame sbg)
@@ -100,14 +105,16 @@ public class ScoreState extends BasicGameState {
 		g.fillRoundRect (50, 230, 1100, 320, 5);
 		
 		//DRAW SCORES
+		titleFont.drawString((float)(500),(float)(230),"High Scores!",Color.white);
+		
 		g.setColor(Color.white);
-		int y = 240;
+		int y = 300;
 		for (Map.Entry<String, String> entry : scoreMap.entrySet()) {
 		    String key = entry.getKey();
 		    String value = entry.getValue();
-		    g.drawString(key,60,y);
-		    g.drawString(value,90,y);
-		    y += 15;
+		    g.drawString(key,500,y);
+		    g.drawString(value,700,y);
+		    y += 25;
 		}
 	}
 
