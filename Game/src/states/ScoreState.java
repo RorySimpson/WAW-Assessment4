@@ -15,7 +15,7 @@ import org.newdawn.slick.state.StateBasedGame;
 import java.net.*;
 import java.awt.Font;
 import java.io.*;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import util.DeferredFile;
@@ -23,7 +23,7 @@ import util.DeferredFile;
 public class ScoreState extends BasicGameState {
 	
 	private static Image menuButton, menuHover, menuBackground;
-	HashMap<String, String> scoreMap = new HashMap<String, String>();
+	LinkedHashMap<String, String> scoreMap = new LinkedHashMap<String, String>();
 	public ScoreState(int state){
 		
 	}
@@ -118,6 +118,7 @@ public class ScoreState extends BasicGameState {
 		int y = 300;
 		
 		//Iterate through the hashtable and print out each key => value pair
+		
 		for (Map.Entry<String, String> entry : scoreMap.entrySet()) {
 		    String key = entry.getKey();
 		    String value = entry.getValue();
