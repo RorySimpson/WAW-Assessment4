@@ -77,7 +77,7 @@ public class ExitPoint extends Point {
 			exitPointTop.draw((int)x-20, (int)y);
 		}
 
-		else if(x == 150){
+		else if(x == 11){
 			exitPointLeft.draw((int)x, (int)y-20);
 		}
 
@@ -92,7 +92,7 @@ public class ExitPoint extends Point {
 		if(y == 0){
 			g.drawString(pointRef, (int)x-15, (int)y);
 		}
-		else if(x ==150){
+		else if(x ==11){
 			g.drawString(pointRef, (int)x, (int)y-7);
 		}
 

@@ -225,20 +225,7 @@ public class Controls {
 		int posY = stateContainer.Game.MAXIMUMHEIGHT -Mouse.getY();
 
 		if (selectedFlight != null ){	//if controls are active
-			
-			//check for mode button presses
-			if (Mouse.isButtonDown(Input.MOUSE_LEFT_BUTTON)){
-				//Plan mode
-				if(posX>10&&posX<150&&posY<65&&posY>45){
-					selectedFlight.getFlightPlan().setChangingPlan(true);
-				}
-				
-				//navigator mode
-				if(posX>10&&posX<150&&posY<95&&posY>75){
-					selectedFlight.getFlightPlan().setChangingPlan(false);
-				}
-			}
-				
+
 			// Only allow controls if user isn't changing a plan
 			if (!(selectedFlight.getFlightPlan().getChangingPlan()) && selectedFlight.isCommandable()){
 				//allow mouse control of flight if not in h

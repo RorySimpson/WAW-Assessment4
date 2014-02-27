@@ -93,7 +93,7 @@ public class Airport {
 			public void loadFile(String filename) throws SlickException{
                 airportImage = new Image(filename);
               
-                x = (stateContainer.Game.MAXIMUMWIDTH-150)/2;
+                x = (stateContainer.Game.MAXIMUMWIDTH)/2;
                 y = stateContainer.Game.MAXIMUMHEIGHT/2;
                 runwayLength = airportImage.getHeight();
             }	
