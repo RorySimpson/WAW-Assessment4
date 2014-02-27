@@ -87,6 +87,7 @@ public class GameOverState extends BasicGameState {
 		
 		gameOverBackground.draw(0,0);
 		
+		g.drawString("Score: ", 545,500);
 		g.drawString(Integer.toString(((Game)sbg).getCurrentScore()), 600, 500);
 		
 		int	posX = Mouse.getX();
@@ -106,6 +107,11 @@ public class GameOverState extends BasicGameState {
 		else quitButton.draw(1148,556);
 		g.drawString(achievement.crashAchievement(60), 900, 30);
 		g.setColor(Color.white);
+	}
+	
+	@Override
+	public void enter(GameContainer gc, StateBasedGame sbg){
+		int score = ((Game)sbg).getCurrentScore();
 	}
 
 	@Override
