@@ -12,8 +12,8 @@ import org.newdawn.slick.loading.LoadingList;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import java.net.*;
-import java.util.ArrayList;
 import java.io.*;
+import java.util.HashMap;
 
 import util.DeferredFile;
 
@@ -27,6 +27,7 @@ public class ScoreState extends BasicGameState {
 	
 	private String[][] credits;	//[section, line]
 	private String scoreString;
+	HashMap<String, Integer> scoreMap = new HashMap<String, Integer>();
 
 	
 	public ScoreState(int state){
@@ -79,11 +80,14 @@ public class ScoreState extends BasicGameState {
 			httpcon.addRequestProperty("User-Agent", "WhenPlanesCollide"); 
 	        BufferedReader in = new BufferedReader(new InputStreamReader(
 	        httpcon.getInputStream()));
+	        
 	        String inputLine;
-	        while ((inputLine = in.readLine()) != null)
+	        while ((inputLine = in.readLine()) != null){
 	        	
-	        scoreString = scoreString + inputLine;
-	       in.close();
+		        scoreMap.put("name", 1);
+		        scoreString = scoreString + inputLine;
+		        in.close();
+	        }
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
