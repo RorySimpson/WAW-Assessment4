@@ -33,7 +33,7 @@ public class PlayCoopState extends BasicGameState {
 	easyButton, mediumButton,hardButton,  
 	easyHover, mediumHover, hardHover,  
 	backgroundImage, difficultyBackground,
-	statusBarImage, clockImage, windImage,
+	/*statusBarImage,*/ clockImage, windImage,
 	flightIcon,
 	cursorImg, achievementBox;
 private static Sound endOfGameSound;
@@ -108,11 +108,11 @@ public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
 		});
 
 		//Images
-		loading.add(new DeferredFile("res/graphics/new/control_bar_vertical.png"){
+/*		loading.add(new DeferredFile("res/graphics/new/control_bar_vertical.png"){
 			public void loadFile(String filename) throws SlickException{
 				statusBarImage = new Image(filename);
 			}
-		});
+		}); */
 
 		loading.add(new DeferredFile("res/graphics/clock.png"){
 			public void loadFile(String filename) throws SlickException{
@@ -263,8 +263,8 @@ public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
 		g.setFont(font);
 		
 		// Drawing Side Images
-		backgroundImage.draw(150,0);
-		statusBarImage.draw(0,0);
+		backgroundImage.draw(0,0);
+		//statusBarImage.draw(0,0);
 		
 		// Drawing Airspace and elements within it
 		g.setColor(Color.white);

@@ -33,7 +33,7 @@ public class PlayState extends BasicGameState {
 		easyButton, mediumButton,hardButton,  
 		easyHover, mediumHover, hardHover,  
 		backgroundImage, difficultyBackground,
-		statusBarImage, clockImage, windImage,
+		/*statusBarImage,*/ clockImage, windImage,
 		flightIcon,
 		cursorImg, achievementBox;
 	private Animation explosion;
@@ -111,11 +111,11 @@ public class PlayState extends BasicGameState {
 			});
 
 			//Images
-			loading.add(new DeferredFile("res/graphics/new/control_bar_vertical.png"){
+/*			loading.add(new DeferredFile("res/graphics/new/control_bar_vertical.png"){
 				public void loadFile(String filename) throws SlickException{
 					statusBarImage = new Image(filename);
 				}
-			});
+			});*/
 
 			loading.add(new DeferredFile("res/graphics/clock.png"){
 				public void loadFile(String filename) throws SlickException{
@@ -272,7 +272,7 @@ public class PlayState extends BasicGameState {
 			
 			// Drawing Side Images
 			backgroundImage.draw(150,0);
-			statusBarImage.draw(0,0);
+			//statusBarImage.draw(0,0);
 			
 			// Drawing Airspace and elements within it
 			g.setColor(Color.white);
