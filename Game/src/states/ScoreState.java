@@ -1,6 +1,5 @@
 package states;
 
-
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -11,28 +10,22 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.loading.LoadingList;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
+
 import java.net.*;
 import java.io.*;
 import java.util.HashMap;
+import java.util.Map;
 
 import util.DeferredFile;
 
-
-
 public class ScoreState extends BasicGameState {
 	
-	private static Image
-		menuButton, menuHover, menuBackground;
-	//private static TrueTypeFont font;
-	
-	private String[][] credits;	//[section, line]
-	private String scoreString;
-	HashMap<String, Integer> scoreMap = new HashMap<String, Integer>();
-
-	
+	private static Image menuButton, menuHover, menuBackground;
+	HashMap<String, String> scoreMap = new HashMap<String, String>();
 	public ScoreState(int state){
 		
 	}
+	
 	@Override
 	public void enter(GameContainer gc, StateBasedGame sbg){
 		connection();
@@ -62,37 +55,30 @@ public class ScoreState extends BasicGameState {
 				}
 			});
 		}
-		
-		credits = new String[][] {
-				{"Scores",
-					"COMING SOON!",
-				},
-		};
 	}
 	
 	public void connection(){
-		URL address;
-		
-		try {
-			address = new URL("http://teamwaw.co.uk/whenPlanesCollide/connection.php");
-			//URLConnection yc = oracle.openConnection();        Server 403s's when using URL connection so we are now using http
-			HttpURLConnection httpcon = (HttpURLConnection) address.openConnection(); 
-			httpcon.addRequestProperty("User-Agent", "WhenPlanesCollide"); 
-	        BufferedReader in = new BufferedReader(new InputStreamReader(
-	        httpcon.getInputStream()));
+	    try {
+		URL address = new URL("http://teamwaw.co.uk/whenPlanesCollide/connection.php");
+		//URLConnection yc = oracle.openConnection();        Server 403s's when using URL connection so we are now using http
+		HttpURLConnection httpcon = (HttpURLConnection) address.openConnection(); 
+		httpcon.addRequestProperty("User-Agent", "WhenPlanesCollide"); 
+		BufferedReader in = new BufferedReader(new InputStreamReader(
+		httpcon.getInputStream()));
 	        
-	        String inputLine;
-	        while ((inputLine = in.readLine()) != null){
-	        	
-		        scoreMap.put("name", 1);
-		        scoreString = scoreString + inputLine;
-		        in.close();
-	        }
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
+		String inputLine;
+		while ((inputLine = in.readLine()) != null){
+		    String[] parts = inputLine.split(":");
+		    scoreMap.put(parts[0], parts[1]);
 		}
+		in.close();
+	    } 
+	    catch (MalformedURLException e) {
+		e.printStackTrace();
+	    } 
+	    catch (IOException e) {
+		e.printStackTrace();
+	    }
 	}
 	
 	@Override
@@ -112,21 +98,17 @@ public class ScoreState extends BasicGameState {
 		//draw background panel
 		g.setColor(new Color(250, 235, 215, 50));	//pale orange, semi-transparent
 		g.fillRoundRect (50, 230, 1100, 320, 5);
-				
-		{	//draw credits screen
-			g.setColor(Color.white);
-			int y = 240;
-			for (String[] section: credits){
-				for (String line: section){
-					//font.drawString(60, y, line);
-					g.drawString(line, 60, y);
-					y += 15;
-				}
-				y += 30;
-			}
-		g.drawString(scoreString, 100, 300);
-		}
 		
+		//DRAW SCORES
+		g.setColor(Color.white);
+		int y = 240;
+		for (Map.Entry<String, String> entry : scoreMap.entrySet()) {
+		    String key = entry.getKey();
+		    String value = entry.getValue();
+		    g.drawString(key,60,y);
+		    g.drawString(value,90,y);
+		    y += 15;
+		}
 	}
 
 	@Override
