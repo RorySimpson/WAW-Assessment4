@@ -66,21 +66,21 @@ public class ScoreState extends BasicGameState {
 	}
 	
 	public void connection(){
-		URL oracle;
+		URL address;
 		try {
-			oracle = new URL("http://www.oracle.com/");
-			URLConnection yc = oracle.openConnection();
+			address = new URL("http://teamwaw.co.uk/whenPlanesCollide/connection.php");
+			//URLConnection yc = oracle.openConnection();        Server 403s's when using URL connection so we are now using http
+			HttpURLConnection httpcon = (HttpURLConnection) address.openConnection(); 
+			httpcon.addRequestProperty("User-Agent", "WhenPlanesCollide"); 
 	        BufferedReader in = new BufferedReader(new InputStreamReader(
-	        yc.getInputStream()));
+	        httpcon.getInputStream()));
 	        String inputLine;
 	        while ((inputLine = in.readLine()) != null)
 	        	System.out.println(inputLine);
-	        in.close();
+	       in.close();
 		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
