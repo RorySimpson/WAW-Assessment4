@@ -222,13 +222,13 @@ public class PlayState extends BasicGameState {
 		
 	
 		//EntryPoints
-		airspace.newEntryPoint( 150, 400);
+		airspace.newEntryPoint( 11, 400);
 		airspace.newEntryPoint(1200, 200);
 		airspace.newEntryPoint( 600,   0);
 		airspace.getListOfEntryPoints().add(airspace.getAirport().getEndOfRunway());
 		// Exit Points
 		airspace.newExitPoint( 800,   0, "1");
-		airspace.newExitPoint( 150, 200, "2");
+		airspace.newExitPoint( 11, 200, "2");
 		airspace.newExitPoint(1200, 300, "3");
 		airspace.getListOfExitPoints().add(airspace.getAirport().getBeginningOfRunway());
 				
@@ -280,30 +280,19 @@ public class PlayState extends BasicGameState {
 					
 			// Drawing Clock and Time
 			g.setColor(Color.white);
-			clockImage.draw(0,5);
-			g.drawString(stringTime, 25, 10);
+			clockImage.draw(6,5);
+			g.drawString(stringTime, 31, 10);
 			
 			// Drawing Score
-			g.drawString(airspace.getScore().toString(), 10, 35);
+			g.drawString(airspace.getScore().toString(), 16, 35);
 			if (airspace.getScore().getCurrentMultiplier() != 1){
-				g.drawString("x" + String.valueOf(airspace.getScore().getCurrentMultiplier()), 120,35);
+				g.drawString("x" + String.valueOf(airspace.getScore().getCurrentMultiplier()), 126,35);
 			}
 			
 						
-			{	//draw flight information panels	
-				int baseY = 60;	
-				for (Flight f: airspace.getListOfFlights()){	
-					renderFlightPanel(f, g, baseY);
-					baseY += 50;
-				}	
-			}		
+	
 			
-			//drawing wind direction
-			windImage.setRotation(windImage.getRotation() +((float)Math.cos(time/2999.0) +(float)Math.sin(time/1009.0))/3);
-				//for now, set wind direction pseudo-randomly
-			windImage.draw(14, 550);
-			g.drawString("Wind:", 60, 550);
-			g.drawString(String.valueOf(Math.round(windImage.getRotation())), 65, 565);
+
 			
 			// Multiplier
 			if(airspace.getScore().getProgressionTowardsNextMultiplier() != 0){
@@ -381,7 +370,7 @@ public class PlayState extends BasicGameState {
 		
 	}
 	
-	private void renderFlightPanel(Flight f, Graphics g, int baseY){						
+	/*private void renderFlightPanel(Flight f, Graphics g, int baseY){						
 		//draw border if flight is selected					
 		if (f.getSelected()){					
 			g.drawRoundRect(1, baseY, 135, 50, 3);				
@@ -407,7 +396,7 @@ public class PlayState extends BasicGameState {
 			baseY += h;				
 		}					
 							
-	}						
+	}	*/					
 							
 	@Override
 	public void update(GameContainer gc, StateBasedGame sbg, int delta)

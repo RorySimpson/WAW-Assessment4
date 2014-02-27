@@ -260,7 +260,7 @@ public class Airspace {
 	public boolean checkIfFlightHasLeftAirspace(Flight flight) {
 		// x and y must be within these bounds to be within screen space
 		// Not quite the same with withinAirspace method
-		if (flight.getX() > 1250 || flight.getX() < 100 || flight.getY() > 650 || flight.getY() < -50) { 
+		if (flight.getX() > 1250 || flight.getX() < -50|| flight.getY() > 650 || flight.getY() < -50) { 
 			return true;
 		}
 		else 

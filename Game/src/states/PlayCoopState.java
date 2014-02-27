@@ -285,7 +285,7 @@ public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
 		{	//draw flight information panels	
 			int baseY = 60;	
 			for (Flight f: airspace.getListOfFlights()){	
-				renderFlightPanel(f, g, baseY);
+				//renderFlightPanel(f, g, baseY);
 				baseY += 50;
 			}	
 		}		
@@ -372,7 +372,7 @@ public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
 	
 }
 
-private void renderFlightPanel(Flight f, Graphics g, int baseY){						
+/*private void renderFlightPanel(Flight f, Graphics g, int baseY){						
 	//draw border if flight is selected					
 	if (f.getSelected()){					
 		g.drawRoundRect(1, baseY, 135, 50, 3);				
@@ -396,9 +396,9 @@ private void renderFlightPanel(Flight f, Graphics g, int baseY){
 	for (String str: data){					
 		panelFont.drawString(40, baseY, str);				
 		baseY += h;				
-	}					
+	}				
 						
-}						
+}	*/					
 						
 @Override
 public void update(GameContainer gc, StateBasedGame sbg, int delta)

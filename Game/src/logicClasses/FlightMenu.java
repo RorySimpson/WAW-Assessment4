@@ -90,7 +90,7 @@ public class FlightMenu implements MouseListener{
 
 	public void render(Graphics g, GameContainer gc) throws SlickException {
 		
-		g.setWorldClip(150, 0, Game.MAXIMUMWIDTH -150, Game.MAXIMUMHEIGHT);
+		g.setWorldClip(11, 0, Game.MAXIMUMWIDTH, Game.MAXIMUMHEIGHT);
 		String cmdString;
 		if (flight != null){
 			//create scaled copies of images if invalidated
@@ -185,6 +185,7 @@ public class FlightMenu implements MouseListener{
 
 		}
 		g.setWorldClip(0, 0, Game.MAXIMUMWIDTH, Game.MAXIMUMHEIGHT);
+		
 	}
 
 	private void drawImage(Image image, Point2D pos){
