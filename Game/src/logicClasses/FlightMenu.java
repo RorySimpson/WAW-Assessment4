@@ -188,13 +188,35 @@ public class FlightMenu implements MouseListener{
 			
 			
 			if (flight.getAltitude() == 0 && !flight.isTakingOff()){
-
-				if (CMD == mode)
-					drawImage(aButtonSelect, cmdPos);
-				else drawImage(aButton, cmdPos);
-				cmdString = "Take Off";
-				drawString(cmdString, buttonFont, buttonColor, 
-						cmdPos.x +(buttonWidth/2.0f), cmdPos.y +(buttonHeight/2.0f));
+				
+				if (flight.getFlightPlan().getEntryPoint() == airspace.getAirportLeft().getEndOfRunway()){
+					
+					cmdPos.setLocation(flight.getX() + 50, -spacingSize/2.0 -buttonHeight);
+					
+					if (CMD == mode)
+						drawImage(aButtonSelect, cmdPos);
+					else drawImage(aButton, cmdPos);
+					cmdString = "Take Off";
+					drawString(cmdString, buttonFont, buttonColor, 
+							cmdPos.x +(buttonWidth/2.0f), cmdPos.y +(buttonHeight/2.0f));
+					
+					cmdPos.setLocation(altPos.x -spacingSize -buttonWidth, -spacingSize/2.0 -buttonHeight);
+					
+				}
+				
+				else if(flight.getFlightPlan().getEntryPoint() == airspace.getAirportRight().getEndOfRunway()) {
+					
+					if (CMD == mode)
+						drawImage(aButtonSelect, cmdPos);
+					else drawImage(aButton, cmdPos);
+					cmdString = "Take Off";
+					drawString(cmdString, buttonFont, buttonColor, 
+							cmdPos.x +(buttonWidth/2.0f), cmdPos.y +(buttonHeight/2.0f));
+					
+				}
+				
+				
+				
 				
 			}
 
