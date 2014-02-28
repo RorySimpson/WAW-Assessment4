@@ -200,6 +200,16 @@ public class Flight {
 	
 	public boolean checkIfFlightAtWaypoint(Point waypoint) {
 		
+		
+		if (waypoint == airspace.getAirportLeft().getBeginningOfRunway() && this.landing == false){
+			return false;
+		}
+		
+		if (waypoint == airspace.getAirportRight().getBeginningOfRunway() && this.landing == false){
+			return false;
+		}
+		
+		
 		int distanceX;
 		int distanceY;
 		
@@ -270,6 +280,8 @@ public class Flight {
 
 
 				this.landing 		= true;
+				
+				this.targetVelocity = velocity;
 
 
 				this.landingDescentRate = this.findLandingDescentRate();
@@ -278,9 +290,7 @@ public class Flight {
 
 			}
 			
-			System.out.println(this.airspace.getAirportLeft().getLandingApproachArea()
-					.contains((float)this.x, (float)this.y));
-			
+		
 			if (this.airspace.getAirportLeft().getLandingApproachArea()
 					.contains((float)this.x, (float)this.y) 
 					&& this.currentHeading >= 225 && this.currentHeading <= 305 && this.currentAltitude <= 2000
@@ -290,6 +300,7 @@ public class Flight {
 
 				this.landing 		= true;
 
+				this.targetVelocity = velocity;
 
 				this.landingDescentRate = this.findLandingDescentRate();
 
@@ -314,10 +325,22 @@ public class Flight {
 	public double findLandingDescentRate()
 	{
 		double rate;
+		double distanceFromRunway;
+		
+		if(this.flightPlan.getCurrentRoute().get(0) == this.airspace.getAirportLeft().getBeginningOfRunway() ){
+			//Find distance to runway waypoint
+			 distanceFromRunway 	=  Math.sqrt(Math.pow(this.x-this.airspace.getAirportLeft().getBeginningOfRunway().getX(), 2)
+					+ Math.pow(this.y-this.airspace.getAirportLeft().getBeginningOfRunway().getY(), 2));
 
-		//Find distance to runway waypoint
-		double distanceFromRunway 	=  Math.sqrt(Math.pow(this.x-this.airspace.getAirportLeft().getBeginningOfRunway().getX(), 2)
-													+ Math.pow(this.y-this.airspace.getAirportLeft().getBeginningOfRunway().getY(), 2));
+		}
+		
+		else{
+			 distanceFromRunway 	=  Math.sqrt(Math.pow(this.x-this.airspace.getAirportRight().getBeginningOfRunway().getX(), 2)
+					+ Math.pow(this.y-this.airspace.getAirportRight().getBeginningOfRunway().getY(), 2));
+			
+		}
+		
+		
 		double descentPerPixel 		= this.currentAltitude/distanceFromRunway;
 
 		rate = descentPerPixel* (this.velocity * gameScale);
@@ -552,6 +575,8 @@ public class Flight {
 	}
 	
 	public void updateVelocity(){
+		
+
 		
 		double dv = 0.01*(targetVelocity - velocity);
 		if (targetVelocity > velocity) {
