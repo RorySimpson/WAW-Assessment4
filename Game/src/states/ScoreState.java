@@ -80,6 +80,7 @@ public class ScoreState extends BasicGameState {
 		//DRAW SCORES
 		titleFont.drawString((float)(500),(float)(230),"High Scores!",Color.white);
 		
+		//Iterate through the hashMap and print out each key => value pair
 		g.setColor(Color.white);
 		int y = 300;
 		for (Map.Entry<String, String> entry : connection.getScores().entrySet()){
