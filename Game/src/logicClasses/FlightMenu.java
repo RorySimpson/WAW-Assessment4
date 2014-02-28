@@ -334,12 +334,24 @@ public class FlightMenu implements MouseListener{
 	}
 	
 	private Boolean inButton(Point2D pos, int mouseX, int mouseY){
+		if(flight != null){
+				if (flight.getAltitude() == 0 && !flight.isTakingOff()){
+				
+					if (flight.getFlightPlan().getEntryPoint() == airspace.getAirportLeft().getEndOfRunway()){
+						cmdPos.setLocation(flight.getX() + 50, -spacingSize/2.0 -buttonHeight);
+					}
+				
+				}
+		}
+		
 		int	x = (int)Math.round(pos.getX()),
 			y = (int)Math.round(pos.getY());
 		//normalise to internal coordinates
 		mouseX -= flight.getX();
 		mouseY -= flight.getY();
-
+		
+		cmdPos.setLocation(altPos.x -spacingSize -buttonWidth, -spacingSize/2.0 -buttonHeight);
+		
 		return (mouseX>x && mouseX<(x+buttonWidth) && 
 				mouseY>y && mouseY<(y+buttonHeight));
 	}
