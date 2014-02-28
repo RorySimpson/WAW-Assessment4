@@ -30,4 +30,8 @@ public class Connection {
         }
 	return scoreMap;
     }
+    
+    public int getHighestScore(){
+	return Integer.parseInt(scoreMap.entrySet().iterator().next().getValue());
+    }
 }
