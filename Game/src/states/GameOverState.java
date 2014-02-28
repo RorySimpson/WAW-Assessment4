@@ -1,5 +1,6 @@
 package states;
 import logicClasses.Achievements;
+import logicClasses.Connection;
 import stateContainer.Game;
 
 import org.lwjgl.input.Mouse;
@@ -24,12 +25,13 @@ public class GameOverState extends BasicGameState {
 		gameOverBackground;
 	
 	private Achievements achievement;
+	private Connection connection;
 	
 	public GameOverState(int state) {
 		achievement = new Achievements();
+		connection = new Connection();
 		
 	}
-	
 	
 	@Override
 	public void init(GameContainer gc, StateBasedGame sbg)
@@ -80,7 +82,13 @@ public class GameOverState extends BasicGameState {
 			});
 		}
 	}
-
+	
+	@Override
+	public void enter(GameContainer gc, StateBasedGame sbg){
+		int score = ((Game)sbg).getCurrentScore();
+		int highestScore = connection.getHighestScore();
+	}
+	
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
 				throws SlickException{
@@ -109,10 +117,6 @@ public class GameOverState extends BasicGameState {
 		g.setColor(Color.white);
 	}
 	
-	@Override
-	public void enter(GameContainer gc, StateBasedGame sbg){
-		int score = ((Game)sbg).getCurrentScore();
-	}
 
 	@Override
 	public void update(GameContainer gc, StateBasedGame sbg, int delta)throws SlickException {
