@@ -36,4 +36,8 @@ public class Connection {
     public int getHighestScore(){
 	return Integer.parseInt(scoreMap.entrySet().iterator().next().getValue());
     }
+    
+    public void clearData(){
+	scoreMap.clear();
+    }
 }

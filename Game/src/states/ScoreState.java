@@ -102,6 +102,7 @@ public class ScoreState extends BasicGameState {
 		if (Mouse.isButtonDown(Input.MOUSE_LEFT_BUTTON)) {
 			
 			if (posX>20 && posX<136 && posY>20 && posY<66) {
+			    	connection.clearData();
 				sbg.enterState(stateContainer.Game.MENUSTATE);
 			}
 		}	
