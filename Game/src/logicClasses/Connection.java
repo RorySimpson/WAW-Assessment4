@@ -1,13 +1,13 @@
 package logicClasses;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.io.*;
 import java.net.*;
 
 public class Connection {
-    private HashMap<String, String> scoreMap = new HashMap<String, String>();
+    private LinkedHashMap<String, String> scoreMap = new LinkedHashMap<String, String>();
     
-    public HashMap<String,String> getScores(){
+    public LinkedHashMap<String,String> getScores(){
         try {
     	URL address = new URL("http://teamwaw.co.uk/whenPlanesCollide/connection.php");
     	HttpURLConnection httpcon = (HttpURLConnection) address.openConnection(); 
@@ -24,9 +24,11 @@ public class Connection {
         } 
         catch (MalformedURLException e) {
     	e.printStackTrace();
+    	scoreMap.put("ERROR:", "Sorry, we couldn't load highscores!");
         } 
         catch (IOException e) {
     	e.printStackTrace();
+    	scoreMap.put("ERROR:", "Sorry, we couldn't load highscores!");
         }
 	return scoreMap;
     }
