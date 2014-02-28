@@ -38,6 +38,7 @@ public class Connection {
     }
     
     public int getHighestScore(){
+	getScores();
 	return Integer.parseInt(scoreMap.entrySet().iterator().next().getValue());
     }
     
