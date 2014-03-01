@@ -305,20 +305,20 @@ public class PlayState extends BasicGameState {
 				this.targetCoord = 600 - (float) (0.6 * airspace.getScore().getProgressionTowardsNextMultiplier()); 
 				
 				if (this.currentCoord != this.targetCoord && airspace.getScore().getNegMult() == false){
-					g.setColor(Color.orange);
+					g.setColor(Color.cyan);
 					g.fillRect(0, this.currentCoord, 11, (600-this.currentCoord));
 					g.setColor(Color.white);
 					this.currentCoord --;
 				}
 				else if (this.currentCoord != this.targetCoord && airspace.getScore().getNegMult() == true){
-					g.setColor(Color.orange);
+					g.setColor(Color.cyan);
 					g.fillRect(0, this.currentCoord, 11, (600-this.currentCoord));
 					g.setColor(Color.white);
 					this.currentCoord ++;
 					if (this.currentCoord == this.targetCoord) { airspace.getScore().setNegMult(false); }
 				}
 				else {
-					g.setColor(Color.orange);
+					g.setColor(Color.cyan);
 					g.fillRect(0, this.currentCoord, 11, (600-this.currentCoord));
 					g.setColor(Color.white);
 				}
@@ -329,7 +329,7 @@ public class PlayState extends BasicGameState {
 					this.currentCoord = 600;
 				}
 				else if (this.currentCoord != 600){
-					g.setColor(Color.orange);
+					g.setColor(Color.cyan);
 					g.fillRect(0, this.currentCoord, 11, (600-this.currentCoord));
 					g.setColor(Color.white);
 					this.currentCoord ++;
@@ -407,22 +407,8 @@ public class PlayState extends BasicGameState {
 	public void update(GameContainer gc, StateBasedGame sbg, int delta)
 			throws SlickException {
 		
-		if(gameJustFinished){
-			if(countdownToGameOverState < GAMEOVERTIME){
-				countdownToGameOverState += 1;
-				
-			}
-			else{
-				gameJustFinished = false;
-				sbg.enterState(stateContainer.Game.GAMEOVERSTATE);
-				
-			}
-		}
-		
-		// Checks if the game has been retried and if it has resets the airspace
-		
-		if (gameEnded && !gameJustFinished){
-	
+		if (gameEnded ){
+			
 			airspace.resetAirspace();
 	    	time = 0;
 	    	gameEnded = false;
@@ -430,6 +416,23 @@ public class PlayState extends BasicGameState {
 	    	airspace.getScore().resetScore();
 	    	
 		}
+		
+		if(gameJustFinished){
+			if(countdownToGameOverState < GAMEOVERTIME){
+				countdownToGameOverState += 1;
+				
+			}
+			else{
+				gameJustFinished = false;
+				gameEnded = true;
+				sbg.enterState(stateContainer.Game.GAMEOVERSTATE);
+				
+			}
+		}
+		
+		// Checks if the game has been retried and if it has resets the airspace
+		
+
 		
 		
 		
@@ -515,11 +518,10 @@ public class PlayState extends BasicGameState {
 				achievementMessage = achievement.crashAchievement((int) time); //pass the game time as of game over into the crashAchievement
 				airspace.getSeparationRules().setGameOverViolation(false);
 				((Game)sbg).setCurrentScore(airspace.getScore().getCurrentScore());
-				airspace.resetAirspace();
 				gameplayMusic.stop();
 				endOfGameSound.play();
 				gameJustFinished = true;
-				gameEnded = true;
+				
 				
 				
 				

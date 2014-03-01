@@ -111,42 +111,37 @@ public class Controls {
 				return;
 			}
 			
-			System.out.println(nearestFlight == selectedFlight);
+			
 			if (nearestFlight == selectedFlight){ //If you are clicking on the currently selected flight then change the airspace mode instead of changing flight
-				System.out.println("inside if");
+				
 				changeModeByClickingOnFlight();
 			}
 			
 
-			
-			
+
+
 			//only allow switching flights if not in navigator mode
 			else {
-				
+
 				if (selectedFlight != null){
-					
-					//only change selected flight if not in navigator mode
-						//OR flight is outside of the circle 
-					if (selectedFlight.getFlightPlan().getChangingPlan() 
-							|| (distance(selectedFlight.getX(),selectedFlight.getY(),
-									nearestFlight.getX(), nearestFlight.getY()) 
-								> (menu.getBearingSize()/2 +menu.getSliderWidth()))){
-						
-						//deselect old flight (if any)
-						selectedFlight.setSelected(false);
-						selectedFlight.getFlightPlan().setChangingPlan(false);
-						
-						//select new flight
-						nearestFlight.setSelected(true);
-						setSelectedFlight(nearestFlight);
-					}
+
+
+
+					//deselect old flight (if any)
+					selectedFlight.setSelected(false);
+					selectedFlight.getFlightPlan().setChangingPlan(false);
+
+					//select new flight
+					nearestFlight.setSelected(true);
+					setSelectedFlight(nearestFlight);
+
 				}
 				else {
 					//set selected flight
 					nearestFlight.setSelected(true);
 					setSelectedFlight(nearestFlight);
 				}
-		
+
 			}
 
 		}

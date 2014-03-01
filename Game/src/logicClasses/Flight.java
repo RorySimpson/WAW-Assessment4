@@ -447,8 +447,12 @@ public class Flight {
 				g.drawOval((int) this.x - 50, (int) this.y - 50, 100, 100);
 			}
 			
-			else if (this.currentAltitude == 0 && takingOff != true){
+			else if (this.currentAltitude == 0 && takingOff != true && this.flightPlan.getEntryPoint() == airspace.getAirportRight().getEndOfRunway()){
 				g.drawString("Take me off!",(int) this.x-80 , (int)this.y+28);
+			}
+			
+			else if (this.currentAltitude == 0 && takingOff != true && this.flightPlan.getEntryPoint() == airspace.getAirportLeft().getEndOfRunway()){
+				g.drawString("Take me off!",(int) this.x+50 , (int)this.y+28);
 			}
 		}
 
