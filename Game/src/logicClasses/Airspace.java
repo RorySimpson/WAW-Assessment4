@@ -7,6 +7,8 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
+import events.*;
+
 import stateContainer.Game;
 
 
@@ -25,6 +27,7 @@ public class Airspace {
 	private int 				difficultyValueOfGame; 
 	private Controls 			controls;
 	private ScoreTracking 		score;
+	private EventController eventController;
 	
 	
 	// CONSTRUCTOR
@@ -34,8 +37,9 @@ public class Airspace {
 		this.listOfWaypoints 					= new ArrayList<Waypoint>();
 		this.listOfEntryPoints 					= new ArrayList<EntryPoint>();
 		this.listOfExitPoints 					= new ArrayList<ExitPoint>();
-		this.airportRight						    = new Airport(1, this);
-		this.airportLeft							= new Airport(2,this);
+		this.airportRight						= new Airport(1, this);
+		this.airportLeft						= new Airport(2,this);
+		this.eventController					= new EventController();
 		
 		
 		

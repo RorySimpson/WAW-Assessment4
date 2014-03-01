@@ -25,7 +25,8 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.util.ResourceLoader;
 
-import Coop.AirspaceCoop;
+import coop.AirspaceCoop;
+
 
 import util.DeferredFile;
 

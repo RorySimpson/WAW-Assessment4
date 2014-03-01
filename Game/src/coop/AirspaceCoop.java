@@ -1,4 +1,4 @@
-package Coop;
+package coop;
 
 import java.util.ArrayList;
 

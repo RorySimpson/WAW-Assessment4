@@ -1,4 +1,4 @@
-package Coop;
+package coop;
 
 import logicClasses.Airspace;
 import logicClasses.Controls;
