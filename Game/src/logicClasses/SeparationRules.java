@@ -78,6 +78,10 @@ public class SeparationRules {
 					if ((verticalDistanceBetweenFlights(airspace.getListOfFlights().get(i), airspace.getListOfFlights().get(j)) < this.gameOverVerticalSeparation)){
 						if(!(airspace.getListOfFlights().get(i).isGrounded() || airspace.getListOfFlights().get(j).isGrounded())){
 							this.gameOverViolation = true;
+							airspace.getListOfFlights().get(i).setVelocity(0);
+							airspace.getListOfFlights().get(i).setTargetVelocity(0);
+							airspace.getListOfFlights().get(j).setVelocity(0);
+							airspace.getListOfFlights().get(j).setTargetVelocity(0);
 							this.pointOfCrash.setLocation(airspace.getListOfFlights().get(i).getX(), airspace.getListOfFlights().get(i).getY());
 						}
 					}

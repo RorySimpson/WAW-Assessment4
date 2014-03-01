@@ -5,7 +5,6 @@ import java.io.InputStream;
 
 import logicClasses.Achievements;
 import logicClasses.Airspace;
-import logicClasses.AirspaceCoop;
 import logicClasses.Controls;
 import logicClasses.Flight;
 
@@ -25,6 +24,8 @@ import org.newdawn.slick.loading.LoadingList;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.util.ResourceLoader;
+
+import Coop.AirspaceCoop;
 
 import util.DeferredFile;
 

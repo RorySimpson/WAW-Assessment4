@@ -1,9 +1,13 @@
-package logicClasses;
+package Coop;
 
 import java.util.ArrayList;
 
+import logicClasses.Airspace;
+import logicClasses.Flight;
+
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
+
 
 public class AirspaceCoop extends Airspace {
 	

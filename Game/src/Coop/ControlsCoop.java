@@ -1,4 +1,8 @@
-package logicClasses;
+package Coop;
+
+import logicClasses.Airspace;
+import logicClasses.Controls;
+import logicClasses.Flight;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
