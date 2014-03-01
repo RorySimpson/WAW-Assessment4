@@ -426,7 +426,9 @@ public class PlayState extends BasicGameState {
 				gameJustFinished = false;
 				gameEnded = true;
 				sbg.enterState(stateContainer.Game.GAMEOVERSTATE);
-				
+				currentCoord = 600;
+				targetCoord = 600;
+				synch = 180;
 			}
 		}
 		
