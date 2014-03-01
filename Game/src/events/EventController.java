@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import logicClasses.Flight;
+import logicClasses.*;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -20,6 +20,14 @@ public class EventController {
 		this.listOfHunterFlights  = new ArrayList<HunterFlight>();
 		this.volcano = new Volcano();
 		
+	}
+	
+	public void render(){
+		this.volcano.render();
+	}
+	
+	public void update(){
+		this.volcano.update();
 	}
 
 }

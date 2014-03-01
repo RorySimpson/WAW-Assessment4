@@ -78,7 +78,7 @@ public class SeparationRules_Tests {
 		flight1.setY(1);
 		flight2.setY(1);
 		
-		separationRules.checkViolation(airspace);
+		separationRules.checkFlightOnFlightViolation(airspace);
 		assertTrue(separationRules.getGameOverViolation());
 	}
 	
@@ -90,7 +90,7 @@ public class SeparationRules_Tests {
 		flight1.setY(1000);
 		flight2.setY(5000);
 		
-		separationRules.checkViolation(airspace);
+		separationRules.checkFlightOnFlightViolation(airspace);
 		assertFalse(separationRules.getGameOverViolation());
 	}
 	
@@ -102,7 +102,7 @@ public class SeparationRules_Tests {
 		flight1.setY(1000);
 		flight2.setY(1000);
 		
-		separationRules.checkViolation(airspace);
+		separationRules.checkFlightOnFlightViolation(airspace);
 		assertFalse(separationRules.getGameOverViolation());
 	}
 }

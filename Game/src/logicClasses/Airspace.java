@@ -80,6 +80,8 @@ public class Airspace {
 		// Prevents information about flight from previous game being displayed
 		this.controls.setSelectedFlight(null);  	
 		
+		this.eventController = new EventController();
+		
 	}
 	
 	/**
@@ -566,5 +568,9 @@ public class Airspace {
 
 	public void setScore(ScoreTracking score) {
 		this.score = score;
+	}
+	
+	public EventController getEventController(){
+		return this.eventController;
 	}
 }

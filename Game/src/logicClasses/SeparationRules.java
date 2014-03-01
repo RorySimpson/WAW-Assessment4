@@ -1,5 +1,6 @@
 package logicClasses;
 import java.awt.geom.Point2D;
+import events.*;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -67,7 +68,7 @@ public class SeparationRules {
 	 * flights in the airspace, which is stored within the airspace.
 	 */
 	
-	public void checkViolation(Airspace airspace){
+	public void checkFlightOnFlightViolation(Airspace airspace){
 		
 		
 		for (int i = 0; i < airspace.getListOfFlights().size(); i++){
@@ -89,6 +90,10 @@ public class SeparationRules {
 			}
 		}
 	}
+	
+
+	
+	
 	
 	/**
 	 * render: This calculates whether any flights in the airspace are breaking warning separation rules
@@ -136,7 +141,7 @@ public class SeparationRules {
 	
 	public void update(Airspace airspace) {
 		
-		this.checkViolation(airspace);
+		this.checkFlightOnFlightViolation(airspace);
 	}
 	
 	
