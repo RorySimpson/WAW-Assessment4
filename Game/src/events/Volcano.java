@@ -67,8 +67,11 @@ public class Volcano {
 		}
 		
 		for (VolcanoProjectile projectile : listOfProjectilesLaunched){
-			checkIfProjectileHasLeftAirspace(projectile);
 			projectile.update();
+			if (checkIfProjectileHasLeftAirspace(projectile)){
+				listOfProjectilesLaunched.remove(projectile);
+			}
+			
 		}
 	}
 	
