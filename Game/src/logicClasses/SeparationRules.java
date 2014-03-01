@@ -15,6 +15,7 @@ public class SeparationRules {
 	private int gameOverLateralSeparation, gameOverVerticalSeparation;
 	private boolean gameOverViolation; 
 	private Point2D pointOfCrash;
+	private final static int COLLISIONDISTANCE = 10;
 	
 	//CONSTRUCTOR
 	public SeparationRules(int difficultyVal){
@@ -50,6 +51,10 @@ public class SeparationRules {
 	public double lateralDistanceBetweenFlights(Flight flight1, Flight flight2){
 		return Math.sqrt(Math.pow((flight1.getX() - flight2.getX()), 2) + Math.pow(( flight1.getY() - flight2.getY()),2));
 		}
+	
+	public double lateralDistanceBetweenFlightAndProjectile(Flight flight, VolcanoProjectile projectile){
+		return Math.sqrt(Math.pow((flight.getX() - projectile.getX()), 2) + Math.pow(( flight.getY() - projectile.getY()),2));
+	}
 	
 	/**
 	 * verticalDistanceBetweenFlights: Calculates the vertical distance between two flights.
@@ -91,7 +96,21 @@ public class SeparationRules {
 		}
 	}
 	
-
+	public void checkVolcanoProjectileOnFlightCollision(Airspace airspace){
+		
+		for(VolcanoProjectile projectile: airspace.getEventController().getVolcano().getListOfProjectilesLaunched()){
+			for(Flight flight: airspace.getListOfFlights()){
+				if(lateralDistanceBetweenFlightAndProjectile(flight, projectile) <= COLLISIONDISTANCE){
+					this.gameOverViolation = true;
+					flight.setVelocity(0);
+					flight.setVelocity(0);
+					this.pointOfCrash.setLocation(flight.getX(), flight.getY());
+				}
+				
+			}
+			
+		}
+	}
 	
 	
 	

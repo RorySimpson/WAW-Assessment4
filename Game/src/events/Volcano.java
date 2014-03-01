@@ -24,6 +24,7 @@ public class Volcano {
 		this.listOfProjectilesLaunched = new ArrayList<VolcanoProjectile>();
 	}
 	
+
 	public void eruption(){
 		
 		Random rand = new Random();
@@ -70,5 +71,15 @@ public class Volcano {
 			projectile.update();
 		}
 	}
+	
+	public List<VolcanoProjectile> getListOfProjectilesLaunched() {
+		return listOfProjectilesLaunched;
+	}
+
+	public void setListOfProjectilesLaunched(
+			List<VolcanoProjectile> listOfProjectilesLaunched) {
+		this.listOfProjectilesLaunched = listOfProjectilesLaunched;
+	}
+
 
 }

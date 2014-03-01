@@ -29,5 +29,9 @@ public class EventController {
 	public void update(){
 		this.volcano.update();
 	}
+	
+	public Volcano getVolcano(){
+		return this.volcano;
+	}
 
 }
