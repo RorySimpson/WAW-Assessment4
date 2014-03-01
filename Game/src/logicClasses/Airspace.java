@@ -446,7 +446,8 @@ public class Airspace {
 			return false;
 		} else {
 			for(Flight a : listOfFlightsInAirspace){
-				if(a.isGrounded() && flight.getFlightPlan().getEntryPoint().isRunway()){
+				if(a.isGrounded() && flight.getFlightPlan().getEntryPoint().isRunway() &&
+						flight.getFlightPlan().getEntryPoint() == a.getFlightPlan().getEntryPoint()){
 					System.out.println("Flight already on runway!");
 					return false;
 				}
