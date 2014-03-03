@@ -308,6 +308,7 @@ public class Airspace {
 		this.controls.init(gc);
 		this.airportLeft.init(gc);
 		this.airportRight.init(gc);
+		this.eventController.init(gc);
 		
 		for (int i = 0; i < this.listOfWaypoints.size(); i++) { // Initialising waypoints
 			this.listOfWaypoints.get(i).init(gc);
@@ -328,7 +329,7 @@ public class Airspace {
 	 * @param gc GameContainer
 	 */
 	
-	public void update(GameContainer gc) {
+	public void update(GameContainer gc) throws SlickException {
 		
 		this.numberOfGameLoopsSinceLastFlightAdded++;
 		this.numberOfGameLoops++;
@@ -350,6 +351,7 @@ public class Airspace {
 			
 		}
 		
+		this.eventController.update(gc);
 		this.separationRules.update(this);
 		this.controls.update(gc, this);
 	}
@@ -366,6 +368,7 @@ public class Airspace {
 	 */
 	public void render(Graphics g, GameContainer gc) throws SlickException { 
 		
+		this.eventController.render(g,gc);
 		this.airportLeft.render(g, gc);
 		this.airportRight.render(g, gc);
 

@@ -22,12 +22,16 @@ public class EventController {
 		
 	}
 	
-	public void render(){
-		this.volcano.render();
+	public void init (GameContainer gc) throws SlickException{
+		this.volcano.init(gc);
 	}
 	
-	public void update(){
-		this.volcano.update();
+	public void render (Graphics g, GameContainer gc) throws SlickException{
+		this.volcano.render(g,gc);
+	}
+	
+	public void update(GameContainer gc) throws SlickException{
+		this.volcano.update(gc);
 	}
 	
 	public Volcano getVolcano(){

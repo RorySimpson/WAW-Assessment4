@@ -9,13 +9,16 @@ import logicClasses.*;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.Image;
 import java.awt.geom.Point2D;
+
 
 public class Volcano {
 	
 	private int countdownTillNextEruption = 3600;
 	private List <VolcanoProjectile> listOfProjectilesLaunched;
-	public static final Point2D.Double VOLCANOPOSITION = new Point2D.Double(0,0);
+	public static final Point2D.Double VOLCANOPOSITION = new Point2D.Double(600,300);
+	private Image volcanoImage;
 	
 	
 	
@@ -25,13 +28,14 @@ public class Volcano {
 	}
 	
 
-	public void eruption(){
+	public void eruption(GameContainer gc) throws SlickException{
 		
 		Random rand = new Random();
 		int numberOfProjectilesToBeLaunched = rand.nextInt(4) + 1;
 		
 		for(int i = 0; i < numberOfProjectilesToBeLaunched; i++){
 			listOfProjectilesLaunched.add(new VolcanoProjectile());
+			listOfProjectilesLaunched.get(listOfProjectilesLaunched.size()-1).init(gc);
 		}
 	}
 	
@@ -47,32 +51,46 @@ public class Volcano {
 				}
 	}
 	
-	public void render(){
+	public void init (GameContainer gc) throws SlickException{
+		
+	}
+	
+	public void render(Graphics g, GameContainer gc) throws SlickException{
 		
 		for (VolcanoProjectile projectile : listOfProjectilesLaunched){
-			projectile.render();
+			projectile.render(g, gc);
 		}
 		
 	}
 	
-	public void update(){
+	public void update(GameContainer gc) throws SlickException{
 		
-		if (countdownTillNextEruption != 0){
-			countdownTillNextEruption -= 1;
+		if (countdownTillNextEruption == 0){
+			countdownTillNextEruption = 3600;
+			eruption(gc);
 		}
 		
 		else{
-			eruption();
-			countdownTillNextEruption = 3600;
+			countdownTillNextEruption -= 1;
+			
 		}
 		
-		for (VolcanoProjectile projectile : listOfProjectilesLaunched){
+		for(int i = 0; i < listOfProjectilesLaunched.size(); i++){
+			VolcanoProjectile projectile = listOfProjectilesLaunched.get(i);
 			projectile.update();
 			if (checkIfProjectileHasLeftAirspace(projectile)){
 				listOfProjectilesLaunched.remove(projectile);
 			}
 			
 		}
+		
+//		for (VolcanoProjectile projectile : listOfProjectilesLaunched){
+//			projectile.update();
+//			if (checkIfProjectileHasLeftAirspace(projectile)){
+//				listOfProjectilesLaunched.remove(projectile);
+//			}
+//			
+//		}
 	}
 	
 	public List<VolcanoProjectile> getListOfProjectilesLaunched() {
