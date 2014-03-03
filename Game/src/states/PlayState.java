@@ -270,6 +270,61 @@ public class PlayState extends BasicGameState {
 	    airspace.init(gc);
 	}
 	
+	public void drawEventMessage(GameContainer gc, Graphics g){
+		
+		boolean waitingToTakeOffAtAPL = false, waitingToTakeOffAtAPR = false, eruptionAboutToOccur  = false,
+				waitingToLand = false;
+		
+		for(Flight flight: airspace.getListOfFlights()){
+			
+			if (flight.getFlightPlan().getEntryPoint() == airspace.getAirportLeft().getEndOfRunway() && !flight.isTakingOff() 
+				&& flight.getAltitude() ==0){
+				waitingToTakeOffAtAPL = true;
+			}
+			
+			if (flight.getFlightPlan().getEntryPoint() == airspace.getAirportRight().getEndOfRunway() && !flight.isTakingOff() 
+					&& flight.getAltitude() ==0){
+					waitingToTakeOffAtAPR = true;
+			}
+			
+			if ((flight.getFlightPlan().getCurrentRoute().get(0) == airspace.getAirportRight().getBeginningOfRunway() || 
+					flight.getFlightPlan().getCurrentRoute().get(0) == airspace.getAirportLeft().getBeginningOfRunway()) &&
+					!flight.isLanding()){
+					waitingToLand = true;
+			}
+			
+			
+			
+			
+		}
+		
+		if(airspace.getEventController().getVolcano().getCountdownTillNextEruption() < 600){
+			eruptionAboutToOccur = true;
+		}
+		
+		if(eruptionAboutToOccur){
+			g.setColor(Color.red);
+			g.drawString("Volcano's ready to blow!!!!!", 500, 570);
+			g.setColor(Color.white);
+		}
+		
+		else if(waitingToLand){
+			g.drawString("Flight wants to land", 500, 570);
+			
+		}
+		
+		else if(waitingToTakeOffAtAPL){
+			g.drawString("Flight awaiting take off at APL", 500, 570);
+			
+		}
+		
+		else if(waitingToTakeOffAtAPR){
+			g.drawString("Flight awaiting take off at APR", 500, 570);
+		}
+		
+		
+	}
+	
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
 			throws SlickException {
@@ -325,7 +380,7 @@ public class PlayState extends BasicGameState {
 			scoreCoinImage.draw(90, 573);
 			g.drawString(airspace.getScore().toString(), 110, 570);
 			if (airspace.getScore().getCurrentMultiplier() != 1){
-				g.drawString("x" + String.valueOf(airspace.getScore().getCurrentMultiplier()), 96,35);
+				g.drawString("x" + String.valueOf(airspace.getScore().getCurrentMultiplier()), 200,570);
 			}
 			
 			// Drawing Pause Button and Mute
@@ -339,6 +394,7 @@ public class PlayState extends BasicGameState {
 			
 			pauseImage.draw(1120,565);
 			
+			drawEventMessage(gc,g);
 						
 	
 			

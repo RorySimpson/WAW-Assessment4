@@ -360,7 +360,7 @@ public class Flight {
 	public void drawFlight(Graphics g, GameContainer gc ){
 
 		g.setColor(Color.white);
-		g.setWorldClip(11, 0, Game.MAXIMUMWIDTH -11, Game.MAXIMUMHEIGHT);
+		g.setWorldClip(11, 0, Game.MAXIMUMWIDTH -11, Game.MAXIMUMHEIGHT-40);
 
 
 		// Scale the shadow in accordance to the altitude of the flight
