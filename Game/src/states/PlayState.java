@@ -35,7 +35,7 @@ public class PlayState extends BasicGameState {
 		easyHover, mediumHover, hardHover,  
 		backgroundImage, difficultyBackground,
 		statusBarImage, clockImage, windImage,
-		flightIcon,
+		flightIcon,messageBoxImage,
 		cursorImg, achievementBox;
 	private Animation explosion;
 	private static Sound endOfGameSound;
@@ -190,6 +190,12 @@ public class PlayState extends BasicGameState {
 				}
 			});
 			
+			loading.add(new DeferredFile("res/graphics/new/messageBox.png"){
+				public void loadFile(String filename) throws SlickException{
+					messageBoxImage = new Image(filename);
+				}
+			});
+			
 			SpriteSheet sheet = new SpriteSheet("res/graphics/explosion.png", 128, 128);
 	        explosion = new Animation();
 	        explosion.setAutoUpdate(true);
@@ -256,6 +262,7 @@ public class PlayState extends BasicGameState {
 				//Fixing posY to reflect graphics coords
 
 			difficultyBackground.draw(0,0);
+			
 
 			if (posX>100 && posX<216 && posY>300 && posY<354)
 				easyHover.draw(100,300);
@@ -276,6 +283,7 @@ public class PlayState extends BasicGameState {
 			
 			// Drawing Side Images
 			backgroundImage.draw(0,0);
+			messageBoxImage.draw(11,560);
 			
 			
 			// Drawing Airspace and elements within it
@@ -285,11 +293,11 @@ public class PlayState extends BasicGameState {
 					
 			// Drawing Clock and Time
 			g.setColor(Color.white);
-			clockImage.draw(6,5);
-			g.drawString(stringTime, 31, 10);
+			clockImage.draw(6,565);
+			g.drawString(stringTime, 31, 570);
 			
 			// Drawing Score
-			g.drawString(airspace.getScore().toString(), 16, 35);
+			g.drawString(airspace.getScore().toString(), 90, 570);
 			if (airspace.getScore().getCurrentMultiplier() != 1){
 				g.drawString("x" + String.valueOf(airspace.getScore().getCurrentMultiplier()), 96,35);
 			}
