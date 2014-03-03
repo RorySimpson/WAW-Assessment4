@@ -44,6 +44,7 @@ public class GameOverState extends BasicGameState {
 	@Override
 	public void init(GameContainer gc, StateBasedGame sbg)
 				throws SlickException {
+		
 		{
 			LoadingList loading = LoadingList.get();
 			
@@ -97,12 +98,13 @@ public class GameOverState extends BasicGameState {
 		//Check to see if a new global high score has been set (in top 10 scores)
 		int score = ((Game)sbg).getCurrentScore();
 		int lowestScore = connection.getLowestScore();
-		if (score >= lowestScore){
+		//if (score >= lowestScore){
+		if (true){
 			Font awtFont = new Font("Courier", Font.BOLD, 15); // Setting up fonts used in text boxes
 			font = new TrueTypeFont(awtFont, false);
 			newHighScore = true;
-			nameTextField = new TextField(gc, font,415, 90, 100, 23);
-			nameTextField.setText("Name");
+			nameTextField = new TextField(gc, font, 520, 150, 200, 23);
+			nameTextField.setText("Whats your name?");
 		}
 	}
 	

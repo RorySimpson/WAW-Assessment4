@@ -41,10 +41,10 @@ public class Connection {
 		getScores();
 		return Integer.parseInt(scoreMap.entrySet().iterator().next().getValue());
 	}
+	
 	public int getLowestScore(){
 		getScores();
 		String last = new LinkedList<String>(scoreMap.values()).getLast();
-		System.out.println(last);
 		return Integer.parseInt(last);
 	}
 
