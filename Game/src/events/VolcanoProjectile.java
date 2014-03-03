@@ -4,6 +4,7 @@ import java.awt.geom.Point2D;
 import java.util.Random;
 
 import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
@@ -14,6 +15,7 @@ public class VolcanoProjectile {
 	private double x,y, climbRate = 60/60.0;
 	private int heading, velocity, currentAltitude, targetAltitude;
 	private static double gameScale = 1/1000.0;
+	private Image volcanoProjectileImage;
 	
 	
 	public VolcanoProjectile (){
@@ -56,13 +58,15 @@ public class VolcanoProjectile {
 	}
 	
 	public void init(GameContainer gc) throws SlickException{
-		
+		volcanoProjectileImage = new Image("res/graphics/new/volcanoProjectile.png");
 	}
 	
 	public void render(Graphics g, GameContainer gc) throws SlickException{
 		
+		
+		volcanoProjectileImage.setRotation(volcanoProjectileImage.getRotation()+5);
 		g.setWorldClip(11, 0, Game.MAXIMUMWIDTH -11, Game.MAXIMUMHEIGHT-40);
-		g.drawOval((float)x, (float) y, 10, 10);
+		volcanoProjectileImage.drawCentered((float)x, (float) y);
 		g.setWorldClip(0, 0, Game.MAXIMUMWIDTH, Game.MAXIMUMHEIGHT);
 	}
 	
