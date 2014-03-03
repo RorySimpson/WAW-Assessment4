@@ -47,6 +47,37 @@ public class Connection {
 		String last = new LinkedList<String>(scoreMap.values()).getLast();
 		return Integer.parseInt(last);
 	}
+	
+	public void sendNewScore(String Name, int Score){
+	    try {
+		// Construct data
+		String data = URLEncoder.encode("score", "UTF-8") + "=" + URLEncoder.encode(Integer.toString(Score), "UTF-8");
+		data += "&" + URLEncoder.encode("name", "UTF-8") + "=" + URLEncoder.encode(Name, "UTF-8");
+
+		// Send data
+		URL url = new URL("http://teamwaw.co.uk/whenPlanesCollide/connection.php");
+		URLConnection conn = url.openConnection();
+		conn.setDoOutput(true);
+		OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
+		wr.write(data);
+		wr.flush();
+
+		// Get the response
+		BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+		String line;
+		while ((line = rd.readLine()) != null) {
+		    System.out.println(line);
+		}
+		wr.close();
+		rd.close();
+	    }
+	    catch (MalformedURLException e) {
+		e.printStackTrace();
+	    } 
+	    catch (IOException e) {
+		e.printStackTrace();
+	    }
+	}
 
 	public void clearData() {
 		scoreMap.clear();

@@ -147,7 +147,7 @@ public class GameOverState extends BasicGameState {
 		}
 	}
 	
-	public void updateTextBox(Input input){
+	public void updateTextBox(Input input,StateBasedGame sbg){
 	    text = nameTextField.getText();
 	    if (nameTextField.hasFocus()) {
 		
@@ -159,8 +159,8 @@ public class GameOverState extends BasicGameState {
 		// When the enter key is pressed retrieve its text and reset the textbox
 		if (input.isKeyDown(Input.KEY_ENTER)) {
 		    System.out.println(text);
-		    text = text.replaceAll("\\D+", "");
 		    nameTextField.setFocus(false);
+		    connection.sendNewScore(text,((Game)sbg).getCurrentScore());
 		}
 	    }
 	    else{
@@ -178,7 +178,7 @@ public class GameOverState extends BasicGameState {
 	    	
 	    	if(newHighScore == true){
 	    	    Input input = gc.getInput();
-	    	    updateTextBox(input);
+	    	    updateTextBox(input,sbg);
 	    	}
 	    	
 		int posX = Mouse.getX(),
