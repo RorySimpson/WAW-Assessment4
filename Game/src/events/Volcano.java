@@ -31,7 +31,7 @@ public class Volcano {
 	public void eruption(GameContainer gc) throws SlickException{
 		
 		Random rand = new Random();
-		int numberOfProjectilesToBeLaunched = rand.nextInt(4) + 1;
+		int numberOfProjectilesToBeLaunched = rand.nextInt(4) + 2;
 		
 		for(int i = 0; i < numberOfProjectilesToBeLaunched; i++){
 			listOfProjectilesLaunched.add(new VolcanoProjectile());
@@ -100,6 +100,16 @@ public class Volcano {
 	public void setListOfProjectilesLaunched(
 			List<VolcanoProjectile> listOfProjectilesLaunched) {
 		this.listOfProjectilesLaunched = listOfProjectilesLaunched;
+	}
+
+
+	public int getCountdownTillNextEruption() {
+		return countdownTillNextEruption;
+	}
+
+
+	public void setCountdownTillNextEruption(int countdownTillNextEruption) {
+		this.countdownTillNextEruption = countdownTillNextEruption;
 	}
 
 

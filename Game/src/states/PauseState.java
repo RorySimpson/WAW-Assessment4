@@ -155,7 +155,7 @@ public class PauseState extends BasicGameState {
 			sbg.enterState(stateContainer.Game.PLAYSTATE);
 		}
 		
-		if (Mouse.isButtonDown(Input.MOUSE_LEFT_BUTTON)) {
+		if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
 			//check if buttons are pressed
 			
 			if (posX>20 && posX<40 && posY>20 && posY<40) {					

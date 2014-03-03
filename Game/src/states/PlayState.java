@@ -35,8 +35,8 @@ public class PlayState extends BasicGameState {
 		easyHover, mediumHover, hardHover,  
 		backgroundImage, difficultyBackground,
 		statusBarImage, clockImage, windImage,
-		flightIcon,messageBoxImage,
-		cursorImg, achievementBox;
+		flightIcon,messageBoxImage, scoreCoinImage,
+		cursorImg, achievementBox, soundOffImage, soundOnImage, pauseImage;
 	private Animation explosion;
 	private static Sound endOfGameSound;
 	private static Music gameplayMusic;
@@ -196,6 +196,31 @@ public class PlayState extends BasicGameState {
 				}
 			});
 			
+			loading.add(new DeferredFile("res/graphics/new/soundOff.png"){
+				public void loadFile(String filename) throws SlickException{
+					soundOffImage = new Image(filename);
+				}
+			});
+			
+			loading.add(new DeferredFile("res/graphics/new/soundOn.png"){
+				public void loadFile(String filename) throws SlickException{
+					soundOnImage = new Image(filename);
+				}
+			});
+			
+			loading.add(new DeferredFile("res/graphics/new/pause.png"){
+				public void loadFile(String filename) throws SlickException{
+					pauseImage = new Image(filename);
+				}
+			});
+			
+			loading.add(new DeferredFile("res/graphics/new/coin.png"){
+				public void loadFile(String filename) throws SlickException{
+					scoreCoinImage = new Image(filename);
+				}
+			});
+			
+			
 			SpriteSheet sheet = new SpriteSheet("res/graphics/explosion.png", 128, 128);
 	        explosion = new Animation();
 	        explosion.setAutoUpdate(true);
@@ -243,6 +268,61 @@ public class PlayState extends BasicGameState {
 		airspace.getListOfExitPoints().add(airspace.getAirportRight().getBeginningOfRunway());
 				
 	    airspace.init(gc);
+	}
+	
+	public void drawEventMessage(GameContainer gc, Graphics g){
+		
+		boolean waitingToTakeOffAtAPL = false, waitingToTakeOffAtAPR = false, eruptionAboutToOccur  = false,
+				waitingToLand = false;
+		
+		for(Flight flight: airspace.getListOfFlights()){
+			
+			if (flight.getFlightPlan().getEntryPoint() == airspace.getAirportLeft().getEndOfRunway() && !flight.isTakingOff() 
+				&& flight.getAltitude() ==0){
+				waitingToTakeOffAtAPL = true;
+			}
+			
+			if (flight.getFlightPlan().getEntryPoint() == airspace.getAirportRight().getEndOfRunway() && !flight.isTakingOff() 
+					&& flight.getAltitude() ==0){
+					waitingToTakeOffAtAPR = true;
+			}
+			
+			if ((flight.getFlightPlan().getCurrentRoute().get(0) == airspace.getAirportRight().getBeginningOfRunway() || 
+					flight.getFlightPlan().getCurrentRoute().get(0) == airspace.getAirportLeft().getBeginningOfRunway()) &&
+					!flight.isLanding()){
+					waitingToLand = true;
+			}
+			
+			
+			
+			
+		}
+		
+		if(airspace.getEventController().getVolcano().getCountdownTillNextEruption() < 600){
+			eruptionAboutToOccur = true;
+		}
+		
+		if(eruptionAboutToOccur){
+			g.setColor(Color.red);
+			g.drawString("Volcano's ready to blow!!!!!", 500, 570);
+			g.setColor(Color.white);
+		}
+		
+		else if(waitingToLand){
+			g.drawString("Flight wants to land", 500, 570);
+			
+		}
+		
+		else if(waitingToTakeOffAtAPL){
+			g.drawString("Flight awaiting take off at APL", 500, 570);
+			
+		}
+		
+		else if(waitingToTakeOffAtAPR){
+			g.drawString("Flight awaiting take off at APR", 500, 570);
+		}
+		
+		
 	}
 	
 	@Override
@@ -297,11 +377,24 @@ public class PlayState extends BasicGameState {
 			g.drawString(stringTime, 31, 570);
 			
 			// Drawing Score
-			g.drawString(airspace.getScore().toString(), 90, 570);
+			scoreCoinImage.draw(90, 573);
+			g.drawString(airspace.getScore().toString(), 110, 570);
 			if (airspace.getScore().getCurrentMultiplier() != 1){
-				g.drawString("x" + String.valueOf(airspace.getScore().getCurrentMultiplier()), 96,35);
+				g.drawString("x" + String.valueOf(airspace.getScore().getCurrentMultiplier()), 200,570);
 			}
 			
+			// Drawing Pause Button and Mute
+			
+			if(gameplayMusic.playing()){
+				soundOnImage.draw(1160, 565);
+			}
+			else{
+				soundOffImage.draw(1160, 565);
+			}
+			
+			pauseImage.draw(1120,565);
+			
+			drawEventMessage(gc,g);
 						
 	
 			
@@ -415,6 +508,10 @@ public class PlayState extends BasicGameState {
 	public void update(GameContainer gc, StateBasedGame sbg, int delta)
 			throws SlickException {
 		
+		int posX = Mouse.getX();
+		int posY = stateContainer.Game.MAXIMUMHEIGHT -Mouse.getY();
+		Input input = gc.getInput();
+		
 		
 		
 		if(gameJustFinished){
@@ -450,8 +547,7 @@ public class PlayState extends BasicGameState {
 		
 		if(settingDifficulty){
 		
-			int posX = Mouse.getX();
-			int posY = stateContainer.Game.MAXIMUMHEIGHT -Mouse.getY();
+
 			
 			if (Mouse.isButtonDown(Input.MOUSE_LEFT_BUTTON)) {
 				if((posX>100&&posX<216) && (posY>300&&posY<354)) {
@@ -519,8 +615,33 @@ public class PlayState extends BasicGameState {
 			this.stringTime=stringMins+":"+stringSecs;
 						
 						
-			// SIM:  Updating Airspace
-						
+			// Updating Airspace
+			
+			
+			
+			if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
+				if((posX>1120&&posX<1165) && (posY>565&&posY<600)) {
+					sbg.enterState(stateContainer.Game.PAUSESTATE);				
+				}
+				
+				else if((posX>1160&&posX<1200) && (posY>565&&posY<600)) {
+					
+					if(gameplayMusic.playing()){
+						gameplayMusic.pause();
+						musicPaused = true;
+					}
+					
+					else{
+						gameplayMusic.resume();
+						musicPaused = false;
+					}
+								
+				}
+				
+			}
+			
+			
+
 			airspace.newFlight(gc );
 			airspace.update(gc );
 			if (airspace.getSeparationRules().getGameOverViolation()){
@@ -538,7 +659,7 @@ public class PlayState extends BasicGameState {
 						
 			}					
 			
-			Input input = gc.getInput();
+		
 						
 			// Checking For Pause Screen requested in game
 						

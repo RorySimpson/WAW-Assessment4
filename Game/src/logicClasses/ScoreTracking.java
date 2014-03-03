@@ -146,7 +146,7 @@ public class ScoreTracking {
 	}
 	
 	public String toString(){
-		String s = "Score = " + currentScore;
+		String s = Integer.toString(currentScore);
 		return s;
 	}
 	
