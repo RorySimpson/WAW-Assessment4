@@ -50,7 +50,7 @@ public class Achievements {
 	
 	public void completeAchievement(){
 		if (numberOfAchievements >= MAXACHIEVEMENTS){
-			System.out.println("All Achievements Gained");
+			//System.out.println("All Achievements Gained");
 			//then display achievement
 		}
 		numberOfAchievements += 1;

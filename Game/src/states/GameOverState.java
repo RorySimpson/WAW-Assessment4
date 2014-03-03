@@ -151,7 +151,7 @@ public class GameOverState extends BasicGameState {
 		    g.fillRoundRect (50, 50, 1100, 150, 5);
 		    g.setColor(Color.white);
 		    g.drawString("Thanks for submitting your highscore!", 450, 70);
-		    g.drawString("You can see the leaderboard from the main menu!", 280, 90);
+		    g.drawString("You can see the leaderboard from the main menu!", 400, 90);
 		}
 	}
 	
