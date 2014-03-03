@@ -644,7 +644,7 @@ public class PlayState extends BasicGameState {
 
 			airspace.newFlight(gc );
 			airspace.update(gc );
-			if (airspace.getSeparationRules().getGameOverViolation()){
+			if (airspace.getSeparationRules().getGameOverViolation() && !gameJustFinished){
 				
 				achievementMessage = achievement.crashAchievement((int) time); //pass the game time as of game over into the crashAchievement
 				airspace.getSeparationRules().setGameOverViolation(false);
@@ -681,7 +681,7 @@ public class PlayState extends BasicGameState {
 			
 			}
 			
-			if (!gameplayMusic.playing() && (!musicPaused)){
+			if (!gameplayMusic.playing() && (!musicPaused) && !gameJustFinished){
 				//Loops gameplay music based on random number created in init (what?)
 							
 				gameplayMusic.loop(1.0f, 0.5f);
