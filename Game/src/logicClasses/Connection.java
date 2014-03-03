@@ -48,7 +48,7 @@ public class Connection {
 		return Integer.parseInt(last);
 	}
 	
-	public void sendNewScore(String Name, int Score){
+	public Boolean sendNewScore(String Name, int Score){
 	    try {
 		// Construct data
 		String data = URLEncoder.encode("score", "UTF-8") + "=" + URLEncoder.encode(Integer.toString(Score), "UTF-8");
@@ -66,7 +66,9 @@ public class Connection {
 		BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 		String line;
 		while ((line = rd.readLine()) != null) {
-		    System.out.println(line);
+		    if (line == "ACK"){
+			return true;
+		    }
 		}
 		wr.close();
 		rd.close();
@@ -77,6 +79,7 @@ public class Connection {
 	    catch (IOException e) {
 		e.printStackTrace();
 	    }
+	    return false;
 	}
 
 	public void clearData() {
