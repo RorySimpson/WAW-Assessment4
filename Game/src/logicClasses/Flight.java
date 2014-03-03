@@ -834,6 +834,50 @@ public boolean withinTolerance(double x1, double x2,double tolerance){
 		return this.selected;
 	}
 
+	public static Image getRegularFlightImage() {
+		return regularFlightImage;
+	}
+
+	public static void setRegularFlightImage(Image regularFlightImage) {
+		Flight.regularFlightImage = regularFlightImage;
+	}
+
+	public static Image getSlowFlightImage() {
+		return slowFlightImage;
+	}
+
+	public static void setSlowFlightImage(Image slowFlightImage) {
+		Flight.slowFlightImage = slowFlightImage;
+	}
+
+	public static Image getFastFlightImage() {
+		return fastFlightImage;
+	}
+
+	public static void setFastFlightImage(Image fastFlightImage) {
+		Flight.fastFlightImage = fastFlightImage;
+	}
+
+	public static Image getShadowImage() {
+		return shadowImage;
+	}
+
+	public static void setShadowImage(Image shadowImage) {
+		Flight.shadowImage = shadowImage;
+	}
+
+	public double getLandingDescentRate() {
+		return landingDescentRate;
+	}
+
+	public void setLandingDescentRate(double landingDescentRate) {
+		this.landingDescentRate = landingDescentRate;
+	}
+
+	public void setLanding(boolean landing) {
+		this.landing = landing;
+	}
+
 
 
 }

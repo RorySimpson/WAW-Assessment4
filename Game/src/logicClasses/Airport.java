@@ -34,7 +34,7 @@ public class Airport {
 
 
 
-	Airport (int airportNumber,Airspace airspace) {
+	protected Airport (int airportNumber,Airspace airspace) {
 		// Placing the airport off screen as the airport graphics are part of the graphics already
 		
 		this.airspace = airspace;
@@ -198,6 +198,86 @@ public class Airport {
 
 	public void setLandingApproachImage(Image landingApproachImage) {
 		this.landingApproachImageRight = landingApproachImage;
+	}
+
+
+
+
+
+	public static Image getAirportImage() {
+		return airportImage;
+	}
+
+
+
+
+
+	public static void setAirportImage(Image airportImage) {
+		Airport.airportImage = airportImage;
+	}
+
+
+
+
+
+	public int getAirportNumber() {
+		return airportNumber;
+	}
+
+
+
+
+
+	public void setAirportNumber(int airportNumber) {
+		this.airportNumber = airportNumber;
+	}
+
+
+
+
+
+	public Airspace getAirspace() {
+		return airspace;
+	}
+
+
+
+
+
+	public void setAirspace(Airspace airspace) {
+		this.airspace = airspace;
+	}
+
+
+
+
+
+	public Image getLandingApproachImageRight() {
+		return landingApproachImageRight;
+	}
+
+
+
+
+
+	public void setLandingApproachImageRight(Image landingApproachImageRight) {
+		this.landingApproachImageRight = landingApproachImageRight;
+	}
+
+
+
+
+
+	public Image getLandingApproachImageLeft() {
+		return landingApproachImageLeft;
+	}
+
+
+
+
+
+	public void setLandingApproachImageLeft(Image landingApproachImageLeft) {
+		this.landingApproachImageLeft = landingApproachImageLeft;
 	}
 
 

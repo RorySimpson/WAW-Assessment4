@@ -1,9 +1,12 @@
 package coop;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import logicClasses.Airspace;
 import logicClasses.Flight;
+
+import coop.FlightCoop;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
@@ -11,18 +14,19 @@ import org.newdawn.slick.SlickException;
 
 public class AirspaceCoop extends Airspace {
 	
-	private ArrayList<Flight> listOfFlightsPlayer1;
-	private ArrayList<Flight> listOfFlightsPlayer2;
+	private ArrayList<FlightCoop> listOfFlightsPlayer1;
+	private ArrayList<FlightCoop> listOfFlightsPlayer2;
 	boolean addPlayer1Flight;
 	
 	public AirspaceCoop() {
 		
 		super();
 		this.setControls(new ControlsCoop(this));
-		this.listOfFlightsPlayer1 = new ArrayList<Flight>();
-		this.listOfFlightsPlayer2 = new ArrayList<Flight>();
-		this.addPlayer1Flight=true;
-		
+		this.listOfFlightsPlayer1 = new ArrayList<FlightCoop>();
+		this.listOfFlightsPlayer2 = new ArrayList<FlightCoop>();
+		this.addPlayer1Flight=false;
+		this.setAirportLeft(new AirportCoop(2, this));
+		this.setAirportRight(new AirportCoop(1, this));
 	}
 	
 	
@@ -31,8 +35,8 @@ public class AirspaceCoop extends Airspace {
 	public void resetAirspace() {
 		
 		this.setListOfFlightsInAirspace(new ArrayList<Flight>());
-		this.listOfFlightsPlayer1 = new ArrayList<Flight>();
-		this.listOfFlightsPlayer2 = new ArrayList<Flight>();
+		this.listOfFlightsPlayer1 = new ArrayList<FlightCoop>();
+		this.listOfFlightsPlayer2 = new ArrayList<FlightCoop>();
 		
 		this.setNumberOfGameLoopsSinceLastFlightAdded(0); 
 		this.setNumberOfGameLoops(0); 
@@ -51,17 +55,83 @@ public class AirspaceCoop extends Airspace {
 	
 	//a new method for creating flights that calls the old one, but also adds
 	//the flight to either the player 1 or 2 list
+	@Override
+	public boolean newFlight(GameContainer gc) throws SlickException {
+
+		if (this.getListOfFlightsInAirspace().size() < this.getMaximumNumberOfFlightsInAirspace()) {
+			
+			if ((this.getNumberOfGameLoopsSinceLastFlightAdded() >= 850  || this.getListOfFlightsInAirspace().isEmpty())) {
+				
+				Random rand = new Random();
+				int checkNumber;
+					
+				if (this.getListOfFlightsInAirspace().isEmpty())
+				{
+					// A random number (checkNumber) is generated in the range [0, 100)
+						checkNumber = rand.nextInt(100);  
+				} 
+					
+				else
+				{
+					// A random number (checkNumber) is generated in range [0, randomNumberForFlightGeneration)
+					checkNumber = rand.nextInt(this.getRandomNumberForFlightGeneration()); 
+				}
+				
+				/* 
+				 * The random number is generated in the range [0, 100) if the airspace is empty, as this increases 
+				 * the likelihood of a value of 1 being returned, and therefore a flight being generated; this stops the user
+				 * having to potentially wait a long period of time for a flight to be generated. 
+				 * If the airspace is not empty, the random number generated is in the range [0, randomNumberForFlight Generation)
+				 * which is > 100. This decreases the likelihood of a flight being generated.
+				 */
+		
+				if (checkNumber == 1) {
+			
+					Flight tempFlight = new FlightCoop(this);
+					
+					tempFlight.setFlightName(this.generateFlightName());
+					tempFlight.setTargetAltitude(tempFlight.getAltitude());
+					
+					double heading;
+					
+					
+					if(tempFlight.getFlightPlan().getEntryPoint() == this.getAirportRight().getEndOfRunway()){
+						
+						heading = getAirportRight().getRunwayHeading();
+					}
+					else
+					{
+						heading = tempFlight.calculateHeadingToNextWaypoint(
+										tempFlight.getFlightPlan().getPointByIndex(0).getX() ,
+										tempFlight.getFlightPlan().getPointByIndex(0).getY());
+					}
+					tempFlight.setTargetHeading(heading);
+					tempFlight.setCurrentHeading(heading);
+					if(addFlight(tempFlight)){
+						this.setNumberOfGameLoopsSinceLastFlightAdded(0);
+						this.getListOfFlightsInAirspace().get(
+								this.getListOfFlightsInAirspace().size() -1).init(gc);
+						return true;
+					}
+					
+				}
+			}
+		}
+		return false;
+	}
 	public void newCoopFlight(GameContainer gc) throws SlickException {
 		if(this.newFlight(gc)){
-			Flight addedFlight = this.getListOfFlightsInAirspace().get(this.getListOfFlightsInAirspace().size()-1);
+			FlightCoop addedFlight = (FlightCoop) this.getListOfFlightsInAirspace().get(this.getListOfFlightsInAirspace().size()-1);
 			if(this.addPlayer1Flight) {
 				this.addPlayer1Flight=false;
+				addedFlight.setPlayer2(false);
 				this.listOfFlightsPlayer1.add(addedFlight);
 				System.out.println("Added a flight to player 1");
 			
 			}
 			else {
 				this.addPlayer1Flight=true;
+				addedFlight.setPlayer2(true);
 				this.listOfFlightsPlayer2.add(addedFlight);
 			}
 		}
@@ -89,47 +159,21 @@ public class AirspaceCoop extends Airspace {
 
 		}
 	}
-	//Don't think this needs to be changed, but leaving it just in case
-	/*@Override
-	public void update(GameContainer gc) {
-		
-		this.setNumberOfGameLoopsSinceLastFlightAdded(this.getNumberOfGameLoopsSinceLastFlightAdded()+1);
-		this.setNumberOfGameLoops(this.getNumberOfGameLoops()+1);
-		if (this.getNumberOfGameLoops() >= this.getNumberOfGameLoopsWhenDifficultyIncreases()) {
-			this.increaseDifficulty();
 	
-		}
-		
-		for (int i = 0; i < this.getListOfFlightsInAirspace().size(); i++) {
-			this.getListOfFlightsInAirspace().get(i).update(this.getScore());
-			if(this.getListOfFlightsInAirspace().get(i).getFlightPlan().getCurrentRoute().size()==0) {
-				this.removeSpecificFlight(i);
-			}
-			else if (this.checkIfFlightHasLeftAirspace(this.getListOfFlights().get(i))) {
-				this.getScore().reduceScoreOnFlightLost();
-				this.getScore(). reduceMultiplierOnFlightLost();
-				this.removeSpecificFlight(i);
-			}
-			
-		}
-		
-		this.getSeparationRules().update(this);
-		this.getControls().update(gc, this);
-	}*/
 
-	public ArrayList<Flight> getListOfFlightsPlayer1() {
+	public ArrayList<FlightCoop> getListOfFlightsPlayer1() {
 		return listOfFlightsPlayer1;
 	}
 
-	public void setListOfFlightsPlayer1(ArrayList<Flight> listOfFlightsPlayer1) {
+	public void setListOfFlightsPlayer1(ArrayList<FlightCoop> listOfFlightsPlayer1) {
 		this.listOfFlightsPlayer1 = listOfFlightsPlayer1;
 	}
 
-	public ArrayList<Flight> getListOfFlightsPlayer2() {
+	public ArrayList<FlightCoop> getListOfFlightsPlayer2() {
 		return listOfFlightsPlayer2;
 	}
 
-	public void setListOfFlightsPlayer2(ArrayList<Flight> listOfFlightsPlayer2) {
+	public void setListOfFlightsPlayer2(ArrayList<FlightCoop> listOfFlightsPlayer2) {
 		this.listOfFlightsPlayer2 = listOfFlightsPlayer2;
 	}
 	

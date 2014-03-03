@@ -86,6 +86,9 @@ public class ControlsCoop extends Controls {
 			if(gc.getInput().isKeyDown(Input.KEY_T)) {
 				this.selectedFlight1.takeOff();
 			}
+			if(gc.getInput().isKeyDown(Input.KEY_L)) {
+				this.selectedFlight1.land();
+			}
 		}
 		if(this.selectedFlight2!=null) {
 			if(gc.getInput().isKeyDown(Input.KEY_LEFT)) {
@@ -95,13 +98,16 @@ public class ControlsCoop extends Controls {
 				this.selectedFlight2.incrementHeading();
 			}
 			if(gc.getInput().isKeyPressed(Input.KEY_DOWN)) {
-				this.selectedFlight2.setTargetAltitude(this.selectedFlight1.getTargetAltitude()-1000);
+				this.selectedFlight2.setTargetAltitude(this.selectedFlight2.getTargetAltitude()-1000);
 			}
 			if(gc.getInput().isKeyPressed(Input.KEY_UP)) {
-				this.selectedFlight2.setTargetAltitude(this.selectedFlight1.getTargetAltitude()+1000);
+				this.selectedFlight2.setTargetAltitude(this.selectedFlight2.getTargetAltitude()+1000);
 			}
 			if(gc.getInput().isKeyDown(Input.KEY_SLASH)) {
 				this.selectedFlight2.takeOff();
+			}
+			if(gc.getInput().isKeyDown(Input.KEY_DELETE)) {
+				this.selectedFlight2.land();
 			}
 		}
 		

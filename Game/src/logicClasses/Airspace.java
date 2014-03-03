@@ -521,6 +521,14 @@ public class Airspace {
 		return airportRight;
 	}
 	
+	public void setAirportLeft(Airport airportLeft) {
+		this.airportLeft = airportLeft;
+	}
+
+	public void setAirportRight(Airport airportRight) {
+		this.airportRight = airportRight;
+	}
+
 	@Override
 	public String toString() {
 		String s = "Airspace: "+ airportLeft.toString();
@@ -575,5 +583,23 @@ public class Airspace {
 	
 	public EventController getEventController(){
 		return this.eventController;
+	}
+
+	public int getMaximumNumberOfFlightsInAirspace() {
+		return maximumNumberOfFlightsInAirspace;
+	}
+
+	public void setMaximumNumberOfFlightsInAirspace(
+			int maximumNumberOfFlightsInAirspace) {
+		this.maximumNumberOfFlightsInAirspace = maximumNumberOfFlightsInAirspace;
+	}
+
+	public int getRandomNumberForFlightGeneration() {
+		return randomNumberForFlightGeneration;
+	}
+
+	public void setRandomNumberForFlightGeneration(
+			int randomNumberForFlightGeneration) {
+		this.randomNumberForFlightGeneration = randomNumberForFlightGeneration;
 	}
 }
