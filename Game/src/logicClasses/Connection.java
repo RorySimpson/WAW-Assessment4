@@ -1,6 +1,7 @@
 package logicClasses;
 
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.io.*;
 import java.net.*;
 
@@ -39,6 +40,12 @@ public class Connection {
 	public int getHighestScore() {
 		getScores();
 		return Integer.parseInt(scoreMap.entrySet().iterator().next().getValue());
+	}
+	public int getLowestScore(){
+		getScores();
+		String last = new LinkedList<String>(scoreMap.values()).getLast();
+		System.out.println(last);
+		return Integer.parseInt(last);
 	}
 
 	public void clearData() {

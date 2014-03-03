@@ -1,4 +1,6 @@
 package states;
+import java.awt.Font;
+
 import logicClasses.Achievements;
 import logicClasses.Connection;
 import stateContainer.Game;
@@ -10,6 +12,8 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.TrueTypeFont;
+import org.newdawn.slick.gui.TextField;
 import org.newdawn.slick.loading.LoadingList;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
@@ -27,10 +31,14 @@ public class GameOverState extends BasicGameState {
 	private Achievements achievement;
 	private Connection connection;
 	
+	private boolean newHighScore;
+	private TextField nameTextField;
+	
+	private TrueTypeFont font;
+	
 	public GameOverState(int state) {
 		achievement = new Achievements();
 		connection = new Connection();
-		
 	}
 	
 	@Override
@@ -85,8 +93,17 @@ public class GameOverState extends BasicGameState {
 	
 	@Override
 	public void enter(GameContainer gc, StateBasedGame sbg){
+
+		//Check to see if a new global high score has been set (in top 10 scores)
 		int score = ((Game)sbg).getCurrentScore();
-		int highestScore = connection.getHighestScore();
+		int lowestScore = connection.getLowestScore();
+		if (score >= lowestScore){
+			Font awtFont = new Font("Courier", Font.BOLD, 15); // Setting up fonts used in text boxes
+			font = new TrueTypeFont(awtFont, false);
+			newHighScore = true;
+			nameTextField = new TextField(gc, font,415, 90, 100, 23);
+			nameTextField.setText("Name");
+		}
 	}
 	
 	@Override
@@ -115,7 +132,17 @@ public class GameOverState extends BasicGameState {
 		else quitButton.draw(1148,556);
 		g.drawString(achievement.crashAchievement(60), 900, 30);
 		g.setColor(Color.white);
+		
+		if(newHighScore == true){
+			g.setColor(new Color(250, 235, 215, 50));	//pale orange, semi-transparent
+			g.fillRoundRect (50, 50, 1100, 150, 5);
+			g.setColor(Color.white);
+			g.drawString("New High Score!", 545, 70);
+			g.drawString("Congratulations! You have set a new highscore!", 415, 90);
+			nameTextField.render(gc, g);
+		}
 	}
+	
 	
 
 	@Override
