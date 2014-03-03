@@ -407,15 +407,7 @@ public class PlayState extends BasicGameState {
 	public void update(GameContainer gc, StateBasedGame sbg, int delta)
 			throws SlickException {
 		
-		if (gameEnded ){
-			
-			airspace.resetAirspace();
-	    	time = 0;
-	    	gameEnded = false;
-	    	settingDifficulty = true;
-	    	airspace.getScore().resetScore();
-	    	
-		}
+		
 		
 		if(gameJustFinished){
 			if(countdownToGameOverState < GAMEOVERTIME){
@@ -434,11 +426,19 @@ public class PlayState extends BasicGameState {
 		
 		// Checks if the game has been retried and if it has resets the airspace
 		
-
+		if (gameEnded ){
+			
+			airspace.resetAirspace();
+	    	time = 0;
+	    	gameEnded = false;
+	    	settingDifficulty = true;
+	    	airspace.getScore().resetScore();
+	    	
+		}
 		
 		
 		
-		// Checks whether the user is still choosing the difficulty
+		// SIM: Checks whether the user is still choosing the difficulty
 		
 		if(settingDifficulty){
 		
@@ -511,15 +511,15 @@ public class PlayState extends BasicGameState {
 			this.stringTime=stringMins+":"+stringSecs;
 						
 						
-			// Updating Airspace
+			// SIM:  Updating Airspace
 						
-			airspace.newFlight(gc);
-			airspace.update(gc);
-			if (airspace.getSeparationRules().getGameOverViolation() == true){
+			airspace.newFlight(gc );
+			airspace.update(gc );
+			if (airspace.getSeparationRules().getGameOverViolation()){
 				
 				achievementMessage = achievement.crashAchievement((int) time); //pass the game time as of game over into the crashAchievement
 				airspace.getSeparationRules().setGameOverViolation(false);
-				((Game)sbg).setCurrentScore(airspace.getScore().getCurrentScore());
+				((Game)sbg).setCurrentScore(airspace.getScore( ).getCurrentScore());
 				gameplayMusic.stop();
 				endOfGameSound.play();
 				gameJustFinished = true;

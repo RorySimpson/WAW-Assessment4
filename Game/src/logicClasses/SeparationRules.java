@@ -7,6 +7,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 
 
+
 public class SeparationRules {
 	
 	//FIELDS
@@ -161,6 +162,7 @@ public class SeparationRules {
 	public void update(Airspace airspace) {
 		
 		this.checkFlightOnFlightViolation(airspace);
+		this.checkVolcanoProjectileOnFlightCollision(airspace);
 	}
 	
 	

@@ -662,6 +662,7 @@ public boolean withinTolerance(double x1, double x2,double tolerance){
 		
 		this.drawFlight(g, gc);
 		this.flightPlan.render(g,gc);
+		
 
 
 		
