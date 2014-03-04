@@ -26,10 +26,10 @@ public class FlightCoop extends Flight {
 	public void init(GameContainer gc) throws SlickException {
 
 		if (player2Image == null){
-			player2Image = new Image("res/graphics/flightPlayer2.png");
+			player2Image = new Image("res/graphics/flight2_2.png");
 		}
 		if (player1Image == null){
-			player1Image = new Image("res/graphics/flightPlayer1.png");
+			player1Image = new Image("res/graphics/flight1_1.png");
 		}
 		if(getShadowImage() == null){
 			setShadowImage(new Image("res/graphics/flight_shadow.png"));	
