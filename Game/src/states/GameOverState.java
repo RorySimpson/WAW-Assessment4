@@ -106,6 +106,9 @@ public class GameOverState extends BasicGameState {
 			font = new TrueTypeFont(awtFont, false);
 			newHighScore = true;
 			nameTextField = new TextField(gc, font, 520, 150, 200, 23);
+			nameTextField.setFocus(true);
+			nameTextField.setFocus(false);
+			nameTextField.setMaxLength(15);
 			nameTextField.setText("Whats your name?");
 		}
 	}
@@ -196,10 +199,16 @@ public class GameOverState extends BasicGameState {
 
 		if (Mouse.isButtonDown(Input.MOUSE_LEFT_BUTTON)){
 			if(posX>354&&posX<582&&posY>380&&posY<424) {
+				success = false;
+				newHighScore = false;
+				textBoxCleared = false;
 				sbg.enterState(stateContainer.Game.PLAYSTATE);
 			}
 			
 			if(posX>728&&posX<844&&posY>380&&posY<426) { // 116 46
+				success = false;
+				newHighScore = false;
+				textBoxCleared = false;
 				sbg.enterState(stateContainer.Game.MENUSTATE);
 			}
 			
