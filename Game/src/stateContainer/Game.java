@@ -5,15 +5,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
-import states.GameOverState;
-import states.MenuState;
-import states.PauseState;
-import states.PlayCoopState;
-import states.PlayState;
-import states.CreditsState;
-import states.ControlsState;
-import states.ScoreState;
-import states.SplashState;
+import states.*;
 
 public class Game extends StateBasedGame {
 
@@ -28,7 +20,8 @@ public class Game extends StateBasedGame {
 		CREDITSSTATE = 5,
 		CONTROLSSTATE = 6,
 		SCORESTATE = 7,
-		PLAYCOOPSTATE = 8;
+		PLAYCOOPSTATE = 8,
+		PAUSECOOPSTATE = 9;
 	
 	public static final int 
 		MAXIMUMWIDTH = 1200, MAXIMUMHEIGHT = 600;
@@ -58,6 +51,7 @@ public class Game extends StateBasedGame {
 		addState(new ControlsState(CONTROLSSTATE));
 		addState(new ScoreState(SCORESTATE));
 		addState(new PlayCoopState(PLAYCOOPSTATE));
+		addState(new PauseCoopState(PAUSECOOPSTATE));
 	}
 	
 	
