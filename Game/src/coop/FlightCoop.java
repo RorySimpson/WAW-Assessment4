@@ -65,7 +65,13 @@ public class FlightCoop extends Flight {
 
 				this.setLandingDescentRate(this.findLandingDescentRate());
 
-				this.getAirspace().getControls().setSelectedFlight(null);	
+				if(((ControlsCoop)this.getAirspace().getControls()).getSelectedFlight1().isLanding()) {
+					((ControlsCoop)this.getAirspace().getControls()).setSelectedFlight1(null);
+				}
+				else {
+					((ControlsCoop)this.getAirspace().getControls()).setSelectedFlight2(null);
+				}
+
 
 			}
 			
@@ -101,7 +107,7 @@ public class FlightCoop extends Flight {
 	public void drawFlight(Graphics g, GameContainer gc ){
 
 		g.setColor(Color.white);
-		g.setWorldClip(11, 0, Game.MAXIMUMWIDTH -11, Game.MAXIMUMHEIGHT);
+		g.setWorldClip(11, 0, Game.MAXIMUMWIDTH -11, Game.MAXIMUMHEIGHT-40);
 
 			// Scale the shadow in accordance to the altitude of the flight
 			if (this.getCurrentAltitude() > 50)

@@ -119,7 +119,7 @@ public class ControlsCoop extends Controls {
 			
 			if(!selectedFlight1.getFlightPlan().getChangingPlan()){
 				g.setColor(Color.white);
-				g.drawString("Player 1", (int)this.selectedFlight1.getX()-50, (int)this.selectedFlight1.getY());
+				g.drawString("P1", (int)this.selectedFlight1.getX()-5, (int)this.selectedFlight1.getY()-45);
 			}	
 			
 		}
@@ -128,7 +128,7 @@ public class ControlsCoop extends Controls {
 			
 			if(!selectedFlight2.getFlightPlan().getChangingPlan()){
 				g.setColor(Color.white);
-				g.drawString("Player2", (int)this.selectedFlight2.getX()-50, (int)this.selectedFlight2.getY());
+				g.drawString("P2", (int)this.selectedFlight2.getX()-5, (int)this.selectedFlight2.getY()-45);
 			}	
 			
 		}

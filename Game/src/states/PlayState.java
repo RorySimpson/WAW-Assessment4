@@ -30,7 +30,7 @@ import util.DeferredFile;
 
 
 public class PlayState extends BasicGameState {
-	private static Image 
+	public static Image 
 		easyButton, mediumButton,hardButton,  
 		easyHover, mediumHover, hardHover,  
 		backgroundImage, difficultyBackground,
