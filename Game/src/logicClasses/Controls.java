@@ -225,7 +225,7 @@ public class Controls {
 			// Only allow controls if user isn't changing a plan
 			if (!(selectedFlight.getFlightPlan().getChangingPlan()) && selectedFlight.isCommandable()){
 				//allow mouse control of flight if not in h
-				if(Mouse.isButtonDown(Input.MOUSE_RIGHT_BUTTON) && (difficultyValueOfGame != HARD)){
+				if(Mouse.isButtonDown(Input.MOUSE_RIGHT_BUTTON)){
 					giveHeadingWithMouse(posX, posY, airspace);
 				}			
 			}
