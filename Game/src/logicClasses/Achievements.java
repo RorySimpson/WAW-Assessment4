@@ -4,7 +4,7 @@ public class Achievements {
 
 	//FIELDS
 	private int numberOfAchievements 			= 0;
-	private static final int MAXACHIEVEMENTS 	= 9;
+	private static final int MAXACHIEVEMENTS 	= 7;
 	private static final int ACHIEVEMENTTIME 	= 600000;
 	private String achievementMessage 			= "";
 	
@@ -15,6 +15,10 @@ public class Achievements {
 	private boolean noPlaneLossAchievementGained 		= false;
 	private boolean planesLandedAchievementGained 		= false;
 	private boolean flightPlanChangedAchievementGained 	= false;
+	private boolean allAchievementsEarned				= false;
+	private boolean crashAchievementGained 				= false;
+	private boolean completeFlightPlanAchievementGained = false;
+
 	private boolean achievementGained                   = false;
 		
 	//CONSTRUCTOR
@@ -48,33 +52,40 @@ public class Achievements {
 		return achievementMessage;
 	}
 	
+	//used to increment total achievement count, sets bool used for rendering achievement box
 	public void completeAchievement(){
-		if (numberOfAchievements >= MAXACHIEVEMENTS){
-			//System.out.println("All Achievements Gained");
-			//then display achievement
-		}
 		numberOfAchievements += 1;
 		achievementGained = true;
+		
+		if (numberOfAchievements == MAXACHIEVEMENTS){
+			//then display achievement
+			allAchievementsEarned = true;
+			
+		}
+		
 	}
 	
-	public void timeAchievement(int gameTime){
+	public String timeAchievement(int gameTime){
 		
 		if (timeAchievementGained == false){
 			if (gameTime >= ACHIEVEMENTTIME){
 				//then display achievement
-				System.out.println("Time Achievement Gained");
+				achievementMessage = "Time Achievement Gained";
 				completeAchievement();
 				timeAchievementGained = true;
 			}
 		}
+		
+		return achievementMessage;
 	}
 	
 	public String crashAchievement(int gameTime){
 		
-		if (gameTime <= 40000){
+		if (gameTime <= 40000 && crashAchievementGained == false){
 			//then display achievement
 			achievementMessage = "Crash Achievement Gained";
 			completeAchievement();
+			crashAchievementGained = true;
 		}
 		
 		return achievementMessage;
@@ -90,32 +101,41 @@ public class Achievements {
 		return achievementMessage;
 	}
 	
-	public void completeFlightPlanAchievement(){
+	//Never Called!!
+	public String completeFlightPlanAchievement(){
+		if (completeFlightPlanAchievementGained == false){
 		//display achievement
-		System.out.println("Complete Flight Plan Achievement Gained");
+		achievementMessage = "Complete Flight Plan Achievement Gained";
 		completeAchievement();
+		completeFlightPlanAchievementGained = true;
+		}
+		return achievementMessage;
 	}
 	
-	public void minsWithoutPlaneLossAchievement(int timeWithoutLoss){
+	//Never Called!!
+	public String minsWithoutPlaneLossAchievement(int timeWithoutLoss){
 		if (noPlaneLossAchievementGained == false){
 			if (timeWithoutLoss >= 10){
 				//display achievement
-				System.out.println("Time Without Losing Plane Achievement Gained");
+				achievementMessage = "Time Without Losing Plane Achievement Gained";
 				completeAchievement();
 				noPlaneLossAchievementGained = true;
 			}
 		}
+		return achievementMessage;
 	}
 	
-	public void planesLandedAchievement(int planesLanded){
+	//Never Called!!
+	public String planesLandedAchievement(int planesLanded){
 		if (planesLandedAchievementGained == false){
 			if (planesLanded >= 10){
 				//display achievement
-				System.out.println("Landing Achievement Gained");
+				achievementMessage = "Landing Achievement Gained";
 				completeAchievement();
 				planesLandedAchievementGained = true;
 			}
 		}
+		return achievementMessage;
 	}
 	
 	//GETTERS AND SETTERS
