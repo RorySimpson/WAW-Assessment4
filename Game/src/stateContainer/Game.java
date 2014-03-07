@@ -6,6 +6,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
 import states.*;
+import logicClasses.Achievements;
 
 public class Game extends StateBasedGame {
 
@@ -28,6 +29,7 @@ public class Game extends StateBasedGame {
 		MAXIMUMWIDTH = 1200, MAXIMUMHEIGHT = 600;
 	
 	private int currentScore;
+	private Achievements achievements = new Achievements();
 
 
 	/**
@@ -56,6 +58,13 @@ public class Game extends StateBasedGame {
 		addState(new AchieveViewerState(ACHIEVEVIEWERSTATE));
 	}
 	
+	public void setAchievements(Achievements newAchievements){
+		achievements  = newAchievements;
+	}
+	
+	public Achievements getAchievements(){
+		return achievements;
+	}
 	
 
 	public int getCurrentScore() {

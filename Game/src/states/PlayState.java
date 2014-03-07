@@ -648,6 +648,7 @@ public class PlayState extends BasicGameState {
 				
 				achievementMessage = achievement.crashAchievement((int) time); //pass the game time as of game over into the crashAchievement
 				airspace.getSeparationRules().setGameOverViolation(false);
+				((Game)sbg).setAchievements(airspace.getScore().getAchievements());
 				((Game)sbg).setCurrentScore(airspace.getScore( ).getCurrentScore());
 				gameplayMusic.stop();
 				endOfGameSound.play();
