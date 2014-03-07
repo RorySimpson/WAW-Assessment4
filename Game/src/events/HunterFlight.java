@@ -29,17 +29,22 @@ public class HunterFlight {
 	public HunterFlight(Airspace airspace){
 		x = 0;
 		y = 0;
-		currentHeading = 0;
+		currentHeading = 120;
 		targetHeading = 0;
 		velocity = 500;
 		victim = generateVictim(airspace);
-		entryPoint = generateEntryPoint(airspace);
+		//entryPoint = generateEntryPoint(airspace);
 		turningLeft = false;
 		turningRight = false;
 	}
 	
 	public Flight generateVictim(Airspace airspace){
-		return airspace.getListOfFlightsInAirspace().get(0);
+		if (airspace.getListOfFlightsInAirspace().size() == 0){
+			return null;
+		}
+		else{
+			return airspace.getListOfFlightsInAirspace().get(0);
+		}
 	}
 	
 	public EntryPoint generateEntryPoint(Airspace airspace){
@@ -54,21 +59,24 @@ public class HunterFlight {
 	
 	public void calculateHeadingToVictim() {
 		
-		double deltaX;
-		double deltaY;
-		deltaY = victim.getY() - y;
-		deltaX = victim.getX() - x;
-		double angle = Math.toDegrees(Math.atan2(deltaY, deltaX));
-		angle += 90;
-		if (angle < 0) {
-			angle += 360;
+		if (victim != null){
+			double deltaX;
+			double deltaY;
+			deltaY = victim.getY() - y;
+			deltaX = victim.getX() - x;
+			double angle = Math.toDegrees(Math.atan2(deltaY, deltaX));
+			angle += 90;
+			if (angle < 0) {
+				angle += 360;
+			}
+			targetHeading = angle;
 		}
-		targetHeading = angle;
+		
 	}
 	
 	public void updateXYCoordinates() {
 		
-		double vs = velocity *gameScale;
+		double vs = velocity * gameScale;
 		x += vs * Math.sin(Math.toRadians(currentHeading));
 		y -= vs * Math.cos(Math.toRadians(currentHeading));
 	}
@@ -132,6 +140,12 @@ public class HunterFlight {
 		}
 	}
 	
+	public void drawHunterFlight(Graphics g, GameContainer gc ){
+
+		hunterFlightImage.draw((int) this.x-35, (int) this.y);
+		hunterFlightImage.setRotation((int) currentHeading);
+		
+	}
 	public void init(GameContainer gc) throws SlickException {
 		hunterFlightImage = new Image("res/graphics/flight_fast.png");
 	}
@@ -140,6 +154,10 @@ public class HunterFlight {
 		updateCurrentHeading();
 		calculateHeadingToVictim();
 		updateXYCoordinates();
+	}
+	
+	public void render(Graphics g, GameContainer gc) throws SlickException {
+		this.drawHunterFlight(g, gc);	
 	}
 	
 	public double getX(){

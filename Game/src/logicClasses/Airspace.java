@@ -39,7 +39,7 @@ public class Airspace {
 		this.listOfExitPoints 					= new ArrayList<ExitPoint>();
 		this.airportRight						= new Airport(1, this);
 		this.airportLeft						= new Airport(2,this);
-		this.eventController					= new EventController();
+		this.eventController					= new EventController(this);
 		
 		
 		
@@ -80,7 +80,7 @@ public class Airspace {
 		// Prevents information about flight from previous game being displayed
 		this.controls.setSelectedFlight(null);  	
 		
-		this.eventController = new EventController();
+		this.eventController = new EventController(this);
 		
 	}
 	

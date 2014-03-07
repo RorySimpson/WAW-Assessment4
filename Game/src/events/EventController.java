@@ -12,14 +12,16 @@ import org.newdawn.slick.SlickException;
 
 public class EventController {
 	
-	private List<HunterFlight> 	listOfHunterFlights;
+	private HunterFlight hunterFlight;
+	private List<HunterFlight> listOfHunterFlights;
 	private List<Tornado> listOfTornados;
 	private Volcano volcano;
 	
-	public EventController(){
+	public EventController(Airspace airspace){
 		
 		this.volcano = new Volcano();
-		this.listOfHunterFlights  = new ArrayList<HunterFlight>();
+		this.listOfHunterFlights = new ArrayList<HunterFlight>();
+		hunterFlight = new HunterFlight(airspace);
 		this.listOfTornados = new ArrayList<Tornado>();
 		
 		
@@ -29,14 +31,17 @@ public class EventController {
 	
 	public void init (GameContainer gc) throws SlickException{
 		this.volcano.init(gc);
+		hunterFlight.init(gc);
 	}
 	
 	public void render (Graphics g, GameContainer gc) throws SlickException{
 		this.volcano.render(g,gc);
+		hunterFlight.render(g, gc);
 	}
 	
 	public void update(GameContainer gc) throws SlickException{
 		this.volcano.update(gc);
+		hunterFlight.update();
 	}
 	
 	public Volcano getVolcano(){
