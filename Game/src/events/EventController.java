@@ -13,12 +13,17 @@ import org.newdawn.slick.SlickException;
 public class EventController {
 	
 	private List<HunterFlight> 	listOfHunterFlights;
+	private List<Tornado> listOfTornados;
 	private Volcano volcano;
 	
 	public EventController(){
 		
-		this.listOfHunterFlights  = new ArrayList<HunterFlight>();
 		this.volcano = new Volcano();
+		this.listOfHunterFlights  = new ArrayList<HunterFlight>();
+		this.listOfTornados = new ArrayList<Tornado>();
+		
+		
+		
 		
 	}
 	
