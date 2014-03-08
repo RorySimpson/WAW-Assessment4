@@ -27,12 +27,11 @@ public class HunterFlight {
 	
 	
 	public HunterFlight(Airspace airspace){
-		x = 600;
-		y = 300;
-		currentHeading = 0;
-		targetHeading = 0;
+		x = 1250;
+		y = -5;
+		currentHeading = 225;
+		targetHeading = 225;
 		velocity = 300;
-		//entryPoint = generateEntryPoint(airspace);
 		turningLeft = false;
 		turningRight = false;
 	}
@@ -44,16 +43,6 @@ public class HunterFlight {
 		else{
 			victim = airspace.getListOfFlightsInAirspace().get(0);
 		}
-	}
-	
-	public EntryPoint generateEntryPoint(Airspace airspace){
-		
-		Random rand = new Random();
-		int randomNumber = rand.nextInt(airspace.getListOfEntryPoints().size());
-		x = (airspace.getListOfEntryPoints().get(randomNumber).getX()); 
-		y = (airspace.getListOfEntryPoints().get(randomNumber).getY());
-			
-		return airspace.getListOfEntryPoints().get(randomNumber);
 	}
 	
 	public void calculateHeadingToVictim() {
@@ -85,7 +74,6 @@ public class HunterFlight {
 		calculateHeadingToVictim();
 		if ((Math.round(this.targetHeading) <= Math.round(this.currentHeading) - 3 
 				|| Math.round(this.targetHeading) >= Math.round(this.currentHeading) + 3)) {
-			
 
 			/*
 			 * If plane has been given a heading so no turning direction specified,
@@ -154,7 +142,6 @@ public class HunterFlight {
 	
 	public void update(Airspace airspace) {
 		updateCurrentHeading();
-		//calculateHeadingToVictim();
 		updateXYCoordinates();
 		generateVictim(airspace);		
 	}

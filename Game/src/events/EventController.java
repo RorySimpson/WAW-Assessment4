@@ -47,5 +47,9 @@ public class EventController {
 	public Volcano getVolcano(){
 		return this.volcano;
 	}
+	
+	public HunterFlight getHunterFlight(){
+		return hunterFlight;
+	}
 
 }

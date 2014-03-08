@@ -53,6 +53,10 @@ public class SeparationRules {
 		return Math.sqrt(Math.pow((flight1.getX() - flight2.getX()), 2) + Math.pow(( flight1.getY() - flight2.getY()),2));
 		}
 	
+	public double lateralDistanceBetweenFlightAndHunterFlight(Flight flight1, HunterFlight flight2){
+		return Math.sqrt(Math.pow((flight1.getX() - flight2.getX()), 2) + Math.pow(( flight1.getY() - flight2.getY()),2));
+		}
+	
 	public double lateralDistanceBetweenFlightAndProjectile(Flight flight, VolcanoProjectile projectile){
 		return Math.sqrt(Math.pow((flight.getX() - projectile.getX()), 2) + Math.pow(( flight.getY() - projectile.getY()),2));
 	}
@@ -113,6 +117,18 @@ public class SeparationRules {
 		}
 	}
 	
+	public void checkHunterFlightCollision(Airspace airspace){
+		
+		HunterFlight hunterFlight = airspace.getEventController().getHunterFlight();
+		for (Flight flight : airspace.getListOfFlights()){
+			if (lateralDistanceBetweenFlightAndHunterFlight(flight, hunterFlight) <= COLLISIONDISTANCE){
+				this.gameOverViolation = true;
+				flight.setVelocity(0);
+				this.pointOfCrash.setLocation(flight.getX(), flight.getY());
+			}
+		}
+	}
+	
 	
 	
 	/**
@@ -163,6 +179,7 @@ public class SeparationRules {
 		
 		this.checkFlightOnFlightViolation(airspace);
 		this.checkVolcanoProjectileOnFlightCollision(airspace);
+		checkHunterFlightCollision(airspace);
 	}
 	
 	
