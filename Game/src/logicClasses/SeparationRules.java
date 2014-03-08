@@ -119,14 +119,16 @@ public class SeparationRules {
 	
 	public void checkHunterFlightCollision(Airspace airspace){
 		
-		HunterFlight hunterFlight = airspace.getEventController().getHunterFlight();
-		for (Flight flight : airspace.getListOfFlights()){
-			if (lateralDistanceBetweenFlightAndHunterFlight(flight, hunterFlight) <= COLLISIONDISTANCE){
-				this.gameOverViolation = true;
-				flight.setVelocity(0);
-				this.pointOfCrash.setLocation(flight.getX(), flight.getY());
+		for (HunterFlight hunterFlight : airspace.getEventController().getListOfHunterFlights()){
+			for (Flight flight : airspace.getListOfFlights()){
+				if (lateralDistanceBetweenFlightAndHunterFlight(flight, hunterFlight) <= COLLISIONDISTANCE){
+					this.gameOverViolation = true;
+					flight.setVelocity(0);
+					this.pointOfCrash.setLocation(flight.getX(), flight.getY());
+				}
 			}
 		}
+		
 	}
 	
 	

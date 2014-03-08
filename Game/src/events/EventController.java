@@ -57,8 +57,8 @@ public class EventController {
 		return this.volcano;
 	}
 	
-	public HunterFlight getHunterFlight(){
-		return hunterFlight;
+	public List<HunterFlight> getListOfHunterFlights(){
+		return listOfHunterFlights;
 	}
 	
 	public void addHunterFlight(HunterFlight hunterFlight){
