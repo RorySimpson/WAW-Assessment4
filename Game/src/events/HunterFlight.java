@@ -26,14 +26,15 @@ public class HunterFlight {
 	private boolean turningLeft, turningRight;
 	
 	
-	public HunterFlight(Airspace airspace){
-		x = 1250;
-		y = -5;
+	public HunterFlight(Airspace airspace, EventController eventController){
+		x = generateX();
+		y = 0;
 		currentHeading = 225;
 		targetHeading = 225;
 		velocity = 300;
 		turningLeft = false;
 		turningRight = false;
+		eventController.addHunterFlight(this);
 	}
 	
 	public void generateVictim(Airspace airspace){
@@ -42,6 +43,15 @@ public class HunterFlight {
 		}
 		else{
 			victim = airspace.getListOfFlightsInAirspace().get(0);
+		}
+	}
+	
+	public int generateX(){
+		if (Math.random() < 0.5){
+			return 0;
+		}
+		else {
+			return 1200;
 		}
 	}
 	
