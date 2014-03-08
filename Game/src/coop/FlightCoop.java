@@ -131,7 +131,7 @@ public class FlightCoop extends Flight {
 
 		// Drawing Separation Circle
 
-		
+
 
 
 		// Drawing information around flight
@@ -139,7 +139,9 @@ public class FlightCoop extends Flight {
 
 		if (this.isSelected()){
 			if (this.getCurrentAltitude() != 0){
-				g.setColor(Color.white);
+				
+				
+				
 				g.drawString(Math.round(this.getCurrentAltitude()) + " ft",(int) this.getX()-30, (int) this.getY() + 10);
 
 				if (this.getFlightPlan().getCurrentRoute().size() > 0) {
@@ -161,8 +163,17 @@ public class FlightCoop extends Flight {
 
 				}
 				
+				if(this.player2){	//{!} not converted to using min/max
+					g.setColor(Color.red);
+
+				}
+				else {
+					g.setColor(Color.blue);	
+				}
+				
 				g.drawOval((int) this.getX() - 50, (int) this.getY() - 50, 100, 100);
 			}
+			g.setColor(Color.white);
 
 		}
 

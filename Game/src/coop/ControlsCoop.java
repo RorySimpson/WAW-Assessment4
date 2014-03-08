@@ -42,10 +42,12 @@ public class ControlsCoop extends Controls {
 				}
 				else {
 					if(airspaceCoop.getListOfFlightsPlayer1().indexOf(selectedFlight1)==airspaceCoop.getListOfFlightsPlayer1().size()-1) {
+						this.selectedFlight1.setSelected(false);
 						this.selectedFlight1 = airspaceCoop.getListOfFlightsPlayer1().get(0);
 						this.selectedFlight1.setSelected(true);
 					} 
 					else {
+						this.selectedFlight1.setSelected(false);
 						this.selectedFlight1 = airspaceCoop.getListOfFlightsPlayer1().get(airspaceCoop.getListOfFlightsPlayer1().indexOf(selectedFlight1)+1);
 						this.selectedFlight1.setSelected(true);
 					}
@@ -60,10 +62,12 @@ public class ControlsCoop extends Controls {
 				}
 				else {
 					if(airspaceCoop.getListOfFlightsPlayer2().indexOf(selectedFlight2)==airspaceCoop.getListOfFlightsPlayer2().size()-1) {
+						this.selectedFlight2.setSelected(false);
 						this.selectedFlight2 = airspaceCoop.getListOfFlightsPlayer2().get(0);
 						this.selectedFlight2.setSelected(true);
 					} 
 					else {
+						this.selectedFlight2.setSelected(false);
 						this.selectedFlight2 = airspaceCoop.getListOfFlightsPlayer2().get(airspaceCoop.getListOfFlightsPlayer2().indexOf(selectedFlight2)+1);
 						this.selectedFlight2.setSelected(true);
 					}
@@ -132,6 +136,7 @@ public class ControlsCoop extends Controls {
 			}	
 			
 		}
+		
 	}
 
 	public Flight getSelectedFlight1() {
