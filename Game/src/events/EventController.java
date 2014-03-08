@@ -31,17 +31,17 @@ public class EventController {
 	
 	public void init (GameContainer gc) throws SlickException{
 		this.volcano.init(gc);
-		hunterFlight.init(gc);
+		//hunterFlight.init(gc);
 	}
 	
 	public void render (Graphics g, GameContainer gc) throws SlickException{
 		this.volcano.render(g,gc);
-		hunterFlight.render(g, gc);
+		//hunterFlight.render(g, gc);
 	}
 	
 	public void update(GameContainer gc, Airspace airspace) throws SlickException{
 		this.volcano.update(gc);
-		hunterFlight.update(airspace);
+		//hunterFlight.update(airspace);
 	}
 	
 	public Volcano getVolcano(){
