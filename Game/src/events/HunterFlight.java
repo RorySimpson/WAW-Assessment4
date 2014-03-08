@@ -27,23 +27,22 @@ public class HunterFlight {
 	
 	
 	public HunterFlight(Airspace airspace){
-		x = 0;
-		y = 0;
-		currentHeading = 120;
+		x = 600;
+		y = 300;
+		currentHeading = 0;
 		targetHeading = 0;
-		velocity = 500;
-		victim = generateVictim(airspace);
+		velocity = 300;
 		//entryPoint = generateEntryPoint(airspace);
 		turningLeft = false;
 		turningRight = false;
 	}
 	
-	public Flight generateVictim(Airspace airspace){
+	public void generateVictim(Airspace airspace){
 		if (airspace.getListOfFlightsInAirspace().size() == 0){
-			return null;
+			;
 		}
 		else{
-			return airspace.getListOfFlightsInAirspace().get(0);
+			victim = airspace.getListOfFlightsInAirspace().get(0);
 		}
 	}
 	
@@ -83,6 +82,7 @@ public class HunterFlight {
 	
 	public void updateCurrentHeading() {
 		
+		calculateHeadingToVictim();
 		if ((Math.round(this.targetHeading) <= Math.round(this.currentHeading) - 3 
 				|| Math.round(this.targetHeading) >= Math.round(this.currentHeading) + 3)) {
 			
@@ -127,6 +127,7 @@ public class HunterFlight {
 				if (Math.round(this.currentHeading) >= 360 && this.targetHeading != 360) {
 					this.currentHeading = 0;
 				}
+				turningRight = false;
 			}
 
 			// If plane is already turning left or user has told it to turn left
@@ -136,6 +137,7 @@ public class HunterFlight {
 				if (Math.round(this.currentHeading) <= 0 && this.targetHeading != 0) {
 					this.currentHeading = 360;
 				}
+				turningLeft = false;
 			}
 		}
 	}
@@ -150,10 +152,11 @@ public class HunterFlight {
 		hunterFlightImage = new Image("res/graphics/flight_fast.png");
 	}
 	
-	public void update() {
+	public void update(Airspace airspace) {
 		updateCurrentHeading();
-		calculateHeadingToVictim();
+		//calculateHeadingToVictim();
 		updateXYCoordinates();
+		generateVictim(airspace);		
 	}
 	
 	public void render(Graphics g, GameContainer gc) throws SlickException {

@@ -39,9 +39,9 @@ public class EventController {
 		hunterFlight.render(g, gc);
 	}
 	
-	public void update(GameContainer gc) throws SlickException{
+	public void update(GameContainer gc, Airspace airspace) throws SlickException{
 		this.volcano.update(gc);
-		hunterFlight.update();
+		hunterFlight.update(airspace);
 	}
 	
 	public Volcano getVolcano(){

@@ -351,7 +351,7 @@ public class Airspace {
 			
 		}
 		
-		this.eventController.update(gc);
+		this.eventController.update(gc, this);
 		this.separationRules.update(this);
 		this.controls.update(gc, this);
 	}
