@@ -82,10 +82,14 @@ public class ControlsCoop extends Controls {
 				this.selectedFlight1.incrementHeading();
 			}
 			if(gc.getInput().isKeyPressed(Input.KEY_S)) {
-				this.selectedFlight1.setTargetAltitude(this.selectedFlight1.getTargetAltitude()-1000);
+				if(this.selectedFlight1.getTargetAltitude() > 2000){
+					this.selectedFlight1.setTargetAltitude(this.selectedFlight1.getTargetAltitude()-1000);
+				}
 			}
 			if(gc.getInput().isKeyPressed(Input.KEY_W)) {
-				this.selectedFlight1.setTargetAltitude(this.selectedFlight1.getTargetAltitude()+1000);
+				if(this.selectedFlight1.getTargetAltitude() < 5000){
+					this.selectedFlight1.setTargetAltitude(this.selectedFlight1.getTargetAltitude()-1000);
+				}
 			}
 			if(gc.getInput().isKeyDown(Input.KEY_T)) {
 				this.selectedFlight1.takeOff();
@@ -102,10 +106,14 @@ public class ControlsCoop extends Controls {
 				this.selectedFlight2.incrementHeading();
 			}
 			if(gc.getInput().isKeyPressed(Input.KEY_DOWN)) {
-				this.selectedFlight2.setTargetAltitude(this.selectedFlight2.getTargetAltitude()-1000);
+				if(this.selectedFlight2.getTargetAltitude() > 2000){
+					this.selectedFlight2.setTargetAltitude(this.selectedFlight2.getTargetAltitude()-1000);
+				}
 			}
 			if(gc.getInput().isKeyPressed(Input.KEY_UP)) {
-				this.selectedFlight2.setTargetAltitude(this.selectedFlight2.getTargetAltitude()+1000);
+				if(this.selectedFlight2.getTargetAltitude() < 5000){
+					this.selectedFlight2.setTargetAltitude(this.selectedFlight2.getTargetAltitude()+1000);
+				}
 			}
 			if(gc.getInput().isKeyDown(Input.KEY_SLASH)) {
 				this.selectedFlight2.takeOff();
