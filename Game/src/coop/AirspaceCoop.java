@@ -5,7 +5,7 @@ import java.util.Random;
 
 import logicClasses.Airspace;
 import logicClasses.Flight;
-
+import logicClasses.Waypoint;
 import coop.FlightCoop;
 
 import org.newdawn.slick.GameContainer;
@@ -95,9 +95,14 @@ public class AirspaceCoop extends Airspace {
 					double heading;
 					
 					
-					if(tempFlight.getFlightPlan().getEntryPoint() == this.getAirportRight().getEndOfRunway()){
+					if (tempFlight.getFlightPlan().getEntryPoint() == this.getAirportLeft().getEndOfRunway())
+					{
+						heading = this.getAirportLeft().getRunwayHeading();
+					}
+					
+					else if(tempFlight.getFlightPlan().getEntryPoint() == this.getAirportRight().getEndOfRunway()){
 						
-						heading = getAirportRight().getRunwayHeading();
+						heading = this.getAirportRight().getRunwayHeading();
 					}
 					else
 					{
@@ -105,6 +110,7 @@ public class AirspaceCoop extends Airspace {
 										tempFlight.getFlightPlan().getPointByIndex(0).getX() ,
 										tempFlight.getFlightPlan().getPointByIndex(0).getY());
 					}
+					
 					tempFlight.setTargetHeading(heading);
 					tempFlight.setCurrentHeading(heading);
 					if(addFlight(tempFlight)){
@@ -136,6 +142,31 @@ public class AirspaceCoop extends Airspace {
 			}
 		}
 	}
+	
+	@ Override
+	/**
+	 * newWaypoint: Add a new waypoint to the list of waypoints in the airspace
+	 * @param x The x coordinate of the waypoint
+	 * @param y The y coordinate of the waypoint
+	 * @param name The name used to reference the waypoint
+	 */
+
+	public boolean newWaypoint(int x, int y, String name)  {
+		if (withinAirspace(x, y))
+		{ 
+			// x and y must be within these bounds to be within screen space
+
+			Waypoint tmpWp = new WaypointCoop(x, y, name);
+
+			if (this.addWaypoint(tmpWp)) {
+				return true;
+			}	
+		} 
+
+		return false;
+	}
+	
+	
 	// override the method for removing flights to include the two selected flight lists
 	@Override
 	public void removeSpecificFlight(int flight) {
@@ -176,5 +207,7 @@ public class AirspaceCoop extends Airspace {
 	public void setListOfFlightsPlayer2(ArrayList<FlightCoop> listOfFlightsPlayer2) {
 		this.listOfFlightsPlayer2 = listOfFlightsPlayer2;
 	}
+	
+
 	
 }

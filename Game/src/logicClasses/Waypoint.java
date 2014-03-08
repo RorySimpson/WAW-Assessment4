@@ -51,6 +51,7 @@ public class Waypoint extends Point {
 		}
 	}
 
+
 	/**
 	 * render: Render the graphics for the Waypoint class (Draws all Waypoints)
 	 * @param g slick2d graphics object
@@ -77,6 +78,22 @@ public class Waypoint extends Point {
 		g.setColor(Color.black);
 		g.drawString(pointRef, (int)x-3, (int)y-9);
 
+	}
+	
+	public static Image getNextWaypointImage() {
+		return nextWaypointImage;
+	}
+
+	public static void setNextWaypointImage(Image nextWaypointImage) {
+		Waypoint.nextWaypointImage = nextWaypointImage;
+	}
+
+	public static Image getWaypointImage() {
+		return waypointImage;
+	}
+
+	public static void setWaypointImage(Image waypointImage) {
+		Waypoint.waypointImage = waypointImage;
 	}
 
 
