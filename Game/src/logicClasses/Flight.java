@@ -257,6 +257,7 @@ public class Flight {
 		setTargetVelocity((minVelocity +maxVelocity) /2);
 		setTargetAltitude(minAltitude);
 	}
+	
 	public boolean altToLand(){
 		if(currentAltitude <= 720){
 			return true;
@@ -824,6 +825,11 @@ public boolean withinTolerance(double x1, double x2,double tolerance){
 		return takingOff;
 	}
 	
+	public void setTakingOff(Boolean bool){
+		takingOff = bool;
+		
+	}
+	
 
 	
 	public Airspace getAirspace(){
@@ -877,6 +883,8 @@ public boolean withinTolerance(double x1, double x2,double tolerance){
 	public void setLanding(boolean landing) {
 		this.landing = landing;
 	}
+	
+
 
 
 

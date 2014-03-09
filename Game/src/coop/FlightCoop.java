@@ -16,6 +16,10 @@ public class FlightCoop extends Flight {
 	boolean player2;
 	private static Image player1Image, player2Image;
 	
+	private int
+	minVelocity = 200, maxVelocity = 400,
+	minAltitude = 2000, maxAltitude = 5000;
+	
 	public FlightCoop(Airspace airspace) {
 		super(airspace);
 		this.player2=false;
@@ -99,6 +103,21 @@ public class FlightCoop extends Flight {
 			}
 
 		}
+	}
+	
+	
+	public void takeOff(Flight flight){
+		setTakingOff(true);
+		setTargetVelocity((minVelocity +maxVelocity) /2);
+		setTargetAltitude(minAltitude);
+		if(((AirspaceCoop)getAirspace()).getListOfFlightsPlayer1().contains(flight)){
+			((ControlsCoop)getAirspace().getControls()).setSelectedFlight1(null);
+		}
+		
+		else{
+			((ControlsCoop)getAirspace().getControls()).setSelectedFlight2(null);
+		}
+		
 	}
 	
 
@@ -213,6 +232,10 @@ public class FlightCoop extends Flight {
 
 	public void setPlayer2(boolean player2) {
 		this.player2 = player2;
+	}
+	
+	public boolean isSelectable(){
+		return (!isLanding() && !isTakingOff());
 	}
 
 }
