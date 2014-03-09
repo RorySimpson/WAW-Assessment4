@@ -368,7 +368,7 @@ public class Airspace {
 	 */
 	public void render(Graphics g, GameContainer gc) throws SlickException { 
 		
-		this.eventController.render(g,gc);
+		
 		this.airportLeft.render(g, gc);
 		this.airportRight.render(g, gc);
 
@@ -385,6 +385,7 @@ public class Airspace {
 			f.render(g, gc);
 		}
 		
+		this.eventController.render(g,gc);
 		separationRules.render(g, gc, this);
 		controls.render(gc,g);
 	}

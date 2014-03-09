@@ -99,11 +99,13 @@ public class PlayState extends BasicGameState {
 			});
 			
 			// Music
-			loading.add(new DeferredFile("res/music/new/muzikele.ogg"){
+			loading.add(new DeferredFile("res/music/new/Beachfront Celebration.ogg"){
 				public void loadFile(String filename) throws SlickException{
 					gameplayMusic = new Music(filename);
 				}
 			});
+			
+
 			
 			loading.add(new DeferredFile("res/music/new/Big Explosion.ogg"){
 				public void loadFile(String filename) throws SlickException{
@@ -329,6 +331,7 @@ public class PlayState extends BasicGameState {
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
 			throws SlickException {
 		
+		gameplayMusic.setVolume(1);
 		g.setAntiAlias(true);
 		
 		

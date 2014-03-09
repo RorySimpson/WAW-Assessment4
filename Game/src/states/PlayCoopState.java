@@ -98,7 +98,7 @@ public class PlayCoopState extends PlayState {
 			});
 			
 			// Music
-			loading.add(new DeferredFile("res/music/new/muzikele.ogg"){
+			loading.add(new DeferredFile("res/music/new/Beachfront Celebration.ogg"){
 				public void loadFile(String filename) throws SlickException{
 					gameplayMusic = new Music(filename);
 				}
@@ -329,6 +329,7 @@ public class PlayCoopState extends PlayState {
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
 			throws SlickException {
 		
+		gameplayMusic.setVolume(1);
 		g.setAntiAlias(true);
 		
 		
