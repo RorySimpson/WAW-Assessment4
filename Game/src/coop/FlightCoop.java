@@ -111,10 +111,12 @@ public class FlightCoop extends Flight {
 		setTargetVelocity((minVelocity +maxVelocity) /2);
 		setTargetAltitude(minAltitude);
 		if(((AirspaceCoop)getAirspace()).getListOfFlightsPlayer1().contains(flight)){
+			((ControlsCoop)getAirspace().getControls()).getSelectedFlight1().setSelected(false);
 			((ControlsCoop)getAirspace().getControls()).setSelectedFlight1(null);
 		}
 		
 		else{
+			((ControlsCoop)getAirspace().getControls()).getSelectedFlight2().setSelected(false);
 			((ControlsCoop)getAirspace().getControls()).setSelectedFlight2(null);
 		}
 		

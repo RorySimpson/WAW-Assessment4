@@ -13,8 +13,8 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class ControlsCoop extends Controls {
 	
-	private Flight selectedFlight1;
-	private Flight selectedFlight2;
+	private FlightCoop selectedFlight1;
+	private FlightCoop selectedFlight2;
 	private AirspaceCoop airspaceCoop;
 	private boolean selectedThisLoop;
 	
@@ -158,6 +158,16 @@ public class ControlsCoop extends Controls {
 			if(gc.getInput().isKeyDown(Input.KEY_L)) {
 				this.selectedFlight1.land();
 			}
+			
+			if(gc.getInput().isKeyDown(Input.KEY_H)) {
+				this.selectedFlight1.setSelected(false);
+				airspaceCoop.getListOfFlightsPlayer2().add(this.selectedFlight1);
+				airspaceCoop.getListOfFlightsPlayer1().remove(this.selectedFlight1);
+				this.selectedFlight1.setPlayer2(true);
+				this.selectedFlight1 = null;
+			}
+			
+			
 		}
 		if(this.selectedFlight2!=null) {
 			if(gc.getInput().isKeyDown(Input.KEY_LEFT)) {
@@ -177,11 +187,23 @@ public class ControlsCoop extends Controls {
 				}
 			}
 			if(gc.getInput().isKeyDown(Input.KEY_SLASH)) {
-				((FlightCoop)this.selectedFlight2).takeOff(this.selectedFlight2);
+				(this.selectedFlight2).takeOff(this.selectedFlight2);
 			}
 			if(gc.getInput().isKeyDown(Input.KEY_DELETE)) {
 				this.selectedFlight2.land();
 			}
+			if(gc.getInput().isKeyDown(Input.KEY_DELETE)) {
+				this.selectedFlight2.land();
+			}
+			if(gc.getInput().isKeyDown(Input.KEY_NUMPAD0)) {
+				this.selectedFlight2.setSelected(false);
+				airspaceCoop.getListOfFlightsPlayer1().add(this.selectedFlight2);
+				airspaceCoop.getListOfFlightsPlayer2().remove(this.selectedFlight2);
+				this.selectedFlight2.setPlayer2(false);
+				this.selectedFlight2 = null;
+			}
+			
+			
 		}
 		
 	}
@@ -212,7 +234,7 @@ public class ControlsCoop extends Controls {
 		return selectedFlight1;
 	}
 
-	public void setSelectedFlight1(Flight selectedFlight1) {
+	public void setSelectedFlight1(FlightCoop selectedFlight1) {
 		this.selectedFlight1 = selectedFlight1;
 	}
 
@@ -220,7 +242,7 @@ public class ControlsCoop extends Controls {
 		return selectedFlight2;
 	}
 
-	public void setSelectedFlight2(Flight selectedFlight2) {
+	public void setSelectedFlight2(FlightCoop selectedFlight2) {
 		this.selectedFlight2 = selectedFlight2;
 	}
 	
