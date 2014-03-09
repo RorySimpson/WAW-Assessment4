@@ -587,7 +587,7 @@ public class PlayCoopState extends PlayState {
 			// Checking For Pause Screen requested in game
 
 			if (input.isKeyPressed(Input.KEY_P)) {
-				sbg.enterState(stateContainer.Game.PAUSESTATE);
+				sbg.enterState(stateContainer.Game.PAUSECOOPSTATE);
 			}			
 
 			if (!gameplayMusic.playing()){
