@@ -99,7 +99,7 @@ public class GameOverState extends BasicGameState {
 
 		//Check to see if a new global high score has been set (in top 10 scores)
 		int score = ((Game)sbg).getCurrentScore();
-		int lowestScore = connection.getLowestScore();
+		int lowestScore = Integer.parseInt(connection.getLowestScore());
 		connection.clearData();
 		if (score >= lowestScore){
 			Font awtFont = new Font("Courier", Font.BOLD, 15); // Setting up fonts used in text boxes

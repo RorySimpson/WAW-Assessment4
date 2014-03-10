@@ -83,11 +83,11 @@ public class ScoreState extends BasicGameState {
 		//Iterate through the hashMap and print out each key => value pair
 		g.setColor(Color.white);
 		int y = 300;
-		for (Map.Entry<String, String> entry : connection.getScores().entrySet()){
-		    String key = entry.getKey();
-		    String value = entry.getValue();
-		    g.drawString(key,500,y);
-		    g.drawString(value,700,y);
+		
+		for (String s : connection.getScores()) {
+			String[] parts = s.split(":");
+			g.drawString(parts[0],500,y);
+		    g.drawString(parts[1],700,y);
 		    y += 25;
 		}
 	}
