@@ -29,13 +29,13 @@ public class HunterFlight {
 	public HunterFlight(Airspace airspace, EventController eventController){
 		x = 600;
 		y = 300;
-		victim = null;
 		currentHeading = 225;
 		targetHeading = 225;
 		velocity = 300;
 		turningLeft = false;
 		turningRight = false;
 		hasVictim = false;
+		generateVictim(airspace);
 		eventController.addHunterFlight(this);
 	}
 	
@@ -156,7 +156,7 @@ public class HunterFlight {
 	
 	public void drawHunterFlight(Graphics g, GameContainer gc ){
 
-		hunterFlightImage.draw((int) this.x-35, (int) this.y);
+		hunterFlightImage.draw((int) this.x, (int) this.y);
 		hunterFlightImage.setRotation((int) currentHeading);
 		
 	}

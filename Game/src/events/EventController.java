@@ -29,7 +29,7 @@ public class EventController {
 		// this.tornado = new Tornado();
 		this.listOfHunterFlights = new ArrayList<HunterFlight>();
 		this.listOfTornados = new ArrayList<Tornado>();	
-		//hunterFlight = new HunterFlight(airspace, this);
+		hunterFlight = new HunterFlight(airspace, this);
 
 		
 
