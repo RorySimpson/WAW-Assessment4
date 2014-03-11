@@ -17,7 +17,6 @@ import logicClasses.Connection;
 import java.awt.Font;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import util.DeferredFile;
 
