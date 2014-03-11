@@ -1,8 +1,6 @@
 package logicClasses;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.io.*;
 import java.net.*;
@@ -43,9 +41,10 @@ public class Connection {
 		return scores.get(0);
 	}
 	
-	public String getLowestScore(){
+	public int getLowestScore(){
 		getScores();
-		return scores.get(scores.size() - 1);
+		String[] parts = scores.get(scores.size() - 1).split(":");
+		return Integer.parseInt(parts[1]);
 	}
 	
 	public Boolean sendNewScore(String Name, int Score){
