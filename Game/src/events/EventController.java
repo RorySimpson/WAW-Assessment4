@@ -15,7 +15,6 @@ public class EventController {
 	private HunterFlight hunterFlight;
 	private List<HunterFlight> listOfHunterFlights;
 	private List<Tornado> listOfTornados;
-	private List<Tornado> tornadosToRemove;
 	private Volcano volcano;
 	
 	
@@ -26,7 +25,6 @@ public class EventController {
 		this.listOfHunterFlights = new ArrayList<HunterFlight>();
 		hunterFlight = new HunterFlight(airspace, this);
 		this.listOfTornados = new ArrayList<Tornado>();		
-		this.tornadosToRemove = new ArrayList<Tornado>();		
 
 		
 
@@ -61,6 +59,7 @@ public class EventController {
 		//for (HunterFlight hunterFlight : listOfHunterFlights){
 		//	hunterFlight.update(airspace);
 		//}
+		
 		for (int i = 0; i < this.listOfTornados.size(); i++){
 			if (this.listOfTornados.get(i).inAirspace()){
 				listOfTornados.get(i).update(gc);
@@ -76,7 +75,6 @@ public class EventController {
 	
 	public void removeTornado(int tornado){
 		this.listOfTornados.remove(tornado);
-		System.out.println(this.listOfTornados.size());
 	}
 	
 	public Volcano getVolcano(){

@@ -165,9 +165,4 @@ public class Tornado {
 			this.updateXY();
 		}
 	}
-
-	public List<Tornado> getToRemove()
-		{
-			return toRemove;
-		}
 }
