@@ -119,10 +119,9 @@ public class Tornado {
 
 	// Update coordinates
 	public void updateXY(){
-		Random randx = new Random();
-		Random randy = new Random();
-		int directionx = randx.nextInt(4)-2;
-		int directiony = randy.nextInt(4)-2;
+		Random rand = new Random();
+		int directionx = rand.nextInt(4)-2;
+		int directiony = rand.nextInt(4)-2;
 		
 		if (whatAmIDoing > 0){
 			
