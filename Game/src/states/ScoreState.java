@@ -15,6 +15,8 @@ import org.newdawn.slick.state.StateBasedGame;
 import logicClasses.Connection;
 
 import java.awt.Font;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import util.DeferredFile;
@@ -23,6 +25,7 @@ public class ScoreState extends BasicGameState {
 	
 	private static Image menuButton, menuHover, menuBackground;
 	private Connection connection = new Connection();
+	private List<String> scores = new ArrayList<String>();
 	
 	private TrueTypeFont
         	titleFont = new TrueTypeFont(new Font(Font.SANS_SERIF, Font.BOLD, 36), false);
@@ -30,6 +33,11 @@ public class ScoreState extends BasicGameState {
 	//CONSTRUCTOR
 	public ScoreState(int scorestate){
 
+	}
+	
+	@Override
+	public void enter(GameContainer gc, StateBasedGame sbg){
+		scores = connection.getScores();
 	}
 	
 	//METHODS
@@ -84,7 +92,7 @@ public class ScoreState extends BasicGameState {
 		g.setColor(Color.white);
 		int y = 300;
 		
-		for (String s : connection.getScores()) {
+		for (String s : scores) {
 			String[] parts = s.split(":");
 			g.drawString(parts[0],500,y);
 		    g.drawString(parts[1],700,y);
