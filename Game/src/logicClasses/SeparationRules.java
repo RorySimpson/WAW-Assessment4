@@ -129,7 +129,7 @@ public void checkTornadoOnFlightCollision(Airspace airspace){
 				if((lateralDistanceBetweenFlightAndTornado(flight, tornado) <= warningLateralSeparation - 40)
 					&& (flight.getAltitude() > 0)){
 					Random rand = new Random();
-					int random1 = (rand.nextInt(5) + 2) * 1000;
+					int random1 = (rand.nextInt(4) + 2) * 1000;
 					int random2 = rand.nextInt(360);
 					
 					flight.setCurrentAltitude(random1);
