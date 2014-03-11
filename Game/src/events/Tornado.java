@@ -44,7 +44,7 @@ public class Tornado {
 	
 	public void randomiseLocation(){
 		Random rand = new Random();
-		int random = rand.nextInt(10);
+		int random = rand.nextInt(9);
 	
 		// Some set of starting locations on the edges of the screen
 		switch (random){
@@ -65,27 +65,23 @@ public class Tornado {
 				this.y = 500;
 				break;
 			case 5:
-				this.x = 0;
-				this.y = 500;
+				this.x = 200;
+				this.y = 600;
 				break;
 			case 6:
 				this.x = 200;
 				this.y = 0;
 				break;
 			case 7:
-				this.x = 550;
+				this.x = 850;
 				this.y = 0;
 				break;
 			case 8:
 				this.x = 0;
 				this.y = 100;
 				break;
-			case 9:
-				this.x = 0;
-				this.y = 450;
-				break;
 		}
-		
+	
 		originalX = this.x;
 		originalY = this.y;
 	}
