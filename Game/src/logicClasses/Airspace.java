@@ -444,6 +444,12 @@ public class Airspace {
 			return true;
 		}
 	}
+	
+
+//	public void addTornado(Tornado tornado){
+//		tornado.attack();
+//	}
+	
 	public boolean addFlight(Flight flight) {
 
 		// Checks whether the flight was already added before, and if it won't pass the maximum number of flights allowed

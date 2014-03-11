@@ -26,6 +26,7 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.util.ResourceLoader;
 
+import events.Tornado;
 import util.DeferredFile;
 
 
@@ -73,6 +74,7 @@ public class PlayState extends BasicGameState {
 		time = 0;
 		airspace = new Airspace();
 		this.stringTime="";
+		
 		
 		gc.setAlwaysRender(true);
 		gc.setUpdateOnlyWhenVisible(true);
@@ -683,6 +685,12 @@ public class PlayState extends BasicGameState {
 					musicPaused = false;
 				}
 			
+			}
+			
+			if (input.isKeyPressed(Input.KEY_X)){
+				Tornado tornado = new Tornado(airspace, airspace.getEventController());
+				tornado.init(gc);
+				tornado.attack();
 			}
 			
 			if (!gameplayMusic.playing() && (!musicPaused) && !gameJustFinished){
