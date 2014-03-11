@@ -1,5 +1,7 @@
 package logicClasses;
 import java.awt.geom.Point2D;
+import java.util.Random;
+
 import events.*;
 
 import org.newdawn.slick.Color;
@@ -61,6 +63,10 @@ public class SeparationRules {
 		return Math.sqrt(Math.pow((flight.getX() - projectile.getX()), 2) + Math.pow(( flight.getY() - projectile.getY()),2));
 	}
 	
+	public double lateralDistanceBetweenFlightAndTornado(Flight flight, Tornado tornado){
+		return Math.sqrt(Math.pow((flight.getX() - tornado.getX()), 2) + Math.pow(( flight.getY() - tornado.getY()),2));
+	}
+	
 	/**
 	 * verticalDistanceBetweenFlights: Calculates the vertical distance between two flights.
 	 * @param flight1 - A flight from the airspace.
@@ -79,7 +85,6 @@ public class SeparationRules {
 	 */
 	
 	public void checkFlightOnFlightViolation(Airspace airspace){
-		
 		
 		for (int i = 0; i < airspace.getListOfFlights().size(); i++){
 			
@@ -109,6 +114,29 @@ public class SeparationRules {
 					this.gameOverViolation = true;
 					flight.setVelocity(0);
 					flight.setVelocity(0);
+					this.pointOfCrash.setLocation(flight.getX(), flight.getY());
+				}
+				
+			}
+			
+		}
+	}
+	
+public void checkTornadoOnFlightCollision(Airspace airspace){
+	
+		for(Tornado tornado: airspace.getEventController().getListOfTornados()){
+			for(Flight flight: airspace.getListOfFlights()){
+				if((lateralDistanceBetweenFlightAndTornado(flight, tornado) <= warningLateralSeparation - 40)
+					&& (flight.getAltitude() > 0)){
+					Random rand = new Random();
+					int random1 = (rand.nextInt(5) + 2) * 1000;
+					int random2 = rand.nextInt(360);
+					
+					flight.setCurrentAltitude(random1);
+					flight.setAltitude(random1);
+					flight.setTargetAltitude(random1);
+					
+					flight.setCurrentHeading(random2);
 					this.pointOfCrash.setLocation(flight.getX(), flight.getY());
 				}
 				
@@ -181,6 +209,7 @@ public class SeparationRules {
 		
 		this.checkFlightOnFlightViolation(airspace);
 		this.checkVolcanoProjectileOnFlightCollision(airspace);
+		this.checkTornadoOnFlightCollision(airspace);
 		checkHunterFlightCollision(airspace);
 	}
 	

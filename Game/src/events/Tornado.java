@@ -1,6 +1,5 @@
 package events;
 
-import java.util.List;
 import java.util.Random;
 
 import logicClasses.Airspace;
@@ -27,9 +26,6 @@ public class Tornado {
 	
 	// Timer for how long until the tornado tries to leave or something
 	int whatAmIDoing;
-	
-	// Tornados queued for removing
-	private List<Tornado> toRemove;
 	
 	// Save the coordinates from which the Tornado came to get a better path when leaving
 	double originalX;
@@ -111,6 +107,16 @@ public class Tornado {
 		}
 	}
 	
+	public double getX()
+		{
+			return x;
+		}
+
+	public double getY()
+		{
+			return y;
+		}
+
 	// Update coordinates
 	public void updateXY(){
 		Random randx = new Random();

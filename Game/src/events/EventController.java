@@ -15,6 +15,11 @@ public class EventController {
 	private HunterFlight hunterFlight;
 	private List<HunterFlight> listOfHunterFlights;
 	private List<Tornado> listOfTornados;
+	public List<Tornado> getListOfTornados()
+		{
+			return listOfTornados;
+		}
+
 	private Volcano volcano;
 	
 	
