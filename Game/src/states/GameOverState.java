@@ -106,8 +106,7 @@ public class GameOverState extends BasicGameState {
 			font = new TrueTypeFont(awtFont, false);
 			newHighScore = true;
 			nameTextField = new TextField(gc, font, 520, 150, 200, 23);
-			nameTextField.setFocus(true);
-			nameTextField.setFocus(false);
+			nameTextField.isAcceptingInput();
 			nameTextField.setMaxLength(15);
 			nameTextField.setText("Whats your name?");
 		}
