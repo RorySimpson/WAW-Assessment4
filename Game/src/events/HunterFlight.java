@@ -23,17 +23,19 @@ public class HunterFlight {
 	private int velocity;
 	private EntryPoint entryPoint;
 	private Flight victim;
-	private boolean turningLeft, turningRight;
+	private boolean turningLeft, turningRight, hasVictim;
 	
 	
 	public HunterFlight(Airspace airspace, EventController eventController){
-		x = generateX();
-		y = 0;
+		x = 600;
+		y = 300;
+		victim = null;
 		currentHeading = 225;
 		targetHeading = 225;
 		velocity = 300;
 		turningLeft = false;
 		turningRight = false;
+		hasVictim = false;
 		eventController.addHunterFlight(this);
 	}
 	
@@ -42,6 +44,7 @@ public class HunterFlight {
 			;
 		}
 		else{
+			hasVictim = true;
 			victim = airspace.getListOfFlightsInAirspace().get(0);
 		}
 	}
@@ -140,6 +143,17 @@ public class HunterFlight {
 		}
 	}
 	
+	public boolean inAirspace(){
+		
+		if (x > 1220 || x < -20|| y > 620 || y < -20) { 
+			return false;
+		}
+		else 
+		{
+			return true;
+		}
+	}
+	
 	public void drawHunterFlight(Graphics g, GameContainer gc ){
 
 		hunterFlightImage.draw((int) this.x-35, (int) this.y);
@@ -151,9 +165,11 @@ public class HunterFlight {
 	}
 	
 	public void update(Airspace airspace) {
+		if (!hasVictim){
+			generateVictim(airspace);
+		}
 		updateCurrentHeading();
-		updateXYCoordinates();
-		generateVictim(airspace);		
+		updateXYCoordinates();	
 	}
 	
 	public void render(Graphics g, GameContainer gc) throws SlickException {
@@ -161,11 +177,11 @@ public class HunterFlight {
 	}
 	
 	public double getX(){
-		return this.x;
+		return x;
 	}
 	
 	public double getY(){
-		return this.y;
+		return y;
 	}
 	
 	public void setX(double x){

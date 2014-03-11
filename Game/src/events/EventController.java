@@ -28,8 +28,8 @@ public class EventController {
 		this.volcano = new Volcano();
 		// this.tornado = new Tornado();
 		this.listOfHunterFlights = new ArrayList<HunterFlight>();
-		hunterFlight = new HunterFlight(airspace, this);
-		this.listOfTornados = new ArrayList<Tornado>();		
+		this.listOfTornados = new ArrayList<Tornado>();	
+		//hunterFlight = new HunterFlight(airspace, this);
 
 		
 
@@ -38,20 +38,19 @@ public class EventController {
 	public void init (GameContainer gc) throws SlickException{
 		this.volcano.init(gc);
 		
-		//hunterFlight.init(gc);
-		//for (HunterFlight hunterFlight : listOfHunterFlights){
-		//	hunterFlight.init(gc);
-		//}
+		for (HunterFlight hunterFlight : listOfHunterFlights){
+			hunterFlight.init(gc);
+		}
 		
 		
 	}
 	
 	public void render (Graphics g, GameContainer gc) throws SlickException{
 		this.volcano.render(g, gc);
-		//hunterFlight.render(g, gc);
-		//for (HunterFlight hunterFlight : listOfHunterFlights){
-		//	hunterFlight.render(g, gc);
-		//}
+		
+		for (HunterFlight hunterFlight : listOfHunterFlights){
+			hunterFlight.render(g, gc);
+		}
 
 		for (Tornado tornado : listOfTornados){
 			tornado.render(g, gc);
@@ -60,10 +59,15 @@ public class EventController {
 	
 	public void update(GameContainer gc, Airspace airspace) throws SlickException{
 		this.volcano.update(gc);
-		//hunterFlight.update(airspace);
-		//for (HunterFlight hunterFlight : listOfHunterFlights){
-		//	hunterFlight.update(airspace);
-		//}
+		
+		for (int i = 0; i < listOfHunterFlights.size(); i++){
+			if (listOfHunterFlights.get(i).inAirspace()){
+				listOfHunterFlights.get(i).update(airspace);
+			}
+			else {
+				removeHunterFlight(i);
+			}
+		}
 		
 		for (int i = 0; i < this.listOfTornados.size(); i++){
 			if (this.listOfTornados.get(i).inAirspace()){
@@ -92,6 +96,10 @@ public class EventController {
 	
 	public void addHunterFlight(HunterFlight hunterFlight){
 		listOfHunterFlights.add(hunterFlight);
+	}
+	
+	public void removeHunterFlight(int hunterFlight){
+		listOfHunterFlights.remove(hunterFlight);
 	}
 
 }
