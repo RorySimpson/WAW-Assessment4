@@ -4,7 +4,7 @@ public class Achievements {
 
 	//FIELDS
 	private int numberOfAchievements 			= 0;
-	private static final int MAXACHIEVEMENTS 	= 7;
+	private static final int MAXACHIEVEMENTS 	= 8;
 	private static final int ACHIEVEMENTTIME 	= 600000;
 	private String achievementMessage 			= "";
 	
@@ -15,11 +15,11 @@ public class Achievements {
 	private boolean noPlaneLossAchievementGained 		= false;
 	private boolean planesLandedAchievementGained 		= false;
 	private boolean flightPlanChangedAchievementGained 	= false;
-	private boolean allAchievementsEarned				= false;
 	private boolean crashAchievementGained 				= false;
 	private boolean completeFlightPlanAchievementGained = false;
-
-	private boolean achievementGained                   = false;
+	
+	private boolean allAchievementsEarned				= false;
+	private boolean achievementGained                   = false; //bool that is set/deset to render onscreen achievement box
 		
 	//CONSTRUCTOR
 	public Achievements(){

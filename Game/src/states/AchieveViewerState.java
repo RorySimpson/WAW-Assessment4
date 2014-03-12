@@ -10,23 +10,34 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.loading.LoadingList;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.util.ResourceLoader;
 
 import util.DeferredFile;
+
+import logicClasses.Achievements;
+import stateContainer.Game;
 
 public class AchieveViewerState extends BasicGameState{
 
 	public static Image
 		menuBackground, menuButton, menuHover;
 	
+	private Achievements
+		currentAchieved; //copy of achievements pulled from game container
+	
 	//private String[][] credits;	//[section, line]
 	
 	public AchieveViewerState(int state){
 		
 	}
+	
+
 
 	@Override
 	public void init(GameContainer gc, StateBasedGame sbg)
 			throws SlickException {
+		
+	currentAchieved = ((Game)sbg).getAchievements();
 	
 		{
 			LoadingList loading = LoadingList.get();

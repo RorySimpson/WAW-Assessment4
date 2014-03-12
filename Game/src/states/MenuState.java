@@ -19,11 +19,11 @@ public class MenuState extends BasicGameState {
 
 	private static Image 
 		menuBackground,
-		playButton, quitButton, creditsButton, controlsButton, scoreButton,
-		playHover, quitHover, creditsHover, controlsHover, scoreHover;
+		playButton, quitButton, creditsButton, controlsButton, scoreButton, achieveButton,
+		playHover, quitHover, creditsHover, controlsHover, scoreHover, achieveHover;
 	
 	private HoverImage
-		play, quit, credits, controls, score;
+		play, quit, credits, controls, score, achieve;
 	
 	private boolean mouseBeenReleased;
 
@@ -103,6 +103,18 @@ public class MenuState extends BasicGameState {
 			}
 		});
 
+		loading.add(new DeferredFile("res/menu_graphics/new/credits.png"){
+			public void loadFile(String filename) throws SlickException{
+				achieveButton = new Image(filename);
+			}
+		});
+		
+		loading.add(new DeferredFile("res/menu_graphics/new/controls_hover.png"){
+			public void loadFile(String filename) throws SlickException{
+				achieveHover = new Image(filename);
+			}
+		});
+		
 		loading.add(new DeferredResource(){
 			public String getDescription() {
 				return "set up menuState buttons";
@@ -113,7 +125,8 @@ public class MenuState extends BasicGameState {
 				quit = new HoverImage(quitButton, quitHover, 1078, 534);
 				credits = new HoverImage(creditsButton, creditsHover, 20, 534);
 				controls = new HoverImage(controlsButton, controlsHover, 490, 534);
-				score = new HoverImage(scoreButton, scoreHover, 200, 349);
+				score = new HoverImage(scoreButton, scoreHover, 250, 534);
+				achieve = new HoverImage(achieveButton, achieveHover, 800, 534);
 			}
 		});
 
@@ -134,6 +147,7 @@ public class MenuState extends BasicGameState {
 		credits.render(posX, posY);
 		controls.render(posX, posY);
 		score.render(posX, posY);
+		achieve.render(posX, posY);
 	}
 
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
@@ -169,6 +183,10 @@ public class MenuState extends BasicGameState {
 				
 				if (score.isMouseOver(posX, posY)) {	
 					sbg.enterState(stateContainer.Game.SCORESTATE);
+				}
+				
+				if (achieve.isMouseOver(posX,  posY)){
+					sbg.enterState(stateContainer.Game.ACHIEVEVIEWERSTATE);
 				}
 			}
 			/* else mouse is dragged*/
