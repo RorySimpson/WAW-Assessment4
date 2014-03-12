@@ -7,23 +7,39 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.loading.DeferredResource;
 import org.newdawn.slick.loading.LoadingList;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.util.ResourceLoader;
 
 import util.DeferredFile;
-
+import util.HoverImage;
 import logicClasses.Achievements;
 import stateContainer.Game;
 
 public class AchieveViewerState extends BasicGameState{
 
 	public static Image
-		menuBackground, menuButton, menuHover;
+		menuBackground, menuButton, menuHover,
+		silverUnachieved, silverImg,
+		goldUnachieved, goldImg,
+		timeUnachieved, timeImg,
+		noPlanesLostUnachieved, noPlanesLostImg,
+		planesLandedUnachieved, planesLandedImg,
+		flightPlanChangedUnachieved, flightPlanChangedImg,
+		crashUnachieved, crashImg,
+		completeFlightPlanUnachieved, completeFlightPlanImg,
+		allAchievedUnachieved, allAchievedImg;
+	
+	private HoverImage
+		menuReturn, silverAchieve, goldAchieve, timeAchieve, noPlanesLostAchieve, planesLandedAchieve,
+		flightPlanChangedAchieve, crashAchieve, completeFlightPlanAchieve, allAchievedAchieve;
 	
 	private Achievements
 		currentAchieved; //copy of achievements pulled from game container
+	
+	private boolean mouseBeenReleased;
 	
 	//private String[][] credits;	//[section, line]
 	
@@ -37,8 +53,6 @@ public class AchieveViewerState extends BasicGameState{
 	public void init(GameContainer gc, StateBasedGame sbg)
 			throws SlickException {
 		
-	currentAchieved = ((Game)sbg).getAchievements();
-	
 		{
 			LoadingList loading = LoadingList.get();
 
@@ -60,6 +74,44 @@ public class AchieveViewerState extends BasicGameState{
 				}
 					
 			});
+			
+			loading.add(new DeferredFile("res/menu_graphics/achievements/goldAchieved.png"){
+				public void loadFile(String filename) throws SlickException{
+					goldImg = new Image(filename);
+				}
+			});
+			
+			loading.add(new DeferredFile("res/menu_graphics/achievements/goldUnachieved.png"){
+				public void loadFile(String filename) throws SlickException{
+					goldUnachieved = new Image(filename);
+				}
+			});
+			
+			loading.add(new DeferredFile("res/menu_graphics/achievements/silverAchieved.png"){
+				public void loadFile(String filename) throws SlickException{
+					silverImg = new Image(filename);
+				}
+			});
+			
+			loading.add(new DeferredFile("res/menu_graphics/achievements/silverUnachieved.png"){
+				public void loadFile(String filename) throws SlickException{
+					silverUnachieved = new Image(filename);
+				}
+			});
+			
+			loading.add(new DeferredResource(){
+				public String getDescription() {
+					return "set up AchieveViewerState buttons";
+				}
+
+				public void load(){
+					menuReturn = new HoverImage(menuButton, menuHover, 20, 20);
+					silverAchieve = new HoverImage(silverImg, silverUnachieved, 150, 240);
+					goldAchieve = new HoverImage(goldImg, goldUnachieved, 230, 240);
+
+				}
+			});
+
 			
 		}
 
@@ -100,9 +152,10 @@ public class AchieveViewerState extends BasicGameState{
 	
 		menuBackground.draw(0,0);
 		
-		if (posX>20 && posX< 136 && posY>20 && posY<66)
-			menuHover.draw(20,20);
-		else menuButton.draw(20,20);
+		//draw hover buttons in correct locations
+		menuReturn.render(posX, posY);
+		silverAchieve.render(posX, posY);
+		goldAchieve.render(posX, posY);
 		
 		//draw background panel
 		g.setColor(new Color(250, 235, 215, 50));	//pale orange, semi-transparent
@@ -113,8 +166,26 @@ public class AchieveViewerState extends BasicGameState{
 	@Override
 	public void update(GameContainer gc, StateBasedGame sbg, int delta)
 			throws SlickException {
-		// TODO Auto-generated method stub
 		
+		currentAchieved = ((Game)sbg).getAchievements();
+		
+		int	posX = Mouse.getX(),
+			posY = stateContainer.Game.MAXIMUMHEIGHT -Mouse.getY();
+				// Mapping Mouse coords onto graphics coords
+		
+		if (Mouse.isButtonDown(Input.MOUSE_LEFT_BUTTON)) {	
+			if(mouseBeenReleased){	//button first pressed
+				mouseBeenReleased = false;
+				
+				if (menuReturn.isMouseOver(posX, posY)){
+					sbg.enterState(stateContainer.Game.MENUSTATE);
+				}
+			}
+			/* else mouse is dragged*/
+		}	
+		else if (!mouseBeenReleased){	//mouse just released
+			mouseBeenReleased = true;
+		}
 	}
 
 	@Override
