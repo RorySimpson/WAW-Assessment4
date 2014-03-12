@@ -565,6 +565,12 @@ public class PlayState extends BasicGameState {
 			else{
 				gameJustFinished = false;
 				gameEnded = true;
+				red = 255;
+				blue = 255;
+				green = 255;
+				brightness = new Color( red , blue, green);
+				countdownToLightReduction = 40;
+				
 				sbg.enterState(stateContainer.Game.GAMEOVERSTATE);
 				currentCoord = 600;
 				targetCoord = 600;
