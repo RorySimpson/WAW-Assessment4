@@ -106,10 +106,11 @@ public class Controls {
 		// to be selected.
 		if (minimumDistanceBetweenFlightAndMouseClick <= 50){ // If the mouse if further from the flight than 50 then it cannot be selected
 			
-			if (nearestFlight.isLanding()){
+			if (nearestFlight.isLanding() || !nearestFlight.isControllable()){
 				
 				return;
 			}
+			
 			
 			
 			if (nearestFlight == selectedFlight){ //If you are clicking on the currently selected flight then change the airspace mode instead of changing flight

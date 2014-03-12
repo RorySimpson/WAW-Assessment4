@@ -220,12 +220,15 @@ public class Airspace {
 					if (tempFlight.getFlightPlan().getEntryPoint() == this.airportLeft.getEndOfRunway())
 					{
 						heading = airportLeft.getRunwayHeading();
+						tempFlight.setWaitingToTakeOff(true);
 					}
 					
 					else if(tempFlight.getFlightPlan().getEntryPoint() == this.airportRight.getEndOfRunway()){
 						
 						heading = airportRight.getRunwayHeading();
+						tempFlight.setWaitingToTakeOff(true);
 					}
+					
 					else
 					{
 						heading = tempFlight.calculateHeadingToNextWaypoint(
@@ -344,8 +347,11 @@ public class Airspace {
 				this.removeSpecificFlight(i);
 			}
 			else if (this.checkIfFlightHasLeftAirspace(this.getListOfFlights().get(i))) {
-				score.reduceScoreOnFlightLost();
-				score.reduceMultiplierOnFlightLost();
+				if(this.getListOfFlights().get(i).isControllable()){
+					score.reduceScoreOnFlightLost();
+					score.reduceMultiplierOnFlightLost();
+					
+				}
 				this.removeSpecificFlight(i);
 			}
 			

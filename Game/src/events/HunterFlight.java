@@ -156,7 +156,7 @@ public class HunterFlight {
 	
 	public void drawHunterFlight(Graphics g, GameContainer gc ){
 
-		hunterFlightImage.draw((int) this.x, (int) this.y);
+		hunterFlightImage.drawCentered((int) this.x, (int) this.y);
 		hunterFlightImage.setRotation((int) currentHeading);
 		
 	}

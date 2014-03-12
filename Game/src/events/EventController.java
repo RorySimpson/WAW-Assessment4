@@ -15,6 +15,8 @@ public class EventController {
 	private HunterFlight hunterFlight;
 	private List<HunterFlight> listOfHunterFlights;
 	private List<Tornado> listOfTornados;
+	private int timeUntilRadioMalfunction;
+	private Airspace airspace;
 	public List<Tornado> getListOfTornados()
 		{
 			return listOfTornados;
@@ -28,11 +30,21 @@ public class EventController {
 		this.volcano = new Volcano();
 		// this.tornado = new Tornado();
 		this.listOfHunterFlights = new ArrayList<HunterFlight>();
-		this.listOfTornados = new ArrayList<Tornado>();	
+		this.listOfTornados = new ArrayList<Tornado>();
+		this.timeUntilRadioMalfunction=newRadioMalfunctionTime();
+		this.airspace=airspace;
 		//hunterFlight = new HunterFlight(airspace, this);
 
 		
 
+	}
+	
+	public int newRadioMalfunctionTime() {
+		
+		Random rand = new Random();
+		int randNum = rand.nextInt(600)+2400;
+		return randNum;
+		
 	}
 	
 	public void init (GameContainer gc) throws SlickException{
@@ -59,6 +71,26 @@ public class EventController {
 	
 	public void update(GameContainer gc, Airspace airspace) throws SlickException{
 		this.volcano.update(gc);
+		this.timeUntilRadioMalfunction--;
+		if(this.timeUntilRadioMalfunction==0){
+			
+			if(this.airspace.getListOfFlights().size()>0) {
+				int size = this.airspace.getListOfFlights().size();
+				Random rand = new Random();
+				int indexOfVictimFlight = rand.nextInt(size);
+				if(this.airspace.getControls().getSelectedFlight()==this.airspace.getListOfFlights().get(indexOfVictimFlight)){
+					this.airspace.getControls().setSelectedFlight(null);
+				}
+				if(!this.airspace.getListOfFlights().get(indexOfVictimFlight).isTakingOff()&&!this.airspace.getListOfFlights().get(indexOfVictimFlight).isWaitingToTakeOff()){
+					this.airspace.getListOfFlights().get(indexOfVictimFlight).setSelected(false);
+					this.airspace.getListOfFlights().get(indexOfVictimFlight).setControllable(false);
+				}
+				
+				
+			}
+			this.timeUntilRadioMalfunction=this.newRadioMalfunctionTime();
+			
+		}
 		
 		for (int i = 0; i < listOfHunterFlights.size(); i++){
 			if (listOfHunterFlights.get(i).inAirspace()){

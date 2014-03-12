@@ -50,10 +50,12 @@ public class Flight {
 
 	private boolean 
 	takingOff = false,
+	waitingToTakeOff = false,
 	landing = false,
 	circling = false,
 	partCircling = false,
-	finalApproach = false;
+	finalApproach = false,
+	controllable = true;
 
 
 	// CONSTRUCTOR
@@ -403,27 +405,29 @@ public class Flight {
 		// If flight is selected then also display current heading
 
 		if (this.selected){
-			if (this.currentAltitude != 0){
+			if (this.currentAltitude != 0 ){
 				g.setColor(Color.white);
-				g.drawString(Math.round(this.currentAltitude) + " ft",(int) this.x-30, (int) this.y + 10);
+				if(controllable){
+					g.drawString(Math.round(this.currentAltitude) + " ft",(int) this.x-30, (int) this.y + 10);
 
-				if (this.flightPlan.getCurrentRoute().size() > 0) {
-					if (this.flightPlan.getCurrentRoute().get(0) == this.airspace.getAirportLeft().getBeginningOfRunway() && this.currentAltitude > 2000){
-						g.drawString("Lower Me",(int) this.x -29, (int)this.y-28);
+					if (this.flightPlan.getCurrentRoute().size() > 0) {
+						if (this.flightPlan.getCurrentRoute().get(0) == this.airspace.getAirportLeft().getBeginningOfRunway() && this.currentAltitude > 2000){
+							g.drawString("Lower Me",(int) this.x -29, (int)this.y-28);
+						}
+
+						else if (this.flightPlan.getCurrentRoute().get(0) == this.airspace.getAirportLeft().getBeginningOfRunway() && this.currentAltitude <= 2000){
+							g.drawString("Line Me Up",(int) this.x -33, (int)this.y-28);
+						}
+
+						else if (this.flightPlan.getCurrentRoute().get(0) == this.airspace.getAirportLeft().getBeginningOfRunway() && this.currentAltitude <= 2000){
+							g.drawString("Landing",(int) this.x -33, (int)this.y-28);
+						}
+
+						else{
+							g.drawString("Aim: "+this.flightPlan.getPointByIndex(0).getPointRef(),(int) this.x -22, (int)this.y-28);
+						}
+
 					}
-
-					else if (this.flightPlan.getCurrentRoute().get(0) == this.airspace.getAirportLeft().getBeginningOfRunway() && this.currentAltitude <= 2000){
-						g.drawString("Line Me Up",(int) this.x -33, (int)this.y-28);
-					}
-
-					else if (this.flightPlan.getCurrentRoute().get(0) == this.airspace.getAirportLeft().getBeginningOfRunway() && this.currentAltitude <= 2000){
-						g.drawString("Landing",(int) this.x -33, (int)this.y-28);
-					}
-
-					else{
-						g.drawString("Aim: "+this.flightPlan.getPointByIndex(0).getPointRef(),(int) this.x -22, (int)this.y-28);
-					}
-
 				}
 
 				g.drawOval((int) this.x - 50, (int) this.y - 50, 100, 100);
@@ -433,28 +437,30 @@ public class Flight {
 
 		// If flight isn't selected then don't display current heading
 		else{
-			if (this.currentAltitude != 0){
-				g.setColor(Color.lightGray);
-				g.drawString(Math.round(this.currentAltitude) + " ft",(int) this.x-30, (int) this.y + 10);
+			if(controllable){
+				if (this.currentAltitude != 0){
+					g.setColor(Color.lightGray);
+					g.drawString(Math.round(this.currentAltitude) + " ft",(int) this.x-30, (int) this.y + 10);
 
-				if (this.flightPlan.getCurrentRoute().size() > 0) {
-					if (this.flightPlan.getCurrentRoute().get(0) == this.airspace.getAirportLeft().getBeginningOfRunway()){
-						g.drawString("Land Me",(int) this.x -29, (int)this.y-28);
-					}
+					if (this.flightPlan.getCurrentRoute().size() > 0) {
+						if (this.flightPlan.getCurrentRoute().get(0) == this.airspace.getAirportLeft().getBeginningOfRunway()){
+							g.drawString("Land Me",(int) this.x -29, (int)this.y-28);
+						}
 
-					else{
-						g.drawString("Aim: "+this.flightPlan.getPointByIndex(0).getPointRef(),(int) this.x -22, (int)this.y-28);
+						else{
+							g.drawString("Aim: "+this.flightPlan.getPointByIndex(0).getPointRef(),(int) this.x -22, (int)this.y-28);
+						}
 					}
+					g.drawOval((int) this.x - 50, (int) this.y - 50, 100, 100);
 				}
-				g.drawOval((int) this.x - 50, (int) this.y - 50, 100, 100);
-			}
 
-			else if (this.currentAltitude == 0 && takingOff != true && this.flightPlan.getEntryPoint() == airspace.getAirportRight().getEndOfRunway()){
-				g.drawString("Take me off!",(int) this.x-80 , (int)this.y+28);
-			}
+				else if (this.currentAltitude == 0 && takingOff != true && this.flightPlan.getEntryPoint() == airspace.getAirportRight().getEndOfRunway()){
+					g.drawString("Take me off!",(int) this.x-80 , (int)this.y+28);
+				}
 
-			else if (this.currentAltitude == 0 && takingOff != true && this.flightPlan.getEntryPoint() == airspace.getAirportLeft().getEndOfRunway()){
-				g.drawString("Take me off!",(int) this.x+50 , (int)this.y+28);
+				else if (this.currentAltitude == 0 && takingOff != true && this.flightPlan.getEntryPoint() == airspace.getAirportLeft().getEndOfRunway()){
+					g.drawString("Take me off!",(int) this.x+50 , (int)this.y+28);
+				}
 			}
 		}
 
@@ -883,6 +889,22 @@ public class Flight {
 
 	public void setLanding(boolean landing) {
 		this.landing = landing;
+	}
+
+	public boolean isControllable() {
+		return controllable;
+	}
+
+	public void setControllable(boolean controllable) {
+		this.controllable = controllable;
+	}
+
+	public boolean isWaitingToTakeOff() {
+		return waitingToTakeOff;
+	}
+
+	public void setWaitingToTakeOff(boolean waitingToTakeOff) {
+		this.waitingToTakeOff = waitingToTakeOff;
 	}
 
 
