@@ -58,8 +58,11 @@ public class PlayState extends BasicGameState {
 	private static final int GAMEOVERTIME = 90;
 	private int countdownToGameOverState;
 	private int synch = 180;
+	private int red = 255, blue = 255, green = 255;
+	private Color brightness = new Color(red, green, blue);
+	private int countdownToLightReduction = 40;
 
-	private boolean musicPaused = false;
+	private boolean musicPaused = false, increasingBrightness = false;
 	
 	public PlayState(int state) {
 		achievement = new Achievements();
@@ -367,7 +370,42 @@ public class PlayState extends BasicGameState {
 			g.setFont(font);
 			
 			// Drawing Side Images
-			backgroundImage.draw(0,0);
+			
+			
+			
+			if(countdownToLightReduction != 0){
+				countdownToLightReduction --;
+			}
+			else{
+				
+				if(red == 40){
+					increasingBrightness = true;	
+				}
+				
+				else if(red == 255){
+					increasingBrightness = false;
+				}
+				
+				
+
+				if(increasingBrightness){
+					red ++;
+					blue ++;
+					green ++;
+				}
+				else{
+					red --;
+					blue --;
+					green --;
+				}
+				
+				
+				brightness = new Color( red , blue, green);
+				countdownToLightReduction = 40;
+			}
+			
+			
+			backgroundImage.draw(0,0, brightness);
 			messageBoxImage.draw(11,560);
 			
 			

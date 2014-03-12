@@ -72,6 +72,19 @@ public class Flight {
 		this.currentAltitude = generateAltitude();
 		this.selected = false;
 	}
+	
+	public Flight(Airspace airspace, Boolean competitive){
+		this.x = 0;
+		this.y = 0;
+		this.targetAltitude = 0;
+		this.targetHeading = 0;
+		this.currentHeading = 0;
+		this.turningRight = false;
+		this.turningLeft = false;
+		this.airspace = airspace;
+		this.currentAltitude = generateAltitude();
+		this.selected = false;
+	}
 
 	// METHODS
 
