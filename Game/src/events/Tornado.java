@@ -31,6 +31,10 @@ public class Tornado {
 	double originalX;
 	double originalY;
 	
+	// Whether the plane leaves through the bottom or the top of the screen
+	Random rand = new Random();
+	int randomDirection;
+	
 	// Constructor
 	public Tornado(Airspace airspace, EventController eventController){
 		
@@ -40,6 +44,9 @@ public class Tornado {
 		eventController.addTornado(this);
 
 		this.randomiseLocation();
+		
+		Random rand = new Random();
+		randomDirection = rand.nextInt(2);
 	}
 	
 	public void randomiseLocation(){
@@ -118,7 +125,7 @@ public class Tornado {
 		Random rand = new Random();
 		int directionx = rand.nextInt(4)-2;
 		int directiony = rand.nextInt(4)-2;
-		
+				
 		if (whatAmIDoing > 0){
 			
 			this.whatAmIDoing -= 1;
@@ -135,17 +142,32 @@ public class Tornado {
 				this.y += directiony;
 			}
 		} else {
-			if (this.x <= originalX - 600){
-				this.x += directionx;
+			if (randomDirection % 2 == 0){
+				if (this.x <= originalX - 600){
+					this.x += directionx;
+				} else {
+					this.x -= directionx;
+				}
+				
+				if (this.y <= originalY - 300){
+					this.y += directiony;
+				} else {
+					this.y += directiony;
+				}
 			} else {
-				this.x -= directionx;
+				if (this.x <= originalX - 500){
+					this.x += directionx;
+				} else {
+					this.x -= directionx;
+				}
+				if (this.y <= originalY - 400){
+					this.y += directiony;
+				} else {
+					this.y -= directiony;
+				}
 			}
 			
-			if (this.y <= originalY - 300){
-				this.y += directiony;
-			} else {
-				this.y -= directiony;
-			}
+			
 		}
 	}
 	
