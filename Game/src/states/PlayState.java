@@ -580,7 +580,7 @@ public class PlayState extends BasicGameState {
 		
 		// Checks if the game has been retried and if it has resets the airspace
 		
-		if (gameEnded ){
+		if (gameEnded){
 			
 			airspace.resetAirspace();
 	    	time = 0;

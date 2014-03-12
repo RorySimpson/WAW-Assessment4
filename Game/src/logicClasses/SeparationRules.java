@@ -149,7 +149,7 @@ public void checkTornadoOnFlightCollision(Airspace airspace){
 		
 		for (HunterFlight hunterFlight : airspace.getEventController().getListOfHunterFlights()){
 			for (Flight flight : airspace.getListOfFlights()){
-				if (lateralDistanceBetweenFlightAndHunterFlight(flight, hunterFlight) <= COLLISIONDISTANCE){
+				if (lateralDistanceBetweenFlightAndHunterFlight(flight, hunterFlight) <= gameOverLateralSeparation){
 					this.gameOverViolation = true;
 					flight.setVelocity(0);
 					this.pointOfCrash.setLocation(flight.getX(), flight.getY());
