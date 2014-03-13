@@ -56,12 +56,14 @@ public class AchieveViewerState extends BasicGameState{
 		{
 			LoadingList loading = LoadingList.get();
 
+			//background img
 			loading.add(new DeferredFile("res/menu_graphics/new/menu_screen.png"){	
 				public void loadFile(String filename) throws SlickException{
 					menuBackground = new Image(filename);
 				}
 			});
 
+			//menu return hoverButton img
 			loading.add(new DeferredFile("res/menu_graphics/new/menu_button.png"){
 				public void loadFile(String filename) throws SlickException{
 					menuButton = new Image(filename);
@@ -75,6 +77,7 @@ public class AchieveViewerState extends BasicGameState{
 					
 			});
 			
+			//gold achievement img
 			loading.add(new DeferredFile("res/menu_graphics/achievements/goldAchieved.png"){
 				public void loadFile(String filename) throws SlickException{
 					goldImg = new Image(filename);
@@ -87,6 +90,7 @@ public class AchieveViewerState extends BasicGameState{
 				}
 			});
 			
+			//silver achievement img
 			loading.add(new DeferredFile("res/menu_graphics/achievements/silverAchieved.png"){
 				public void loadFile(String filename) throws SlickException{
 					silverImg = new Image(filename);
@@ -99,6 +103,97 @@ public class AchieveViewerState extends BasicGameState{
 				}
 			});
 			
+			//time achievement img
+			loading.add(new DeferredFile("res/menu_graphics/achievements/timeAchieved.png"){
+				public void loadFile(String filename) throws SlickException{
+					timeImg = new Image(filename);
+				}
+			});
+			
+			loading.add(new DeferredFile("res/menu_graphics/achievements/timeUnachieved.png"){
+				public void loadFile(String filename) throws SlickException{
+					timeUnachieved = new Image(filename);
+				}
+			});
+			
+			//no planes lost achievement img
+			loading.add(new DeferredFile("res/menu_graphics/achievements/noPlanesLostAchieved.png"){
+				public void loadFile(String filename) throws SlickException{
+					noPlanesLostImg = new Image(filename);
+				}
+			});
+			
+			loading.add(new DeferredFile("res/menu_graphics/achievements/noPlanesLostUnachieved.png"){
+				public void loadFile(String filename) throws SlickException{
+					noPlanesLostUnachieved= new Image(filename);
+				}
+			});
+			
+			//planes landed achievement img
+			loading.add(new DeferredFile("res/menu_graphics/achievements/planesLandedAchieved.png"){
+				public void loadFile(String filename) throws SlickException{
+					planesLandedImg = new Image(filename);
+				}
+			});
+			
+			loading.add(new DeferredFile("res/menu_graphics/achievements/planesLandedUnachieved.png"){
+				public void loadFile(String filename) throws SlickException{
+					planesLandedUnachieved = new Image(filename);
+				}
+			});
+			
+			//flight plan changed achievement img
+			loading.add(new DeferredFile("res/menu_graphics/achievements/flightPlanChangedAchieved.png"){
+				public void loadFile(String filename) throws SlickException{
+					flightPlanChangedImg = new Image(filename);
+				}
+			});
+			
+			loading.add(new DeferredFile("res/menu_graphics/achievements/flightPlanChangedUnachieved.png"){
+				public void loadFile(String filename) throws SlickException{
+					flightPlanChangedUnachieved = new Image(filename);
+				}
+			});
+			
+			//all achievements achievement img
+			loading.add(new DeferredFile("res/menu_graphics/achievements/allAchieved.png"){
+				public void loadFile(String filename) throws SlickException{
+					allAchievedImg = new Image(filename);
+				}
+			});
+			
+			loading.add(new DeferredFile("res/menu_graphics/achievements/allAchievedUnachieved.png"){
+				public void loadFile(String filename) throws SlickException{
+					allAchievedUnachieved = new Image(filename);
+				}
+			});
+			
+			//crash achievement img
+			loading.add(new DeferredFile("res/menu_graphics/achievements/crashAchieved.png"){
+				public void loadFile(String filename) throws SlickException{
+					crashImg = new Image(filename);
+				}
+			});
+			
+			loading.add(new DeferredFile("res/menu_graphics/achievements/crashUnachieved.png"){
+				public void loadFile(String filename) throws SlickException{
+					crashUnachieved = new Image(filename);
+				}
+			});
+			
+			//complete flight plan img
+			loading.add(new DeferredFile("res/menu_graphics/achievements/completeFlightPlanAchieved.png"){
+				public void loadFile(String filename) throws SlickException{
+					completeFlightPlanImg = new Image(filename);
+				}
+			});
+			
+			loading.add(new DeferredFile("res/menu_graphics/achievements/completeFlightPlanUnachieved.png"){
+				public void loadFile(String filename) throws SlickException{
+					completeFlightPlanUnachieved = new Image(filename);
+				}
+			});
+			
 			loading.add(new DeferredResource(){
 				public String getDescription() {
 					return "set up AchieveViewerState buttons";
@@ -106,8 +201,15 @@ public class AchieveViewerState extends BasicGameState{
 
 				public void load(){
 					menuReturn = new HoverImage(menuButton, menuHover, 20, 20);
-					silverAchieve = new HoverImage(silverImg, silverUnachieved, 150, 240);
-					goldAchieve = new HoverImage(goldImg, goldUnachieved, 230, 240);
+					silverAchieve = new HoverImage(silverUnachieved, silverImg, 240, 240);
+					goldAchieve = new HoverImage(goldUnachieved, goldImg, 320, 240);
+					timeAchieve = new HoverImage(timeUnachieved, timeImg, 400, 240);
+					noPlanesLostAchieve = new HoverImage(noPlanesLostUnachieved, noPlanesLostImg, 480, 240);
+					planesLandedAchieve = new HoverImage(planesLandedUnachieved, planesLandedImg, 560, 240);
+					flightPlanChangedAchieve = new HoverImage(flightPlanChangedUnachieved, flightPlanChangedImg, 640,240);
+					crashAchieve = new HoverImage (crashUnachieved, crashImg, 720, 240);
+					completeFlightPlanAchieve = new HoverImage (completeFlightPlanUnachieved, completeFlightPlanImg, 800, 240);
+					allAchievedAchieve = new HoverImage (allAchievedUnachieved, allAchievedImg, 880, 240);
 
 				}
 			});
@@ -156,10 +258,18 @@ public class AchieveViewerState extends BasicGameState{
 		menuReturn.render(posX, posY);
 		silverAchieve.render(posX, posY);
 		goldAchieve.render(posX, posY);
+		timeAchieve.render(posX, posY);
+		noPlanesLostAchieve.render(posX, posY);
+		planesLandedAchieve.render(posX, posY);
+		flightPlanChangedAchieve.render(posX, posY); 
+		crashAchieve.render(posX, posY); 
+		completeFlightPlanAchieve.render(posX, posY); 
+		allAchievedAchieve.render(posX, posY);
 		
 		//draw background panel
 		g.setColor(new Color(250, 235, 215, 50));	//pale orange, semi-transparent
-		g.fillRoundRect (50, 230, 1100, 320, 5);
+		g.fillRoundRect (50, 330, 1100, 220, 5);
+		g.fillRoundRect (235, 235, 730, 90, 2);
 		
 	}
 
