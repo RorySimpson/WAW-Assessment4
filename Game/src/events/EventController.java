@@ -42,7 +42,7 @@ public class EventController {
 	public int newRadioMalfunctionTime() {
 		
 		Random rand = new Random();
-		int randNum = rand.nextInt(600)+2400;
+		int randNum = rand.nextInt(1200)+4800;
 		return randNum;
 		
 	}
