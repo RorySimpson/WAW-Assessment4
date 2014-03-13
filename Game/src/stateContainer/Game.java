@@ -31,6 +31,7 @@ public class Game extends StateBasedGame {
 	
 	private int currentScore;
 	private Achievements achievements = new Achievements();
+	private Client client;
 
 
 	/**
@@ -74,6 +75,10 @@ public class Game extends StateBasedGame {
 
 	public void setCurrentScore(int currentScore) {
 		this.currentScore = currentScore;
+	}
+	
+	public Client getClient() {
+		return this.client;
 	}
 
 	public static void main(String[] args) {

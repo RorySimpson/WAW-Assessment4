@@ -1,4 +1,7 @@
 package logicClasses;
+import java.io.ObjectInputStream;
+import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -16,18 +19,20 @@ import stateContainer.Game;
 public class Airspace {
 
 	private int maximumNumberOfFlightsInAirspace;
-	private int	numberOfGameLoopsSinceLastFlightAdded, numberOfGameLoops,
-		numberOfGameLoopsWhenDifficultyIncreases, randomNumberForFlightGeneration;
-	private List<Flight> 		listOfFlightsInAirspace;
+	protected int	numberOfGameLoopsSinceLastFlightAdded;
+	protected int numberOfGameLoops;
+	protected int numberOfGameLoopsWhenDifficultyIncreases;
+	private int randomNumberForFlightGeneration;
+	protected List<Flight> 		listOfFlightsInAirspace;
 	private List<Waypoint> 		listOfWaypoints;
 	private List<EntryPoint>	listOfEntryPoints;
 	private List<ExitPoint> 	listOfExitPoints;
-	private SeparationRules 	separationRules;
+	protected SeparationRules 	separationRules;
 	private Airport 			airportLeft, airportRight;
 	private int 				difficultyValueOfGame; 
-	private Controls 			controls;
-	private ScoreTracking 		score;
-	private EventController eventController;
+	protected Controls 			controls;
+	protected ScoreTracking 		score;
+	protected EventController eventController;
 	
 	
 	// CONSTRUCTOR
