@@ -24,7 +24,8 @@ public class Game extends StateBasedGame {
 		SCORESTATE = 7,
 		PLAYCOOPSTATE = 8,
 		PAUSECOOPSTATE = 9,
-		ACHIEVEVIEWERSTATE = 10;
+		ACHIEVEVIEWERSTATE = 10,
+		ONLINEPLAYSTATE = 11;
 	
 	public static final int 
 		MAXIMUMWIDTH = 1200, MAXIMUMHEIGHT = 600;
@@ -58,6 +59,7 @@ public class Game extends StateBasedGame {
 		addState(new PlayCoopState(PLAYCOOPSTATE));
 		addState(new PauseCoopState(PAUSECOOPSTATE));
 		addState(new AchieveViewerState(ACHIEVEVIEWERSTATE));
+		addState(new OnlinePlayState(ONLINEPLAYSTATE));
 	}
 	
 	public void setAchievements(Achievements newAchievements){
@@ -82,8 +84,6 @@ public class Game extends StateBasedGame {
 	}
 
 	public static void main(String[] args) {
-		//Client client = new Client();
-		//client.start();
 		
 		AppGameContainer appgc;
 		

@@ -156,6 +156,9 @@ public class MenuState extends BasicGameState {
 		if(input.isKeyDown(Input.KEY_C)) {
 			sbg.enterState(stateContainer.Game.PLAYCOOPSTATE);
 		}
+		if(input.isKeyDown(Input.KEY_O)) {
+			sbg.enterState(stateContainer.Game.ONLINEPLAYSTATE);
+		}
 		
 		int	posX = Mouse.getX(),
 			posY = stateContainer.Game.MAXIMUMHEIGHT -Mouse.getY();

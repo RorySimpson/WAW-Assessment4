@@ -38,16 +38,19 @@ public class PlayState extends BasicGameState {
 		statusBarImage, clockImage, windImage,
 		flightIcon,messageBoxImage, scoreCoinImage,
 		cursorImg, achievementBox, soundOffImage, soundOnImage, pauseImage;
-	private Animation explosion;
-	private static Sound endOfGameSound;
-	private static Music gameplayMusic;
-	private static TrueTypeFont
-		font, panelFont;	
+	protected Animation explosion;
+	static Sound endOfGameSound;
+	static Music gameplayMusic;
+	static TrueTypeFont
+		font;
+	static TrueTypeFont panelFont;	
 	public static float time;
 
-	private Airspace airspace;
-	private String stringTime;
-	private boolean settingDifficulty, gameEnded, gameJustFinished = false;
+	protected Airspace airspace;
+	protected String stringTime;
+	protected boolean settingDifficulty;
+	protected boolean gameEnded;
+	private boolean gameJustFinished = false;
 	
 	private Achievements achievement;
 	private String achievementMessage = "";

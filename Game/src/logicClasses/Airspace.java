@@ -24,11 +24,12 @@ public class Airspace {
 	protected int numberOfGameLoopsWhenDifficultyIncreases;
 	private int randomNumberForFlightGeneration;
 	protected List<Flight> 		listOfFlightsInAirspace;
-	private List<Waypoint> 		listOfWaypoints;
-	private List<EntryPoint>	listOfEntryPoints;
-	private List<ExitPoint> 	listOfExitPoints;
+	protected List<Waypoint> 		listOfWaypoints;
+	protected List<EntryPoint>	listOfEntryPoints;
+	protected List<ExitPoint> 	listOfExitPoints;
 	protected SeparationRules 	separationRules;
-	private Airport 			airportLeft, airportRight;
+	protected Airport 			airportLeft;
+	protected Airport airportRight;
 	private int 				difficultyValueOfGame; 
 	protected Controls 			controls;
 	protected ScoreTracking 		score;

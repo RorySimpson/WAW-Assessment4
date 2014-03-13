@@ -19,16 +19,15 @@ public class Server extends Thread {
 	}
 	
 	public void run() {
-		
+		int num = 0;
 		try {
 			ServerSocket server = new ServerSocket(6789);
+			
 			while(true) {
 				Socket socket = server.accept();
-				ObjectOutputStream oo = new ObjectOutputStream(socket.getOutputStream());
-				ArrayList<Integer> ints = new ArrayList<Integer>();
-				ints.add(1);
-				ints.add(2);
-				oo.writeObject(ints);
+				DataOutputStream oo = new DataOutputStream(socket.getOutputStream());
+				num++;
+				oo.writeInt(num);
 				
 			}
 		} catch (Exception e) {

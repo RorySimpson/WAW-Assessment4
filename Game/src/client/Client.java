@@ -3,15 +3,25 @@ import java.net.*;
 import java.util.ArrayList;
 import java.io.*;
 public class Client extends Thread {
+	
+	public int num;
 
 	public void run() {
-
+		long lastTime = System.currentTimeMillis();
+		long currentTime = System.currentTimeMillis();
+		float connectionsPerSecond = 5;
+		float secondsPerLoop = 1000/connectionsPerSecond;
 		try {
-			Socket client = new Socket("localhost",6789);
-			ObjectInputStream is = new ObjectInputStream(client.getInputStream());
-			ArrayList<Integer> ints = (ArrayList<Integer>) is.readObject();
-			for(int i : ints) {
-				System.out.println(i);
+			while(true) {
+				
+				currentTime=System.currentTimeMillis();
+				if(currentTime-lastTime>secondsPerLoop) {
+					Socket client = new Socket("localhost",6789);
+					DataInputStream is = new DataInputStream(client.getInputStream());
+					this.num = is.readInt();
+					System.out.println(num);
+					lastTime = currentTime;
+				}
 			}
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
@@ -20,7 +30,6 @@ public class Client extends Thread {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 	}
 
 }
