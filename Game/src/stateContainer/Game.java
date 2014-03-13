@@ -1,6 +1,7 @@
 package stateContainer;
 
 import org.newdawn.slick.AppGameContainer;
+import client.Client;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
@@ -76,6 +77,9 @@ public class Game extends StateBasedGame {
 	}
 
 	public static void main(String[] args) {
+		//Client client = new Client();
+		//client.start();
+		
 		AppGameContainer appgc;
 		
 //	    fLogger.info("Showing the main window.");
@@ -90,6 +94,7 @@ public class Game extends StateBasedGame {
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
+		
 		
 		
 	}	
