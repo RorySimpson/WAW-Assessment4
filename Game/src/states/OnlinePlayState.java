@@ -20,7 +20,8 @@ import org.newdawn.slick.util.ResourceLoader;
 import util.DeferredFile;
 
 public class OnlinePlayState extends PlayState {
-
+	
+	
 	public OnlinePlayState(int state) {
 
 		super(state);
@@ -234,7 +235,12 @@ public class OnlinePlayState extends PlayState {
 	}
 
          
-
+	@Override
+	public void enter(GameContainer gc, StateBasedGame sbg) {
+		
+		((OnlineAirspace)airspace).enter();
+		
+	}
 	
 	public int getID() {
 		return stateContainer.Game.ONLINEPLAYSTATE;

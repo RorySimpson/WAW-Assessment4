@@ -1,6 +1,7 @@
 package logicClasses;
 import static java.lang.Math.PI;
 
+import java.io.Serializable;
 import java.util.Random;
 
 import org.newdawn.slick.Color;
@@ -11,7 +12,7 @@ import org.newdawn.slick.SlickException;
 
 import stateContainer.Game;
 
-public class Flight {
+public class Flight implements Serializable{ //ignore, its for online mode, doesn't do anything
 
 	// FIELDS
 	private static Image 
@@ -59,6 +60,21 @@ public class Flight {
 
 
 	// CONSTRUCTOR
+	public Flight() { //Constructor for serialising
+		
+		this.x = 0;
+		this.y = 0;
+		this.targetAltitude = 0;
+		this.targetHeading = 0;
+		this.currentHeading = 0;
+		this.turningRight = false;
+		this.turningLeft = false;
+		//this.flightPlan = new FlightPlan(airspace, this);
+		//this.currentAltitude = generateAltitude();
+		this.selected = false;
+		
+	}
+	
 	public Flight(Airspace airspace) {
 		this.x = 0;
 		this.y = 0;

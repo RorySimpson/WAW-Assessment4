@@ -70,6 +70,12 @@ public class PlayState extends BasicGameState {
 	public PlayState(int state) {
 		achievement = new Achievements();
 	}
+	
+	@Override
+	public void enter(GameContainer gc, StateBasedGame sbg) {
+		
+		
+	}
 
 
 	@Override

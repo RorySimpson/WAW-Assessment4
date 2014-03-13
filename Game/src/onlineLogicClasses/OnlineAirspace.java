@@ -9,12 +9,20 @@ import logicClasses.Airspace;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.state.StateBasedGame;
 
 import client.Client;
 
 public class OnlineAirspace extends Airspace {
 
 	Client client;
+	
+	public void enter() {
+		
+		client = new Client();
+		client.start();
+		
+	}
 
 	public void init(GameContainer gc) throws SlickException {
 
@@ -22,8 +30,7 @@ public class OnlineAirspace extends Airspace {
 		this.airportLeft.init(gc);
 		this.airportRight.init(gc);
 		this.eventController.init(gc);
-		client = new Client();
-		client.start();
+		
 
 		for (int i = 0; i < this.listOfWaypoints.size(); i++) { // Initialising waypoints
 			this.listOfWaypoints.get(i).init(gc);
@@ -41,8 +48,7 @@ public class OnlineAirspace extends Airspace {
 	@Override
 	public void update(GameContainer gc) throws SlickException {
 
-			
-		System.out.println(client.num);
+		
 
 
 		this.numberOfGameLoopsSinceLastFlightAdded++;
@@ -72,5 +78,6 @@ public class OnlineAirspace extends Airspace {
 		this.separationRules.update(this);
 		this.controls.update(gc, this);
 	}
+	
 
 }
