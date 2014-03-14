@@ -41,8 +41,10 @@ public class EventController {
 	
 	public int newRadioMalfunctionTime() {
 		
+		
 		Random rand = new Random();
-		int randNum = rand.nextInt(1200)+4800;
+		//Radio Malfunction occurs at a time between 2 minutes and 6 minutes
+		int randNum = rand.nextInt(14800)+ 7200;
 		return randNum;
 		
 	}
@@ -69,8 +71,8 @@ public class EventController {
 		}
 	}
 	
-	public void update(GameContainer gc, Airspace airspace) throws SlickException{
-		this.volcano.update(gc);
+	public void updateRadioMalfunctionEvent(){
+		
 		this.timeUntilRadioMalfunction--;
 		if(this.timeUntilRadioMalfunction==0){
 			
@@ -91,6 +93,12 @@ public class EventController {
 			this.timeUntilRadioMalfunction=this.newRadioMalfunctionTime();
 			
 		}
+		
+	}
+	
+	public void update(GameContainer gc, Airspace airspace) throws SlickException{
+		this.volcano.update(gc);
+		updateRadioMalfunctionEvent();
 		
 		for (int i = 0; i < listOfHunterFlights.size(); i++){
 			if (listOfHunterFlights.get(i).inAirspace()){

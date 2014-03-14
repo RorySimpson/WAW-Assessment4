@@ -387,12 +387,21 @@ public class PlayState extends BasicGameState {
 			}
 			else{
 				
-				if(red == 40){
+				if(red == 25){
 					increasingBrightness = true;	
 				}
 				
 				else if(red == 255){
 					increasingBrightness = false;
+				}
+				
+				if (red == 25 || red == 255){
+					// If Maximum or minimum brightness, don't change brightness for 20 seconds.
+					countdownToLightReduction = 60 * 20; 
+				}
+				
+				else{
+					countdownToLightReduction = 40;
 				}
 				
 				
@@ -401,16 +410,16 @@ public class PlayState extends BasicGameState {
 					red ++;
 					blue ++;
 					green ++;
+					brightness = new Color( red , blue, green);
 				}
 				else{
 					red --;
 					blue --;
 					green --;
+					brightness = new Color( red , blue, green);
 				}
 				
 				
-				brightness = new Color( red , blue, green);
-				countdownToLightReduction = 40;
 			}
 			
 			
