@@ -48,7 +48,7 @@ public class OnlineAirspace extends Airspace {
 	@Override
 	public void update(GameContainer gc) throws SlickException {
 
-		
+		System.out.println(client.num);
 
 
 		this.numberOfGameLoopsSinceLastFlightAdded++;

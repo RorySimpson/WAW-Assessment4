@@ -27,26 +27,20 @@ public class Server extends Thread {
 	}
 	
 	public void run() { // Runs at the same rate as client due to all the I/O blocking
-		int num = 50;
+		int num = 0;
 		try {
 			ServerSocket server = new ServerSocket(6789);
 			
 			while(true) {
-				if(System.currentTimeMillis()>this.nextFlightTime) {
-					this.newFlight();
-					this.nextFlightTime=this.generateNewFlightTime();
-					System.out.println("Made new Flight");
-				}
-				//Socket socket = server.accept();
-				//DataOutputStream oo = new DataOutputStream(socket.getOutputStream());
-				//num--;
-				//if(num==0) {
-				//	oo.writeInt(5);
-				//	num = 50;
+				//if(System.currentTimeMillis()>this.nextFlightTime) {
+				//	this.newFlight();
+				//	this.nextFlightTime=this.generateNewFlightTime();
+				//	System.out.println("Made new Flight");
 				//}
-				//else {
-				//	oo.writeInt(0);
-				//}
+				Socket socket = server.accept();
+				DataOutputStream oo = new DataOutputStream(socket.getOutputStream());
+				num++;
+				oo.writeInt(num);
 				
 			}
 		} catch (Exception e) {

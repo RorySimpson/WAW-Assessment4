@@ -386,7 +386,9 @@ public class Flight implements Serializable{ //ignore, its for online mode, does
 	/**
 	 * drawFlight: draws the flight at it's current x,y and draws its information around within a circle.
 	 * Different images for the flight are used depending on how fast the plane is.
-	 * @param g - Graphics libraries required by slick2d.
+	 * @param g - Graphics l = new Client();
+		client.start();
+		ibraries required by slick2d.
 	 * @param gc - GameContainer required by slick2d.
 	 */
 
