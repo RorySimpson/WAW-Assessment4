@@ -1,12 +1,17 @@
 package stateContainer;
 
 import org.newdawn.slick.AppGameContainer;
+
 import client.Client;
+
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
+import coop.PauseCoopState;
+import coop.PlayCoopState;
 import states.*;
+import competitive.PlayCompetitveState;
 import logicClasses.Achievements;
 
 public class Game extends StateBasedGame {
@@ -25,7 +30,8 @@ public class Game extends StateBasedGame {
 		PLAYCOOPSTATE = 8,
 		PAUSECOOPSTATE = 9,
 		ACHIEVEVIEWERSTATE = 10,
-		ONLINEPLAYSTATE = 11;
+		ONLINEPLAYSTATE = 11,
+		PLAYCOMPETITIVESTATE = 12;
 	
 	public static final int 
 		MAXIMUMWIDTH = 1200, MAXIMUMHEIGHT = 600;
@@ -60,6 +66,7 @@ public class Game extends StateBasedGame {
 		addState(new PauseCoopState(PAUSECOOPSTATE));
 		addState(new AchieveViewerState(ACHIEVEVIEWERSTATE));
 		addState(new OnlinePlayState(ONLINEPLAYSTATE));
+		//addState(new PlayCompetitveState(PLAYCOMPETITIVESTATE));
 	}
 	
 	public void setAchievements(Achievements newAchievements){

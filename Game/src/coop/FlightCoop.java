@@ -16,13 +16,11 @@ public class FlightCoop extends Flight {
 	boolean player2;
 	private static Image player1Image, player2Image;
 	
-	private int
-	minVelocity = 200, maxVelocity = 400,
-	minAltitude = 2000, maxAltitude = 5000;
+	
 	
 	public FlightCoop(Airspace airspace) {
 		super(airspace);
-		this.player2=false;
+		this.player2 = false;
 		// TODO Auto-generated constructor stub
 	}
 	

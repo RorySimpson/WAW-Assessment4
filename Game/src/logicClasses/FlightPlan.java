@@ -50,6 +50,15 @@ public class FlightPlan {
 		this.draggingWaypoint = false;
 				
 	}
+	
+	public FlightPlan(Airspace airspace, Flight flight, Boolean competitive) {
+		this.flight = flight;
+		double v = generateVelocity();
+		flight.setVelocity(v);
+		flight.setTargetVelocity(v);
+		this.entryPoint = generateEntryPoint(airspace);
+				
+	}
 
 	// METHODS
 	

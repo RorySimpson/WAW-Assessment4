@@ -1,4 +1,4 @@
-package states;
+package coop;
 
 import java.awt.Font;
 import java.io.InputStream;
@@ -25,39 +25,17 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.util.ResourceLoader;
 
-import coop.AirspaceCoop;
 
 
+
+import states.PlayState;
 import util.DeferredFile;
 
 public class PlayCoopState extends PlayState {
-	private static Image 
-	easyButton, mediumButton,hardButton,  
-	easyHover, mediumHover, hardHover,  
-	backgroundImage, difficultyBackground,
-	statusBarImage, clockImage, windImage,
-	flightIcon,
-	cursorImg, achievementBox;
-	private static Sound endOfGameSound;
-	private static Music gameplayMusic;
-	private static TrueTypeFont
-	font, panelFont;	
-	public static float time;
-	private Animation explosion;
+
 
 	private AirspaceCoop airspace;
-	private String stringTime;
-	private boolean settingDifficulty, gameEnded, gameJustFinished = false;;
 
-	private Achievements achievement;
-	private String achievementMessage = "";
-
-	private int counter = 0;
-	private float currentCoord = 600;
-	private float targetCoord;
-	private static final int GAMEOVERTIME = 90;
-	private int countdownToGameOverState;
-	private int synch = 180;
 
 	public PlayCoopState(int state) {
 		super(state);
@@ -363,7 +341,42 @@ public class PlayCoopState extends PlayState {
 			g.setFont(font);
 			
 			// Drawing Side Images
-			backgroundImage.draw(0,0);
+			
+			
+			
+			if(countdownToLightReduction != 0){
+				countdownToLightReduction --;
+			}
+			else{
+				
+				if(red == 40){
+					increasingBrightness = true;	
+				}
+				
+				else if(red == 255){
+					increasingBrightness = false;
+				}
+				
+				
+
+				if(increasingBrightness){
+					red ++;
+					blue ++;
+					green ++;
+				}
+				else{
+					red --;
+					blue --;
+					green --;
+				}
+				
+				
+				brightness = new Color( red , blue, green);
+				countdownToLightReduction = 40;
+			}
+			
+			
+			backgroundImage.draw(0,0, brightness);
 			messageBoxImage.draw(11,560);
 			
 			
@@ -476,6 +489,7 @@ public class PlayCoopState extends PlayState {
 		
 		
 	}
+	
 
 
 	@Override

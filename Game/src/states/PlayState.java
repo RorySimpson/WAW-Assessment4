@@ -31,7 +31,7 @@ import util.DeferredFile;
 
 
 public class PlayState extends BasicGameState {
-	public static Image 
+	protected static Image 
 		easyButton, mediumButton,hardButton,  
 		easyHover, mediumHover, hardHover,  
 		backgroundImage, difficultyBackground,
@@ -39,33 +39,33 @@ public class PlayState extends BasicGameState {
 		flightIcon,messageBoxImage, scoreCoinImage,
 		cursorImg, achievementBox, soundOffImage, soundOnImage, pauseImage;
 	protected Animation explosion;
-	static Sound endOfGameSound;
-	static Music gameplayMusic;
-	static TrueTypeFont
+	protected static Sound endOfGameSound;
+	protected static Music gameplayMusic;
+	protected static TrueTypeFont
 		font;
-	static TrueTypeFont panelFont;	
-	public static float time;
+	protected  static TrueTypeFont panelFont;	
+	protected static float time;
 
 	protected Airspace airspace;
 	protected String stringTime;
 	protected boolean settingDifficulty;
 	protected boolean gameEnded;
-	private boolean gameJustFinished = false;
+	protected boolean gameJustFinished = false;
 	
-	private Achievements achievement;
-	private String achievementMessage = "";
+	protected Achievements achievement;
+	protected String achievementMessage = "";
 	
-	private int counter = 0;
-	private float currentCoord = 600;
-	private float targetCoord;
-	private static final int GAMEOVERTIME = 90;
-	private int countdownToGameOverState;
-	private int synch = 180;
-	private int red = 255, blue = 255, green = 255;
-	private Color brightness = new Color(red, green, blue);
-	private int countdownToLightReduction = 40;
+	protected int counter = 0;
+	protected float currentCoord = 600;
+	protected float targetCoord;
+	protected static final int GAMEOVERTIME = 90;
+	protected int countdownToGameOverState;
+	protected int synch = 180;
+	protected int red = 255, blue = 255, green = 255;
+	protected Color brightness = new Color(red, green, blue);
+	protected int countdownToLightReduction = 40;
 
-	private boolean musicPaused = false, increasingBrightness = false;
+	protected boolean musicPaused = false, increasingBrightness = false;
 	
 	public PlayState(int state) {
 		achievement = new Achievements();
@@ -528,7 +528,7 @@ public class PlayState extends BasicGameState {
 		
 	}
 	
-	/*private void renderFlightPanel(Flight f, Graphics g, int baseY){						
+	/*protected void renderFlightPanel(Flight f, Graphics g, int baseY){						
 		//draw border if flight is selected					
 		if (f.getSelected()){					
 			g.drawRoundRect(1, baseY, 135, 50, 3);				

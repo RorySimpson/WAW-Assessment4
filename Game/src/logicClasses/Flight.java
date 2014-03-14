@@ -15,41 +15,41 @@ import stateContainer.Game;
 public class Flight implements Serializable{ //ignore, its for online mode, doesn't do anything
 
 	// FIELDS
-	private static Image 
+	protected static Image 
 	regularFlightImage, slowFlightImage, fastFlightImage, shadowImage;
-	private static double gameScale = 1/1000.0;
+	protected static double gameScale = 1/1000.0;
 
-	private int
+	protected int
 	minVelocity = 200, maxVelocity = 400,
 	minAltitude = 2000, maxAltitude = 5000;
-	private double
+	protected double
 	accel = 20/60.0,
 	climbRate = 5,
 	turnRate = 0.9;	//20 mph per second
 
-	private int flightNumber;
-	private String flightName;
-	private double
+	protected int flightNumber;
+	protected String flightName;
+	protected double
 	x, y,
 	velocity, targetVelocity;
-	private double
+	protected double
 	currentHeading, targetHeading;
-	private int 
+	protected int 
 	currentAltitude, targetAltitude;
 
-	private boolean turningRight, turningLeft;
+	protected boolean turningRight, turningLeft;
 
-	private Airspace airspace;
-	private FlightPlan flightPlan;
-	private boolean selected;
-	private final static int RADIUS = 30;
-	private int closestDistance = Integer.MAX_VALUE; // this is the maximum distance a plane
+	protected Airspace airspace;
+	protected FlightPlan flightPlan;
+	protected boolean selected;
+	protected final static int RADIUS = 30;
+	protected int closestDistance = Integer.MAX_VALUE; // this is the maximum distance a plane
 	// can be away from the waypoint once it has 
 	// been checked that the plane is inside the waypoint
-	private int distanceFromWaypoint;
-	private double landingDescentRate = 0;
+	protected int distanceFromWaypoint;
+	protected double landingDescentRate = 0;
 
-	private boolean 
+	protected boolean 
 	takingOff = false,
 	waitingToTakeOff = false,
 	landing = false,
@@ -98,6 +98,7 @@ public class Flight implements Serializable{ //ignore, its for online mode, does
 		this.turningRight = false;
 		this.turningLeft = false;
 		this.airspace = airspace;
+		this.flightPlan = new FlightPlan(airspace, this, competitive);
 		this.currentAltitude = generateAltitude();
 		this.selected = false;
 	}
