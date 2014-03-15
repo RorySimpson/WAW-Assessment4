@@ -98,7 +98,6 @@ public class Flight implements Serializable{ //ignore, its for online mode, does
 		this.turningRight = false;
 		this.turningLeft = false;
 		this.airspace = airspace;
-		this.flightPlan = new FlightPlan(airspace, this, competitive);
 		this.currentAltitude = generateAltitude();
 		this.selected = false;
 	}

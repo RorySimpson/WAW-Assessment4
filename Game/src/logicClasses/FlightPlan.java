@@ -16,21 +16,21 @@ import stateContainer.Game;
 public class FlightPlan {
 	
 	// FIELDS
-	private EntryPoint entryPoint;
-	private ExitPoint exitPoint;
-	private List<Point>
+	protected EntryPoint entryPoint;
+	protected ExitPoint exitPoint;
+	protected List<Point>
 		currentRoute = new ArrayList<Point>(), // Array that stores the current list of waypoints
 		waypointsAlreadyVisited; // Array that stores all the waypoints the flight has passed through
-	private Flight flight; // The flight object associated with the flight plan
+	protected Flight flight; // The flight object associated with the flight plan
 	
-	private Point 
+	protected Point 
 		waypointMouseIsOver, // What waypoint is the mouse currently hovering over
 		waypointClicked;
-	private Boolean
+	protected Boolean
 		changingPlan, // Is the user currently changing the flight plan?
 		draggingWaypoint;// Is the user currently dragging a waypoint?
-	private int closestDistance;
-	private static final int	//waypoint ID references
+	protected int closestDistance;
+	protected static final int	//waypoint ID references
 		A = 0, B = 1, C = 2, D = 3, E = 4, F = 5, G = 6, H = 7, I = 8, J = 9;
 	
 

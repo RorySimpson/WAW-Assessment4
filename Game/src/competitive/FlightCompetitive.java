@@ -21,8 +21,16 @@ public class FlightCompetitive extends Flight {
 	public FlightCompetitive(Airspace airspace, Boolean competitive){
 		super(airspace, competitive);
 		this.player2 = false;
+		this.flightPlan = new FlightPlanCompetitive(airspace, this, competitive);
 		
 		
+	}
+	
+	public void steerLandingFlight(){
+		if (this.flightPlan.getCurrentRoute().size() != 0){
+			this.targetHeading = calculateHeadingToNextWaypoint(this.getFlightPlan().getCurrentRoute().get(0).getX(),this.getFlightPlan().getCurrentRoute().get(0).getY());
+		}
+
 	}
 	
 	@Override
@@ -225,6 +233,32 @@ public class FlightCompetitive extends Flight {
 
 		g.setWorldClip(0, 0, Game.MAXIMUMWIDTH, Game.MAXIMUMHEIGHT);
 
+	}
+	
+	public void update(ScoreTracking score) {
+
+
+		this.updateVelocity();
+		this.updateCurrentHeading();
+		this.updateXYCoordinates();
+		this.updateAltitude();
+		this.flightPlan.update(score);
+
+		if(this.landing){
+			this.steerLandingFlight();
+		}
+
+
+
+
+	}
+	
+	public boolean isSelectable(){
+		return (!isLanding() && !isTakingOff());
+	}
+	
+	public void setPlayer2(Boolean bool){
+		player2 = bool;
 	}
 
 }
