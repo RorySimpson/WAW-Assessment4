@@ -1,6 +1,7 @@
 package competitive;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -20,7 +21,9 @@ public class AirspaceCompetitive extends Airspace {
 
 	private ArrayList<FlightCompetitive> listOfFlightsPlayer1;
 	private ArrayList<FlightCompetitive> listOfFlightsPlayer2;
-	boolean addPlayer1Flight;
+	boolean addPlayer1FlightNext;
+	private int	numberOfGameLoopsSinceLastPlayer1FlightAdded, numberOfGameLoopsSinceLastPlayer2FlightAdded;
+	
 
 	public AirspaceCompetitive() {
 
@@ -28,12 +31,77 @@ public class AirspaceCompetitive extends Airspace {
 		this.setControls(new ControlsCompetitive(this));
 		this.listOfFlightsPlayer1 = new ArrayList<FlightCompetitive>();
 		this.listOfFlightsPlayer2 = new ArrayList<FlightCompetitive>();
-		this.addPlayer1Flight=false;
+		this.addPlayer1FlightNext=false;
 		this.airportLeft = null;
 		this.eventController = null;
 		this.setAirportRight(new AirportCompetitive(1, this));
+		numberOfGameLoopsSinceLastPlayer1FlightAdded = 0;
+		numberOfGameLoopsSinceLastPlayer2FlightAdded = 0;
 	}
 	
+	public void newCompetitiveFlight(GameContainer gc) throws SlickException {
+		if(this.newFlight(gc)){
+			FlightCompetitive addedFlight = (FlightCompetitive) this.getListOfFlightsInAirspace().get(this.getListOfFlightsInAirspace().size()-1);
+			if(this.addPlayer1FlightNext) {
+				this.addPlayer1FlightNext = false;
+				addedFlight.setPlayer2(false);
+				this.listOfFlightsPlayer1.add(addedFlight);
+				numberOfGameLoopsSinceLastPlayer1FlightAdded = 0;
+				System.out.println("Added a flight to player 1");
+			
+			}
+			else {
+				addedFlight.setPlayer2(true);
+				this.listOfFlightsPlayer2.add(addedFlight);
+				this.addPlayer1FlightNext = true;
+				numberOfGameLoopsSinceLastPlayer2FlightAdded = 0;
+			}
+		}
+	}
+	
+	//a new method for creating flights that calls the old one, but also adds
+		//the flight to either the player 1 or 2 list
+		@Override
+		public boolean newFlight(GameContainer gc) throws SlickException {
+
+			if (this.getListOfFlightsInAirspace().size() < this.getMaximumNumberOfFlightsInAirspace()) {
+				
+				if(this.addPlayer1FlightNext){
+					this.numberOfGameLoopsSinceLastFlightAdded = numberOfGameLoopsSinceLastPlayer1FlightAdded;
+				}
+				
+				else{
+					this.numberOfGameLoopsSinceLastFlightAdded = numberOfGameLoopsSinceLastPlayer2FlightAdded;
+				}
+
+				// Minimum wait for 5 seconds 
+				if ((this.getNumberOfGameLoopsSinceLastFlightAdded() >= (60*5)  || this.getListOfFlightsInAirspace().isEmpty())) {
+
+
+					Flight tempFlight = new FlightCompetitive(this, true);
+
+					tempFlight.setFlightName(this.generateFlightName());
+					tempFlight.setTargetAltitude(tempFlight.getAltitude());
+
+					double heading;
+
+
+					heading = 270;
+
+					tempFlight.setTargetHeading(heading);
+					tempFlight.setCurrentHeading(heading);
+					if(addFlight(tempFlight)){
+						this.getListOfFlightsInAirspace().get(
+								this.getListOfFlightsInAirspace().size() -1).init(gc);
+						return true;
+					}
+
+				}
+			}
+
+			return false;
+		}
+
 	
 	// override the method for removing flights to include the two selected flight lists
 	@Override
@@ -85,12 +153,11 @@ public class AirspaceCompetitive extends Airspace {
 	
 	public void update(GameContainer gc) throws SlickException {
 		
-		this.numberOfGameLoopsSinceLastFlightAdded++;
+		
+		this.numberOfGameLoopsSinceLastPlayer1FlightAdded++;
+		this.numberOfGameLoopsSinceLastPlayer2FlightAdded++;
 		this.numberOfGameLoops++;
-		if (this.numberOfGameLoops >= this.numberOfGameLoopsWhenDifficultyIncreases) {
-			this.increaseDifficulty();
-	
-		}
+
 		
 		for (int i = 0; i < this.listOfFlightsInAirspace.size(); i++) {
 			this.listOfFlightsInAirspace.get(i).update(score);

@@ -136,9 +136,9 @@ public class AirspaceCoop extends Airspace {
 			
 			}
 			else {
-				this.addPlayer1Flight=true;
 				addedFlight.setPlayer2(true);
 				this.listOfFlightsPlayer2.add(addedFlight);
+				this.addPlayer1Flight=true;
 			}
 		}
 	}
