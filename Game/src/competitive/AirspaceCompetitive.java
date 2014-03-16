@@ -138,7 +138,6 @@ public class AirspaceCompetitive extends Airspace {
 		
 		this.controls.init(gc);
 		this.airportRight.init(gc);
-		this.eventController.init(gc);
 		for (int i = 0; i < this.listOfEntryPoints.size(); i++) { // Initialising entry point
 			this.listOfEntryPoints.get(i).init(gc);
 		}

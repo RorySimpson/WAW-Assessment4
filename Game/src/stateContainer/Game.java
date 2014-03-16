@@ -11,7 +11,7 @@ import org.newdawn.slick.state.StateBasedGame;
 import coop.PauseCoopState;
 import coop.PlayCoopState;
 import states.*;
-import competitive.PlayCompetitveState;
+import competitive.PlayCompetitiveState;
 import logicClasses.Achievements;
 
 public class Game extends StateBasedGame {
@@ -66,7 +66,7 @@ public class Game extends StateBasedGame {
 		addState(new PauseCoopState(PAUSECOOPSTATE));
 		addState(new AchieveViewerState(ACHIEVEVIEWERSTATE));
 		addState(new OnlinePlayState(ONLINEPLAYSTATE));
-		//addState(new PlayCompetitveState(PLAYCOMPETITIVESTATE));
+		addState(new PlayCompetitiveState(PLAYCOMPETITIVESTATE));
 	}
 	
 	public void setAchievements(Achievements newAchievements){
