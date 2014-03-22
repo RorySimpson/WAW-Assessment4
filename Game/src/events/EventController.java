@@ -14,6 +14,7 @@ public class EventController {
 	
 	private HunterFlight hunterFlight;
 	private List<HunterFlight> listOfHunterFlights;
+	private int nextHunterFlightTime;
 	private List<Tornado> listOfTornados;
 	private int timeUntilRadioMalfunction;
 	private Airspace airspace;
@@ -30,6 +31,7 @@ public class EventController {
 		this.volcano = new Volcano();
 		// this.tornado = new Tornado();
 		this.listOfHunterFlights = new ArrayList<HunterFlight>();
+		this.nextHunterFlightTime = 300;
 		this.listOfTornados = new ArrayList<Tornado>();
 		this.timeUntilRadioMalfunction=newRadioMalfunctionTime();
 		this.airspace=airspace;
@@ -47,6 +49,24 @@ public class EventController {
 		int randNum = rand.nextInt(14800)+ 7200;
 		return randNum;
 		
+	}
+	
+	public int newHunterFlightTime(){
+		
+		Random rand = new Random();
+		int timeTillNextHunterFlight = rand.nextInt(14400) + 7200;
+		
+		return timeTillNextHunterFlight;
+	}
+	
+	public void spawnHunterFlight(Airspace airspace, GameContainer gc) throws SlickException{
+		
+		nextHunterFlightTime --;
+		if (nextHunterFlightTime == 0){
+			 listOfHunterFlights.add(new HunterFlight(airspace));
+			 listOfHunterFlights.get(listOfHunterFlights.size()-1).init(gc);
+			 nextHunterFlightTime = newHunterFlightTime();
+		}
 	}
 	
 	public void init (GameContainer gc) throws SlickException{
@@ -99,6 +119,7 @@ public class EventController {
 	public void update(GameContainer gc, Airspace airspace) throws SlickException{
 		this.volcano.update(gc);
 		updateRadioMalfunctionEvent();
+		spawnHunterFlight(airspace, gc);
 		
 		for (int i = 0; i < listOfHunterFlights.size(); i++){
 			if (listOfHunterFlights.get(i).inAirspace()){

@@ -26,17 +26,16 @@ public class HunterFlight {
 	private boolean turningLeft, turningRight, hasVictim;
 	
 	
-	public HunterFlight(Airspace airspace, EventController eventController){
-		x = 600;
-		y = 300;
+	public HunterFlight(Airspace airspace){
+		x = generateX();
+		y = -10;
 		currentHeading = 225;
 		targetHeading = 225;
-		velocity = 300;
+		velocity = 150;
 		turningLeft = false;
 		turningRight = false;
 		hasVictim = false;
 		generateVictim(airspace);
-		eventController.addHunterFlight(this);
 	}
 	
 	public void generateVictim(Airspace airspace){
