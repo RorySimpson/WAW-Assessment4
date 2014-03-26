@@ -155,10 +155,10 @@ public class HunterFlight {
 	
 	public void drawHunterFlight(Graphics g, GameContainer gc ){
 
-		hunterFlightImage.drawCentered((int) this.x, (int) this.y);
 		hunterFlightImage.setRotation((int) currentHeading);
-		
+		hunterFlightImage.drawCentered((int) this.x, (int) this.y);
 	}
+	
 	public void init(GameContainer gc) throws SlickException {
 		hunterFlightImage = new Image("res/graphics/flight_fast.png");
 	}
