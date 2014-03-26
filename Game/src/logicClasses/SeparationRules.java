@@ -19,6 +19,7 @@ public class SeparationRules {
 	private boolean gameOverViolation; 
 	private Point2D pointOfCrash;
 	private final static int COLLISIONDISTANCE = 10;
+	private final static int HUNTERFLIGHTCOLLISIONDISTANCE = 25;
 	
 	//CONSTRUCTOR
 	public SeparationRules(int difficultyVal){
@@ -149,7 +150,7 @@ public void checkTornadoOnFlightCollision(Airspace airspace){
 		
 		for (HunterFlight hunterFlight : airspace.getEventController().getListOfHunterFlights()){
 			for (Flight flight : airspace.getListOfFlights()){
-				if (lateralDistanceBetweenFlightAndHunterFlight(flight, hunterFlight) <= gameOverLateralSeparation){
+				if (lateralDistanceBetweenFlightAndHunterFlight(flight, hunterFlight) <= HUNTERFLIGHTCOLLISIONDISTANCE){
 					this.gameOverViolation = true;
 					flight.setVelocity(0);
 					this.pointOfCrash.setLocation(flight.getX(), flight.getY());
