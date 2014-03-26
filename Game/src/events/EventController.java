@@ -12,7 +12,6 @@ import org.newdawn.slick.SlickException;
 
 public class EventController {
 	
-	private HunterFlight hunterFlight;
 	private List<HunterFlight> listOfHunterFlights;
 	private int nextHunterFlightTime;
 	private List<Tornado> listOfTornados;
@@ -35,20 +34,14 @@ public class EventController {
 		this.listOfTornados = new ArrayList<Tornado>();
 		this.timeUntilRadioMalfunction=newRadioMalfunctionTime();
 		this.airspace=airspace;
-		//hunterFlight = new HunterFlight(airspace, this);
-
-		
-
 	}
 	
 	public int newRadioMalfunctionTime() {
-		
 		
 		Random rand = new Random();
 		//Radio Malfunction occurs at a time between 2 minutes and 6 minutes
 		int randNum = rand.nextInt(14800)+ 7200;
 		return randNum;
-		
 	}
 	
 	public int newHunterFlightTime(){
@@ -70,13 +63,8 @@ public class EventController {
 	}
 	
 	public void init (GameContainer gc) throws SlickException{
+		
 		this.volcano.init(gc);
-		
-		for (HunterFlight hunterFlight : listOfHunterFlights){
-			hunterFlight.init(gc);
-		}
-		
-		
 	}
 	
 	public void render (Graphics g, GameContainer gc) throws SlickException{
@@ -162,5 +150,4 @@ public class EventController {
 	public void removeHunterFlight(int hunterFlight){
 		listOfHunterFlights.remove(hunterFlight);
 	}
-
 }
