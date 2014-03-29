@@ -31,7 +31,8 @@ public class Game extends StateBasedGame {
 		PAUSECOOPSTATE = 9,
 		ACHIEVEVIEWERSTATE = 10,
 		ONLINEPLAYSTATE = 11,
-		PLAYCOMPETITIVESTATE = 12;
+		PLAYCOMPETITIVESTATE = 12,
+		GAMEOVERLOADINGSTATE = 13;
 	
 	public static final int 
 		MAXIMUMWIDTH = 1200, MAXIMUMHEIGHT = 600;
@@ -67,6 +68,7 @@ public class Game extends StateBasedGame {
 		addState(new AchieveViewerState(ACHIEVEVIEWERSTATE));
 		addState(new OnlinePlayState(ONLINEPLAYSTATE));
 		addState(new PlayCompetitiveState(PLAYCOMPETITIVESTATE));
+		addState(new GameOverLoadingState(GAMEOVERLOADINGSTATE));
 	}
 	
 	public void setAchievements(Achievements newAchievements){

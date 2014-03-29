@@ -591,7 +591,7 @@ public class PlayState extends BasicGameState {
 				brightness = new Color( red , blue, green);
 				countdownToLightReduction = 40;
 				
-				sbg.enterState(stateContainer.Game.GAMEOVERSTATE);
+				sbg.enterState(stateContainer.Game.GAMEOVERLOADINGSTATE);
 				currentCoord = 600;
 				targetCoord = 600;
 				synch = 180;
