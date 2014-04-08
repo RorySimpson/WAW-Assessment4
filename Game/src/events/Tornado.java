@@ -216,4 +216,8 @@ public class Tornado {
 	public boolean getAttacking(){
 		return attacking;
 	}
+	
+	public void setWhatAmIDoing(int whatAmIDoing){
+		this.whatAmIDoing = whatAmIDoing;
+	}
 }

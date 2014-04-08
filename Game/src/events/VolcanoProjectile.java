@@ -90,5 +90,21 @@ public class VolcanoProjectile {
 	public void setY(double y) {
 		this.y = y;
 	}
+	
+	public void setCurrentAltitude(int altitude){
+		this.currentAltitude = altitude;
+	}
+	
+	public int getTargetAltitude(){
+		return targetAltitude;
+	}
+	
+	public void setTargetAltitude(int targetAltitude){
+		this.targetAltitude = targetAltitude;
+	}
+	
+	public int getCurrentAltitude(){
+		return currentAltitude;
+	}
 
 }
