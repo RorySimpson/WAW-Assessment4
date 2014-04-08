@@ -24,27 +24,6 @@ public class PlayState_Test {
 		int actualID = playStateInstance.getID(); 
 		assertEquals(2, actualID);
 	}
-
-	@Test
-	public void testPlayState() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testInit() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testRender() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testUpdate() {
-		fail("Not yet implemented");
-	}
-
 	
 	// This test also tests getAirspace
 	@Test

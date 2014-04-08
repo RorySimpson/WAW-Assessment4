@@ -101,5 +101,10 @@ public class ScoreTracking_Test {
 		scoreTrackingInstance.updateScore(100);
 		assertEquals("100", scoreTrackingInstance.toString());
 	}
+	
+	@Test
+	public void reduceMultiplierOnFlightLostTest(){
+		
+	}
 
 }

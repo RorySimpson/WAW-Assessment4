@@ -14,6 +14,7 @@ public class FlightPlan_Tests {
 	private Airspace airspace;
 	private Flight flight1;
 	private FlightPlan flightplan;
+	private ScoreTracking score;
 
 	@Before
 	public void setUp(){
@@ -44,6 +45,7 @@ public class FlightPlan_Tests {
     	System.out.println("Got Here");
     	flightplan = new FlightPlan(airspace, flight1);
     	System.out.println("Got Here");
+    	score = new ScoreTracking();
     	
     	
 		
@@ -162,9 +164,8 @@ public class FlightPlan_Tests {
 		int previousSize = flight1.getFlightPlan().getCurrentRoute().size();
 		flight1.setX(flight1.getFlightPlan().getCurrentRoute().get(0).getX());
 		flight1.setY(flight1.getFlightPlan().getCurrentRoute().get(0).getY());
-		flight1.getFlightPlan().updateFlightPlan(new ScoreTracking()); 	// {!} need to test these properly
-		assertEquals(previousSize - 1, flight1.getFlightPlan().getCurrentRoute().size(), 0 );
-		
+		flight1.update(score);
+		assertEquals(previousSize - 1, flight1.getFlightPlan().getCurrentRoute().size(), 0);
 		
 	}
 	
