@@ -188,6 +188,22 @@ public class Tornado {
 			this.updateXY();
 		}
 	}
+	
+	public double getOriginalX(){
+		return this.originalX;
+	}
+	
+	public double getOriginalY(){
+		return this.originalY;
+	}
+	
+	public void setOriginalX(double x){
+		this.originalX = x;
+	}
+	
+	public void setOriginalY(double y){
+		this.originalY = y;
+	}
 
 	public void setX(double x){
 		this.x = x;
@@ -195,5 +211,9 @@ public class Tornado {
 	
 	public void setY(double y){
 		this.y = y;
+	}
+	
+	public boolean getAttacking(){
+		return attacking;
 	}
 }
