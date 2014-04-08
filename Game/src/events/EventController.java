@@ -150,4 +150,12 @@ public class EventController {
 	public void removeHunterFlight(int hunterFlight){
 		listOfHunterFlights.remove(hunterFlight);
 	}
+	
+	public void setTimeUntilRadioMalfunction(int time){
+		this.timeUntilRadioMalfunction = time;
+	}
+	
+	public int getTimeUntilRadioMalfunction(){
+		return timeUntilRadioMalfunction;
+	}
 }
