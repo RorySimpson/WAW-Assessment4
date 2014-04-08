@@ -190,5 +190,29 @@ public class HunterFlight {
 	public void setY(double y){
 		this.y = y;
 	}
+	
+	public void setTargetHeading(double targetHeading){
+		this.targetHeading = targetHeading;
+	}
+	
+	public double getTargetHeading(){
+		return targetHeading;
+	}
+	
+	public boolean getHasVictim(){
+		return hasVictim;
+	}
+	
+	public double getCurrentHeading(){
+		return currentHeading;
+	}
+	
+	public void setCurrentHeading(double currentHeading){
+		this.currentHeading = currentHeading;
+	}
+	
+	public boolean getTurningRight(){
+		return turningRight;
+	}
 
 }

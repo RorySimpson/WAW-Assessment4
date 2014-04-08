@@ -61,7 +61,10 @@ public class Tornado_Tests {
 	
 	@Test
 	public void updateXYTest(){
-		
+		double originalX = tornado.getX();
+		double originalY = tornado.getY();
+		tornado.updateXY();
+		assertTrue(originalX != tornado.getX() && originalY != tornado.getY());
 	}
 
 }
