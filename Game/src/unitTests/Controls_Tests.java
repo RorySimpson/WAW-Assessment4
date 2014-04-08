@@ -23,22 +23,12 @@ import stateContainer.Game;
 
 public class Controls_Tests {
 	
-	private Controls controlsInstance;
+	private Controls controls;
 
 	@Before
 	public void Setup(){
-		Airspace newAirspace2 = new Airspace();
-		controlsInstance = new Controls(newAirspace2);
-	}
-
-	@Test
-	public void testInit() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testHandleAndUpdateAltitudeButtons() {
-		fail("Not yet implemented");
+		Airspace airspace = new Airspace();
+		controls = new Controls(airspace);
 	}
 
 	@Test
@@ -55,32 +45,6 @@ public class Controls_Tests {
 	public void testGiveHeadingWithMouse() {
 		fail("Not yet implemented");
 	}
-
-	@Test
-	public void testUpdateHeadingTextBox() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testUpdateTurnLeftTextBox() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testUpdateTurnRightTextBox() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testRender() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testUpdate() {
-		fail("Not yet implemented");
-	}
-
 	
 	@Test // This also tests 'setSelectedFlight()'
 	// 		 No need to repeat test!
@@ -92,9 +56,9 @@ public class Controls_Tests {
 		newAirspace.addEntryPoint(new EntryPoint(0, 20));
 		Flight newFlight = new Flight(newAirspace);
 		
-		controlsInstance.setSelectedFlight(newFlight);
+		controls.setSelectedFlight(newFlight);
 			
-		assertEquals(newFlight, controlsInstance.getSelectedFlight());
+		assertEquals(newFlight, controls.getSelectedFlight());
 	}
 
 	@Test
@@ -110,7 +74,7 @@ public class Controls_Tests {
 	
 	@After
 	public void tearDown(){
-		controlsInstance = null;
+		controls = null;
 	}
 
 }
