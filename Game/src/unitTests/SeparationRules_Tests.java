@@ -2,9 +2,13 @@ package unitTests;
 
 import static org.junit.Assert.*;
 import logicClasses.*;
+import events.*;
 
 import org.junit.Test;
 import org.junit.Before;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SeparationRules_Tests {
 
@@ -12,6 +16,11 @@ public class SeparationRules_Tests {
 	private SeparationRules separationRules;
 	private Flight flight1;
 	private Flight flight2;
+	private HunterFlight hunterFlight;
+	private VolcanoProjectile projectile;
+	private Tornado tornado;
+	int originalAltitude;
+	double originalHeading;
 	
 	@Before
 	public void setUp(){
@@ -39,6 +48,14 @@ public class SeparationRules_Tests {
 		flight1 = new Flight(airspace);
 		flight2 = new Flight(airspace);
 		
+		hunterFlight = new HunterFlight(airspace);
+		
+		projectile = new VolcanoProjectile();
+		
+		airspace.getEventController().getVolcano().getListOfProjectilesLaunched().add(projectile);
+		
+		tornado = new Tornado(airspace, airspace.getEventController());
+		
 		airspace.addFlight(flight1);
 		airspace.addFlight(flight2);
 		
@@ -53,6 +70,23 @@ public class SeparationRules_Tests {
 		
 	}
 	
+	//Test: lateralDistanceBetweenFlightAndTornado
+	@Test
+	public void lateralDistanceBetweenFlightAndTornadoTest(){
+		assertTrue(separationRules.lateralDistanceBetweenFlightAndTornado(flight1, tornado) >= 0);
+	}
+	
+	//Test: lateralDistanceBetweenFlightAndProjectile
+	@Test
+	public void lateralDistanceBetweenFlightAndProjectileTest(){
+		assertTrue(separationRules.lateralDistanceBetweenFlightAndProjectile(flight1, projectile) >= 0);
+	}
+	
+	//Test: lateralDistanceBetweenFlightAndHunterFlights
+	@Test
+	public void lateralDistanceBetweenFlightAndHunterFlightsTest(){
+		assertTrue(separationRules.lateralDistanceBetweenFlightAndHunterFlight(flight1, hunterFlight) >= 0);
+	}
 	
 	//Test: lateralDistanceBetweenFlights
 	@Test
@@ -61,17 +95,14 @@ public class SeparationRules_Tests {
 	}
 	
 	//Test: verticalDistanceBetweenFlights
-	
 	@Test
 	public void verticalDistanceBetweenFlightsTest(){
 		assertTrue(separationRules.verticalDistanceBetweenFlights(flight1, flight2) >= 0);
 	}
 	
-	//Test: checkViolation
-	
+	//Test: checkViolation for collisions between flights
 	@Test
 	public void checkViolationTrueTest(){
-		
 		// Tests that game over is achieved when two flights are too close.
 		flight1.setX(1);
 		flight2.setX(1);
@@ -105,4 +136,62 @@ public class SeparationRules_Tests {
 		separationRules.checkFlightOnFlightViolation(airspace);
 		assertFalse(separationRules.getGameOverViolation());
 	}
+	
+	//Test: checkTornadoOnFlightCollision for collisions between flights and tornados
+	
+	@Test
+	public void checkTornadoOnFlightCollisionTrueTest(){
+		// Test that random heading gave when flight and tornado are too close
+		flight1.setX(1);
+		flight1.setY(1);
+		tornado.setX(1);
+		tornado.setY(1);
+		
+		separationRules.checkTornadoOnFlightCollision(airspace);
+		assertTrue(flight1.getAltitude() >= 2000 && flight1.getAltitude() <= 5000
+				   && flight1.getCurrentHeading() >= 0 && flight1.getCurrentHeading() <= 360);
+	}
+	
+	@Test
+	public void checkTornadoOnFlightCollisionFalseTest(){
+		// Test that random heading gave when flight and tornado are too close
+		flight1.setX(1);
+		flight1.setY(1);
+		tornado.setX(600);
+		tornado.setY(300);
+		
+		originalAltitude = flight1.getAltitude();
+		originalHeading = flight1.getCurrentHeading();
+		
+		separationRules.checkTornadoOnFlightCollision(airspace);
+		assertTrue(originalAltitude == flight1.getAltitude() && originalHeading == flight1.getCurrentHeading());
+	}
+	
+	//Test: checkVolcanoProjectileOnFlightCollision for collisions between flights and projectiles
+	
+	@Test
+	public void checkVolcanoProjectileOnFlightCollisionTrueTest(){
+		// Test that gameOverViolation set to true when flight and projectile are too close
+		flight1.setX(1);
+		flight1.setY(1);
+		projectile.setX(1);
+		projectile.setY(1);
+		
+		separationRules.checkVolcanoProjectileOnFlightCollision(airspace);
+		assertTrue(separationRules.getGameOverViolation());
+	}
+		
+	@Test
+	public void checkVolcanoProjectileOnFlightCollisionFalseTest(){
+		// Test that gameOverViolation set to false when flight and projectile aren't too close
+		flight1.setX(1);
+		flight1.setY(1);
+		projectile.setX(600);
+		projectile.setY(300);
+		
+		separationRules.checkVolcanoProjectileOnFlightCollision(airspace);
+		assertFalse(separationRules.getGameOverViolation());
+	}
+	
+	
 }

@@ -99,7 +99,7 @@ public class ScoreTracking_Test {
 	@Test
 	public void testToString() {
 		scoreTrackingInstance.updateScore(100);
-		assertEquals("Score = 100", scoreTrackingInstance.toString());
+		assertEquals("100", scoreTrackingInstance.toString());
 	}
 
 }
