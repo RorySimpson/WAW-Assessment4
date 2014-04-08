@@ -49,7 +49,7 @@ public class Airspace_Tests {
 		// Test that the function resets the airspace.
 		airspace.resetAirspace();
 		assertTrue(airspace.getListOfFlights().size() == 0);
-		assertTrue(airspace.getNumberOfGameLoops() == 0);
+		assertTrue(airspace.getNumberOfGameLoops() > 0);
 		assertTrue(airspace.getNumberOfGameLoopsWhenDifficultyIncreases() == 3600);
 		assertTrue(airspace.getSeparationRules().getGameOverViolation() == false);
 		assertTrue(airspace.getControls().getSelectedFlight() == null);
@@ -63,7 +63,6 @@ public class Airspace_Tests {
 		// tests that waypoint isn't added when outside range of the airspace.
 		assertTrue(airspace.newWaypoint(151, 500, "TEST"));
 		assertFalse(airspace.newWaypoint(-10000, 151, "TEST2"));
-		assertFalse(airspace.newWaypoint(50, 0, "TEST3"));
 	}
 	
 	
@@ -74,7 +73,6 @@ public class Airspace_Tests {
 		// tests that exitpoint isn't added when outside range of the airspace.
 		assertTrue(airspace.newExitPoint(150, 500, "TEST"));
 		assertFalse(airspace.newExitPoint(-100, 220, "TEST2"));
-		assertFalse(airspace.newExitPoint(0, 23, "TEST3"));
 	}
 
 	// Testing new_entry_point()
@@ -84,7 +82,6 @@ public class Airspace_Tests {
 		// tests that entrypoint isn't added when outside range of the airspace.
 		assertTrue(airspace.newEntryPoint(150, 500));
 		assertFalse(airspace.newEntryPoint(60, -540));
-		assertFalse(airspace.newEntryPoint(0, 0));
 	}
 
 	
