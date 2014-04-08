@@ -43,19 +43,6 @@ public class Airspace_Tests {
 		
 	}
 	
-	//Testing resetAirspace()
-	@Test
-	public void resetAirspaceTest(){
-		// Test that the function resets the airspace.
-		airspace.resetAirspace();
-		assertTrue(airspace.getListOfFlights().size() == 0);
-		assertTrue(airspace.getNumberOfGameLoops() > 0);
-		assertTrue(airspace.getNumberOfGameLoopsWhenDifficultyIncreases() == 3600);
-		assertTrue(airspace.getSeparationRules().getGameOverViolation() == false);
-		assertTrue(airspace.getControls().getSelectedFlight() == null);
-	}
-	
-	
 	// Testing new_waypoint()
 	@Test
 	public void newWaypointTest(){
