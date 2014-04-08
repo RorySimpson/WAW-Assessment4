@@ -50,6 +50,8 @@ public class SeparationRules_Tests {
 		
 		hunterFlight = new HunterFlight(airspace);
 		
+		airspace.getEventController().getListOfHunterFlights().add(hunterFlight);
+		
 		projectile = new VolcanoProjectile();
 		
 		airspace.getEventController().getVolcano().getListOfProjectilesLaunched().add(projectile);
@@ -193,5 +195,29 @@ public class SeparationRules_Tests {
 		assertFalse(separationRules.getGameOverViolation());
 	}
 	
+	//Test: checkHunterFlightCollision for collisions between flights and hunter flights
 	
+	@Test
+	public void checkHunterFlightCollisionTrueTest(){
+		// Test that gameOverViolation set to true when flight and a hunter flight are too close
+		flight1.setX(1);
+		flight1.setY(1);
+		hunterFlight.setX(1);
+		hunterFlight.setY(1);
+		
+		separationRules.checkHunterFlightCollision(airspace);
+		assertTrue(separationRules.getGameOverViolation());
+	}
+			
+	@Test
+	public void checkHunterFlightCollisionFalseTest(){
+		// Test that gameOverViolation set to false when flight and hunter flight aren't too close
+		flight1.setX(1);
+		flight1.setY(1);
+		hunterFlight.setX(600);
+		hunterFlight.setY(300);
+		
+		separationRules.checkHunterFlightCollision(airspace);
+		assertFalse(separationRules.getGameOverViolation());
+	}
 }
