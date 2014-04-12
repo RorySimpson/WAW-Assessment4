@@ -47,7 +47,9 @@ public class AirspaceCompetitive extends Airspace {
 	
 	@Override
 	public void createAndSetSeparationRules(){
-		this.setSeparationRules(new SeparationRulesCompetitive(difficultyValueOfGame));
+		this.separationRules = new SeparationRulesCompetitive(difficultyValueOfGame);
+		System.out.println(this.separationRules);
+	
 	}
 	
 	// override reset to reset the two selected flights to null
@@ -74,6 +76,7 @@ public class AirspaceCompetitive extends Airspace {
 		((ControlsCompetitive) this.getControls()).setSelectedFlight2(null);
 		
 		cargo = new CargoCompetitive();
+		this.createAndSetSeparationRules();
 		
 		
 	}
@@ -87,6 +90,7 @@ public class AirspaceCompetitive extends Airspace {
 				addedFlight.setPlayer2(false);
 				this.listOfFlightsPlayer1.add(addedFlight);
 				numberOfGameLoopsSinceLastPlayer1FlightAdded = 0;
+				
 				System.out.println("Added a flight to player 1");
 			
 			}
@@ -96,6 +100,9 @@ public class AirspaceCompetitive extends Airspace {
 				this.addPlayer1FlightNext = true;
 				numberOfGameLoopsSinceLastPlayer2FlightAdded = 0;
 			}
+			
+			addedFlight.setCurrentHeading(90);
+			addedFlight.setTargetHeading(90);
 		}
 	}
 	
@@ -214,6 +221,7 @@ public class AirspaceCompetitive extends Airspace {
 			
 		}
 		
+		System.out.println(this.separationRules);
 		this.separationRules.update(this);
 		this.controls.update(gc, this);
 	}
@@ -228,7 +236,7 @@ public class AirspaceCompetitive extends Airspace {
 	 */
 	public void render(Graphics g, GameContainer gc) throws SlickException { 
 		
-		
+		cargo.render(g, gc);
 		this.airportRight.render(g, gc);
 		
 		for (EntryPoint e:listOfEntryPoints) { // Draws entry points
@@ -268,6 +276,10 @@ public class AirspaceCompetitive extends Airspace {
 
 	public void setCargo(CargoCompetitive cargo) {
 		this.cargo = cargo;
+	}
+	
+	public SeparationRulesCompetitive getSeparationRules(){
+		return this.separationRules;
 	}
 }
 

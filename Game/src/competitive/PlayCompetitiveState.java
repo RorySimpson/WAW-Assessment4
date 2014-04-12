@@ -28,6 +28,7 @@ import org.newdawn.slick.util.ResourceLoader;
 
 
 
+
 import states.PlayState;
 import util.DeferredFile;
 
@@ -222,53 +223,12 @@ public class PlayCompetitiveState extends PlayState {
 		airspace.newEntryPoint(11, 400);
 		
 		airspace.init(gc);
+		airspace.createAndSetSeparationRules();
 	}
 
 	@Override
 	public void drawEventMessage(GameContainer gc, Graphics g){
 
-		boolean waitingToTakeOffAtAPL = false, waitingToTakeOffAtAPR = false, eruptionAboutToOccur  = false,
-				waitingToLand = false;
-
-		for(Flight flight: airspace.getListOfFlights()){
-
-
-			if (flight.getFlightPlan().getEntryPoint() == airspace.getAirportRight().getEndOfRunway() && !flight.isTakingOff() 
-					&& flight.getAltitude() ==0){
-				waitingToTakeOffAtAPR = true;
-			}
-
-			if (flight.getFlightPlan().getCurrentRoute().get(0) == airspace.getAirportRight().getBeginningOfRunway()  &&
-					!flight.isLanding()){
-				waitingToLand = true;
-			}
-
-
-		}
-
-		if(airspace.getEventController().getVolcano().getCountdownTillNextEruption() < 600){
-			eruptionAboutToOccur = true;
-		}
-
-		if(eruptionAboutToOccur){
-			g.setColor(Color.red);
-			g.drawString("Volcano's ready to blow!!!!!", 500, 570);
-			g.setColor(Color.white);
-		}
-
-		else if(waitingToLand){
-			g.drawString("Flight wants to land", 500, 570);
-
-		}
-
-		else if(waitingToTakeOffAtAPL){
-			g.drawString("Flight awaiting take off at APL", 500, 570);
-
-		}
-
-		else if(waitingToTakeOffAtAPR){
-			g.drawString("Flight awaiting take off at APR", 500, 570);
-		}
 
 
 	}
@@ -495,6 +455,7 @@ public class PlayCompetitiveState extends PlayState {
 
 		airspace.newCompetitiveFlight(gc);
 		airspace.update(gc);
+		System.out.println(airspace.getSeparationRules());
 		if (airspace.getSeparationRules().getGameOverViolation() == true){
 			
 

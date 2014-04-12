@@ -4,6 +4,7 @@ package competitive;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 import logicClasses.Airspace;
 import logicClasses.Flight;
@@ -19,4 +20,15 @@ public class FlightPlanCompetitive extends FlightPlan {
 		this.currentRoute.add(airspace.getAirportRight().getEndOfRunway());
 		
 	}
+	
+	@Override
+	public int generateVelocity() {
+		Random rand = new Random();
+		
+		int	min = flight.getMinVelocity(),
+			max = flight.getMaxVelocity();
+		return (rand.nextInt(min) + (max -min));
+	}
+	
+	
 }

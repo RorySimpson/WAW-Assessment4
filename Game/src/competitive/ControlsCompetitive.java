@@ -171,19 +171,17 @@ public class ControlsCompetitive extends Controls {
 		if(selectedFlight1 != null) {
 						
 			
-			if(!selectedFlight1.getFlightPlan().getChangingPlan()){
+			
 				g.setColor(Color.white);
 				g.drawString("P1", (int)this.selectedFlight1.getX()-5, (int)this.selectedFlight1.getY()-45);
-			}	
+				
 			
 		}
 			if(selectedFlight2 != null) {
-						
-			
-			if(!selectedFlight2.getFlightPlan().getChangingPlan()){
+
 				g.setColor(Color.white);
 				g.drawString("P2", (int)this.selectedFlight2.getX()-5, (int)this.selectedFlight2.getY()-45);
-			}	
+				
 			
 		}
 		

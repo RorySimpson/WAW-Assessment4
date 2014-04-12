@@ -44,9 +44,7 @@ public class SeparationRulesCompetitive extends SeparationRules {
 
 		detectCargoPickUp(airspace);
 		this.checkFlightOnFlightViolation(airspace);
-		this.checkVolcanoProjectileOnFlightCollision(airspace);
-		this.checkTornadoOnFlightCollision(airspace);
-		checkHunterFlightCollision(airspace);
+		
 	}
 
 }

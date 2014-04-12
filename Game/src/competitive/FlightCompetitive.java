@@ -26,6 +26,19 @@ public class FlightCompetitive extends Flight {
 		
 	}
 	
+	/**
+	 * generateAltitude: Randomly assigns one of three different altitudes to a flight
+	 * @return A random altitude (either 28000, 29000 or 30000)
+	 */
+
+	public int generateAltitude() {	//{!} not converted to using min/max
+
+		Random rand = new Random();
+		int check = rand.nextInt(((maxAltitude-minAltitude)/1000) - 1);
+		return minAltitude + (check + 1) * 1000;
+
+	}
+	
 	public void steerLandingFlight(){
 		if (this.flightPlan.getCurrentRoute().size() != 0){
 			this.targetHeading = calculateHeadingToNextWaypoint(this.getFlightPlan().getCurrentRoute().get(0).getX(),this.getFlightPlan().getCurrentRoute().get(0).getY());
@@ -86,28 +99,7 @@ public class FlightCompetitive extends Flight {
 
 			}
 			
-		
-			if (this.getAirspace().getAirportLeft().getLandingApproachArea()
-					.contains((float)this.getX(), (float)this.getY()) 
-					&& this.getCurrentHeading() >= 225 && this.getCurrentHeading() <= 305 && this.getCurrentAltitude() <= 2000
-					&& this.getFlightPlan().getCurrentRoute().get(0) == this.getAirspace().getAirportLeft().getBeginningOfRunway())
-			{
 
-
-				this.setLanding(true);
-
-				this.setTargetVelocity(this.getVelocity());
-
-				this.setLandingDescentRate(this.findLandingDescentRate());
-
-				if(((ControlsCoop)this.getAirspace().getControls()).getSelectedFlight1().isLanding()) {
-					((ControlsCoop)this.getAirspace().getControls()).setSelectedFlight1(null);
-				}
-				else {
-					((ControlsCoop)this.getAirspace().getControls()).setSelectedFlight2(null);
-				}
-
-			}
 
 		}
 	}
@@ -173,15 +165,15 @@ public class FlightCompetitive extends Flight {
 				g.drawString(Math.round(this.getCurrentAltitude()) + " ft",(int) this.getX()-30, (int) this.getY() + 10);
 
 				if (this.getFlightPlan().getCurrentRoute().size() > 0) {
-					if (this.getFlightPlan().getCurrentRoute().get(0) == this.getAirspace().getAirportLeft().getBeginningOfRunway() && this.getCurrentAltitude() > 2000){
+					if (this.getFlightPlan().getCurrentRoute().get(0) == this.getAirspace().getAirportRight().getBeginningOfRunway() && this.getCurrentAltitude() > 2000){
 						g.drawString("Lower Me",(int) this.getX() -29, (int)this.getY()-28);
 					}
 					
-					else if (this.getFlightPlan().getCurrentRoute().get(0) == this.getAirspace().getAirportLeft().getBeginningOfRunway() && this.getCurrentAltitude() <= 2000){
+					else if (this.getFlightPlan().getCurrentRoute().get(0) == this.getAirspace().getAirportRight().getBeginningOfRunway() && this.getCurrentAltitude() <= 2000){
 						g.drawString("Line Me Up",(int) this.getX() -33, (int)this.getY()-28);
 					}
 					
-					else if (this.getFlightPlan().getCurrentRoute().get(0) == this.getAirspace().getAirportLeft().getBeginningOfRunway() && this.getCurrentAltitude() <= 2000){
+					else if (this.getFlightPlan().getCurrentRoute().get(0) == this.getAirspace().getAirportRight().getBeginningOfRunway() && this.getCurrentAltitude() <= 2000){
 						g.drawString("Landing",(int) this.getX() -33, (int)this.getY()-28);
 					}
 					
@@ -211,7 +203,7 @@ public class FlightCompetitive extends Flight {
 				g.setColor(Color.lightGray);
 				g.drawString(Math.round(this.getCurrentAltitude()) + " ft",(int) this.getX()-30, (int) this.getY() + 10);
 				if (this.getFlightPlan().getCurrentRoute().size() > 0) {
-					if (this.getFlightPlan().getCurrentRoute().get(0) == this.getAirspace().getAirportLeft().getBeginningOfRunway()){
+					if (this.getFlightPlan().getCurrentRoute().get(0) == this.getAirspace().getAirportRight().getBeginningOfRunway()){
 						g.drawString("Land Me",(int) this.getX() -29, (int)this.getY()-28);
 					}
 					
@@ -226,14 +218,18 @@ public class FlightCompetitive extends Flight {
 				g.drawString("Take me off!",(int) this.getX()-80 , (int)this.getY()+28);
 			}
 			
-			else if (this.getCurrentAltitude() == 0 && isTakingOff() != true && this.getFlightPlan().getEntryPoint() == getAirspace().getAirportLeft().getEndOfRunway()){
-				g.drawString("Take me off!",(int) this.getX()+50 , (int)this.getY()+28);
-			}
 		}
 
 		g.setWorldClip(0, 0, Game.MAXIMUMWIDTH, Game.MAXIMUMHEIGHT);
 
 	}
+	
+	public void render(Graphics g, GameContainer gc) throws SlickException {
+
+		this.drawFlight(g, gc);
+
+	}
+
 	
 	public void update(ScoreTracking score) {
 
@@ -242,14 +238,10 @@ public class FlightCompetitive extends Flight {
 		this.updateCurrentHeading();
 		this.updateXYCoordinates();
 		this.updateAltitude();
-		this.flightPlan.update(score);
 
 		if(this.landing){
 			this.steerLandingFlight();
 		}
-
-
-
 
 	}
 	

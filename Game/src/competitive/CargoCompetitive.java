@@ -6,6 +6,8 @@ import org.newdawn.slick.SlickException;
 
 import java.awt.geom.Point2D;
 import java.util.Random;
+
+import logicClasses.Airspace;
 import logicClasses.Flight;
 
 public class CargoCompetitive {
@@ -26,6 +28,10 @@ public class CargoCompetitive {
 		Random rand = new Random();
 		tempLocation.setLocation(rand.nextInt(1000) + 100, rand.nextInt(350) + 100);
 		return tempLocation;
+	}
+	
+	public void render(Graphics g, GameContainer gc){
+		g.drawOval((float)location.getX(), (float)location.getY(), 10, 10);
 	}
 
 	public Point2D getLocation() {

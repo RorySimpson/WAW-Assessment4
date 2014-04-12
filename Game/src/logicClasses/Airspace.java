@@ -30,7 +30,7 @@ public class Airspace {
 	protected SeparationRules 	separationRules;
 	protected Airport 			airportLeft;
 	protected Airport airportRight;
-	protected int 				difficultyValueOfGame; 
+	protected int 				difficultyValueOfGame = 2; 
 	protected Controls 			controls;
 	protected ScoreTracking 		score;
 	protected EventController eventController;
