@@ -30,7 +30,7 @@ public class Airspace {
 	protected SeparationRules 	separationRules;
 	protected Airport 			airportLeft;
 	protected Airport airportRight;
-	private int 				difficultyValueOfGame; 
+	protected int 				difficultyValueOfGame; 
 	protected Controls 			controls;
 	protected ScoreTracking 		score;
 	protected EventController eventController;
@@ -511,6 +511,10 @@ public class Airspace {
 		return this.controls;
 	}
 	
+	public void setSeparationRules(SeparationRules separationRules) {
+		this.separationRules = separationRules;
+	}
+
 	public void setDifficultyValueOfGame(int i){
 		this.difficultyValueOfGame = i;
 		

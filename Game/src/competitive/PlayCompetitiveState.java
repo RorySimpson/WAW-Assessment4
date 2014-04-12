@@ -410,10 +410,10 @@ public class PlayCompetitiveState extends PlayState {
 
 		Input input = gc.getInput();
 
-		if (gameJustFinished)
+/*		if (gameJustFinished)
 		{	
 			explosion.draw((float)airspace.getSeparationRules().getPointOfCrash().getX() -50, (float)airspace.getSeparationRules().getPointOfCrash().getY() -90 );
-		}
+		}*/
 		
 
 		// Drawing Achievements

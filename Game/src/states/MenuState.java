@@ -160,6 +160,12 @@ public class MenuState extends BasicGameState {
 			sbg.enterState(stateContainer.Game.ONLINEPLAYSTATE);
 		}
 		
+		if(input.isKeyDown(Input.KEY_V)) {
+			sbg.enterState(stateContainer.Game.PLAYCOMPETITIVESTATE);
+		}
+		
+		
+		
 		int	posX = Mouse.getX(),
 			posY = stateContainer.Game.MAXIMUMHEIGHT -Mouse.getY();
 				// Mapping Mouse coords onto graphics coords

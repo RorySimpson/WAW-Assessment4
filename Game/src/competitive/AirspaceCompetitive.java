@@ -10,11 +10,13 @@ import org.newdawn.slick.SlickException;
 import coop.AirportCoop;
 import coop.ControlsCoop;
 import coop.FlightCoop;
+import events.EventController;
 import logicClasses.Airspace;
 import logicClasses.EntryPoint;
 import logicClasses.ExitPoint;
 import logicClasses.Flight;
 import logicClasses.ScoreTracking;
+import logicClasses.SeparationRules;
 import logicClasses.Waypoint;
 
 public class AirspaceCompetitive extends Airspace {
@@ -23,6 +25,8 @@ public class AirspaceCompetitive extends Airspace {
 	private ArrayList<FlightCompetitive> listOfFlightsPlayer2;
 	boolean addPlayer1FlightNext;
 	private int	numberOfGameLoopsSinceLastPlayer1FlightAdded, numberOfGameLoopsSinceLastPlayer2FlightAdded;
+	private CargoCompetitive cargo;
+	protected SeparationRulesCompetitive 	separationRules;
 	
 
 	public AirspaceCompetitive() {
@@ -37,7 +41,43 @@ public class AirspaceCompetitive extends Airspace {
 		this.setAirportRight(new AirportCompetitive(1, this));
 		numberOfGameLoopsSinceLastPlayer1FlightAdded = 0;
 		numberOfGameLoopsSinceLastPlayer2FlightAdded = 0;
+		cargo = new CargoCompetitive();
+		
 	}
+	
+	@Override
+	public void createAndSetSeparationRules(){
+		this.setSeparationRules(new SeparationRulesCompetitive(difficultyValueOfGame));
+	}
+	
+	// override reset to reset the two selected flights to null
+	@Override
+	public void resetAirspace() {
+		
+		this.setListOfFlightsInAirspace(new ArrayList<Flight>());
+		this.listOfFlightsPlayer1 = new ArrayList<FlightCompetitive>();
+		this.listOfFlightsPlayer2 = new ArrayList<FlightCompetitive>();
+		
+		this.setNumberOfGameLoopsSinceLastFlightAdded(0); 
+		this.setNumberOfGameLoops(0); 
+		this.setNumberOfGameLoopsWhenDifficultyIncreases(3600);
+		
+		numberOfGameLoopsSinceLastPlayer1FlightAdded = 0;
+		numberOfGameLoopsSinceLastPlayer2FlightAdded = 0;
+		
+		// Prevents user immediately entering game over state upon replay
+		this.getSeparationRules().setGameOverViolation(false);
+		
+		// Prevents information about flight from previous game being displayed
+		//this.getControls().setSelectedFlight(null);  	
+		((ControlsCompetitive) this.getControls()).setSelectedFlight1(null);
+		((ControlsCompetitive) this.getControls()).setSelectedFlight2(null);
+		
+		cargo = new CargoCompetitive();
+		
+		
+	}
+	
 	
 	public void newCompetitiveFlight(GameContainer gc) throws SlickException {
 		if(this.newFlight(gc)){
@@ -220,6 +260,14 @@ public class AirspaceCompetitive extends Airspace {
 	public void setListOfFlightsPlayer2(ArrayList<FlightCompetitive> listOfFlightsPlayer2) {
 		this.listOfFlightsPlayer2 = listOfFlightsPlayer2;
 
+	}
+
+	public CargoCompetitive getCargo() {
+		return cargo;
+	}
+
+	public void setCargo(CargoCompetitive cargo) {
+		this.cargo = cargo;
 	}
 }
 
