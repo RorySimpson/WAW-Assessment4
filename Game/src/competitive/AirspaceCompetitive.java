@@ -208,6 +208,10 @@ public class AirspaceCompetitive extends Airspace {
 		for (int i = 0; i < this.listOfFlightsInAirspace.size(); i++) {
 			this.listOfFlightsInAirspace.get(i).update(score);
 			if(this.listOfFlightsInAirspace.get(i).getFlightPlan().getCurrentRoute().size()==0) {
+				if(cargo.getCurrentHolder() == this.getListOfFlights().get(i)){
+					cargo.setCurrentHolder(null);
+					cargo.setLocation(cargo.generateRandomCargoLocation());
+				}
 				this.removeSpecificFlight(i);
 			}
 			else if (this.checkIfFlightHasLeftAirspace(this.getListOfFlights().get(i))) {

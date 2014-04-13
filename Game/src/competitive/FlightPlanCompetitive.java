@@ -37,6 +37,17 @@ public class FlightPlanCompetitive extends FlightPlan {
 		}
 	}
 	
+	public void update(){
+		
+		if(currentRoute.size() == 0){
+			return;
+		}
+		
+		if(((FlightCompetitive)flight).checkIfFlightAtWaypoint(currentRoute.get(0))){
+			currentRoute.remove(0);
+		}
+	}
+	
 
 	
 

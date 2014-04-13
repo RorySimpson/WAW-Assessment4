@@ -111,9 +111,8 @@ public class ControlsCompetitive extends Controls {
 					this.selectedFlight1.setTargetAltitude(this.selectedFlight1.getTargetAltitude()-1000);
 				}
 			}
-			if(gc.getInput().isKeyDown(Input.KEY_T)) {
-				((FlightCompetitive)this.selectedFlight1).takeOff(this.selectedFlight1);
-			}
+			
+			
 			if(gc.getInput().isKeyDown(Input.KEY_L)) {
 				this.selectedFlight1.land();
 			}
@@ -145,15 +144,13 @@ public class ControlsCompetitive extends Controls {
 					this.selectedFlight2.setTargetAltitude(this.selectedFlight2.getTargetAltitude()+1000);
 				}
 			}
-			if(gc.getInput().isKeyDown(Input.KEY_SLASH)) {
-				(this.selectedFlight2).takeOff(this.selectedFlight2);
-			}
+			
 			if(gc.getInput().isKeyDown(Input.KEY_DELETE)) {
+				System.out.println(this.selectedFlight2);
 				this.selectedFlight2.land();
 			}
-			if(gc.getInput().isKeyDown(Input.KEY_DELETE)) {
-				this.selectedFlight2.land();
-			}
+			
+			
 			if(gc.getInput().isKeyDown(Input.KEY_NUMPAD0)) {
 				this.selectedFlight2.setSelected(false);
 				airspaceCoop.getListOfFlightsPlayer1().add(this.selectedFlight2);

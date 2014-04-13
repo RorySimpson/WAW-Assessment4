@@ -66,13 +66,22 @@ public class FlightCoop extends Flight {
 
 
 				this.setLandingDescentRate(this.findLandingDescentRate());
-
-				if(((ControlsCoop)this.getAirspace().getControls()).getSelectedFlight1().isLanding()) {
-					((ControlsCoop)this.getAirspace().getControls()).setSelectedFlight1(null);
+				
+				if(((ControlsCoop)this.getAirspace().getControls()).getSelectedFlight1() != null){
+					
+					if(((ControlsCoop)this.getAirspace().getControls()).getSelectedFlight1().isLanding()) {
+						((ControlsCoop)this.getAirspace().getControls()).setSelectedFlight1(null);
+					}
+					else {
+						((ControlsCoop)this.getAirspace().getControls()).setSelectedFlight2(null);
+					}
+					
 				}
-				else {
+				
+				else{
 					((ControlsCoop)this.getAirspace().getControls()).setSelectedFlight2(null);
 				}
+				
 
 
 			}

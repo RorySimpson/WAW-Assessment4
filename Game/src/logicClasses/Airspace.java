@@ -464,13 +464,6 @@ public class Airspace {
 				&& (this.listOfFlightsInAirspace.size() > this.maximumNumberOfFlightsInAirspace - 1)) {
 			return false;
 		} else {
-			for(Flight a : listOfFlightsInAirspace){
-				if(a.isGrounded() && flight.getFlightPlan().getEntryPoint().isRunway() &&
-						flight.getFlightPlan().getEntryPoint() == a.getFlightPlan().getEntryPoint()){
-					System.out.println("Flight already on runway!");
-					return false;
-				}
-			}
 			this.listOfFlightsInAirspace.add(flight);
 			return true;
 		}

@@ -8,9 +8,8 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-import stateContainer.Game;
-import coop.AirspaceCoop;
 import coop.ControlsCoop;
+import stateContainer.Game;
 import logicClasses.*;
 
 public class FlightCompetitive extends Flight {
@@ -44,8 +43,35 @@ public class FlightCompetitive extends Flight {
 		if (this.flightPlan.getCurrentRoute().size() != 0){
 			this.targetHeading = calculateHeadingToNextWaypoint(this.getFlightPlan().getCurrentRoute().get(0).getX(),this.getFlightPlan().getCurrentRoute().get(0).getY());
 		}
-
 	}
+	
+	@Override
+	public boolean checkIfFlightAtWaypoint(Point waypoint) {
+		
+
+		if (waypoint == airspace.getAirportRight().getBeginningOfRunway() && this.landing == false){
+			return false;
+		}
+
+
+		int distanceX;
+		int distanceY;
+
+		distanceX = (int)(Math.abs(Math.round(this.x) - Math.round(waypoint.getX())));
+		distanceY = (int)(Math.abs(Math.round(this.y) - Math.round(waypoint.getY())));
+
+		distanceFromWaypoint = (int)Math.sqrt((int)Math.pow(distanceX,2) + (int)Math.pow(distanceY,2));
+		
+		if(distanceFromWaypoint < 10){
+			return true;
+		}
+		
+		else{
+			return false;
+		}
+	
+	}
+
 	
 	@Override
 	public void init(GameContainer gc) throws SlickException {
@@ -72,6 +98,9 @@ public class FlightCompetitive extends Flight {
 	public void land(){	
 		// if next point is an exit point
 		
+		if (((AirspaceCompetitive)this.getAirspace()).getCargo().getCurrentHolder() != this){
+			return;
+		}
 		
 		
 		
@@ -90,11 +119,19 @@ public class FlightCompetitive extends Flight {
 
 				this.setLandingDescentRate(this.findLandingDescentRate());
 
-				if(((ControlsCoop)this.getAirspace().getControls()).getSelectedFlight1().isLanding()) {
-					((ControlsCoop)this.getAirspace().getControls()).setSelectedFlight1(null);
+				if(((ControlsCompetitive)this.getAirspace().getControls()).getSelectedFlight1() != null){
+					
+					if(((ControlsCompetitive)this.getAirspace().getControls()).getSelectedFlight1().isLanding()) {
+						((ControlsCompetitive)this.getAirspace().getControls()).setSelectedFlight1(null);
+					}
+					else {
+						((ControlsCompetitive)this.getAirspace().getControls()).setSelectedFlight2(null);
+					}
+					
 				}
-				else {
-					((ControlsCoop)this.getAirspace().getControls()).setSelectedFlight2(null);
+				
+				else{
+					((ControlsCompetitive)this.getAirspace().getControls()).setSelectedFlight2(null);
 				}
 
 
@@ -105,22 +142,32 @@ public class FlightCompetitive extends Flight {
 		}
 	}
 	
-	
-	public void takeOff(Flight flight){
-		setTakingOff(true);
-		setTargetVelocity((minVelocity +maxVelocity) /2);
-		setTargetAltitude(minAltitude);
-		if(((AirspaceCoop)getAirspace()).getListOfFlightsPlayer1().contains(flight)){
-			((ControlsCoop)getAirspace().getControls()).getSelectedFlight1().setSelected(false);
-			((ControlsCoop)getAirspace().getControls()).setSelectedFlight1(null);
-		}
-		
-		else{
-			((ControlsCoop)getAirspace().getControls()).getSelectedFlight2().setSelected(false);
-			((ControlsCoop)getAirspace().getControls()).setSelectedFlight2(null);
-		}
-		
+	/** Calculates the rate at which a plane has to descend, given its current altitude, such
+	 * that by the time it reaches the runway, its altitude is 0
+	 * @return Rate at which plane needs to descend
+	 */
+	@Override
+	public double findLandingDescentRate()
+	{
+		double rate;
+		double distanceFromRunway;
+
+
+		distanceFromRunway 	=  Math.sqrt(Math.pow(this.x-this.airspace.getAirportRight().getBeginningOfRunway().getX(), 2)
+				+ Math.pow(this.y-this.airspace.getAirportRight().getBeginningOfRunway().getY(), 2));
+
+
+
+
+		double descentPerPixel 		= this.currentAltitude/distanceFromRunway;
+
+		rate = descentPerPixel* (this.velocity * gameScale);
+
+		return rate;
 	}
+	
+	
+
 	
 
 
@@ -239,6 +286,7 @@ public class FlightCompetitive extends Flight {
 		this.updateCurrentHeading();
 		this.updateXYCoordinates();
 		this.updateAltitude();
+		this.flightPlan.update();
 
 		if(this.landing){
 			this.steerLandingFlight();
