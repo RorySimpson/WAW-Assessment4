@@ -369,6 +369,10 @@ public class PlayCompetitiveState extends PlayState {
 		g.drawLine(0, 480, 10, 480);
 
 		Input input = gc.getInput();
+		
+		for (CrashCompetitive crash : airspace.getSeparationRules().getListOfActiveCrashes()){
+			explosion.draw((float)crash.getPointOfCrash().getX()-50, (float)crash.getPointOfCrash().getY()-90 );
+		}
 
 /*		if (gameJustFinished)
 		{	
