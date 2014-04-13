@@ -216,7 +216,14 @@ public class AirspaceCompetitive extends Airspace {
 					score.reduceMultiplierOnFlightLost();
 					
 				}
+				
+				if(cargo.getCurrentHolder() == this.getListOfFlights().get(i)){
+					cargo.setCurrentHolder(null);
+					cargo.setLocation(cargo.generateRandomCargoLocation());
+				}
+				
 				this.removeSpecificFlight(i);
+				
 			}
 			
 		}

@@ -59,7 +59,7 @@ public class SeparationRulesCompetitive extends SeparationRules {
 					if ((verticalDistanceBetweenFlights(airspace.getListOfFlights().get(i), airspace.getListOfFlights().get(j)) < this.gameOverVerticalSeparation)){
 						if((airspace.getCargo().getCurrentHolder() == airspace.getListOfFlights().get(i)) || (airspace.getCargo().getCurrentHolder() == airspace.getListOfFlights().get(i))){
 							airspace.getCargo().setCurrentHolder(null);
-							airspace.getCargo().getLocation().setLocation(100, 100); // Change this when flights can disappear.
+							airspace.getCargo().getLocation().setLocation(airspace.getListOfFlights().get(i).getX(), airspace.getListOfFlights().get(i).getY()); // Change this when flights can disappear.
 						}
 						this.gameOverViolation = true;
 						airspace.getListOfFlights().get(i).setVelocity(0);
