@@ -17,6 +17,7 @@ public class FlightCompetitive extends Flight {
 	
 	private static Image player1Image, player2Image;
 	private boolean player2;
+	private FlightPlanCompetitive flightPlan;
 	
 	public FlightCompetitive(Airspace airspace, Boolean competitive){
 		super(airspace, competitive);
@@ -252,5 +253,15 @@ public class FlightCompetitive extends Flight {
 	public void setPlayer2(Boolean bool){
 		player2 = bool;
 	}
+
+	public boolean isPlayer2() {
+		return player2;
+	}
+	
+	@Override
+	public FlightPlanCompetitive getFlightPlan(){
+		return this.flightPlan;
+	}
+
 
 }

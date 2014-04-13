@@ -13,6 +13,7 @@ import org.newdawn.slick.SlickException;
 
 import stateContainer.Game;
 
+
 public class FlightPlan {
 	
 	// FIELDS
@@ -53,11 +54,7 @@ public class FlightPlan {
 	
 	public FlightPlan(Airspace airspace, Flight flight, Boolean competitive) {
 		this.flight = flight;
-		double v = generateVelocity();
-		flight.setVelocity(v);
-		flight.setTargetVelocity(v);
-		this.entryPoint = generateEntryPoint(airspace);
-				
+		
 	}
 
 	// METHODS

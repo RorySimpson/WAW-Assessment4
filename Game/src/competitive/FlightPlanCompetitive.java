@@ -13,22 +13,35 @@ import logicClasses.Point;
 
 public class FlightPlanCompetitive extends FlightPlan {
 
-	public FlightPlanCompetitive(Airspace airspace, Flight flight, boolean competitive){
+	public FlightPlanCompetitive(Airspace airspace, FlightCompetitive flight, boolean competitive){
 		super(airspace, flight, competitive);
 		this.currentRoute = new ArrayList <Point>() ; 
 		this.currentRoute.add(airspace.getAirportRight().getBeginningOfRunway());
 		this.currentRoute.add(airspace.getAirportRight().getEndOfRunway());
+		flight.setVelocity(400);
+		flight.setTargetVelocity(400);
 		
 	}
 	
-	@Override
-	public int generateVelocity() {
-		Random rand = new Random();
+	public void assignEntryPoint(Airspace airspace){
+		if(((FlightCompetitive)flight).isPlayer2()){
+			flight.setX(airspace.getListOfEntryPoints().get(0).getX()); 
+			flight.setY(airspace.getListOfEntryPoints().get(0).getY());
+			entryPoint = airspace.getListOfEntryPoints().get(0);
+		}
 		
-		int	min = flight.getMinVelocity(),
-			max = flight.getMaxVelocity();
-		return (rand.nextInt(min) + (max -min));
+		else{
+			flight.setX(airspace.getListOfEntryPoints().get(1).getX()); 
+			flight.setY(airspace.getListOfEntryPoints().get(1).getY());
+			entryPoint = airspace.getListOfEntryPoints().get(1);
+		}
 	}
+	
+
+	
+
+	
+
 	
 	
 }

@@ -31,7 +31,9 @@ public class CargoCompetitive {
 	}
 	
 	public void render(Graphics g, GameContainer gc){
-		g.drawOval((float)location.getX(), (float)location.getY(), 10, 10);
+		if(this.currentHolder == null){
+			g.drawOval((float)location.getX(), (float)location.getY(), 10, 10);
+		}
 	}
 
 	public Point2D getLocation() {

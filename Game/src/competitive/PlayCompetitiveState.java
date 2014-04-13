@@ -455,7 +455,7 @@ public class PlayCompetitiveState extends PlayState {
 
 		airspace.newCompetitiveFlight(gc);
 		airspace.update(gc);
-		System.out.println(airspace.getSeparationRules());
+		
 		if (airspace.getSeparationRules().getGameOverViolation() == true){
 			
 
