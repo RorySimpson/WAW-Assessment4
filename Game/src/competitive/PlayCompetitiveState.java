@@ -29,6 +29,7 @@ import org.newdawn.slick.util.ResourceLoader;
 
 
 
+import stateContainer.Game;
 import states.PlayState;
 import util.DeferredFile;
 
@@ -301,11 +302,13 @@ public class PlayCompetitiveState extends PlayState {
 		g.drawString(stringTime, 31, 570);
 
 		// Drawing Score
-		scoreCoinImage.draw(90, 573);
-		g.drawString(airspace.getScore().toString(), 110, 570);
-		if (airspace.getScore().getCurrentMultiplier() != 1){
-			g.drawString("x" + String.valueOf(airspace.getScore().getCurrentMultiplier()), 200,570);
-		}
+		
+		
+		g.drawString("Player 1:    " + Integer.toString(airspace.getPlayer1Score()), 440, 573 );
+		
+		g.drawString("Player 2:    " + Integer.toString(airspace.getPlayer2Score()), 650, 573 );
+		
+		
 
 		// Drawing Pause Button and Mute
 
@@ -466,6 +469,14 @@ public class PlayCompetitiveState extends PlayState {
 		}		
 		
 		if ((int)decMins >= 5){
+			
+			if(airspace.getPlayer1Score() > airspace.getPlayer2Score()){
+				((Game)sbg).setPreviousCompetitiveModeWinner("Player 1");
+			}
+			else{
+				((Game)sbg).setPreviousCompetitiveModeWinner("Player 2");
+			}
+			
 			airspace.getSeparationRules().setGameOverViolation(false);
 			airspace.resetAirspace();
 			gameplayMusic.stop();
