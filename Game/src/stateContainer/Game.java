@@ -38,6 +38,7 @@ public class Game extends StateBasedGame {
 		MAXIMUMWIDTH = 1200, MAXIMUMHEIGHT = 600;
 	
 	private int currentScore;
+	private String previousCompetitiveModeWinner;
 	private Achievements achievements = new Achievements();
 	private Client client;
 
@@ -71,6 +72,15 @@ public class Game extends StateBasedGame {
 		addState(new GameOverLoadingState(GAMEOVERLOADINGSTATE));
 	}
 	
+	public String getPreviousCompetitiveModeWinner() {
+		return previousCompetitiveModeWinner;
+	}
+
+	public void setPreviousCompetitiveModeWinner(
+			String previousCompetitiveModeWinner) {
+		this.previousCompetitiveModeWinner = previousCompetitiveModeWinner;
+	}
+
 	public void setAchievements(Achievements newAchievements){
 		achievements  = newAchievements;
 	}

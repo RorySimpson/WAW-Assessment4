@@ -25,6 +25,7 @@ public class AirspaceCompetitive extends Airspace {
 	private ArrayList<FlightCompetitive> listOfFlightsPlayer2;
 	boolean addPlayer1FlightNext;
 	private int	numberOfGameLoopsSinceLastPlayer1FlightAdded, numberOfGameLoopsSinceLastPlayer2FlightAdded;
+	private int player1Score, player2Score;
 	private CargoCompetitive cargo;
 	protected SeparationRulesCompetitive 	separationRules;
 	
@@ -41,6 +42,8 @@ public class AirspaceCompetitive extends Airspace {
 		this.setAirportRight(new AirportCompetitive(1, this));
 		numberOfGameLoopsSinceLastPlayer1FlightAdded = 0;
 		numberOfGameLoopsSinceLastPlayer2FlightAdded = 0;
+		player1Score = 0;
+		player2Score = 0;
 		cargo = new CargoCompetitive();
 		
 	}
@@ -76,6 +79,8 @@ public class AirspaceCompetitive extends Airspace {
 		
 		cargo = new CargoCompetitive();
 		this.createAndSetSeparationRules();
+		player1Score = 0;
+		player2Score = 0;
 		
 		
 	}
@@ -104,6 +109,17 @@ public class AirspaceCompetitive extends Airspace {
 			
 			
 		}
+	}
+	
+	public void updateScore(FlightCompetitive flight){
+		
+		if(flight.isPlayer2()){
+			player2Score++;
+		}
+		else{
+			player1Score++;
+		}
+		
 	}
 	
 	//a new method for creating flights that calls the old one, but also adds
@@ -211,6 +227,7 @@ public class AirspaceCompetitive extends Airspace {
 				if(cargo.getCurrentHolder() == this.getListOfFlights().get(i)){
 					cargo.setCurrentHolder(null);
 					cargo.setLocation(cargo.generateRandomCargoLocation());
+					updateScore((FlightCompetitive)this.getListOfFlights().get(i));
 				}
 				this.removeSpecificFlight(i);
 			}
