@@ -26,7 +26,7 @@ public class CargoCompetitive {
 	public Point2D generateRandomCargoLocation(){
 		Point2D tempLocation = new Point2D.Float();
 		Random rand = new Random();
-		tempLocation.setLocation(rand.nextInt(1000) + 100, rand.nextInt(350) + 100);
+		tempLocation.setLocation(rand.nextInt(1100) + 50, rand.nextInt(450) + 50);
 		return tempLocation;
 	}
 	
