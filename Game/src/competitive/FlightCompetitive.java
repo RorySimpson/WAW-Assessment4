@@ -156,9 +156,6 @@ public class FlightCompetitive extends Flight {
 		distanceFromRunway 	=  Math.sqrt(Math.pow(this.x-this.airspace.getAirportRight().getBeginningOfRunway().getX(), 2)
 				+ Math.pow(this.y-this.airspace.getAirportRight().getBeginningOfRunway().getY(), 2));
 
-
-
-
 		double descentPerPixel 		= this.currentAltitude/distanceFromRunway;
 
 		rate = descentPerPixel* (this.velocity * gameScale);

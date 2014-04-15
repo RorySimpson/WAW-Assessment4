@@ -33,6 +33,7 @@ public class Game extends StateBasedGame {
 		ONLINEPLAYSTATE = 11,
 		PLAYCOMPETITIVESTATE = 12,
 		GAMEOVERLOADINGSTATE = 13;
+
 	
 	public static final int 
 		MAXIMUMWIDTH = 1200, MAXIMUMHEIGHT = 600;

@@ -286,15 +286,15 @@ public class PlayCompetitiveState extends PlayState {
 			countdownToLightReduction = 40;
 		}
 
-
 		backgroundImage.draw(0,0, brightness);
-		messageBoxImage.draw(11,560);
+		
 
 
 		// Drawing Airspace and elements within it
 		g.setColor(Color.white);
 		airspace.render(g, gc);
 		statusBarImage.draw(0,0);
+		messageBoxImage.draw(11,560);
 
 		// Drawing Clock and Time
 		g.setColor(Color.white);

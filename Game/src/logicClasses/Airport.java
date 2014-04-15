@@ -13,20 +13,20 @@ import util.DeferredFile;
 public class Airport {
 	
 	//FIELDS
-	private static Image airportImage;
+	protected static Image airportImage;
 	
-	private String airportName = "Nothing"; // {!} needs a name
+	protected String airportName = "Nothing"; // {!} needs a name
 	
-	private float x, y;
-	private float runwayHeading;
-	private int runwayLength, airportNumber;
-	private boolean flightLanding;
-	private Flight 		planeWaitingtoTakeoff;
-	private ExitPoint 	beginningOfRunway;
-	private EntryPoint endOfRunway;
-	private Polygon 	landingApproachArea;
-	private Airspace airspace;
-	private Image landingApproachImageRight, landingApproachImageLeft;
+	protected float x, y;
+	protected float runwayHeading;
+	protected int runwayLength, airportNumber;
+	protected boolean flightLanding;
+	protected Flight 		planeWaitingtoTakeoff;
+	protected ExitPoint 	beginningOfRunway;
+	protected EntryPoint endOfRunway;
+	protected Polygon 	landingApproachArea;
+	protected Airspace airspace;
+	protected Image landingApproachImageRight, landingApproachImageLeft;
 	
 	
 	//CONSTRUCTOR
@@ -110,8 +110,25 @@ public class Airport {
             }	
 		});
 		
-		landingApproachImageRight = new Image("res/graphics/new/airspaceIndicatorGreen.png");
-		landingApproachImageLeft = new Image("res/graphics/new/airspaceIndicatorGreenLeft.png");
+		LoadingList.get().add(new DeferredFile("res/graphics/new/airspaceIndicatorGreen.png"){
+			public void loadFile(String filename) throws SlickException{
+				landingApproachImageRight = new Image(filename);
+              
+                
+            }	
+		});
+		
+		LoadingList.get().add(new DeferredFile("res/graphics/new/airspaceIndicatorGreenLeft.png"){
+			public void loadFile(String filename) throws SlickException{
+				landingApproachImageLeft = new Image(filename);
+              
+                
+            }	
+		});
+		
+		
+		
+
 		
 		
 		
