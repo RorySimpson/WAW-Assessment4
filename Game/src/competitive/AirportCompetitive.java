@@ -3,6 +3,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Polygon;
 import org.newdawn.slick.loading.LoadingList;
 
 import util.DeferredFile;
@@ -19,8 +20,12 @@ public class AirportCompetitive extends Airport {
 	AirportCompetitive(int airportNumber, Airspace airspace) {
 		super(airportNumber, airspace);
 		
-	    this.beginningOfRunway 			= new ExitPoint(1060, 505, "APR");
-   		this.endOfRunway 				= new EntryPoint(1180, 555);
+	    this.beginningOfRunway 			= new ExitPoint(620, 505, "APR");
+   		this.endOfRunway 				= new EntryPoint(620, 555);
+   		landingApproachArea 			= new Polygon();
+		landingApproachArea.addPoint(620, 465);
+		landingApproachArea.addPoint(675, 315);
+		landingApproachArea.addPoint(565, 315);
 	}
 	
 	@Override

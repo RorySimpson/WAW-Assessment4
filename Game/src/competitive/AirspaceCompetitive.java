@@ -40,8 +40,8 @@ public class AirspaceCompetitive extends Airspace {
 		this.airportLeft = null;
 		this.eventController = null;
 		this.setAirportRight(new AirportCompetitive(1, this));
-		numberOfGameLoopsSinceLastPlayer1FlightAdded = 0;
-		numberOfGameLoopsSinceLastPlayer2FlightAdded = 0;
+		numberOfGameLoopsSinceLastPlayer1FlightAdded = 60*5; // These are set to this value so that that flights spawn,
+		numberOfGameLoopsSinceLastPlayer2FlightAdded = 60*5; // on the game being started.
 		this.setMaximumNumberOfFlightsInAirspace(6);
 		player1Score = 0;
 		player2Score = 0;
@@ -67,8 +67,8 @@ public class AirspaceCompetitive extends Airspace {
 		this.setNumberOfGameLoops(0); 
 		this.setNumberOfGameLoopsWhenDifficultyIncreases(3600);
 		
-		numberOfGameLoopsSinceLastPlayer1FlightAdded = 0;
-		numberOfGameLoopsSinceLastPlayer2FlightAdded = 0;
+		numberOfGameLoopsSinceLastPlayer1FlightAdded = 60*5;
+		numberOfGameLoopsSinceLastPlayer2FlightAdded =60*5;
 		
 		// Prevents user immediately entering game over state upon replay
 		this.getSeparationRules().setGameOverViolation(false);
@@ -89,12 +89,14 @@ public class AirspaceCompetitive extends Airspace {
 	
 	public void newCompetitiveFlight(GameContainer gc) throws SlickException {
 		if(this.newFlight(gc)){
+			int heading;
 			FlightCompetitive addedFlight = (FlightCompetitive) this.getListOfFlightsInAirspace().get(this.getListOfFlightsInAirspace().size()-1);
 			if(this.addPlayer1FlightNext) {
 				this.addPlayer1FlightNext = false;
 				addedFlight.setPlayer2(false);
 				this.listOfFlightsPlayer1.add(addedFlight);
 				numberOfGameLoopsSinceLastPlayer1FlightAdded = 0;
+				heading = 90;
 				addedFlight.getFlightPlan().assignEntryPoint(this);
 				
 				System.out.println("Added a flight to player 1");
@@ -105,8 +107,12 @@ public class AirspaceCompetitive extends Airspace {
 				this.listOfFlightsPlayer2.add(addedFlight);
 				this.addPlayer1FlightNext = true;
 				numberOfGameLoopsSinceLastPlayer2FlightAdded = 0;
+				heading = 270;
 				addedFlight.getFlightPlan().assignEntryPoint(this);
 			}
+			
+			addedFlight.setTargetHeading(heading);
+			addedFlight.setCurrentHeading(heading);
 			
 			
 		}
@@ -121,6 +127,12 @@ public class AirspaceCompetitive extends Airspace {
 			player1Score++;
 		}
 		
+	}
+	
+	public void throwbackIntoAirspace(Flight flight){
+		double newHeading = (flight.getCurrentHeading() + 180) % 360;
+		flight.setCurrentHeading(newHeading);
+		flight.setTargetHeading(newHeading);
 	}
 	
 	//a new method for creating flights that calls the old one, but also adds
@@ -139,7 +151,7 @@ public class AirspaceCompetitive extends Airspace {
 				}
 
 				// Minimum wait for 5 seconds 
-				if ((this.getNumberOfGameLoopsSinceLastFlightAdded() >= (60*5)  || this.getListOfFlightsInAirspace().isEmpty())) {
+				if (this.getNumberOfGameLoopsSinceLastFlightAdded() >= (60*5) ) {
 
 
 					Flight tempFlight = new FlightCompetitive(this, true);
@@ -147,13 +159,6 @@ public class AirspaceCompetitive extends Airspace {
 					tempFlight.setFlightName(this.generateFlightName());
 					tempFlight.setTargetAltitude(tempFlight.getAltitude());
 
-					double heading;
-
-
-					heading = 90;
-
-					tempFlight.setTargetHeading(heading);
-					tempFlight.setCurrentHeading(heading);
 					if(addFlight(tempFlight)){
 						this.getListOfFlightsInAirspace().get(
 								this.getListOfFlightsInAirspace().size() -1).init(gc);
@@ -233,18 +238,15 @@ public class AirspaceCompetitive extends Airspace {
 				this.removeSpecificFlight(i);
 			}
 			else if (this.checkIfFlightHasLeftAirspace(this.getListOfFlights().get(i))) {
-				if(this.getListOfFlights().get(i).isControllable()){
-					score.reduceScoreOnFlightLost();
-					score.reduceMultiplierOnFlightLost();
-					
-				}
 				
-				if(cargo.getCurrentHolder() == this.getListOfFlights().get(i)){
+				throwbackIntoAirspace(this.getListOfFlights().get(i));
+				
+				/*if(cargo.getCurrentHolder() == this.getListOfFlights().get(i)){
 					cargo.setCurrentHolder(null);
 					cargo.setLocation(cargo.generateRandomCargoLocation());
 				}
 				
-				this.removeSpecificFlight(i);
+				this.removeSpecificFlight(i);*/
 				
 			}
 			

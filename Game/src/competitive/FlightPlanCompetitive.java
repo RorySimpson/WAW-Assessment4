@@ -18,8 +18,7 @@ public class FlightPlanCompetitive extends FlightPlan {
 		this.currentRoute = new ArrayList <Point>() ; 
 		this.currentRoute.add(airspace.getAirportRight().getBeginningOfRunway());
 		this.currentRoute.add(airspace.getAirportRight().getEndOfRunway());
-		flight.setVelocity(400);
-		flight.setTargetVelocity(400);
+		
 		
 	}
 	

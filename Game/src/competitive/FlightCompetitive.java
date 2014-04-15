@@ -22,6 +22,8 @@ public class FlightCompetitive extends Flight {
 		super(airspace, competitive);
 		this.player2 = false;
 		this.flightPlan = new FlightPlanCompetitive(airspace, this, competitive);
+		this.velocity = 800;
+		this.targetVelocity = 800;
 		
 		
 	}
@@ -107,7 +109,7 @@ public class FlightCompetitive extends Flight {
 		if (!isLanding()){
 			if (this.getAirspace().getAirportRight().getLandingApproachArea()
 					.contains((float)this.getX(), (float)this.getY()) 
-					&& this.getCurrentHeading() >= 45 && this.getCurrentHeading() <= 135 && this.getCurrentAltitude() <= 2000
+					&& this.getCurrentHeading() >= 145 && this.getCurrentHeading() <= 225 && this.getCurrentAltitude() <= 2000
 					&& this.getFlightPlan().getCurrentRoute().get(0) == this.getAirspace().getAirportRight().getBeginningOfRunway())
 			{
 

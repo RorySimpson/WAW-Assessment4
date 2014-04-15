@@ -220,8 +220,8 @@ public class PlayCompetitiveState extends PlayState {
 
 
 		//EntryPoints
-		airspace.newEntryPoint(11, 200);
-		airspace.newEntryPoint(11, 400);
+		airspace.newEntryPoint(1165, 280);
+		airspace.newEntryPoint(11, 280);
 		
 		airspace.init(gc);
 		airspace.createAndSetSeparationRules();
