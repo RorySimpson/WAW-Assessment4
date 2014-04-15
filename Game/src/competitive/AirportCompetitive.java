@@ -23,12 +23,25 @@ public class AirportCompetitive extends Airport {
 			getAirportImage().drawCentered(1120, 495);
 		}
 		
-		else{
-			getAirportImage().drawCentered(91, 495);
+		
+		if((((ControlsCompetitive)this.getAirspace().getControls()).getSelectedFlight1() != null) && ((AirspaceCompetitive)this.getAirspace()).getCargo().getCurrentHolder() != null) {
+			if(((ControlsCompetitive)this.getAirspace().getControls()).getSelectedFlight1() == ((AirspaceCompetitive)this.getAirspace()).getCargo().getCurrentHolder()){
+				getLandingApproachImageRight().drawCentered(900, 495);
+				
+				
+				
+			}
+		}
+		if((((ControlsCompetitive)this.getAirspace().getControls()).getSelectedFlight2() != null) && ((AirspaceCompetitive)this.getAirspace()).getCargo().getCurrentHolder() != null){
+			if(((ControlsCompetitive)this.getAirspace().getControls()).getSelectedFlight2() == ((AirspaceCompetitive)this.getAirspace()).getCargo().getCurrentHolder()){
+				getLandingApproachImageRight().drawCentered(900, 495);
+				
+				
+				
+			}
 		}
 		
 		
-		 getLandingApproachImageRight().drawCentered(900, 495);
 		
 	} 
 

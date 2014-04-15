@@ -42,6 +42,7 @@ public class AirspaceCompetitive extends Airspace {
 		this.setAirportRight(new AirportCompetitive(1, this));
 		numberOfGameLoopsSinceLastPlayer1FlightAdded = 0;
 		numberOfGameLoopsSinceLastPlayer2FlightAdded = 0;
+		this.setMaximumNumberOfFlightsInAirspace(6);
 		player1Score = 0;
 		player2Score = 0;
 		cargo = new CargoCompetitive();

@@ -177,68 +177,65 @@ public class FlightCompetitive extends Flight {
 		g.setColor(Color.white);
 		g.setWorldClip(11, 0, Game.MAXIMUMWIDTH -11, Game.MAXIMUMHEIGHT-40);
 
-			// Scale the shadow in accordance to the altitude of the flight
-			if (this.getCurrentAltitude() > 50)
-			{
-				float shadowScale = (float) (14 - (this.getCurrentAltitude() / 1000))/10; 
-				getShadowImage().setRotation((int) getCurrentHeading());
-				getShadowImage().draw((int) this.getX()-35, (int) this.getY(), shadowScale);
-			}
-			//Depending on a plane's speed, different images for the plane are drawn
+		// Scale the shadow in accordance to the altitude of the flight
+		if (this.getCurrentAltitude() > 50)
+		{
+			float shadowScale = (float) (14 - (this.getCurrentAltitude() / 1000))/10; 
+			getShadowImage().setRotation((int) getCurrentHeading());
+			getShadowImage().draw((int) this.getX()-35, (int) this.getY(), shadowScale);
+		}
+		//Depending on a plane's speed, different images for the plane are drawn
 
-			if(this.player2){	//{!} not converted to using min/max
+		if(this.player2){	//{!} not converted to using min/max
 
-				player2Image.setRotation((float) this.getCurrentHeading());
-				player2Image.draw((int) this.getX()-10, (int) this.getY()-10);
+			player2Image.setRotation((float) this.getCurrentHeading());
+			player2Image.draw((int) this.getX()-10, (int) this.getY()-10);
 
-			}
-			else {
-				player1Image.setRotation((float) this.getCurrentHeading());
-				player1Image.draw((int) this.getX()-10, (int) this.getY()-10);
-			}
+		}
+		else {
+			player1Image.setRotation((float) this.getCurrentHeading());
+			player1Image.draw((int) this.getX()-10, (int) this.getY()-10);
+		}
 
-		// Drawing Separation Circle
-
-
-
+		
 
 		// Drawing information around flight
 		// If flight is selected then also display current heading
 
 		if (this.isSelected()){
 			if (this.getCurrentAltitude() != 0){
-				
-				
-				
+
+
+
 				g.drawString(Math.round(this.getCurrentAltitude()) + " ft",(int) this.getX()-30, (int) this.getY() + 10);
 
-				if (this.getFlightPlan().getCurrentRoute().size() > 0) {
-					if (this.getFlightPlan().getCurrentRoute().get(0) == this.getAirspace().getAirportRight().getBeginningOfRunway() && this.getCurrentAltitude() > 2000){
+				if(((AirspaceCompetitive)airspace).getCargo().getCurrentHolder() != null ){
+
+
+					if ((((AirspaceCompetitive)airspace).getCargo().getCurrentHolder() == this) && this.getCurrentAltitude() > 2000){
 						g.drawString("Lower Me",(int) this.getX() -29, (int)this.getY()-28);
 					}
-					
-					else if (this.getFlightPlan().getCurrentRoute().get(0) == this.getAirspace().getAirportRight().getBeginningOfRunway() && this.getCurrentAltitude() <= 2000){
+
+					else if ((((AirspaceCompetitive)airspace).getCargo().getCurrentHolder() == this) && this.getCurrentAltitude() <= 2000){
 						g.drawString("Line Me Up",(int) this.getX() -33, (int)this.getY()-28);
 					}
-					
-					else if (this.getFlightPlan().getCurrentRoute().get(0) == this.getAirspace().getAirportRight().getBeginningOfRunway() && this.getCurrentAltitude() <= 2000){
+
+					else if ((((AirspaceCompetitive)airspace).getCargo().getCurrentHolder() == this) && this.getCurrentAltitude() <= 2000){
 						g.drawString("Landing",(int) this.getX() -33, (int)this.getY()-28);
-					}
-					
-					else{
-						g.drawString("Aim: "+this.getFlightPlan().getPointByIndex(0).getPointRef(),(int) this.getX() -22, (int)this.getY()-28);
 					}
 
 				}
-				
-				if(this.player2){	//{!} not converted to using min/max
+
+
+
+				if(player2){	//{!} not converted to using min/max
 					g.setColor(Color.red);
 
 				}
 				else {
 					g.setColor(Color.blue);	
 				}
-				
+
 				g.drawOval((int) this.getX() - 50, (int) this.getY() - 50, 100, 100);
 			}
 			g.setColor(Color.white);
@@ -247,31 +244,35 @@ public class FlightCompetitive extends Flight {
 
 		// If flight isn't selected then don't display current heading
 		else{
+			
+			if(player2){
+				g.drawString(Integer.toString(((AirspaceCompetitive)airspace).getListOfFlightsPlayer2().indexOf(this) + 1),(int)this.x - 5, (int)this.y + 25);
+			}
+			
+			else{
+				g.drawString(Integer.toString(((AirspaceCompetitive)airspace).getListOfFlightsPlayer1().indexOf(this) + 1),(int)this.x - 5, (int)this.y + 25);
+			}
+			
 			if (this.getCurrentAltitude() != 0){
 				g.setColor(Color.lightGray);
 				g.drawString(Math.round(this.getCurrentAltitude()) + " ft",(int) this.getX()-30, (int) this.getY() + 10);
-				if (this.getFlightPlan().getCurrentRoute().size() > 0) {
-					if (this.getFlightPlan().getCurrentRoute().get(0) == this.getAirspace().getAirportRight().getBeginningOfRunway()){
+				if (((AirspaceCompetitive)airspace).getCargo().getCurrentHolder() != null) {
+					if ((((AirspaceCompetitive)airspace).getCargo().getCurrentHolder() == this)){
 						g.drawString("Land Me",(int) this.getX() -29, (int)this.getY()-28);
 					}
-					
-					else{
-						g.drawString("Aim: "+this.getFlightPlan().getPointByIndex(0).getPointRef(),(int) this.getX() -22, (int)this.getY()-28);
-					}
+
+
 				}
 				g.drawOval((int) this.getX() - 50, (int) this.getY() - 50, 100, 100);
 			}
-			
-			else if (this.getCurrentAltitude() == 0 && isTakingOff() != true && this.getFlightPlan().getEntryPoint() == getAirspace().getAirportRight().getEndOfRunway()){
-				g.drawString("Take me off!",(int) this.getX()-80 , (int)this.getY()+28);
-			}
-			
+
+
 		}
 
 		g.setWorldClip(0, 0, Game.MAXIMUMWIDTH, Game.MAXIMUMHEIGHT);
 
 	}
-	
+
 	public void render(Graphics g, GameContainer gc) throws SlickException {
 
 		this.drawFlight(g, gc);

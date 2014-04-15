@@ -15,14 +15,14 @@ public class ControlsCompetitive extends Controls {
 	
 	private FlightCompetitive selectedFlight1;
 	private FlightCompetitive selectedFlight2;
-	private AirspaceCompetitive airspaceCoop;
+	private AirspaceCompetitive airspaceCompetitive;
 	private boolean selectedThisLoop;
 	
 	public ControlsCompetitive(AirspaceCompetitive airspace) {
 		super(airspace);
 		this.selectedFlight1=null;
 		this.selectedFlight2=null;
-		this.airspaceCoop=airspace;
+		this.airspaceCompetitive=airspace;
 		this.selectedThisLoop=false;
 	}
 	
@@ -36,21 +36,21 @@ public class ControlsCompetitive extends Controls {
 
 		
 		if(gc.getInput().isKeyPressed(Input.KEY_LSHIFT)) {
-			if(airspaceCoop.getListOfFlightsPlayer1().size()>0) {
+			if(airspaceCompetitive.getListOfFlightsPlayer1().size()>0) {
 				if (this.selectedFlight1 == null){
-					for (int i = 0; i< airspaceCoop.getListOfFlightsPlayer1().size(); i++){
-						if(airspaceCoop.getListOfFlightsPlayer1().get(i % airspaceCoop.getListOfFlightsPlayer1().size()).isSelectable()){
-							this.selectedFlight1 = airspaceCoop.getListOfFlightsPlayer1().get(i % airspaceCoop.getListOfFlightsPlayer1().size());
+					for (int i = 0; i< airspaceCompetitive.getListOfFlightsPlayer1().size(); i++){
+						if(airspaceCompetitive.getListOfFlightsPlayer1().get(i % airspaceCompetitive.getListOfFlightsPlayer1().size()).isSelectable()){
+							this.selectedFlight1 = airspaceCompetitive.getListOfFlightsPlayer1().get(i % airspaceCompetitive.getListOfFlightsPlayer1().size());
 							this.selectedFlight1.setSelected(true);
 							break;
 						}
 					}
 				}
 				else{
-					for (int i = 1; i<= airspaceCoop.getListOfFlightsPlayer1().size(); i++){
-						if(airspaceCoop.getListOfFlightsPlayer1().get((i + airspaceCoop.getListOfFlightsPlayer1().indexOf(selectedFlight1)) % airspaceCoop.getListOfFlightsPlayer1().size()).isSelectable()){
+					for (int i = 1; i<= airspaceCompetitive.getListOfFlightsPlayer1().size(); i++){
+						if(airspaceCompetitive.getListOfFlightsPlayer1().get((i + airspaceCompetitive.getListOfFlightsPlayer1().indexOf(selectedFlight1)) % airspaceCompetitive.getListOfFlightsPlayer1().size()).isSelectable()){
 							this.selectedFlight1.setSelected(false);
-							this.selectedFlight1 = airspaceCoop.getListOfFlightsPlayer1().get((i + airspaceCoop.getListOfFlightsPlayer1().indexOf(selectedFlight1)) % airspaceCoop.getListOfFlightsPlayer1().size());
+							this.selectedFlight1 = airspaceCompetitive.getListOfFlightsPlayer1().get((i + airspaceCompetitive.getListOfFlightsPlayer1().indexOf(selectedFlight1)) % airspaceCompetitive.getListOfFlightsPlayer1().size());
 							this.selectedFlight1.setSelected(true);
 							break;
 						}
@@ -64,21 +64,21 @@ public class ControlsCompetitive extends Controls {
 		}
 		
 		if(gc.getInput().isKeyPressed(Input.KEY_RSHIFT)) {
-			if(airspaceCoop.getListOfFlightsPlayer2().size()>0) {
+			if(airspaceCompetitive.getListOfFlightsPlayer2().size()>0) {
 				if (this.selectedFlight2 == null){
-					for (int i = 0; i< airspaceCoop.getListOfFlightsPlayer2().size(); i++){
-						if(airspaceCoop.getListOfFlightsPlayer2().get(i % airspaceCoop.getListOfFlightsPlayer2().size()).isSelectable()){
-							this.selectedFlight2 = airspaceCoop.getListOfFlightsPlayer2().get(i % airspaceCoop.getListOfFlightsPlayer2().size());
+					for (int i = 0; i< airspaceCompetitive.getListOfFlightsPlayer2().size(); i++){
+						if(airspaceCompetitive.getListOfFlightsPlayer2().get(i % airspaceCompetitive.getListOfFlightsPlayer2().size()).isSelectable()){
+							this.selectedFlight2 = airspaceCompetitive.getListOfFlightsPlayer2().get(i % airspaceCompetitive.getListOfFlightsPlayer2().size());
 							this.selectedFlight2.setSelected(true);
 							break;
 						}
 					}
 				}
 				else{
-					for (int i = 1; i<= airspaceCoop.getListOfFlightsPlayer2().size(); i++){
-						if(airspaceCoop.getListOfFlightsPlayer2().get((i + airspaceCoop.getListOfFlightsPlayer2().indexOf(selectedFlight2)) % airspaceCoop.getListOfFlightsPlayer2().size()).isSelectable()){
+					for (int i = 1; i<= airspaceCompetitive.getListOfFlightsPlayer2().size(); i++){
+						if(airspaceCompetitive.getListOfFlightsPlayer2().get((i + airspaceCompetitive.getListOfFlightsPlayer2().indexOf(selectedFlight2)) % airspaceCompetitive.getListOfFlightsPlayer2().size()).isSelectable()){
 							this.selectedFlight2.setSelected(false);
-							this.selectedFlight2 = airspaceCoop.getListOfFlightsPlayer2().get((i + airspaceCoop.getListOfFlightsPlayer2().indexOf(selectedFlight2)) % airspaceCoop.getListOfFlightsPlayer2().size());
+							this.selectedFlight2 = airspaceCompetitive.getListOfFlightsPlayer2().get((i + airspaceCompetitive.getListOfFlightsPlayer2().indexOf(selectedFlight2)) % airspaceCompetitive.getListOfFlightsPlayer2().size());
 							this.selectedFlight2.setSelected(true);
 							break;
 						}
@@ -90,6 +90,68 @@ public class ControlsCompetitive extends Controls {
 			}
 			
 		}
+		
+		if(airspaceCompetitive.getListOfFlightsPlayer1().size() >= 1){
+			if(gc.getInput().isKeyDown(Input.KEY_1)){
+				if(this.selectedFlight1 != null){
+					this.selectedFlight1.setSelected(false);
+				}
+				this.selectedFlight1 = airspaceCompetitive.getListOfFlightsPlayer1().get(0);
+				this.selectedFlight1.setSelected(true);
+			}
+		}
+		
+		if(airspaceCompetitive.getListOfFlightsPlayer1().size() >= 2){
+			if(gc.getInput().isKeyDown(Input.KEY_2)){
+				if(this.selectedFlight1 != null){
+					this.selectedFlight1.setSelected(false);
+				}
+				this.selectedFlight1 = airspaceCompetitive.getListOfFlightsPlayer1().get(1);
+				this.selectedFlight1.setSelected(true);
+			}
+		}
+		
+		if(airspaceCompetitive.getListOfFlightsPlayer1().size() >= 3){
+			if(gc.getInput().isKeyDown(Input.KEY_3)){
+				if(this.selectedFlight1 != null){
+					this.selectedFlight1.setSelected(false);
+				}
+				this.selectedFlight1 = airspaceCompetitive.getListOfFlightsPlayer1().get(2);
+				this.selectedFlight1.setSelected(true);
+			}
+		}
+		
+		
+		if(airspaceCompetitive.getListOfFlightsPlayer2().size() >= 1){
+			if(gc.getInput().isKeyDown(Input.KEY_NUMPAD1)){
+				if(this.selectedFlight2 != null){
+					this.selectedFlight2.setSelected(false);
+				}
+				this.selectedFlight2 = airspaceCompetitive.getListOfFlightsPlayer2().get(0);
+				this.selectedFlight2.setSelected(true);
+			}
+		}
+		
+		if(airspaceCompetitive.getListOfFlightsPlayer2().size() >= 2){
+			if(gc.getInput().isKeyDown(Input.KEY_NUMPAD2)){
+				if(this.selectedFlight2 != null){
+					this.selectedFlight2.setSelected(false);
+				}
+				this.selectedFlight2 = airspaceCompetitive.getListOfFlightsPlayer2().get(1);
+				this.selectedFlight2.setSelected(true);
+			}
+		}
+		
+		if(airspaceCompetitive.getListOfFlightsPlayer2().size() >= 3){
+			if(gc.getInput().isKeyDown(Input.KEY_NUMPAD3)){
+				if(this.selectedFlight2 != null){
+					this.selectedFlight2.setSelected(false);
+				}
+				this.selectedFlight2 = airspaceCompetitive.getListOfFlightsPlayer2().get(2);
+				this.selectedFlight2.setSelected(true);
+			}
+		}
+		
 		
 		
 		
@@ -117,14 +179,6 @@ public class ControlsCompetitive extends Controls {
 				this.selectedFlight1.land();
 			}
 			
-			if(gc.getInput().isKeyDown(Input.KEY_H)) {
-				this.selectedFlight1.setSelected(false);
-				airspaceCoop.getListOfFlightsPlayer2().add(this.selectedFlight1);
-				airspaceCoop.getListOfFlightsPlayer1().remove(this.selectedFlight1);
-				this.selectedFlight1.setPlayer2(true);
-				this.selectedFlight1 = null;
-			}
-			
 			
 		}
 		if(this.selectedFlight2!=null) {
@@ -149,16 +203,8 @@ public class ControlsCompetitive extends Controls {
 				System.out.println(this.selectedFlight2);
 				this.selectedFlight2.land();
 			}
-			
-			
-			if(gc.getInput().isKeyDown(Input.KEY_NUMPAD0)) {
-				this.selectedFlight2.setSelected(false);
-				airspaceCoop.getListOfFlightsPlayer1().add(this.selectedFlight2);
-				airspaceCoop.getListOfFlightsPlayer2().remove(this.selectedFlight2);
-				this.selectedFlight2.setPlayer2(false);
-				this.selectedFlight2 = null;
-			}
-			
+
+
 			
 		}
 		
