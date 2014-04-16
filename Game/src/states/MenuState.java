@@ -91,25 +91,25 @@ public class MenuState extends BasicGameState {
 			}
 		});
 		
-		loading.add(new DeferredFile("res/menu_graphics/new/credits.png"){
+		loading.add(new DeferredFile("res/menu_graphics/new/highscores.png"){
 			public void loadFile(String filename) throws SlickException{
 				scoreButton = new Image(filename);
 			}
 		});
 		
-		loading.add(new DeferredFile("res/menu_graphics/new/controls_hover.png"){
+		loading.add(new DeferredFile("res/menu_graphics/new/highscores_hover.png"){
 			public void loadFile(String filename) throws SlickException{
 				scoreHover = new Image(filename);
 			}
 		});
 
-		loading.add(new DeferredFile("res/menu_graphics/new/credits.png"){
+		loading.add(new DeferredFile("res/menu_graphics/new/achievements.png"){
 			public void loadFile(String filename) throws SlickException{
 				achieveButton = new Image(filename);
 			}
 		});
 		
-		loading.add(new DeferredFile("res/menu_graphics/new/controls_hover.png"){
+		loading.add(new DeferredFile("res/menu_graphics/new/achievements_hover.png"){
 			public void loadFile(String filename) throws SlickException{
 				achieveHover = new Image(filename);
 			}
@@ -125,8 +125,8 @@ public class MenuState extends BasicGameState {
 				quit = new HoverImage(quitButton, quitHover, 1078, 534);
 				credits = new HoverImage(creditsButton, creditsHover, 20, 534);
 				controls = new HoverImage(controlsButton, controlsHover, 490, 534);
-				score = new HoverImage(scoreButton, scoreHover, 250, 534);
-				achieve = new HoverImage(achieveButton, achieveHover, 800, 534);
+				score = new HoverImage(scoreButton, scoreHover, 225, 534);
+				achieve = new HoverImage(achieveButton, achieveHover, 780, 535);
 			}
 		});
 

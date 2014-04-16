@@ -160,7 +160,7 @@ public class HunterFlight {
 	}
 	
 	public void init(GameContainer gc) throws SlickException {
-		hunterFlightImage = new Image("res/graphics/flight_fast.png");
+		hunterFlightImage = new Image("res/graphics/new/hunterflight.png");
 	}
 	
 	public void update(Airspace airspace) {

@@ -171,9 +171,9 @@ public class Tornado {
 		}
 	}
 	
-	// Initialise
+	// Initialis
 	public void init (GameContainer gc) throws SlickException{
-		tornadoImage = new Image("res/graphics/new/wind_indicator.png");
+		tornadoImage = new Image("res/graphics/new/tornado.png");
 		}
 	
 	// Renders the image
