@@ -26,6 +26,7 @@ public class FlightCompetitive extends Flight {
 		this.targetVelocity = 800;
 		
 		
+		
 	}
 	
 	/**
