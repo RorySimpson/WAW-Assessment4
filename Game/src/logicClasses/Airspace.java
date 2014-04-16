@@ -72,7 +72,7 @@ public class Airspace {
 	 * resetAirspace: Reset all of the attributes in airspace back to default
 	 */
 	
-	public void resetAirspace() {
+	public void resetAirspace(){
 		
 		this.listOfFlightsInAirspace = new ArrayList<Flight>();
 		
@@ -87,6 +87,7 @@ public class Airspace {
 		this.controls.setSelectedFlight(null);  	
 		
 		this.eventController = new EventController(this);
+		
 		
 	}
 	

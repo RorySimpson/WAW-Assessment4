@@ -603,6 +603,7 @@ public class PlayState extends BasicGameState {
 		if (gameEnded){
 			
 			airspace.resetAirspace();
+			airspace.init(gc);
 	    	time = 0;
 	    	gameEnded = false;
 	    	settingDifficulty = true;
@@ -722,15 +723,10 @@ public class PlayState extends BasicGameState {
 				gameplayMusic.stop();
 				endOfGameSound.play();
 				gameJustFinished = true;
-				
-				
-				
-				
 						
 			}					
 			
 		
-						
 			// Checking For Pause Screen requested in game
 						
 			if (input.isKeyPressed(Input.KEY_P)) {
