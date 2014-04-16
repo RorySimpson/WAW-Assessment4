@@ -57,10 +57,13 @@ public class Volcano {
 	
 	public void render(Graphics g, GameContainer gc) throws SlickException{
 		
+		
+		volcanoImage.drawCentered((float) VOLCANOPOSITION.x,(float) VOLCANOPOSITION.y);
+		
 		for (VolcanoProjectile projectile : listOfProjectilesLaunched){
 			projectile.render(g, gc);
 		}
-		volcanoImage.drawCentered((float) VOLCANOPOSITION.x,(float) VOLCANOPOSITION.y);
+		
 	}
 	
 	public void update(GameContainer gc) throws SlickException{

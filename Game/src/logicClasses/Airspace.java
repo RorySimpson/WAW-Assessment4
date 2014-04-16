@@ -393,11 +393,14 @@ public class Airspace {
 		for (EntryPoint e:listOfEntryPoints) { // Draws entry points
 			e.render(g);
 		}
+		
+		this.eventController.render(g,gc);
+		
 		for (Flight f:listOfFlightsInAirspace) { // Draws flights in airspace
 			f.render(g, gc);
 		}
 		
-		this.eventController.render(g,gc);
+		
 		separationRules.render(g, gc, this);
 		controls.render(gc,g);
 	}
