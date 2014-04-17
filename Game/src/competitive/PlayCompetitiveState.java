@@ -303,10 +303,11 @@ public class PlayCompetitiveState extends PlayState {
 
 		// Drawing Score
 		
-		
+		g.setColor(Color.cyan);
 		g.drawString("Player 1:    " + Integer.toString(airspace.getPlayer1Score()), 440, 573 );
-		
+		g.setColor(Color.red);
 		g.drawString("Player 2:    " + Integer.toString(airspace.getPlayer2Score()), 650, 573 );
+		g.setColor(Color.white);
 		
 		
 
@@ -468,7 +469,7 @@ public class PlayCompetitiveState extends PlayState {
 
 		}		
 		
-		if ((int)decMins >= 1){
+		if ((int)decMins >= 5){
 			
 			if(airspace.getPlayer1Score() > airspace.getPlayer2Score()){
 				((Game)sbg).setPreviousCompetitiveModeWinner("Player 1");

@@ -17,6 +17,7 @@ public class FlightCompetitive extends Flight {
 	private static Image player1Image, player2Image;
 	private boolean player2;
 	private FlightPlanCompetitive flightPlan;
+	private Image cargoFlightImage;
 	
 	public FlightCompetitive(Airspace airspace, Boolean competitive){
 		super(airspace, competitive);
@@ -94,6 +95,10 @@ public class FlightCompetitive extends Flight {
 		if (getFastFlightImage() == null){
 			setFastFlightImage(new Image("res/graphics/flight_fast.png"));
 		}
+		if(cargoFlightImage == null){
+			cargoFlightImage = new Image("res/graphics/new/cargoFlight.png");
+		}
+		
 
 	}
 	
@@ -186,7 +191,12 @@ public class FlightCompetitive extends Flight {
 		}
 		//Depending on a plane's speed, different images for the plane are drawn
 
-		if(this.player2){	//{!} not converted to using min/max
+		if(((AirspaceCompetitive)airspace).getCargo().getCurrentHolder() == this){
+			cargoFlightImage.setRotation((float) this.getCurrentHeading());
+			cargoFlightImage.draw((int) this.getX()-24, (int) this.getY()-22);
+		}
+
+		else if(this.player2){	//{!} not converted to using min/max
 
 			player2Image.setRotation((float) this.getCurrentHeading());
 			player2Image.draw((int) this.getX()-10, (int) this.getY()-10);

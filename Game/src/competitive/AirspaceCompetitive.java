@@ -78,7 +78,9 @@ public class AirspaceCompetitive extends Airspace {
 		((ControlsCompetitive) this.getControls()).setSelectedFlight1(null);
 		((ControlsCompetitive) this.getControls()).setSelectedFlight2(null);
 		
-		cargo = new CargoCompetitive();
+		cargo.setCurrentHolder(null);
+		cargo.setLocation(cargo.generateRandomCargoLocation());
+		
 		this.createAndSetSeparationRules();
 		player1Score = 0;
 		player2Score = 0;
@@ -210,6 +212,7 @@ public class AirspaceCompetitive extends Airspace {
 		for (int i = 0; i < this.listOfEntryPoints.size(); i++) { // Initialising entry point
 			this.listOfEntryPoints.get(i).init(gc);
 		}
+		this.cargo.init(gc);
 
 		
 	}
