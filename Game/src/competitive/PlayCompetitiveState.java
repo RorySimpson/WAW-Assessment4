@@ -468,7 +468,7 @@ public class PlayCompetitiveState extends PlayState {
 
 		}		
 		
-		if ((int)decMins >= 5){
+		if ((int)decMins >= 1){
 			
 			if(airspace.getPlayer1Score() > airspace.getPlayer2Score()){
 				((Game)sbg).setPreviousCompetitiveModeWinner("Player 1");
@@ -481,16 +481,17 @@ public class PlayCompetitiveState extends PlayState {
 			airspace.resetAirspace();
 			gameplayMusic.stop();
 			gameEnded = true;
-			sbg.enterState(stateContainer.Game.GAMEOVERSTATE);
+			sbg.enterState(stateContainer.Game.GAMEOVERCOMPETITIVESTATE);
 			
 		}
+		
 
 		Input input = gc.getInput();
 
 		// Checking For Pause Screen requested in game
 
 		if (input.isKeyPressed(Input.KEY_P)) {
-			sbg.enterState(stateContainer.Game.PAUSECOOPSTATE);
+			sbg.enterState(stateContainer.Game.PAUSECOMPETITIVESTATE);
 		}			
 
 		if (!gameplayMusic.playing()){
