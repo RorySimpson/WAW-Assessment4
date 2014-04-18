@@ -72,7 +72,7 @@ public class Airspace {
 	 * resetAirspace: Reset all of the attributes in airspace back to default
 	 */
 	
-	public void resetAirspace() {
+	public void resetAirspace(){
 		
 		this.listOfFlightsInAirspace = new ArrayList<Flight>();
 		
@@ -87,6 +87,7 @@ public class Airspace {
 		this.controls.setSelectedFlight(null);  	
 		
 		this.eventController = new EventController(this);
+		
 		
 	}
 	
@@ -393,11 +394,14 @@ public class Airspace {
 		for (EntryPoint e:listOfEntryPoints) { // Draws entry points
 			e.render(g);
 		}
+		
+		this.eventController.render(g,gc);
+		
 		for (Flight f:listOfFlightsInAirspace) { // Draws flights in airspace
 			f.render(g, gc);
 		}
 		
-		this.eventController.render(g,gc);
+		
 		separationRules.render(g, gc, this);
 		controls.render(gc,g);
 	}

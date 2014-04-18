@@ -170,7 +170,7 @@ public class ControlsCompetitive extends Controls {
 			}
 			if(gc.getInput().isKeyPressed(Input.KEY_W)) {
 				if(this.selectedFlight1.getTargetAltitude() < 5000){
-					this.selectedFlight1.setTargetAltitude(this.selectedFlight1.getTargetAltitude()-1000);
+					this.selectedFlight1.setTargetAltitude(this.selectedFlight1.getTargetAltitude() + 1000);
 				}
 			}
 			

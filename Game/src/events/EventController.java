@@ -68,7 +68,7 @@ public class EventController {
 	}
 	
 	public void render (Graphics g, GameContainer gc) throws SlickException{
-		this.volcano.render(g, gc);
+		
 		
 		for (HunterFlight hunterFlight : listOfHunterFlights){
 			hunterFlight.render(g, gc);
@@ -77,6 +77,8 @@ public class EventController {
 		for (Tornado tornado : listOfTornados){
 			tornado.render(g, gc);
 		}
+		
+		this.volcano.render(g, gc);
 	}
 	
 	public void updateRadioMalfunctionEvent(){

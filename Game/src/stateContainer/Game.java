@@ -8,8 +8,8 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
-import coop.PauseCoopState;
-import coop.PlayCoopState;
+import competitive.*;
+import coop.*;
 import states.*;
 import competitive.PlayCompetitiveState;
 import logicClasses.Achievements;
@@ -32,7 +32,11 @@ public class Game extends StateBasedGame {
 		ACHIEVEVIEWERSTATE = 10,
 		ONLINEPLAYSTATE = 11,
 		PLAYCOMPETITIVESTATE = 12,
-		GAMEOVERLOADINGSTATE = 13;
+		GAMEOVERLOADINGSTATE = 13,
+		PAUSECOMPETITIVESTATE = 14,
+		GAMEOVERCOMPETITIVESTATE = 15,
+		GAMEOVERCOOPSTATE = 16;
+	
 
 	
 	public static final int 
@@ -71,6 +75,13 @@ public class Game extends StateBasedGame {
 		addState(new OnlinePlayState(ONLINEPLAYSTATE));
 		addState(new PlayCompetitiveState(PLAYCOMPETITIVESTATE));
 		addState(new GameOverLoadingState(GAMEOVERLOADINGSTATE));
+		addState(new PauseCompetitiveState(PAUSECOMPETITIVESTATE));
+		addState(new GameOverCompetitiveState(GAMEOVERCOMPETITIVESTATE));
+		addState(new GameOverCoopState(GAMEOVERCOOPSTATE));
+		
+		
+		
+		
 	}
 	
 	public String getPreviousCompetitiveModeWinner() {

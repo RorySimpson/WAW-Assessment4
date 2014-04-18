@@ -303,10 +303,11 @@ public class PlayCompetitiveState extends PlayState {
 
 		// Drawing Score
 		
-		
+		g.setColor(Color.cyan);
 		g.drawString("Player 1:    " + Integer.toString(airspace.getPlayer1Score()), 440, 573 );
-		
+		g.setColor(Color.red);
 		g.drawString("Player 2:    " + Integer.toString(airspace.getPlayer2Score()), 650, 573 );
+		g.setColor(Color.white);
 		
 		
 
@@ -481,16 +482,17 @@ public class PlayCompetitiveState extends PlayState {
 			airspace.resetAirspace();
 			gameplayMusic.stop();
 			gameEnded = true;
-			sbg.enterState(stateContainer.Game.GAMEOVERSTATE);
+			sbg.enterState(stateContainer.Game.GAMEOVERCOMPETITIVESTATE);
 			
 		}
+		
 
 		Input input = gc.getInput();
 
 		// Checking For Pause Screen requested in game
 
 		if (input.isKeyPressed(Input.KEY_P)) {
-			sbg.enterState(stateContainer.Game.PAUSECOOPSTATE);
+			sbg.enterState(stateContainer.Game.PAUSECOMPETITIVESTATE);
 		}			
 
 		if (!gameplayMusic.playing()){
