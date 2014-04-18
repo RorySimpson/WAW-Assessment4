@@ -16,6 +16,7 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public final class SplashState extends BasicGameState {
 
+	/* Attributes */
 	private static Image 
 		splash, indicator;
 	/*private static Color
@@ -27,52 +28,36 @@ public final class SplashState extends BasicGameState {
 		
 	}
 
-	
+	/* Override the default initialisation */
 	@Override
 	public void init(GameContainer gc, StateBasedGame s)
 			throws SlickException {
+        /* load the graphics */
 		splash = new Image("res/graphics/new/startup_bg.jpg");
 		indicator = new Image("res/graphics/new/startup_plane.png");
 	}
-
+    /* Override the default rendering method */
 	@Override
 	public void render(GameContainer gc, StateBasedGame s, Graphics g)
 			throws SlickException {
-		
+        /* Draw the background image and get the loading bar working 
+         * to properly display the amount of remaining resources to load  */	
 		g.drawImage(splash, 0, 0);
 		indicator.drawCentered(900 -((600 * loading.getRemainingResources()) 
 				/ loading.getTotalResources()), 390);
-		
-		/*//calculate loading bar sizes
-		int	ox = stateContainer.Game.MAXIMUMWIDTH /4,	// offset/sizing values
-			oy = stateContainer.Game.MAXIMUMHEIGHT /16;
-		
-		Rectangle 
-			loadBase = new Rectangle(ox, 10*oy, 2*ox, oy),
-			loadFill = new Rectangle(loadBase);	
-		loadFill.grow(-4, -4);
-		loadFill.width = loadFill.width -
-					((loadFill.width * loading.getRemainingResources()) 
-							/ loading.getTotalResources());
-		
-		//draw loading bar
-		g.setColor(loadBaseColor);
-		g.fillRoundRect(loadBase.x, loadBase.y, 
-				loadBase.width, loadBase.height, oy/3);
-		g.setColor(loadFillColor);
-		g.fillRoundRect(loadFill.x, loadFill.y, 
-				loadFill.width, loadFill.height, oy/3 -1);*/
-		
 	}
 	
+	/* Override the default update method */
 	@Override
 	public void update(GameContainer gc, StateBasedGame s, int delta)
 			throws SlickException {
-		
+
+        /* Enter the menu when loading is done  */	
 		if (loading.getRemainingResources() == 0){	//finished loading
 			gc.setShowFPS(false);
 			s.enterState(stateContainer.Game.MENUSTATE);
 		}
+        /* Inform the user if any error occurred while loading */
 		else {
 			DeferredResource next = loading.getNext();
 			try {
@@ -84,6 +69,7 @@ public final class SplashState extends BasicGameState {
 		}		
 	}
 
+	/* Use names for states instead of IDs for readability  */
 	@Override
 	public int getID() {
 		return stateContainer.Game.SPLASHSTATE;

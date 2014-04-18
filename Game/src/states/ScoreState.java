@@ -22,43 +22,59 @@ import util.DeferredFile;
 
 public class ScoreState extends BasicGameState {
 	
+	/* Attributes used by this state */
 	private static Image menuButton, menuHover, menuBackground;
+    /* Connection for connecting to the High Scores database */
 	private Connection connection = new Connection();
+	/* An array of all scores of the users for communication with the server*/
 	private List<String> scores = new ArrayList<String>();
 	
+	/* Load custom font */
 	private TrueTypeFont
-        	titleFont = new TrueTypeFont(new Font(Font.SANS_SERIF, Font.BOLD, 36), false);
+        	titleFont = new TrueTypeFont(new Font(Font.SANS_SERIF, 
+        									 Font.BOLD, 36), false);
 	
 	//CONSTRUCTOR
+	/* Empty constructor for preventing some Eclipse warnings */
 	public ScoreState(int scorestate){
 
 	}
 	
+/* Overwriting the enter method to force the state to fetch the scores 
+ * as soon as it has loaded*/
 	@Override
 	public void enter(GameContainer gc, StateBasedGame sbg){
 		scores = connection.getScores();
 	}
 	
 	//METHODS
+	/* Overriding initialisation */
 	@Override
 	public void init(GameContainer gc, StateBasedGame sbg)
 			throws SlickException {
 		{
+			/* Use deferred loading for better performance  */
 			LoadingList loading = LoadingList.get();
 
-			loading.add(new DeferredFile("res/menu_graphics/new/menu_screen.png"){	
+			/* The menu screen image */
+			loading.add(new DeferredFile(
+					"res/menu_graphics/new/menu_screen.png"){	
 				public void loadFile(String filename) throws SlickException{
 					menuBackground = new Image(filename);
 				}
 			});
 
-			loading.add(new DeferredFile("res/menu_graphics/new/menu_button.png"){
+			/* The menu button image */
+			loading.add(new DeferredFile(
+					"res/menu_graphics/new/menu_button.png"){
 				public void loadFile(String filename) throws SlickException{
 					menuButton = new Image(filename);
 				}
 			});
 
-			loading.add(new DeferredFile("res/menu_graphics/new/menu_hover.png"){
+			/* The menu hover image */
+			loading.add(new DeferredFile(
+					"res/menu_graphics/new/menu_hover.png"){
 				public void loadFile(String filename) throws SlickException{
 					menuHover = new Image(filename);
 				}
@@ -66,21 +82,24 @@ public class ScoreState extends BasicGameState {
 		}
 	}
 		
+    /* Overriding the rendering method */
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
 			throws SlickException{
 		
+        /* Get the mouse position */
 		int posX = Mouse.getX();
+        //Fixing posY to reflect graphics coords
 		int posY = stateContainer.Game.MAXIMUMHEIGHT -Mouse.getY();
-			//Fixing posY to reflect graphics coords
 	
 		menuBackground.draw(0,0);
 		
+        /* Detect mouse hover */
 		if (posX>20 && posX< 136 && posY>20 && posY<66)
 			menuHover.draw(20,20);
 		else menuButton.draw(20,20);
 		
-		//draw background panel
+		//Draw background panel
 		g.setColor(new Color(250, 235, 215, 50));	//pale orange, semi-transparent
 		g.fillRoundRect (50, 230, 1100, 320, 5);
 		
@@ -99,6 +118,7 @@ public class ScoreState extends BasicGameState {
 		}
 	}
 
+    /* Override the update method to handle pressing the menu button to go back */
 	@Override
 	public void update(GameContainer gc, StateBasedGame sbg, int delta)
 			throws SlickException {
@@ -117,6 +137,7 @@ public class ScoreState extends BasicGameState {
 		
 	}
 
+    /* Override the getID() method for better readability */
 	@Override
 	public int getID(){
 		return stateContainer.Game.SCORESTATE;
