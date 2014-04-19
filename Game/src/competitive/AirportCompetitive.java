@@ -28,6 +28,12 @@ public class AirportCompetitive extends Airport {
 		landingApproachArea.addPoint(565, 315);
 	}
 	
+	/**
+	 * init: Initialises all the resources required for the airport class, and any other classes that are rendered within it
+	 * @param gc GameContainer
+	 * @throws SlickException
+	 */
+	
 	@Override
 	public void init(GameContainer gc) throws SlickException {
 		LoadingList.get().add(new DeferredFile("res/graphics/new/airport.png"){
@@ -56,18 +62,23 @@ public class AirportCompetitive extends Airport {
 	
 
 	
-	
+	/**
+	 * render: Render all of the graphics for the airport
+	 * @param g Graphics
+	 * @param gc GameContainer
+	 * 
+	 * @throws SlickException
+	 */
 	@Override
 	public void render(Graphics g, GameContainer gc) throws SlickException { 
 		
 		getAirportImage().setRotation(0);
 		
 		// Airport image centred in middle of airspace
-	
 		getAirportImage().drawCentered(620, 600);
 		
 		
-		
+		//Draw landing approach if player 1's selected flight has the cargo
 		if((((ControlsCompetitive)this.getAirspace().getControls()).getSelectedFlight1() != null) && ((AirspaceCompetitive)this.getAirspace()).getCargo().getCurrentHolder() != null) {
 			if(((ControlsCompetitive)this.getAirspace().getControls()).getSelectedFlight1() == ((AirspaceCompetitive)this.getAirspace()).getCargo().getCurrentHolder()){
 				landingApproachImage.drawCentered(620, 390);
@@ -76,6 +87,8 @@ public class AirportCompetitive extends Airport {
 				
 			}
 		}
+		
+		//Draw landing approach if player 2's selected flight has the cargo
 		if((((ControlsCompetitive)this.getAirspace().getControls()).getSelectedFlight2() != null) && ((AirspaceCompetitive)this.getAirspace()).getCargo().getCurrentHolder() != null){
 			if(((ControlsCompetitive)this.getAirspace().getControls()).getSelectedFlight2() == ((AirspaceCompetitive)this.getAirspace()).getCargo().getCurrentHolder()){
 				landingApproachImage.drawCentered(620, 390);

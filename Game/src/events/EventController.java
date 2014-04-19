@@ -140,9 +140,7 @@ public class EventController {
 			 listOfTornadoes.get(listOfTornadoes.size()-1).init(gc);
 			 listOfTornadoes.get(listOfTornadoes.size()-1).attack();
 		}
-		
-		
-		
+
 		for (int i = 0; i < listOfHunterFlights.size(); i++){
 			if (listOfHunterFlights.get(i).inAirspace()){
 				listOfHunterFlights.get(i).update(airspace);

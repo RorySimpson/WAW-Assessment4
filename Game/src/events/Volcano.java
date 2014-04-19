@@ -87,13 +87,7 @@ public class Volcano {
 			
 		}
 		
-//		for (VolcanoProjectile projectile : listOfProjectilesLaunched){
-//			projectile.update();
-//			if (checkIfProjectileHasLeftAirspace(projectile)){
-//				listOfProjectilesLaunched.remove(projectile);
-//			}
-//			
-//		}
+
 	}
 	
 	public List<VolcanoProjectile> getListOfProjectilesLaunched() {

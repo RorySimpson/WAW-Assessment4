@@ -43,16 +43,25 @@ public class FlightCompetitive extends Flight {
 
 	}
 	
+	/**
+	 * steerLandingFlight: steers flights that are landing. Flights are auto driven when landing.
+	 */
+	
 	public void steerLandingFlight(){
 		if (this.flightPlan.getCurrentRoute().size() != 0){
 			this.targetHeading = calculateHeadingToNextWaypoint(this.getFlightPlan().getCurrentRoute().get(0).getX(),this.getFlightPlan().getCurrentRoute().get(0).getY());
 		}
 	}
 	
+	/**
+	 * checkIfFlightAtWaypoint: checks whether a flight is close enough to a waypoint for it to be
+	 * removed from it's plan.
+	 */
+	
 	@Override
 	public boolean checkIfFlightAtWaypoint(Point waypoint) {
 		
-
+		// Only allow beginning of runway to be removed if actually landing
 		if (waypoint == airspace.getAirportRight().getBeginningOfRunway() && this.landing == false){
 			return false;
 		}
@@ -66,6 +75,7 @@ public class FlightCompetitive extends Flight {
 
 		distanceFromWaypoint = (int)Math.sqrt((int)Math.pow(distanceX,2) + (int)Math.pow(distanceY,2));
 		
+		// Check whether flight is within 10 pixels of waypoint.
 		if(distanceFromWaypoint < 10){
 			return true;
 		}
@@ -75,8 +85,13 @@ public class FlightCompetitive extends Flight {
 		}
 	
 	}
-
 	
+	/**
+	 * init: Initialises all the resources required for the flight class, and any other classes that are rendered within it
+	 * @param gc GameContainer
+	 * @throws SlickException
+	 */
+
 	@Override
 	public void init(GameContainer gc) throws SlickException {
 
@@ -102,10 +117,16 @@ public class FlightCompetitive extends Flight {
 
 	}
 	
+	/**
+	 * land: sets all flight variables to an appropriate value when landing. It also checks whether a flight
+	 * is allowed to land.
+	 */
+	
 	@Override
 	public void land(){	
-		// if next point is an exit point
 		
+		
+		// If flight doesn't have cargo then go no further as can't land.
 		if (((AirspaceCompetitive)this.getAirspace()).getCargo().getCurrentHolder() != this){
 			return;
 		}
@@ -113,6 +134,7 @@ public class FlightCompetitive extends Flight {
 		
 		
 		if (!isLanding()){
+			// If flight is within the landing approach area and has the correct altitude and heading then land.
 			if (this.getAirspace().getAirportRight().getLandingApproachArea()
 					.contains((float)this.getX(), (float)this.getY()) 
 					&& this.getCurrentHeading() >= 145 && this.getCurrentHeading() <= 225 && this.getCurrentAltitude() <= 2000
@@ -174,7 +196,9 @@ public class FlightCompetitive extends Flight {
 	
 
 	
-
+	/**
+	 * drawFlight: draws the flight image and all relevent information.
+	 */
 
 	@Override
 	public void drawFlight(Graphics g, GameContainer gc ){
@@ -220,7 +244,8 @@ public class FlightCompetitive extends Flight {
 				g.drawString(Math.round(this.getCurrentAltitude()) + " ft",(int) this.getX()-30, (int) this.getY() + 10);
 
 				if(((AirspaceCompetitive)airspace).getCargo().getCurrentHolder() != null ){
-
+					
+					// Checking whether to display landing message
 
 					if ((((AirspaceCompetitive)airspace).getCargo().getCurrentHolder() == this) && this.getCurrentAltitude() > 2000){
 						g.drawString("Lower Me",(int) this.getX() -29, (int)this.getY()-28);
@@ -236,9 +261,9 @@ public class FlightCompetitive extends Flight {
 
 				}
 
+				// Draw circle around selected flight. Color depends on player.
 
-
-				if(player2){	//{!} not converted to using min/max
+				if(player2){	
 					g.setColor(Color.red);
 
 				}
@@ -283,13 +308,27 @@ public class FlightCompetitive extends Flight {
 
 	}
 
+	/**
+	 * render: Render all of the graphics in the airspace
+	 * @param g Graphics
+	 * @param gc GameContainer
+	 * 
+	 * @throws SlickException
+	 */
+	@Override
 	public void render(Graphics g, GameContainer gc) throws SlickException {
 
 		this.drawFlight(g, gc);
 
 	}
-
 	
+
+
+	/**
+	 * update: Update all logic in the flight class
+	 * @param gc GameContainer
+	 */
+	@Override
 	public void update(ScoreTracking score) {
 
 

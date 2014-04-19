@@ -19,7 +19,7 @@ public class CargoCompetitive {
 
 	private Point2D location;
 	private Flight currentHolder;
-	Image scoreCoinImage;
+	Image cargoImage;
 
 
 	CargoCompetitive(){
@@ -27,19 +27,31 @@ public class CargoCompetitive {
 		this.currentHolder = null;
 	}
 	
+	
+	/**
+	 * init: Initialises all the resources required for the cargo class, and any other classes that are rendered within it
+	 * @param gc GameContainer
+	 * @throws SlickException
+	 */
+	
 	public void init(GameContainer gc)throws SlickException{
 		
 		LoadingList loading = LoadingList.get();
 		
 		loading.add(new DeferredFile("res/graphics/new/coin.png"){
 			public void loadFile(String filename) throws SlickException{
-				scoreCoinImage = new Image(filename);
+				cargoImage = new Image(filename);
 			}
 		});
 	}
 	
 	
 
+	/**
+	 * generateRandomCargoLocation: generates a random location on the map (within restrictions) that the cargo 
+	 * will be moved to.
+	 */
+	
 	public Point2D generateRandomCargoLocation(){
 		Point2D tempLocation = new Point2D.Float();
 		Random rand = new Random();
@@ -47,9 +59,17 @@ public class CargoCompetitive {
 		return tempLocation;
 	}
 	
+	/**
+	 * render: Render all of the graphics for the cargo
+	 * @param g Graphics
+	 * @param gc GameContainer
+	 * 
+	 * @throws SlickException
+	 */
+	
 	public void render(Graphics g, GameContainer gc){
 		if(this.currentHolder == null){
-			scoreCoinImage.drawCentered((float)location.getX(), (float)location.getY());
+			cargoImage.drawCentered((float)location.getX(), (float)location.getY());
 			//g.drawOval((float)location.getX(), (float)location.getY(), 10, 10);
 		}
 	}

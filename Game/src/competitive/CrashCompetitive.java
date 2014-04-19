@@ -10,7 +10,7 @@ public class CrashCompetitive {
 	private Point2D.Double pointOfCrash;
 	private int countdownTillRemoval;
 	
-	
+	// Used to store all information needed to carry out flight explosions effectively.
 	CrashCompetitive(Flight flight1, Flight flight2, Point2D.Double pointOfCrash){
 		this.flight1 = flight1;
 		this.flight2 = flight2;

@@ -26,15 +26,23 @@ public class ControlsCompetitive extends Controls {
 		this.selectedThisLoop=false;
 	}
 	
+	/**
+	 * init: Initialises all the resources required for the controls class, and any other classes that are rendered within it
+	 * @param gc GameContainer
+	 * @throws SlickException
+	 */
 	@Override
 	public void init(GameContainer gc) throws SlickException {
 		
 	}
 	
-	@Override
-	public void update(GameContainer gc, Airspace airspace) {
+	/**
+	 * update: checks all keypresses and responds to them accordingly.
+	 * @param gc
+	 */
+	public void update(GameContainer gc) {
 
-		
+		// Left shift is used to toggle through all the player 1 flights. This selects the flight that is active to the user.
 		if(gc.getInput().isKeyPressed(Input.KEY_LSHIFT)) {
 			if(airspaceCompetitive.getListOfFlightsPlayer1().size()>0) {
 				if (this.selectedFlight1 == null){
@@ -48,9 +56,11 @@ public class ControlsCompetitive extends Controls {
 				}
 				else{
 					for (int i = 1; i<= airspaceCompetitive.getListOfFlightsPlayer1().size(); i++){
-						if(airspaceCompetitive.getListOfFlightsPlayer1().get((i + airspaceCompetitive.getListOfFlightsPlayer1().indexOf(selectedFlight1)) % airspaceCompetitive.getListOfFlightsPlayer1().size()).isSelectable()){
+						if(airspaceCompetitive.getListOfFlightsPlayer1().get((i + airspaceCompetitive.getListOfFlightsPlayer1().
+								indexOf(selectedFlight1)) % airspaceCompetitive.getListOfFlightsPlayer1().size()).isSelectable()){
 							this.selectedFlight1.setSelected(false);
-							this.selectedFlight1 = airspaceCompetitive.getListOfFlightsPlayer1().get((i + airspaceCompetitive.getListOfFlightsPlayer1().indexOf(selectedFlight1)) % airspaceCompetitive.getListOfFlightsPlayer1().size());
+							this.selectedFlight1 = airspaceCompetitive.getListOfFlightsPlayer1().get((i + airspaceCompetitive.getListOfFlightsPlayer1()
+									.indexOf(selectedFlight1)) % airspaceCompetitive.getListOfFlightsPlayer1().size());
 							this.selectedFlight1.setSelected(true);
 							break;
 						}
@@ -63,12 +73,14 @@ public class ControlsCompetitive extends Controls {
 			
 		}
 		
+		// Right shift is used to toggle through all the player 2 flights. This selects the flight that is active to the user.
 		if(gc.getInput().isKeyPressed(Input.KEY_RSHIFT)) {
 			if(airspaceCompetitive.getListOfFlightsPlayer2().size()>0) {
 				if (this.selectedFlight2 == null){
 					for (int i = 0; i< airspaceCompetitive.getListOfFlightsPlayer2().size(); i++){
 						if(airspaceCompetitive.getListOfFlightsPlayer2().get(i % airspaceCompetitive.getListOfFlightsPlayer2().size()).isSelectable()){
-							this.selectedFlight2 = airspaceCompetitive.getListOfFlightsPlayer2().get(i % airspaceCompetitive.getListOfFlightsPlayer2().size());
+							this.selectedFlight2 = airspaceCompetitive.getListOfFlightsPlayer2().
+									get(i % airspaceCompetitive.getListOfFlightsPlayer2().size());
 							this.selectedFlight2.setSelected(true);
 							break;
 						}
@@ -76,9 +88,11 @@ public class ControlsCompetitive extends Controls {
 				}
 				else{
 					for (int i = 1; i<= airspaceCompetitive.getListOfFlightsPlayer2().size(); i++){
-						if(airspaceCompetitive.getListOfFlightsPlayer2().get((i + airspaceCompetitive.getListOfFlightsPlayer2().indexOf(selectedFlight2)) % airspaceCompetitive.getListOfFlightsPlayer2().size()).isSelectable()){
+						if(airspaceCompetitive.getListOfFlightsPlayer2().get((i + airspaceCompetitive.getListOfFlightsPlayer2()
+								.indexOf(selectedFlight2)) % airspaceCompetitive.getListOfFlightsPlayer2().size()).isSelectable()){
 							this.selectedFlight2.setSelected(false);
-							this.selectedFlight2 = airspaceCompetitive.getListOfFlightsPlayer2().get((i + airspaceCompetitive.getListOfFlightsPlayer2().indexOf(selectedFlight2)) % airspaceCompetitive.getListOfFlightsPlayer2().size());
+							this.selectedFlight2 = airspaceCompetitive.getListOfFlightsPlayer2().get((i + airspaceCompetitive.getListOfFlightsPlayer2()
+									.indexOf(selectedFlight2)) % airspaceCompetitive.getListOfFlightsPlayer2().size());
 							this.selectedFlight2.setSelected(true);
 							break;
 						}
@@ -91,6 +105,7 @@ public class ControlsCompetitive extends Controls {
 			
 		}
 		
+		//Hot Key '1' used to select flight labelled 1
 		if(airspaceCompetitive.getListOfFlightsPlayer1().size() >= 1){
 			if(gc.getInput().isKeyDown(Input.KEY_1)){
 				if(this.selectedFlight1 != null){
@@ -101,6 +116,7 @@ public class ControlsCompetitive extends Controls {
 			}
 		}
 		
+		//Hot Key '2' used to select flight labelled 2
 		if(airspaceCompetitive.getListOfFlightsPlayer1().size() >= 2){
 			if(gc.getInput().isKeyDown(Input.KEY_2)){
 				if(this.selectedFlight1 != null){
@@ -111,6 +127,7 @@ public class ControlsCompetitive extends Controls {
 			}
 		}
 		
+		//Hot Key '3' used to select flight labelled 3
 		if(airspaceCompetitive.getListOfFlightsPlayer1().size() >= 3){
 			if(gc.getInput().isKeyDown(Input.KEY_3)){
 				if(this.selectedFlight1 != null){
@@ -121,7 +138,7 @@ public class ControlsCompetitive extends Controls {
 			}
 		}
 		
-		
+		//Hot Key 'Number pad 1' used to select flight labelled 1
 		if(airspaceCompetitive.getListOfFlightsPlayer2().size() >= 1){
 			if(gc.getInput().isKeyDown(Input.KEY_NUMPAD1)){
 				if(this.selectedFlight2 != null){
@@ -132,6 +149,7 @@ public class ControlsCompetitive extends Controls {
 			}
 		}
 		
+		//Hot Key 'Number pad 2' used to select flight labelled 2
 		if(airspaceCompetitive.getListOfFlightsPlayer2().size() >= 2){
 			if(gc.getInput().isKeyDown(Input.KEY_NUMPAD2)){
 				if(this.selectedFlight2 != null){
@@ -142,6 +160,7 @@ public class ControlsCompetitive extends Controls {
 			}
 		}
 		
+		//Hot Key 'Number pad 3' used to select flight labelled 3
 		if(airspaceCompetitive.getListOfFlightsPlayer2().size() >= 3){
 			if(gc.getInput().isKeyDown(Input.KEY_NUMPAD3)){
 				if(this.selectedFlight2 != null){
@@ -157,24 +176,34 @@ public class ControlsCompetitive extends Controls {
 		
 		
 		if(this.selectedFlight1!=null) {
+			// Player 1 controls
+			
+			
+			//Decrease Flight's heading
 			if(gc.getInput().isKeyDown(Input.KEY_A)) {
 				this.selectedFlight1.decrementHeading();
 			}
+			
+			//Increase Flight's heading
 			if(gc.getInput().isKeyDown(Input.KEY_D)) {
 				this.selectedFlight1.incrementHeading();
 			}
+			
+			//Lower Flight's altitude
 			if(gc.getInput().isKeyPressed(Input.KEY_S)) {
 				if(this.selectedFlight1.getTargetAltitude() > 2000){
 					this.selectedFlight1.setTargetAltitude(this.selectedFlight1.getTargetAltitude()-1000);
 				}
 			}
+			
+			// Increase Flight's altitude
 			if(gc.getInput().isKeyPressed(Input.KEY_W)) {
 				if(this.selectedFlight1.getTargetAltitude() < 5000){
 					this.selectedFlight1.setTargetAltitude(this.selectedFlight1.getTargetAltitude() + 1000);
 				}
 			}
 			
-			
+			// Land flight
 			if(gc.getInput().isKeyDown(Input.KEY_L)) {
 				this.selectedFlight1.land();
 			}
@@ -182,23 +211,33 @@ public class ControlsCompetitive extends Controls {
 			
 		}
 		if(this.selectedFlight2!=null) {
+			// Player 2's controls
+			
+			//Decrease Flight's heading
 			if(gc.getInput().isKeyDown(Input.KEY_LEFT)) {
 				this.selectedFlight2.decrementHeading();
 			}
+			
+			//Increase Flight's heading
 			if(gc.getInput().isKeyDown(Input.KEY_RIGHT)) {
 				this.selectedFlight2.incrementHeading();
 			}
+			
+			// Decrease Flights altitude
 			if(gc.getInput().isKeyPressed(Input.KEY_DOWN)) {
 				if(this.selectedFlight2.getTargetAltitude() > 2000){
 					this.selectedFlight2.setTargetAltitude(this.selectedFlight2.getTargetAltitude()-1000);
 				}
 			}
+			
+			//Increase Flights altitude
 			if(gc.getInput().isKeyPressed(Input.KEY_UP)) {
 				if(this.selectedFlight2.getTargetAltitude() < 5000){
 					this.selectedFlight2.setTargetAltitude(this.selectedFlight2.getTargetAltitude()+1000);
 				}
 			}
 			
+			//Land Flight
 			if(gc.getInput().isKeyDown(Input.KEY_DELETE)) {
 				System.out.println(this.selectedFlight2);
 				this.selectedFlight2.land();
@@ -209,6 +248,10 @@ public class ControlsCompetitive extends Controls {
 		}
 		
 	}
+	
+	/**
+	 * render: draw labels as to whether a flight is player 1's or 2's
+	 */
 	@Override
 	public void render(GameContainer gc, Graphics g) throws SlickException {
 		if(selectedFlight1 != null) {
