@@ -26,7 +26,7 @@ public class Tornado_Tests {
 	@Before
 	public void setUp(){
 		airspace = new Airspace();
-		tornado = new Tornado(airspace, airspace.getEventController());
+		tornado = new Tornado(airspace);
 	}
 	
 	@Test

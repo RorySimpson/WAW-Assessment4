@@ -13,13 +13,13 @@ import org.newdawn.slick.SlickException;
 public class EventController {
 	
 	private List<HunterFlight> listOfHunterFlights;
-	private int nextHunterFlightTime;
-	private List<Tornado> listOfTornados;
+	private int nextHunterFlightTime, nextTornadoTime;
+	private List<Tornado> listOfTornadoes;
 	private int timeUntilRadioMalfunction;
 	private Airspace airspace;
 	public List<Tornado> getListOfTornados()
 		{
-			return listOfTornados;
+			return listOfTornadoes;
 		}
 
 	private Volcano volcano;
@@ -28,10 +28,10 @@ public class EventController {
 	public EventController(Airspace airspace){
 		
 		this.volcano = new Volcano();
-		// this.tornado = new Tornado();
 		this.listOfHunterFlights = new ArrayList<HunterFlight>();
-		this.nextHunterFlightTime = 300;
-		this.listOfTornados = new ArrayList<Tornado>();
+		this.nextHunterFlightTime = 3600;	// One minute initial wait until spawn
+		this.nextTornadoTime = 1800;	// 30 second initial wait until spawn
+		this.listOfTornadoes = new ArrayList<Tornado>();
 		this.timeUntilRadioMalfunction=newRadioMalfunctionTime();
 		this.airspace=airspace;
 	}
@@ -52,33 +52,35 @@ public class EventController {
 		return timeTillNextHunterFlight;
 	}
 	
-	public void spawnHunterFlight(Airspace airspace, GameContainer gc) throws SlickException{
+	public int newTornadoTime(){
+		
+		Random rand = new Random();
+		int timeTillNextTornado = rand.nextInt(14400) + 7200;
+		
+		return timeTillNextTornado;
+	}
+	
+	public boolean spawnHunterFlight() throws SlickException{
 		
 		nextHunterFlightTime --;
 		if (nextHunterFlightTime == 0){
 			 listOfHunterFlights.add(new HunterFlight(airspace));
-			 listOfHunterFlights.get(listOfHunterFlights.size()-1).init(gc);
 			 nextHunterFlightTime = newHunterFlightTime();
+			 return true;
 		}
+		
+		return false;
 	}
 	
-	public void init (GameContainer gc) throws SlickException{
-		
-		this.volcano.init(gc);
-	}
-	
-	public void render (Graphics g, GameContainer gc) throws SlickException{
-		
-		
-		for (HunterFlight hunterFlight : listOfHunterFlights){
-			hunterFlight.render(g, gc);
-		}
-
-		for (Tornado tornado : listOfTornados){
-			tornado.render(g, gc);
+	public boolean spawnTornado() throws SlickException{
+		nextTornadoTime --;
+		if (nextTornadoTime == 0){
+			 listOfTornadoes.add(new Tornado(airspace));
+			 nextTornadoTime = newTornadoTime();
+			 return true;
 		}
 		
-		this.volcano.render(g, gc);
+		return false;
 	}
 	
 	public void updateRadioMalfunctionEvent(){
@@ -106,10 +108,40 @@ public class EventController {
 		
 	}
 	
-	public void update(GameContainer gc, Airspace airspace) throws SlickException{
+	public void init (GameContainer gc) throws SlickException{
+		
+		this.volcano.init(gc);
+	}
+	
+	public void render (Graphics g, GameContainer gc) throws SlickException{
+		
+		
+		for (HunterFlight hunterFlight : listOfHunterFlights){
+			hunterFlight.render(g, gc);
+		}
+
+		for (Tornado tornado : listOfTornadoes){
+			tornado.render(g, gc);
+		}
+		
+		this.volcano.render(g, gc);
+	}
+	
+	
+	public void update(GameContainer gc) throws SlickException{
 		this.volcano.update(gc);
 		updateRadioMalfunctionEvent();
-		spawnHunterFlight(airspace, gc);
+		
+		if(spawnHunterFlight()){
+			listOfHunterFlights.get(listOfHunterFlights.size()-1).init(gc);
+		}
+		
+		if(spawnTornado()){
+			 listOfTornadoes.get(listOfTornadoes.size()-1).init(gc);
+			 listOfTornadoes.get(listOfTornadoes.size()-1).attack();
+		}
+		
+		
 		
 		for (int i = 0; i < listOfHunterFlights.size(); i++){
 			if (listOfHunterFlights.get(i).inAirspace()){
@@ -120,9 +152,9 @@ public class EventController {
 			}
 		}
 		
-		for (int i = 0; i < this.listOfTornados.size(); i++){
-			if (this.listOfTornados.get(i).inAirspace()){
-				listOfTornados.get(i).update(gc);
+		for (int i = 0; i < this.listOfTornadoes.size(); i++){
+			if (this.listOfTornadoes.get(i).inAirspace()){
+				listOfTornadoes.get(i).update(gc);
 			} else {
 				removeTornado(i);
 			}
@@ -130,11 +162,11 @@ public class EventController {
 	}
 	
 	public void addTornado(Tornado tornado){
-		this.listOfTornados.add(tornado);
+		this.listOfTornadoes.add(tornado);
 	}
 	
 	public void removeTornado(int tornado){
-		this.listOfTornados.remove(tornado);
+		this.listOfTornadoes.remove(tornado);
 	}
 	
 	public Volcano getVolcano(){

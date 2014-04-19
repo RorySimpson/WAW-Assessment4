@@ -56,7 +56,7 @@ public class SeparationRules_Tests {
 		
 		airspace.getEventController().getVolcano().getListOfProjectilesLaunched().add(projectile);
 		
-		tornado = new Tornado(airspace, airspace.getEventController());
+		tornado = new Tornado(airspace);
 		
 		airspace.addFlight(flight1);
 		airspace.addFlight(flight2);

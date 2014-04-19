@@ -9,6 +9,8 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
+import stateContainer.Game;
+
 
 
 public class Tornado {
@@ -24,8 +26,8 @@ public class Tornado {
 	// Whether the tornado is attacking at the moment
 	boolean attacking;
 	
-	// Timer for how long until the tornado tries to leave or something
-	int whatAmIDoing;
+	// Timer for how long until the tornado tries to leave 
+	int countdownTillTornadoTriesToLeave;
 	
 	// Save the coordinates from which the Tornado came to get a better path when leaving
 	double originalX;
@@ -36,15 +38,11 @@ public class Tornado {
 	int randomDirection;
 	
 	// Constructor
-	public Tornado(Airspace airspace, EventController eventController){
+	public Tornado(Airspace airspace){
 		
 		attacking 		= false;
-		whatAmIDoing 	= 450;
-		
-		eventController.addTornado(this);
-
+		countdownTillTornadoTriesToLeave = 450; // 7.5 seconds
 		this.randomiseLocation();
-		
 		Random rand = new Random();
 		randomDirection = rand.nextInt(2);
 	}
@@ -126,9 +124,9 @@ public class Tornado {
 		int directionx = rand.nextInt(4)-2;
 		int directiony = rand.nextInt(4)-2;
 				
-		if (whatAmIDoing > 0){
+		if (countdownTillTornadoTriesToLeave > 0){
 			
-			this.whatAmIDoing -= 1;
+			this.countdownTillTornadoTriesToLeave -= 1;
 			
 			if (this.x <= 600){
 				this.x -= directionx;
@@ -171,15 +169,17 @@ public class Tornado {
 		}
 	}
 	
-	// Initialis
+	// Initialise
 	public void init (GameContainer gc) throws SlickException{
 		tornadoImage = new Image("res/graphics/new/tornado.png");
 		}
 	
 	// Renders the image
 	public void render(Graphics g, GameContainer gc) throws SlickException{
+		g.setWorldClip(11, 0, Game.MAXIMUMWIDTH -11, Game.MAXIMUMHEIGHT-40);
 		tornadoImage.setRotation(tornadoImage.getRotation()+50);
 		tornadoImage.draw((int) this.x, (int) this.y);
+		g.setWorldClip(0, 0, Game.MAXIMUMWIDTH, Game.MAXIMUMHEIGHT);
 	}
 	
 	// Updates the logic
@@ -218,6 +218,6 @@ public class Tornado {
 	}
 	
 	public void setWhatAmIDoing(int whatAmIDoing){
-		this.whatAmIDoing = whatAmIDoing;
+		this.countdownTillTornadoTriesToLeave = whatAmIDoing;
 	}
 }

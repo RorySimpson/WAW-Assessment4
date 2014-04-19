@@ -74,7 +74,7 @@ public class OnlineAirspace extends Airspace {
 
 		}
 
-		this.eventController.update(gc, this);
+		this.eventController.update(gc);
 		this.separationRules.update(this);
 		this.controls.update(gc, this);
 	}

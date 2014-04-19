@@ -858,11 +858,14 @@ public class PlayState extends BasicGameState {
 			
 			}
 			
-			if (input.isKeyPressed(Input.KEY_X)){
-				Tornado tornado = new Tornado(airspace, airspace.getEventController());
+			//Keep this to demo tornadoes
+			
+/*			if (input.isKeyPressed(Input.KEY_X)){
+				Tornado tornado = new Tornado(airspace);
 				tornado.init(gc);
 				tornado.attack();
-			}
+				airspace.getEventController().getListOfTornados().add(tornado);
+			}*/
 			
 			if (!gameplayMusic.playing() && (!musicPaused) && !gameJustFinished){
 				//Loops gameplay music based on random number created in init (what?)
