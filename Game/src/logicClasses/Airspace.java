@@ -242,8 +242,14 @@ public class Airspace {
 										tempFlight.getFlightPlan().getPointByIndex(0).getX() ,
 										tempFlight.getFlightPlan().getPointByIndex(0).getY());
 					}
+					
 					tempFlight.setTargetHeading(heading);
 					tempFlight.setCurrentHeading(heading);
+					
+					if(rand.nextInt(20) == 1){
+						tempFlight.setBonus(true);
+					}
+					
 					if(addFlight(tempFlight)){
 						this.numberOfGameLoopsSinceLastFlightAdded = 0;
 						this.listOfFlightsInAirspace.get(

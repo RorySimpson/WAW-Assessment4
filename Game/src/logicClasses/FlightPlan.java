@@ -179,7 +179,7 @@ public class FlightPlan {
 		int mouseX = Mouse.getX(); //Get mouse coordinates
 		int mouseY = Game.MAXIMUMHEIGHT -Mouse.getY();
 		
-		if(this.getCurrentRoute().isEmpty()) { //If there are no waypouints
+		if(this.getCurrentRoute().isEmpty()) { //If there are no waypoints
 			return false;
 		}
 		
@@ -213,7 +213,7 @@ public class FlightPlan {
 
 				this.currentRoute.remove(0);
 			}
-			score.updateScore(waypointScore);
+			score.updateScore(waypointScore, flight.isBonus());
 			
 		}
 

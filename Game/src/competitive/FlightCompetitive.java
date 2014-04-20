@@ -216,7 +216,7 @@ public class FlightCompetitive extends Flight {
 		//Depending on a plane's speed, different images for the plane are drawn
 
 		if(((AirspaceCompetitive)airspace).getCargo().getCurrentHolder() == this){
-			cargoFlightImage.setRotation((float) this.getCurrentHeading());
+			cargoFlightImage.setRotation((float) currentHeading);
 			cargoFlightImage.draw((int) this.getX()-24, (int) this.getY()-22);
 		}
 

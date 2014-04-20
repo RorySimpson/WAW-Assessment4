@@ -16,7 +16,7 @@ public class Flight implements Serializable{ //ignore, its for online mode, does
 
 	// FIELDS
 	protected static Image 
-	regularFlightImage, slowFlightImage, fastFlightImage, shadowImage;
+	regularFlightImage, slowFlightImage, fastFlightImage, shadowImage, cargoFlightImage;
 	protected static double gameScale = 1/1000.0;
 
 	protected int
@@ -25,7 +25,7 @@ public class Flight implements Serializable{ //ignore, its for online mode, does
 	protected double
 	accel = 20/60.0,
 	climbRate = 5,
-	turnRate = 0.9;	//20 mph per second
+	turnRate = 0.9;	
 
 	protected int flightNumber;
 	protected String flightName;
@@ -56,7 +56,8 @@ public class Flight implements Serializable{ //ignore, its for online mode, does
 	circling = false,
 	partCircling = false,
 	finalApproach = false,
-	controllable = true;
+	controllable = true,
+	bonus;
 
 
 	// CONSTRUCTOR
@@ -87,6 +88,7 @@ public class Flight implements Serializable{ //ignore, its for online mode, does
 		this.flightPlan = new FlightPlan(airspace, this);
 		this.currentAltitude = generateAltitude();
 		this.selected = false;
+		this.bonus = false;
 	}
 	
 	public Flight(Airspace airspace, Boolean competitive){
@@ -406,8 +408,14 @@ public class Flight implements Serializable{ //ignore, its for online mode, does
 			shadowImage.draw((int) this.x-35, (int) this.y, shadowScale);
 		}
 		//Depending on a plane's speed, different images for the plane are drawn
+		
+		if(this.bonus){
+		
+			cargoFlightImage.setRotation((int) currentHeading);
+			cargoFlightImage.draw((int) this.getX()-24, (int) this.getY()-22);
+		}
 
-		if(velocity <= 275){	//{!} not converted to using min/max
+		else if(velocity <= 275){	//{!} not converted to using min/max
 
 			slowFlightImage.setRotation((int) currentHeading);
 			slowFlightImage.draw((int) this.x-10, (int) this.y-10);
@@ -660,6 +668,9 @@ public class Flight implements Serializable{ //ignore, its for online mode, does
 		}
 		if (fastFlightImage == null){
 			fastFlightImage = new Image("res/graphics/flight_fast.png");
+		}
+		if(cargoFlightImage == null){
+			cargoFlightImage = new Image("res/graphics/new/cargoFlight.png");
 		}
 
 	}
@@ -936,6 +947,14 @@ public class Flight implements Serializable{ //ignore, its for online mode, does
 
 	public void setWaitingToTakeOff(boolean waitingToTakeOff) {
 		this.waitingToTakeOff = waitingToTakeOff;
+	}
+
+	public boolean isBonus() {
+		return bonus;
+	}
+
+	public void setBonus(boolean bonus) {
+		this.bonus = bonus;
 	}
 
 

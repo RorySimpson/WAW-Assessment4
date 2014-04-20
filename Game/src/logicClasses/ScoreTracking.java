@@ -42,8 +42,16 @@ public class ScoreTracking {
 					
 	}
 		
-	public int updateScore(int score){
-		return currentScore+= currentMultiplier * score;			//increase the current score by the score passed by parameter
+	public int updateScore(int score, boolean bonusFlight){
+		
+		//increase the current score by the score passed by parameter. If the flight was a bonus flight,
+		// award more points.
+		if (bonusFlight){
+			return currentScore+= (currentMultiplier * score) * 10;
+		}
+		else{
+			return currentScore+= currentMultiplier * score;
+		}
 	}
 	
 	public String scoreAchievement(){
@@ -79,34 +87,6 @@ public class ScoreTracking {
 			negMult = true;
 		}
 		return progressionTowardsNextMultiplier;
-	}
-	
-	public static float getMultiplierincreaseinterval() {
-		return MULTIPLIERINCREASEINTERVAL;
-	}
-
-	public int getCurrentScore() {
-		return currentScore;
-	}
-
-	public void setCurrentScore(int currentScore) {
-		this.currentScore = currentScore;
-	}
-
-	public int getCurrentMultiplier() {
-		return currentMultiplier;
-	}
-
-	public void setCurrentMultiplier(int currentMultiplier) {
-		this.currentMultiplier = currentMultiplier;
-	}
-
-	public float getProgressionTowardsNextMultiplier() {
-		return progressionTowardsNextMultiplier;
-	}
-
-	public void setProgressionTowardsNextMultiplier(int progressionTowardsNextMultiplier) {
-		this.progressionTowardsNextMultiplier = progressionTowardsNextMultiplier;
 	}
 
 	public int increaseMultiplierOnWaypointPassed(){
@@ -161,4 +141,34 @@ public class ScoreTracking {
 	public void setMultiplierInc(boolean multiplierInc){
 		this.multiplierInc = multiplierInc;
 	}
+	
+	
+	public static float getMultiplierincreaseinterval() {
+		return MULTIPLIERINCREASEINTERVAL;
+	}
+
+	public int getCurrentScore() {
+		return currentScore;
+	}
+
+	public void setCurrentScore(int currentScore) {
+		this.currentScore = currentScore;
+	}
+
+	public int getCurrentMultiplier() {
+		return currentMultiplier;
+	}
+
+	public void setCurrentMultiplier(int currentMultiplier) {
+		this.currentMultiplier = currentMultiplier;
+	}
+
+	public float getProgressionTowardsNextMultiplier() {
+		return progressionTowardsNextMultiplier;
+	}
+
+	public void setProgressionTowardsNextMultiplier(int progressionTowardsNextMultiplier) {
+		this.progressionTowardsNextMultiplier = progressionTowardsNextMultiplier;
+	}
+
 }
