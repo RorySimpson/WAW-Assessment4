@@ -25,19 +25,28 @@ public class SeparationRulesCompetitive extends SeparationRules {
 		this.listOfActiveCrashes = new ArrayList<CrashCompetitive>();
 		 
 	 }
+	
+	/**
+	 * lateralDistanceBetweenFlightAndCargo: Calculates the lateral distance between a specific flight
+	 * and the cargo.
+	 */
 
 	public double lateralDistanceBetweenFlightAndCargo(Flight flight1, CargoCompetitive cargo){
 		return Math.sqrt(Math.pow((flight1.getX() - cargo.getLocation().getX()), 2) + Math.pow(( flight1.getY() - cargo.getLocation().getY()),2));
 	}
 
+	/**
+	 * detectCargoPickUp: Checks whether a flight is close enough to the loose cargo for it to be picked up.
+	 * If a flight is close enough it picks up the cargo.
+	 */
 	public void detectCargoPickUp(AirspaceCompetitive airspace){
 		
 		for (int i = 0; i < airspace.getListOfFlights().size(); i++){
 
 			if ((lateralDistanceBetweenFlightAndCargo(airspace.getListOfFlights().get(i), airspace.getCargo()) < CARGOPICKUPDISTANCE)){
-				System.out.println("check holder");
+
+				// Ensures that the cargo isn't being carried by another flight when a flight tries to pick it up.
 				if(airspace.getCargo().getCurrentHolder() == null){
-					System.out.println("should pick up");
 					airspace.getCargo().setCurrentHolder(airspace.getListOfFlights().get(i));
 				}
 
@@ -46,6 +55,11 @@ public class SeparationRulesCompetitive extends SeparationRules {
 
 		}
 	}
+	
+	/**
+	 * checkFlightOnFlightViolation: Checks for collisions between flight and sets up a crash object for that flight if
+	 * a collision occurs.
+	 */
 	
 	public void checkFlightOnFlightViolation(AirspaceCompetitive airspace){
 		
@@ -58,6 +72,7 @@ public class SeparationRulesCompetitive extends SeparationRules {
 					
 					if ((verticalDistanceBetweenFlights(airspace.getListOfFlights().get(i), airspace.getListOfFlights().get(j)) < this.gameOverVerticalSeparation)){
 						
+						// If flight was carrying cargo, make the flight drop the cargo at its current location.
 						if((airspace.getCargo().getCurrentHolder() == airspace.getListOfFlights().get(i)) || (airspace.getCargo().getCurrentHolder() == airspace.getListOfFlights().get(j))){
 							airspace.getCargo().setCurrentHolder(null);
 							airspace.getCargo().getLocation().setLocation(airspace.getListOfFlights().get(i).getX(), airspace.getListOfFlights().get(i).getY()); 
@@ -68,12 +83,19 @@ public class SeparationRulesCompetitive extends SeparationRules {
 						airspace.getListOfFlights().get(i).setTargetVelocity(0);
 						airspace.getListOfFlights().get(j).setVelocity(0);
 						airspace.getListOfFlights().get(j).setTargetVelocity(0);
+						
+						// Create a crash object so that an explosion can occur.
 						listOfActiveCrashes.add(new CrashCompetitive(airspace.getListOfFlights().get(i), airspace.getListOfFlights().get(j), new Point2D.Double(airspace.getListOfFlights().get(i).getX(), airspace.getListOfFlights().get(i).getY())));
 					}
 				}
 			}
 		}
 	}
+	
+	/**
+	 * removeCrash: Removes a crash from the list of crashes as well as cleaning up airspace of flights
+	 * that are no longer active.
+	 */
 	
 	public void removeCrash(AirspaceCompetitive airspace, CrashCompetitive crash){
 		
@@ -121,6 +143,8 @@ public class SeparationRulesCompetitive extends SeparationRules {
 	
 	public void update(AirspaceCompetitive airspace) {
 		
+		
+		// Crashes should only occur for a certain amount of time. After this they are despawned.
 		for(int i = 0; i < listOfActiveCrashes.size(); i++){
 			listOfActiveCrashes.get(i).setCountdownTillRemoval(listOfActiveCrashes.get(i).getCountdownTillRemoval()-1);
 			if(listOfActiveCrashes.get(i).getCountdownTillRemoval() <= 0){

@@ -38,6 +38,8 @@ public class PlayCompetitiveState extends PlayState {
 
 	private AirspaceCompetitive airspace;
 	private boolean explosionOccurs = false;
+	private float decMins, decSecs, secondsOccured;
+	private int secs;
 
 
 	public PlayCompetitiveState(int state) {
@@ -47,6 +49,8 @@ public class PlayCompetitiveState extends PlayState {
 
 	@Override
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
+		
+		// Configure variable for start of game
 
 		gameEnded = false;
 		settingDifficulty = true;
@@ -199,72 +203,59 @@ public class PlayCompetitiveState extends PlayState {
 					scoreCoinImage = new Image(filename);
 				}
 			});
-
-
+			
+			
+			
+			// Configuring Sprite Sheet For Explosion
 			SpriteSheet sheet = new SpriteSheet("res/graphics/explosion.png", 128, 128);
 			explosion = new Animation();
 			explosion.setAutoUpdate(true);
-
 			int spriteNumber = 0;
-
 			for(int col=0;col<9;col++)
 			{
 				explosion.addFrame(sheet.getSprite(spriteNumber,0), 100);
 				spriteNumber++;
 			}
 
-
-
 		}
 
-
-
-		//EntryPoints
+		//Adding EntryPoints
 		airspace.newEntryPoint(1165, 280);
 		airspace.newEntryPoint(11, 280);
 		
+		// Initialising the airspace
 		airspace.init(gc);
 		airspace.createAndSetSeparationRules();
 	}
 
-	@Override
-	public void drawEventMessage(GameContainer gc, Graphics g){
 
-
-
-	}
 
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
 			throws SlickException {
-
+		
+		
+		// Configuring Music
 		gameplayMusic.setVolume(1);
+	
+		// Set font for the rest of the render
 		g.setAntiAlias(true);
-
-
-
-		// Checks whether the user is still choosing the difficulty
-
-
-
-		//main game
-		//set font for the rest of the render
 		g.setFont(font);
 
-		// Drawing Side Images
 
 
-
+		// Day Night Cycle Logic
+		
 		if(countdownToLightReduction != 0){
 			countdownToLightReduction --;
 		}
 		else{
 
-			if(red == 40){
+			if(red == 40 && blue == 40 && green == 40){
 				increasingBrightness = true;	
 			}
 
-			else if(red == 255){
+			else if(red == 255  && blue == 255 && green == 255){
 				increasingBrightness = false;
 			}
 
@@ -302,7 +293,6 @@ public class PlayCompetitiveState extends PlayState {
 		g.drawString(stringTime, 31, 570);
 
 		// Drawing Score
-		
 		g.setColor(Color.cyan);
 		g.drawString("Player 1:    " + Integer.toString(airspace.getPlayer1Score()), 440, 573 );
 		g.setColor(Color.red);
@@ -321,90 +311,26 @@ public class PlayCompetitiveState extends PlayState {
 		}
 
 		pauseImage.draw(1120,565);
+		
+		// Render Time in Multiplier Bar. Completely filled when gameover.
+		g.setColor(Color.cyan);
+		g.fillRect(0, 600 - 600 *(secondsOccured / 300), 11, 600 *(secondsOccured / 300));
+		g.setColor(Color.white);
 
-		drawEventMessage(gc,g);
 
 
-		// Multiplier
-		if(airspace.getScore().getProgressionTowardsNextMultiplier() != 0){
-
-			this.targetCoord = 600 - (float) (0.6 * airspace.getScore().getProgressionTowardsNextMultiplier()); 
-
-			if (this.currentCoord != this.targetCoord && airspace.getScore().getNegMult() == false){
-				g.setColor(Color.cyan);
-				g.fillRect(0, this.currentCoord, 11, (600-this.currentCoord));
-				g.setColor(Color.white);
-				this.currentCoord --;
-			}
-			else if (this.currentCoord != this.targetCoord && airspace.getScore().getNegMult() == true){
-				g.setColor(Color.cyan);
-				g.fillRect(0, this.currentCoord, 11, (600-this.currentCoord));
-				g.setColor(Color.white);
-				this.currentCoord ++;
-				if (this.currentCoord == this.targetCoord) { airspace.getScore().setNegMult(false); }
-			}
-			else {
-				g.setColor(Color.cyan);
-				g.fillRect(0, this.currentCoord, 11, (600-this.currentCoord));
-				g.setColor(Color.white);
-			}
-		}
-		else {
-			if (airspace.getScore().getMultiplierInc()){
-				airspace.getScore().setMultiplierInc(false);
-				this.currentCoord = 600;
-			}
-			else if (this.currentCoord != 600){
-				g.setColor(Color.cyan);
-				g.fillRect(0, this.currentCoord, 11, (600-this.currentCoord));
-				g.setColor(Color.white);
-				this.currentCoord ++;
-			}
-			else {
-				;
-			}
-		}
-
-		// Segmenting multiplier bar
-		g.setColor(Color.black);
-		g.drawLine(0, 120, 10, 120);
-		g.drawLine(0, 240, 10, 240);
-		g.drawLine(0, 360, 10, 360);
-		g.drawLine(0, 480, 10, 480);
 
 		Input input = gc.getInput();
 		
+		
+		// Render Explosions
 		for (CrashCompetitive crash : airspace.getSeparationRules().getListOfActiveCrashes()){
 			explosion.draw((float)crash.getPointOfCrash().getX()-50, (float)crash.getPointOfCrash().getY()-90 );
 		}
 
-/*		if (gameJustFinished)
-		{	
-			explosion.draw((float)airspace.getSeparationRules().getPointOfCrash().getX() -50, (float)airspace.getSeparationRules().getPointOfCrash().getY() -90 );
-		}*/
 		
 
-		// Drawing Achievements
-		if (airspace.getScore().getAchievements().getAchievementGained()){
-
-			achievementBox.draw(900, 0);
-
-			g.drawString(airspace.getScore().scoreAchievement(), 
-					stateContainer.Game.MAXIMUMWIDTH -font.getWidth(airspace.getScore().scoreAchievement()) -10, 30);
-			g.drawString(achievementMessage, 
-					stateContainer.Game.MAXIMUMWIDTH -10 -font.getWidth(achievementMessage), 40);
-			synch --;
-
-			if (synch == 0){
-				airspace.getScore().getAchievements().setAchievementGained(false);
-				synch = 180;
-			}
-		}
 	}	
-
-
-
-
 
 
 	@Override
@@ -422,17 +348,16 @@ public class PlayCompetitiveState extends PlayState {
 		}
 
 
-		//main game
-
 		// Updating Clock and Time
 
 		time += delta;
 		achievement.timeAchievement((int) time);
-		float decMins=time/1000/60;
+		decMins = time/1000/60;
 		int mins = (int) decMins;
-		float decSecs=decMins-mins;
-
-		int secs = Math.round(decSecs*60);
+		decSecs=decMins-mins;
+		
+		secondsOccured = time/1000;
+		secs = Math.round(decSecs*60);
 
 		String stringMins="";
 		String stringSecs="";
@@ -469,6 +394,7 @@ public class PlayCompetitiveState extends PlayState {
 
 		}		
 		
+		// Game ends after 5 minutes of playing.
 		if ((int)decMins >= 5){
 			
 			if(airspace.getPlayer1Score() > airspace.getPlayer2Score()){

@@ -103,10 +103,6 @@ public class PauseCompetitiveState extends BasicGameState {
 			});
 		}
 			
-		/*InputStream inputStream = ResourceLoader.getResourceAsStream("res/blue_highway_font/bluehigh.ttf");
-		Font awtFont= Font.createFont(Font.TRUETYPE_FONT, inputStream);
-		awtFont = awtFont.deriveFont(20f);
-		font = new TrueTypeFont(awtFont, false);*/
 						
 	}
 	
@@ -116,28 +112,35 @@ public class PauseCompetitiveState extends BasicGameState {
 		int	posX = Mouse.getX(),
 			posY = stateContainer.Game.MAXIMUMHEIGHT -Mouse.getY();
 		
+		// Render Pause Page 1
 		if (pageNumber == 1) {
 			
 			pauseBackgroundPage1.draw(0,0);
 			
+			// Render Next Page Button
 			if (posX>1020 && posX<1150 && posY>270 && posY<330)
 				nextPageButtonHover.draw(1030,280);
 			else nextPageButton.draw(1030,280);
 			
 		}
+		
+		// Render Pause Page 2
 		else if (pageNumber == 2){
 						
 			pauseBackgroundPage2.draw(0,0);
-
+			
+			// Render Previous Page Button
 			if (posX>50 && posX<240 && posY>280 && posY<320) 
 				previousPageButtonHover.draw(30,280);
 			else previousPageButton.draw(30,280);				
 		}
 		
+		// Render Back Button
 		if (posX>20 && posX<40 && posY>20 && posY<40) 
 			backButtonHover.draw(20,20);
 		else backButton.draw(20,20);
 		
+		// Render Quick Button
 		if (posX>1150 && posX<1170 && posY>550 && posY<580) 
 			quitButtonHover.draw(1150,550);
 		else quitButton.draw(1150,550);
@@ -158,22 +161,28 @@ public class PauseCompetitiveState extends BasicGameState {
 		}
 		
 		if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
-			//check if buttons are pressed
+			// Check if buttons are pressed
 			
+			// Selecting Back Button
 			if (posX>20 && posX<40 && posY>20 && posY<40) {					
 				pageNumber = 1;
 				sbg.enterState(stateContainer.Game.PLAYCOMPETITIVESTATE);
 			}		
 			
+			// Selecting Exit Button
 			if (posX>1150 && posX<1170 && posY>550 && posY<580) {
 				System.exit(0);
 			}
 
 			if (pageNumber == 1){
+				
+				// Selecting Next Page Button
 				if((posX > 1030 && posX < 1193) && (posY > 280 && posY < 315)) 
 					pageNumber = 2;			
 			}
 			else if (pageNumber == 2){
+				
+				// Selecting Previous Page Button
 				if (posX>30 && posX<241 && posY>280 && posY<315) 
 					pageNumber = 1;		
 			}
