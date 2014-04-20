@@ -22,40 +22,53 @@ import util.DeferredFile;
 public class OnlinePlayState extends PlayState {
 	
 	
+	/**
+	 * TODO (not sure what's this for v)
+	 * Constructor for OnlinePlayState
+	 * @param state Takes a state and calls its constructor
+	 */
 	public OnlinePlayState(int state) {
 
 		super(state);
 
 	}
 
+	/**
+	 * Overriding the initialisation method
+	 */
 	@Override
-	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
+	public void init(GameContainer gc, StateBasedGame sbg) 
+			throws SlickException {
 
+		/* Resets the options to start the game */
 		gameEnded = false;
 		settingDifficulty = true;
 		time = 0;
+
+		/* Creates an airspace object */
 		airspace = new OnlineAirspace();
+		/* The displayed string for time is empty at the beginning */
 		this.stringTime="";
 
 
 		gc.setAlwaysRender(true);
 		gc.setUpdateOnlyWhenVisible(true);
-		// Set mouse cursor
-		//gc.setMouseCursor("res/graphics/cross.png",12,12);
-
 
 		// Font
-
 		{
 			LoadingList loading = LoadingList.get();
 
 			loading.add(new DeferredFile("res/GoodDog/GoodDog.otf"){
 				public void loadFile(String filename) {
-					InputStream inputStream = ResourceLoader.getResourceAsStream(filename);
+					InputStream inputStream = ResourceLoader.
+							getResourceAsStream(filename);
+
 					try {
 						Font awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream);
 						font = new TrueTypeFont(awtFont.deriveFont(20f), true);
 						panelFont = new TrueTypeFont(awtFont.deriveFont(14f), true);
+
+                /* Catch error if font can't load */
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
@@ -63,7 +76,8 @@ public class OnlinePlayState extends PlayState {
 			});
 
 			// Music
-			loading.add(new DeferredFile("res/music/new/Beachfront Celebration.ogg"){
+			loading.add(new DeferredFile(
+					"res/music/new/Beachfront Celebration.ogg"){
 				public void loadFile(String filename) throws SlickException{
 					gameplayMusic = new Music(filename);
 				}
@@ -71,126 +85,150 @@ public class OnlinePlayState extends PlayState {
 
 
 
-			loading.add(new DeferredFile("res/music/new/Big Explosion.ogg"){
+			loading.add(new DeferredFile(
+					"res/music/new/Big Explosion.ogg"){
 				public void loadFile(String filename) throws SlickException{
 					endOfGameSound = new Sound(filename);
 				}
 			});
 
 			//Images
-			loading.add(new DeferredFile("res/graphics/new/control_bar_vertical.png"){
+			loading.add(new DeferredFile(
+					"res/graphics/new/control_bar_vertical.png"){
 				public void loadFile(String filename) throws SlickException{
 					statusBarImage = new Image(filename);
 				}
 			});
 
-			loading.add(new DeferredFile("res/graphics/clock.png"){
+			loading.add(new DeferredFile(
+					"res/graphics/clock.png"){
 				public void loadFile(String filename) throws SlickException{
 					clockImage = new Image(filename);
 				}
 			});
 
-			loading.add(new DeferredFile("res/graphics/new/wind_indicator.png"){
+			loading.add(new DeferredFile(
+					"res/graphics/new/wind_indicator.png"){
 				public void loadFile(String filename) throws SlickException{
 					windImage = new Image(filename);
 				}
 			});
 
-			loading.add(new DeferredFile("res/graphics/new/control_bar_plane.png"){		
+			loading.add(new DeferredFile(
+					"res/graphics/new/control_bar_plane.png"){		
 				public void loadFile(String filename) throws SlickException{	
 					flightIcon = new Image(filename);
 				}	
 			});		
 
-			loading.add(new DeferredFile("res/graphics/new/background.png"){
+			loading.add(new DeferredFile(
+					"res/graphics/new/background.png"){
 				public void loadFile(String filename) throws SlickException{
 					backgroundImage = new Image(filename);
 				}
 			});
 
-			loading.add(new DeferredFile("res/menu_graphics/new/difficulty.png"){
+			loading.add(new DeferredFile(
+					"res/menu_graphics/new/difficulty.png"){
 				public void loadFile(String filename) throws SlickException{
 					difficultyBackground = new Image(filename);
 				}
 			});
 
-			loading.add(new DeferredFile("res/menu_graphics/new/easy.png"){
+			loading.add(new DeferredFile(
+					"res/menu_graphics/new/easy.png"){
 				public void loadFile(String filename) throws SlickException{
 					easyButton = new Image(filename);
 				}
 			});
 
-			loading.add(new DeferredFile("res/menu_graphics/new/easy_hover.png"){ 
+			loading.add(new DeferredFile(
+					"res/menu_graphics/new/easy_hover.png"){ 
 				public void loadFile(String filename) throws SlickException{
 					easyHover = new Image(filename);
 				}
 			});
 
-			loading.add(new DeferredFile("res/menu_graphics/new/medium.png"){
+			loading.add(new DeferredFile(
+					"res/menu_graphics/new/medium.png"){
 				public void loadFile(String filename) throws SlickException{
 					mediumButton = new Image(filename);
 				}
 			});
 
-			loading.add(new DeferredFile("res/menu_graphics/new/medium_hover.png"){
+			loading.add(new DeferredFile(
+					"res/menu_graphics/new/medium_hover.png"){
 				public void loadFile(String filename) throws SlickException{
 					mediumHover = new Image(filename);
 				}
 			});
 
-			loading.add(new DeferredFile("res/menu_graphics/new/hard.png"){
+			loading.add(new DeferredFile(
+					"res/menu_graphics/new/hard.png"){
 				public void loadFile(String filename) throws SlickException{
 					hardButton = new Image(filename);
 				}
 			});
 
-			loading.add(new DeferredFile("res/menu_graphics/new/hard_hover.png"){
+			loading.add(new DeferredFile(
+					"res/menu_graphics/new/hard_hover.png"){
 				public void loadFile(String filename) throws SlickException{
 					hardHover = new Image(filename);
 				}
 			});	
 
-			loading.add(new DeferredFile("res/graphics/new/achivementBox.png"){
+			loading.add(new DeferredFile(
+					"res/graphics/new/achivementBox.png"){
 				public void loadFile(String filename) throws SlickException{
 					achievementBox = new Image(filename);
 				}
 			});
 
-			loading.add(new DeferredFile("res/graphics/new/messageBox.png"){
+			loading.add(new DeferredFile(
+					"res/graphics/new/messageBox.png"){
 				public void loadFile(String filename) throws SlickException{
 					messageBoxImage = new Image(filename);
 				}
 			});
 
-			loading.add(new DeferredFile("res/graphics/new/soundOff.png"){
+			loading.add(new DeferredFile(
+					"res/graphics/new/soundOff.png"){
 				public void loadFile(String filename) throws SlickException{
 					soundOffImage = new Image(filename);
 				}
 			});
 
-			loading.add(new DeferredFile("res/graphics/new/soundOn.png"){
+			loading.add(new DeferredFile(
+					"res/graphics/new/soundOn.png"){
 				public void loadFile(String filename) throws SlickException{
 					soundOnImage = new Image(filename);
 				}
 			});
 
-			loading.add(new DeferredFile("res/graphics/new/pause.png"){
+			loading.add(new DeferredFile(
+					"res/graphics/new/pause.png"){
 				public void loadFile(String filename) throws SlickException{
 					pauseImage = new Image(filename);
 				}
 			});
 
-			loading.add(new DeferredFile("res/graphics/new/coin.png"){
+			loading.add(new DeferredFile(
+					"res/graphics/new/coin.png"){
 				public void loadFile(String filename) throws SlickException{
 					scoreCoinImage = new Image(filename);
 				}
 			});
 
 
-			SpriteSheet sheet = new SpriteSheet("res/graphics/explosion.png", 128, 128);
+			/* Loads the explosion spritesheet */
+			SpriteSheet sheet = new SpriteSheet(
+					"res/graphics/explosion.png", 128, 128);
+
+			/* Creates the explosion */
 			explosion = new Animation();
 			explosion.setAutoUpdate(true);
 
+			/* Adds all the frames in the spritesheet */
 			int spriteNumber = 0;
 
 			for(int col=0;col<9;col++)
@@ -200,8 +238,8 @@ public class OnlinePlayState extends PlayState {
 			}
 		}
 
-		//initialise the airspace object;
-		//Waypoints
+		// Initialise the airspace object;
+		// Waypoints
 		airspace.newWaypoint( 350, 150, "A");
 		airspace.newWaypoint( 400, 470, "B");
 		airspace.newWaypoint( 650,  60, "C");
@@ -214,27 +252,32 @@ public class OnlinePlayState extends PlayState {
 		airspace.newWaypoint( 240, 250, "J");
 
 
-		//EntryPoints
+		// EntryPoints
 		airspace.newEntryPoint( 11, 400);
 		airspace.newEntryPoint(1200, 200);
 		airspace.newEntryPoint( 600,   0);
-		airspace.getListOfEntryPoints().add(airspace.getAirportLeft().getEndOfRunway());
-		airspace.getListOfEntryPoints().add(airspace.getAirportRight().getEndOfRunway());
+		airspace.getListOfEntryPoints().add(airspace
+								.getAirportLeft().getEndOfRunway());
+		airspace.getListOfEntryPoints().add(airspace
+								.getAirportRight().getEndOfRunway());
 
 		// Exit Points
 		airspace.newExitPoint( 800,   0, "1");
 		airspace.newExitPoint( 11, 200, "2");
 		airspace.newExitPoint(1200, 300, "3");
-		airspace.getListOfExitPoints().add(airspace.getAirportLeft().getBeginningOfRunway());
-		airspace.getListOfExitPoints().add(airspace.getAirportRight().getBeginningOfRunway());
+		airspace.getListOfExitPoints().add(airspace.getAirportLeft()
+								.getBeginningOfRunway());
+		airspace.getListOfExitPoints().add(airspace.getAirportRight()
+								.getBeginningOfRunway());
 
+		/* Initialise airspace */
 		airspace.init(gc);
-
-
-
 	}
 
          
+	/**
+	 * Override the enter state method
+	 */
 	@Override
 	public void enter(GameContainer gc, StateBasedGame sbg) {
 		
@@ -242,11 +285,10 @@ public class OnlinePlayState extends PlayState {
 		
 	}
 	
+	/**
+	 * Override the getID() method to return a more readable result
+	 */
 	public int getID() {
 		return stateContainer.Game.ONLINEPLAYSTATE;
 	}
-	
-	
-	
-	
 }
