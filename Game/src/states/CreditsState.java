@@ -20,13 +20,19 @@ import util.DeferredFile;
 
 public class CreditsState extends BasicGameState {
 	
+	/* Images */
 	private static Image
 		menuButton, menuHover, menuBackground;
 	//private static TrueTypeFont font;
 	
+	/* String is an array of array for better aligning */
 	private String[][] credits;	//[section, line]
 
 	
+	/**
+	 * Empty constructor for consistency 
+	 * @param state - Takes a states
+	 */
 	public CreditsState(int state){
 		
 	}
@@ -37,6 +43,7 @@ public class CreditsState extends BasicGameState {
 			throws SlickException {
 		
 		{
+			/* Deferred loading of images for better performances */
 			LoadingList loading = LoadingList.get();
 
 			loading.add(new DeferredFile("res/menu_graphics/new/menu_screen.png"){	
@@ -58,14 +65,7 @@ public class CreditsState extends BasicGameState {
 			});
 		}
 
-		
-		/*try {
-			Font awtFont = new Font("Courier New", Font.PLAIN, 20);
-			font = new TrueTypeFont(awtFont, false);
-		} catch(Exception e){
-			e.printStackTrace();
-		}*/
-
+		/* Credits text */
 		credits = new String[][] {
 				{"Music Assets",
 					"\"Jarvic 8\" Kevin MacLeod (incompetech.com)",
@@ -84,56 +84,73 @@ public class CreditsState extends BasicGameState {
 		};
 	}
 
+	/**
+	 * Overriding the rendering method to render our own resources 
+	 */
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
 			throws SlickException{
 		
+        /* Get mouse position */
 		int posX = Mouse.getX();
 		int posY = stateContainer.Game.MAXIMUMHEIGHT -Mouse.getY();
 			//Fixing posY to reflect graphics coords
 	
+		/* Draw the background */
 		menuBackground.draw(0,0);
 		
-		if (posX>20 && posX< 136 && posY>20 && posY<66)
+		/* If mouse over the menu button show hover version */
+		if (posX > 20 && posX < 136 && posY > 20 && posY < 66)
 			menuHover.draw(20,20);
 		else menuButton.draw(20,20);
 		
-		//draw background panel
-		g.setColor(new Color(250, 235, 215, 50));	//pale orange, semi-transparent
+		// Draw background panel
+        //pale orange, semi-transparent
+		g.setColor(new Color(250, 235, 215, 50));
 		g.fillRoundRect (50, 230, 1100, 320, 5);
 				
-		{	//draw credits screen
+		{	// Draw credits screen
 			g.setColor(Color.white);
+			/* Starting y coordinate */
 			int y = 240;
+
 			for (String[] section: credits){
 				for (String line: section){
-					//font.drawString(60, y, line);
 					g.drawString(line, 60, y);
+					/* Each new line at 15 px from the previous */
 					y += 15;
 				}
+				/* Each new paragraph at 30 px from the previous */
 				y += 30;
 			}
 		}
-		
 	}
 
+	/**
+	 * Overriding the update method to update our resources 
+	 */
 	@Override
 	public void update(GameContainer gc, StateBasedGame sbg, int delta)
 			throws SlickException {
 	
+        /* Get mouse position */
 		int posX = Mouse.getX();
 		int posY = stateContainer.Game.MAXIMUMHEIGHT -Mouse.getY();
 			//Fixing posY to reflect graphics coords
 	
+		/* If Menu button has been pressed, go back to menu state */
 		if (Mouse.isButtonDown(Input.MOUSE_LEFT_BUTTON)) {
 			
-			if (posX>20 && posX<136 && posY>20 && posY<66) {
+			if (posX > 20 && posX < 136 && posY > 20 && posY < 66) {
 				sbg.enterState(stateContainer.Game.MENUSTATE);
 			}
 		}	
 		
 	}
 
+	/**
+	 * Overriding the getID method for better readability
+	 */
 	@Override
 	public int getID(){
 		return stateContainer.Game.CREDITSSTATE;
