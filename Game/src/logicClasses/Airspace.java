@@ -473,7 +473,15 @@ public class Airspace {
 		if ((this.listOfFlightsInAirspace.contains(flight))
 				&& (this.listOfFlightsInAirspace.size() > this.maximumNumberOfFlightsInAirspace - 1)) {
 			return false;
+
 		} else {
+			
+			for(Flight a : listOfFlightsInAirspace){
+				if(a.isGrounded() && flight.getFlightPlan().getEntryPoint().isRunway()){
+					System.out.println("Flight already on runway!");
+					return false;
+				}
+			}
 			this.listOfFlightsInAirspace.add(flight);
 			return true;
 		}

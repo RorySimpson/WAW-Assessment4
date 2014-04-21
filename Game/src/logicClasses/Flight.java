@@ -453,12 +453,24 @@ public class Flight implements Serializable{ //ignore, its for online mode, does
 						if (this.flightPlan.getCurrentRoute().get(0) == this.airspace.getAirportLeft().getBeginningOfRunway() && this.currentAltitude > 2000){
 							g.drawString("Lower Me",(int) this.x -29, (int)this.y-28);
 						}
+						
+						else if (this.flightPlan.getCurrentRoute().get(0) == this.airspace.getAirportRight().getBeginningOfRunway() && this.currentAltitude > 2000){
+							g.drawString("Lower Me",(int) this.x -29, (int)this.y-28);
+						}
 
 						else if (this.flightPlan.getCurrentRoute().get(0) == this.airspace.getAirportLeft().getBeginningOfRunway() && this.currentAltitude <= 2000){
 							g.drawString("Line Me Up",(int) this.x -33, (int)this.y-28);
 						}
+						
+						else if (this.flightPlan.getCurrentRoute().get(0) == this.airspace.getAirportRight().getBeginningOfRunway() && this.currentAltitude <= 2000){
+							g.drawString("Line Me Up",(int) this.x -33, (int)this.y-28);
+						}
 
 						else if (this.flightPlan.getCurrentRoute().get(0) == this.airspace.getAirportLeft().getBeginningOfRunway() && this.currentAltitude <= 2000){
+							g.drawString("Landing",(int) this.x -33, (int)this.y-28);
+						}
+						
+						else if (this.flightPlan.getCurrentRoute().get(0) == this.airspace.getAirportRight().getBeginningOfRunway() && this.currentAltitude <= 2000){
 							g.drawString("Landing",(int) this.x -33, (int)this.y-28);
 						}
 
@@ -483,6 +495,10 @@ public class Flight implements Serializable{ //ignore, its for online mode, does
 
 					if (this.flightPlan.getCurrentRoute().size() > 0) {
 						if (this.flightPlan.getCurrentRoute().get(0) == this.airspace.getAirportLeft().getBeginningOfRunway()){
+							g.drawString("Land Me",(int) this.x -29, (int)this.y-28);
+						}
+						
+						else if (this.flightPlan.getCurrentRoute().get(0) == this.airspace.getAirportRight().getBeginningOfRunway()){
 							g.drawString("Land Me",(int) this.x -29, (int)this.y-28);
 						}
 
