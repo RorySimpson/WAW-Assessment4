@@ -43,7 +43,7 @@ public class ControlsCompetitive extends Controls {
 	public void update(GameContainer gc) {
 
 		// Left shift is used to toggle through all the player 1 flights. This selects the flight that is active to the user.
-		if(gc.getInput().isKeyPressed(Input.KEY_LSHIFT)) {
+		if(gc.getInput().isKeyPressed(Input.KEY_LCONTROL)) {
 			if(airspaceCompetitive.getListOfFlightsPlayer1().size()>0) {
 				if (this.selectedFlight1 == null){
 					for (int i = 0; i< airspaceCompetitive.getListOfFlightsPlayer1().size(); i++){
@@ -74,7 +74,7 @@ public class ControlsCompetitive extends Controls {
 		}
 		
 		// Right shift is used to toggle through all the player 2 flights. This selects the flight that is active to the user.
-		if(gc.getInput().isKeyPressed(Input.KEY_RSHIFT)) {
+		if(gc.getInput().isKeyPressed(Input.KEY_RCONTROL)) {
 			if(airspaceCompetitive.getListOfFlightsPlayer2().size()>0) {
 				if (this.selectedFlight2 == null){
 					for (int i = 0; i< airspaceCompetitive.getListOfFlightsPlayer2().size(); i++){
@@ -181,12 +181,14 @@ public class ControlsCompetitive extends Controls {
 			
 			//Decrease Flight's heading
 			if(gc.getInput().isKeyDown(Input.KEY_A)) {
-				this.selectedFlight1.decrementHeading();
+				//this.selectedFlight1.decrementHeading();
+				this.selectedFlight1.turnLeft();
 			}
 			
 			//Increase Flight's heading
 			if(gc.getInput().isKeyDown(Input.KEY_D)) {
-				this.selectedFlight1.incrementHeading();
+				//this.selectedFlight1.incrementHeading();
+				this.selectedFlight1.turnRight();
 			}
 			
 			//Lower Flight's altitude
@@ -215,12 +217,14 @@ public class ControlsCompetitive extends Controls {
 			
 			//Decrease Flight's heading
 			if(gc.getInput().isKeyDown(Input.KEY_LEFT)) {
-				this.selectedFlight2.decrementHeading();
+				//this.selectedFlight2.decrementHeading();
+				this.selectedFlight2.turnLeft();
 			}
 			
 			//Increase Flight's heading
 			if(gc.getInput().isKeyDown(Input.KEY_RIGHT)) {
-				this.selectedFlight2.incrementHeading();
+				//this.selectedFlight2.incrementHeading();
+				this.selectedFlight2.turnRight();
 			}
 			
 			// Decrease Flights altitude

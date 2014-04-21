@@ -60,32 +60,36 @@ public class SeparationRulesCompetitive extends SeparationRules {
 	 * checkFlightOnFlightViolation: Checks for collisions between flight and sets up a crash object for that flight if
 	 * a collision occurs.
 	 */
-	
+
 	public void checkFlightOnFlightViolation(AirspaceCompetitive airspace){
-		
+
 
 		for (int i = 0; i < airspace.getListOfFlights().size(); i++){
 
 			for (int j = i+1; j < airspace.getListOfFlights().size(); j++){
-				
+
 				if ((lateralDistanceBetweenFlights(airspace.getListOfFlights().get(i), airspace.getListOfFlights().get(j)) < this.gameOverLateralSeparation)){
-					
+
 					if ((verticalDistanceBetweenFlights(airspace.getListOfFlights().get(i), airspace.getListOfFlights().get(j)) < this.gameOverVerticalSeparation)){
-						
+
+
 						// If flight was carrying cargo, make the flight drop the cargo at its current location.
 						if((airspace.getCargo().getCurrentHolder() == airspace.getListOfFlights().get(i)) || (airspace.getCargo().getCurrentHolder() == airspace.getListOfFlights().get(j))){
 							airspace.getCargo().setCurrentHolder(null);
 							airspace.getCargo().getLocation().setLocation(airspace.getListOfFlights().get(i).getX(), airspace.getListOfFlights().get(i).getY()); 
 						}
 						this.gameOverViolation = true;
-	
+
 						airspace.getListOfFlights().get(i).setVelocity(0);
 						airspace.getListOfFlights().get(i).setTargetVelocity(0);
 						airspace.getListOfFlights().get(j).setVelocity(0);
 						airspace.getListOfFlights().get(j).setTargetVelocity(0);
-						
+
 						// Create a crash object so that an explosion can occur.
 						listOfActiveCrashes.add(new CrashCompetitive(airspace.getListOfFlights().get(i), airspace.getListOfFlights().get(j), new Point2D.Double(airspace.getListOfFlights().get(i).getX(), airspace.getListOfFlights().get(i).getY())));
+
+
+
 					}
 				}
 			}

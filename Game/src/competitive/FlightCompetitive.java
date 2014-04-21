@@ -23,8 +23,8 @@ public class FlightCompetitive extends Flight {
 		super(airspace, competitive);
 		this.player2 = false;
 		this.flightPlan = new FlightPlanCompetitive(airspace, this, competitive);
-		this.velocity = 800;
-		this.targetVelocity = 800;
+		this.velocity = 1600;
+		this.targetVelocity = 1600;
 		
 		
 		
@@ -84,6 +84,18 @@ public class FlightCompetitive extends Flight {
 			return false;
 		}
 	
+	}
+	
+	public void turnRight(){
+		currentHeading = (currentHeading + 3) % 360;
+	}
+	
+	public void turnLeft(){
+		currentHeading = currentHeading - 3;
+		
+		if(currentHeading < 0){
+			currentHeading = 359;
+		}
 	}
 	
 	/**
@@ -333,13 +345,13 @@ public class FlightCompetitive extends Flight {
 
 
 		this.updateVelocity();
-		this.updateCurrentHeading();
 		this.updateXYCoordinates();
 		this.updateAltitude();
 		this.flightPlan.update();
 
 		if(this.landing){
 			this.steerLandingFlight();
+			this.updateCurrentHeading();
 		}
 
 	}

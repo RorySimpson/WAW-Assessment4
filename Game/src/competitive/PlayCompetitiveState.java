@@ -220,8 +220,8 @@ public class PlayCompetitiveState extends PlayState {
 		}
 
 		//Adding EntryPoints
-		airspace.newEntryPoint(1165, 280);
-		airspace.newEntryPoint(11, 280);
+		airspace.newEntryPoint(1200, 100);
+		airspace.newEntryPoint(11, 150);
 		
 		// Initialising the airspace
 		airspace.init(gc);
@@ -324,9 +324,11 @@ public class PlayCompetitiveState extends PlayState {
 		
 		
 		// Render Explosions
+		g.setWorldClip(11, 0, Game.MAXIMUMWIDTH -11, Game.MAXIMUMHEIGHT-40);
 		for (CrashCompetitive crash : airspace.getSeparationRules().getListOfActiveCrashes()){
 			explosion.draw((float)crash.getPointOfCrash().getX()-50, (float)crash.getPointOfCrash().getY()-90 );
 		}
+		g.setWorldClip(0, 0, Game.MAXIMUMWIDTH, Game.MAXIMUMHEIGHT);
 
 		
 

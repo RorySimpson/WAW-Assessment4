@@ -90,6 +90,16 @@ public class AirspaceCompetitive extends Airspace {
 
 
 	}
+	
+	public void checkWhatPlayerNeedsFlight(){
+		if((this.listOfFlightsPlayer1.size() <= this.listOfFlightsPlayer2.size())){
+			this.addPlayer1FlightNext = true;
+		}
+		
+		else {
+			this.addPlayer1FlightNext = false;
+		}
+	}
 
 	/**
 	 * newCompetitiveFlight: If a flight was added to the airspace assign the flight
@@ -97,6 +107,7 @@ public class AirspaceCompetitive extends Airspace {
 	 */
 
 	public void newCompetitiveFlight(GameContainer gc) throws SlickException {
+
 		if(this.newFlight(gc)){
 			int heading;
 			FlightCompetitive addedFlight = (FlightCompetitive) this.getListOfFlightsInAirspace().get(this.getListOfFlightsInAirspace().size()-1);
@@ -138,34 +149,8 @@ public class AirspaceCompetitive extends Airspace {
 
 		}
 	}
-
-	/**
-	 * updateScore: Used to update score for either player 1 or 2
-	 */
-
-	public void updateScore(FlightCompetitive flight){
-
-		if(flight.isPlayer2()){
-			player2Score++;
-		}
-		else{
-			player1Score++;
-		}
-
-	}
-
-	/**
-	 * throwbackIntoAirspace: When a flight is about to leave the airspace it is spun 180 degrees
-	 * back into the airspace to ensure it doesn't leave.
-	 */
-
-	public void throwbackIntoAirspace(Flight flight){
-		double newHeading = (flight.getCurrentHeading() + 180) % 360;
-		flight.setCurrentHeading(newHeading);
-		flight.setTargetHeading(newHeading);
-	}
-
 	
+
 	/**
 	 * newFlight: Checks whether a flight should be added into the airspace and adds
 	 * a flight if it's the appropriate time.
@@ -173,7 +158,8 @@ public class AirspaceCompetitive extends Airspace {
 	
 	@Override
 	public boolean newFlight(GameContainer gc) throws SlickException {
-
+		
+		checkWhatPlayerNeedsFlight();
 		if (this.getListOfFlightsInAirspace().size() < this.getMaximumNumberOfFlightsInAirspace()) {
 
 			if(this.addPlayer1FlightNext){
@@ -183,6 +169,9 @@ public class AirspaceCompetitive extends Airspace {
 			else{
 				this.numberOfGameLoopsSinceLastFlightAdded = numberOfGameLoopsSinceLastPlayer2FlightAdded;
 			}
+			
+			
+			
 
 			// Minimum wait for 5 seconds 
 			if (this.getNumberOfGameLoopsSinceLastFlightAdded() >= (60*5) ) {
@@ -205,6 +194,36 @@ public class AirspaceCompetitive extends Airspace {
 		return false;
 	}
 
+
+	/**
+	 * updateScore: Used to update score for either player 1 or 2
+	 */
+
+	public void updateScore(FlightCompetitive flight){
+
+		if(flight.isPlayer2()){
+			player2Score++;
+		}
+		else{
+			player1Score++;
+		}
+
+	}
+
+	/**
+	 * throwbackIntoAirspace: When a flight is about to leave the airspace it is spun 180 degrees
+	 * back into the airspace to ensure it doesn't leave.
+	 */
+
+	public void throwbackIntoAirspace(Flight flight){
+		Random rand = new Random();
+		// Flight is spun between 135 degrees to 225 degrees back into the airspace.
+		double newHeading = (flight.getCurrentHeading() + (rand.nextInt(90) + 135) % 360);
+		flight.setCurrentHeading(newHeading);
+		flight.setTargetHeading(newHeading);
+	}
+
+	
 
 	/**
 	 * removeSpecificFlight: Used to remove a flight from the airspace.
