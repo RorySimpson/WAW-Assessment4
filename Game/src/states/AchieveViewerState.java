@@ -15,6 +15,8 @@ import org.newdawn.slick.util.ResourceLoader;
 
 import util.DeferredFile;
 import util.HoverImage;
+import java.util.ArrayList;
+import java.util.List;
 import logicClasses.Achievements;
 import stateContainer.Game;
 
@@ -24,7 +26,10 @@ public class AchieveViewerState extends BasicGameState{
 
 	/* Images */
 	public static Image
-		menuBackground, menuButton, menuHover,
+		menuBackground, menuButton, menuHover, 
+		sideCoverLeft, sideCoverRight, 
+		buttonBack, buttonBackHover,
+		buttonForward, buttonForwardHover,
 		silverUnachieved, silverImg,
 		goldUnachieved, goldImg,
 		timeUnachieved, timeImg,
@@ -33,16 +38,21 @@ public class AchieveViewerState extends BasicGameState{
 		flightPlanChangedUnachieved, flightPlanChangedImg,
 		crashUnachieved, crashImg,
 		completeFlightPlanUnachieved, completeFlightPlanImg,
-		allAchievedUnachieved, allAchievedImg;
+		allAchievedUnachieved, allAchievedImg,
+		currentImageToDraw;
 	
 	/* Hover images */
 	private HoverImage
-		menuReturn, silverAchieve, goldAchieve, timeAchieve, noPlanesLostAchieve, planesLandedAchieve,
-		flightPlanChangedAchieve, crashAchieve, completeFlightPlanAchieve, allAchievedAchieve;
+		menuReturn, scrollBack, scrollForward; /* silverAchieve, goldAchieve, timeAchieve, noPlanesLostAchieve, planesLandedAchieve,
+		flightPlanChangedAchieve, crashAchieve, completeFlightPlanAchieve, allAchievedAchieve;*/
 	
 	/* Copy of achievements pulled from game container */
 	private Achievements
 		currentAchieved;
+	
+	/* List of achievement images corresponding to the current status of each achievement (achieved or unachieved)*/
+	private List<Image> 
+		currentStatusImagesList = new ArrayList<Image>();
 	
 	/* Check if mouse has been released */
 	private boolean mouseBeenReleased;
@@ -70,6 +80,21 @@ public class AchieveViewerState extends BasicGameState{
 					menuBackground = new Image(filename);
 				}
 			});
+			
+			//side covers img
+			loading.add(new DeferredFile(
+					"res/menu_graphics/new/achievement_fade_left.png"){	
+				public void loadFile(String filename) throws SlickException{
+					sideCoverLeft = new Image(filename);
+				}
+			});
+			
+			loading.add(new DeferredFile(
+					"res/menu_graphics/new/achievement_fade_right.png"){	
+				public void loadFile(String filename) throws SlickException{
+					sideCoverRight = new Image(filename);
+				}
+			});
 
 			//menu return hoverButton img
 			loading.add(new DeferredFile(
@@ -83,6 +108,38 @@ public class AchieveViewerState extends BasicGameState{
 					"res/menu_graphics/new/menu_hover.png"){
 				public void loadFile(String filename) throws SlickException{
 					menuHover = new Image(filename);
+				}
+					
+			});
+			
+			//achievement scroll back button img
+			loading.add(new DeferredFile(
+					"res/menu_graphics/new/back.png"){
+				public void loadFile(String filename) throws SlickException{
+					buttonBack = new Image(filename);
+				}
+			});
+
+			loading.add(new DeferredFile(
+					"res/menu_graphics/new/back_hover.png"){
+				public void loadFile(String filename) throws SlickException{
+					buttonBackHover = new Image(filename);
+				}
+					
+			});
+			
+			//achievement scroll forward button img
+			loading.add(new DeferredFile(
+					"res/menu_graphics/new/forward.png"){
+				public void loadFile(String filename) throws SlickException{
+					buttonForward = new Image(filename);
+				}
+			});
+
+			loading.add(new DeferredFile(
+					"res/menu_graphics/new/forward_hover.png"){
+				public void loadFile(String filename) throws SlickException{
+					buttonForwardHover = new Image(filename);
 				}
 					
 			});
@@ -228,10 +285,12 @@ public class AchieveViewerState extends BasicGameState{
 					return "set up AchieveViewerState buttons";
 				}
 
-				/* Load all the images */
+				/* Load all the hoverImages */
 				public void load(){
 					menuReturn = new HoverImage(menuButton, menuHover, 20, 20);
-					silverAchieve = new HoverImage(silverUnachieved, silverImg, 240, 240);
+					scrollBack = new HoverImage(buttonBack, buttonBackHover, 326, 267);
+					scrollForward = new HoverImage(buttonForward, buttonForwardHover, 844, 267);
+					/* silverAchieve = new HoverImage(silverUnachieved, silverImg, 240, 240);
 					goldAchieve = new HoverImage(goldUnachieved, goldImg, 320, 240);
 					timeAchieve = new HoverImage(timeUnachieved, timeImg, 400, 240);
 					noPlanesLostAchieve = new HoverImage(noPlanesLostUnachieved, noPlanesLostImg, 480, 240);
@@ -239,10 +298,22 @@ public class AchieveViewerState extends BasicGameState{
 					flightPlanChangedAchieve = new HoverImage(flightPlanChangedUnachieved, flightPlanChangedImg, 640,240);
 					crashAchieve = new HoverImage (crashUnachieved, crashImg, 720, 240);
 					completeFlightPlanAchieve = new HoverImage (completeFlightPlanUnachieved, completeFlightPlanImg, 800, 240);
-					allAchievedAchieve = new HoverImage (allAchievedUnachieved, allAchievedImg, 880, 240);
+					allAchievedAchieve = new HoverImage (allAchievedUnachieved, allAchievedImg, 880, 240); */
 
 				}
 			});
+			
+			//Initialise the currentStatusImagesList
+				currentStatusImagesList.add(0, silverUnachieved);
+				currentStatusImagesList.add(1, goldUnachieved);
+				currentStatusImagesList.add(2, timeUnachieved);
+				currentStatusImagesList.add(3, noPlanesLostUnachieved);
+				currentStatusImagesList.add(4, planesLandedUnachieved);
+				currentStatusImagesList.add(5, flightPlanChangedUnachieved);
+				currentStatusImagesList.add(6, crashUnachieved);
+				currentStatusImagesList.add(7, completeFlightPlanUnachieved);
+				currentStatusImagesList.add(8, allAchievedUnachieved);
+			
 		}
 
 		
@@ -286,10 +357,22 @@ public class AchieveViewerState extends BasicGameState{
 	
 		/* Draw the menu background */
 		menuBackground.draw(0,0);
+	
+		//draw background panel
+		g.setColor(new Color(255, 200, 200, 50));	//grey, semi-transparent
+		g.fillRoundRect (50, 330, 1100, 220, 5);
+		g.setColor(new Color(255, 150, 80, 50));	//pale orange, semi-transparent
+		g.fillRoundRect (235, 235, 730, 90, 2);
+		
+		//draw side covers for achievement scrolling
+		sideCoverRight.draw(760,230);
+		sideCoverLeft.draw(0,230);		
 		
 		//draw hover buttons in correct locations
 		menuReturn.render(posX, posY);
-		silverAchieve.render(posX, posY);
+		scrollBack.render(posX, posY);
+		scrollForward.render(posX,  posY);
+		/*silverAchieve.render(posX, posY);
 		goldAchieve.render(posX, posY);
 		timeAchieve.render(posX, posY);
 		noPlanesLostAchieve.render(posX, posY);
@@ -297,13 +380,13 @@ public class AchieveViewerState extends BasicGameState{
 		flightPlanChangedAchieve.render(posX, posY); 
 		crashAchieve.render(posX, posY); 
 		completeFlightPlanAchieve.render(posX, posY); 
-		allAchievedAchieve.render(posX, posY);
+		allAchievedAchieve.render(posX, posY);*/
 		
-		//draw background panel
-		g.setColor(new Color(250, 235, 215, 50));	//pale orange, semi-transparent
-		g.fillRoundRect (50, 330, 1100, 220, 5);
-		g.fillRoundRect (235, 235, 730, 90, 2);
-		
+		//draw all images in the currentStatusImagesList
+		/*for (int position = 0; position < currentStatusImagesList.size(); position++){
+		}
+			Image currentImageToDraw = currentStatusImagesList.get(2);
+			currentImageToDraw.draw(300+(20*3),300);*/
 	}
 
 	/**
@@ -336,6 +419,24 @@ public class AchieveViewerState extends BasicGameState{
 		else if (!mouseBeenReleased){	
 			mouseBeenReleased = true;
 		}
+		
+		/*updates achievement images list (currentStatusImagesList)
+		 * based on the current session's achievements (currentAchieved)*/
+		if (currentAchieved.getSilverAchievementGained() == true){
+			currentStatusImagesList.set(0, silverImg);
+		}
+		
+		/*currentStatusImagesList.set(0, silverUnachieved);
+		private boolean silverAchievementGained 			= false;
+		private boolean goldAchievementGained 				= false;
+		private boolean timeAchievementGained 				= false;
+		private boolean noPlaneLossAchievementGained 		= false;
+		private boolean planesLandedAchievementGained 		= false;
+		private boolean flightPlanChangedAchievementGained 	= false;
+		private boolean crashAchievementGained 				= false;
+		private boolean completeFlightPlanAchievementGained = false;
+		
+		private boolean allAchievementsEarned				= false;*/
 	}
 
 	/**
