@@ -38,8 +38,8 @@ public class AchieveViewerState extends BasicGameState{
 		flightPlanChangedUnachieved, flightPlanChangedImg,
 		crashUnachieved, crashImg,
 		completeFlightPlanUnachieved, completeFlightPlanImg,
-		allAchievedUnachieved, allAchievedImg,
-		currentImageToDraw;
+		allAchievedUnachieved, allAchievedImg;
+		//currentImageToDraw;
 	
 	/* Hover images */
 	private HoverImage
@@ -51,8 +51,12 @@ public class AchieveViewerState extends BasicGameState{
 		currentAchieved;
 	
 	/* List of achievement images corresponding to the current status of each achievement (achieved or unachieved)*/
-	private List<Image> 
-		currentStatusImagesList = new ArrayList<Image>();
+	//private List<Image> 
+		//currentStatusImagesList = new ArrayList<Image>();
+	
+	/* float used to keep track of the pixel position of the images in the achievements scroll*/
+	private float
+		scrollPosition = 550;
 	
 	/* Check if mouse has been released */
 	private boolean mouseBeenReleased;
@@ -304,7 +308,7 @@ public class AchieveViewerState extends BasicGameState{
 			});
 			
 			//Initialise the currentStatusImagesList
-				currentStatusImagesList.add(0, silverUnachieved);
+			/*	currentStatusImagesList.add(0, silverUnachieved);
 				currentStatusImagesList.add(1, goldUnachieved);
 				currentStatusImagesList.add(2, timeUnachieved);
 				currentStatusImagesList.add(3, noPlanesLostUnachieved);
@@ -312,7 +316,7 @@ public class AchieveViewerState extends BasicGameState{
 				currentStatusImagesList.add(5, flightPlanChangedUnachieved);
 				currentStatusImagesList.add(6, crashUnachieved);
 				currentStatusImagesList.add(7, completeFlightPlanUnachieved);
-				currentStatusImagesList.add(8, allAchievedUnachieved);
+				currentStatusImagesList.add(8, allAchievedUnachieved);*/
 			
 		}
 
@@ -363,6 +367,61 @@ public class AchieveViewerState extends BasicGameState{
 		g.fillRoundRect (50, 330, 1100, 220, 5);
 		g.setColor(new Color(255, 150, 80, 50));	//pale orange, semi-transparent
 		g.fillRoundRect (235, 235, 730, 90, 2);
+	
+		//draw correct images based on relevant bool in currentAchieved in the scroll area
+		if (currentAchieved.getSilverAchievementGained() == true){
+			silverImg.draw(scrollPosition, 240);
+		} else {
+			silverUnachieved.draw(scrollPosition + 0*80, 240);
+			}
+		
+		if (currentAchieved.getGoldAchievementGained() == true){
+			goldImg.draw(scrollPosition, 240);
+		} else {
+			goldUnachieved.draw(scrollPosition + 1*80, 240);
+			}
+		
+		if (currentAchieved.getTimeAchievementGained() == true){
+			timeImg.draw(scrollPosition, 240);
+		} else {
+			timeUnachieved.draw(scrollPosition + 2*80, 240);
+			}
+		
+		if (currentAchieved.getNoPlaneLossAchievementGained() == true){
+			noPlanesLostImg.draw(scrollPosition, 240);
+		} else {
+			noPlanesLostUnachieved.draw(scrollPosition + 3*80, 240);
+			}
+		
+		if (currentAchieved.getPlanesLandedAchievementGained() == true){
+			planesLandedImg.draw(scrollPosition, 240);
+		} else {
+			planesLandedUnachieved.draw(scrollPosition + 4*80, 240);
+			}
+		
+		if (currentAchieved.getFlightPlanChangedAchievementGained() == true){
+			flightPlanChangedImg.draw(scrollPosition, 240);
+		} else {
+			flightPlanChangedUnachieved.draw(scrollPosition + 5*80, 240);
+			}
+		
+		if (currentAchieved.getCrashAchievementGained() == true){
+			crashImg.draw(scrollPosition, 240);
+		} else {
+			crashUnachieved.draw(scrollPosition + 6*80, 240);
+			}
+		
+		if (currentAchieved.getCompleteFlightPlanAchievementGained() == true){
+			completeFlightPlanImg.draw(scrollPosition, 240);
+		} else {
+			completeFlightPlanUnachieved.draw(scrollPosition + 7*80, 240);
+			}
+		
+		if (currentAchieved.getAllAchievementsEarned() == true){
+			allAchievedImg.draw(scrollPosition, 240);
+		} else {
+			allAchievedUnachieved.draw(scrollPosition + 8*80, 240);
+			}
 		
 		//draw side covers for achievement scrolling
 		sideCoverRight.draw(760,230);
@@ -384,9 +443,10 @@ public class AchieveViewerState extends BasicGameState{
 		
 		//draw all images in the currentStatusImagesList
 		/*for (int position = 0; position < currentStatusImagesList.size(); position++){
-		}
-			Image currentImageToDraw = currentStatusImagesList.get(2);
-			currentImageToDraw.draw(300+(20*3),300);*/
+		currentImageToDraw = currentStatusImagesList.get(position);
+			currentImageToDraw.draw(300+(20*3),300);
+			}*/
+			
 	}
 
 	/**
@@ -422,9 +482,9 @@ public class AchieveViewerState extends BasicGameState{
 		
 		/*updates achievement images list (currentStatusImagesList)
 		 * based on the current session's achievements (currentAchieved)*/
-		if (currentAchieved.getSilverAchievementGained() == true){
+		/*if (currentAchieved.getSilverAchievementGained() == true){
 			currentStatusImagesList.set(0, silverImg);
-		}
+		}*/
 		
 		/*currentStatusImagesList.set(0, silverUnachieved);
 		private boolean silverAchievementGained 			= false;
