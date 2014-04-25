@@ -62,6 +62,17 @@ public class AchieveViewerState extends BasicGameState{
 	/* Check if mouse has been released */
 	private boolean mouseBeenReleased;
 	
+	//String arrays for achievement information
+	private String[][] achText1;	//[section, line]
+	private String[][] achText2;	//[section, line]
+	private String[][] achText3;	//[section, line]
+	private String[][] achText4;	//[section, line]
+	private String[][] achText5;	//[section, line]
+	private String[][] achText6;	//[section, line]
+	private String[][] achText7;	//[section, line]
+	private String[][] achText8;	//[section, line]
+	private String[][] achText9;    //[section, line]
+	
 	/* Empty constructor for consistency */
 	public AchieveViewerState(int state){
 		
@@ -306,32 +317,62 @@ public class AchieveViewerState extends BasicGameState{
 				}
 			});
 			
+			/* achText1 */
+			achText1 = new String[][] {
+					{"Points - Silver Total",
+						"Score at least 1000 points!",}
+			};
+			
+			/* achText2 */
+			achText2 = new String[][] {
+					{"Points - Gold Total",
+						"Score at least 2000 points!",}
+			};
+			
+			/* achText3 */
+			achText3 = new String[][] {
+					{"Time Played",
+						"Play for long enough to fulfill your end game ATCO fantasy!!",}
+			};
+			
+			/* achText4 */
+			achText4 = new String[][] {
+					{"No Planes Lost",
+						"Play for long enough where no planes leave without fulfilling",
+						"their flight plan!"}
+			};
+			
+			/* achText5 */
+			achText5 = new String[][] {
+					{"Planes Landed",
+						"Land enough planes to fulfill your end game ATCO fantasy!!",}
+			};
+			
+			/* achText6 */
+			achText6 = new String[][] {
+					{"Flight Plan Changed",
+						"Change a flight plan and fulfill your end game ATCO fantasy!!",}
+			};
+			
+			/* achText7 */
+			achText7 = new String[][] {
+					{"Crash a Plane",
+						"Crash a plane and... fulfill your sadistic fantasies!!",}
+			};
+			
+			/* achText8 */
+			achText8 = new String[][] {
+					{"Complete a Flight Plan",
+						"Successfully complete a plane's flight plan!",}
+			};
+			
+			/* achText9 */
+			achText9 = new String[][] {
+					{"ALL ACHIEVEMENTS CLEARED",
+						"Become the ultimate ATCO!!",}
+			};
+			
 		}
-
-		
-		/*try {
-			Font awtFont = new Font("Courier New", Font.PLAIN, 20);
-			font = new TrueTypeFont(awtFont, false);
-		} catch(Exception e){
-			e.printStackTrace();
-		}*/
-
-		/*credits = new String[][] {
-				{"Music Assets",
-					"\"Jarvic 8\" Kevin MacLeod (incompetech.com)",
-					"Licensed under Creative Commons: By Attribution 3.0",
-					"http://creativecommons.org/licenses/by/3.0/"
-				},
-				{"Images",
-					"Loading screen plane created by Sallee Design",
-					"http://salleedesign.com/resources/plane-psd/"
-				},
-				{"Font",
-					"A love of thunder",
-					"Downloaded from DaFont",
-					"http://www.dafont.com/a-love-of-thunder.font"
-				}
-		};*/
 	}
 	
 
@@ -427,7 +468,105 @@ public class AchieveViewerState extends BasicGameState{
 		menuReturn.render(posX, posY);
 		scrollBack.render(posX, posY);
 		scrollForward.render(posX,  posY);
+		
+		//declare position of text box
+		int y = 400;
+		int x = 350;
+		
+		g.setColor(Color.white);
+		
+		switch (achievementPosition){
+		case 1:
+			for (String[] section: achText1){
+				for (String line: section){
+					g.drawString(line, x, y);
+					y += 15;
+				}
+				y += 30;
+			}
 			
+			break;
+			
+		case 2:
+			for (String[] section: achText2){
+				for (String line: section){
+					g.drawString(line, x, y);
+					y += 15;
+				}
+				y += 30;
+			}
+			break;
+		
+		case 3:
+			for (String[] section: achText3){
+				for (String line: section){
+					g.drawString(line, x, y);
+					y += 15;
+				}
+				y += 30;
+			}
+			break;
+			
+		case 4:
+			for (String[] section: achText4){
+				for (String line: section){
+					g.drawString(line, x, y);
+					y += 15;
+				}
+				y += 30;
+			}
+			break;
+			
+		case 5:
+			for (String[] section: achText5){
+				for (String line: section){
+					g.drawString(line, x, y);
+					y += 15;
+				}
+				y += 30;
+			}
+			break;
+			
+		case 6:
+			for (String[] section: achText6){
+				for (String line: section){
+					g.drawString(line, x, y);
+					y += 15;
+				}
+				y += 30;
+			}
+			break;
+			
+		case 7:
+			for (String[] section: achText7){
+				for (String line: section){
+					g.drawString(line, x, y);
+					y += 15;
+				}
+				y += 30;
+			}
+			break;
+			
+		case 8:
+			for (String[] section: achText8){
+				for (String line: section){
+					g.drawString(line, x, y);
+					y += 15;
+				}
+				y += 30;
+			}
+			break;
+			
+		case 9:
+			for (String[] section: achText9){
+				for (String line: section){
+					g.drawString(line, x, y);
+					y += 15;
+				}
+				y += 30;
+			}
+			break;
+		}
 	}
 
 	/**
@@ -479,6 +618,7 @@ public class AchieveViewerState extends BasicGameState{
 			mouseBeenReleased = true;
 		}
 		
+
 		/*currentStatusImagesList.set(0, silverUnachieved);
 		private boolean silverAchievementGained 			= false;
 		private boolean goldAchievementGained 				= false;
