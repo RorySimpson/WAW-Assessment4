@@ -184,7 +184,11 @@ public class Achievements {
 		return crashAchievementGained;
 	}
 	
-	public boolean getCompleteFLightPlanAchievementGained(){
+	public boolean getCompleteFlightPlanAchievementGained(){
 		return completeFlightPlanAchievementGained;
+	}
+	
+	public boolean getAllAchievementsEarned(){
+		return allAchievementsEarned;
 	}
 }
