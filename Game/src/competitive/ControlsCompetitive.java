@@ -206,7 +206,7 @@ public class ControlsCompetitive extends Controls {
 			}
 			
 			// Land flight
-			if(gc.getInput().isKeyDown(Input.KEY_L)) {
+			if(gc.getInput().isKeyDown(Input.KEY_E)) {
 				this.selectedFlight1.land();
 			}
 			

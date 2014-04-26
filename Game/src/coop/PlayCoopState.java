@@ -592,7 +592,7 @@ public class PlayCoopState extends PlayState {
 				airspace.resetAirspace();
 				gameplayMusic.stop();
 				endOfGameSound.play();
-				sbg.enterState(stateContainer.Game.GAMEOVERSTATE);
+				sbg.enterState(stateContainer.Game.GAMEOVERCOOPSTATE);
 				gameEnded = true;
 
 			}					
