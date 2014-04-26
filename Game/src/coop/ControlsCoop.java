@@ -154,7 +154,7 @@ public class ControlsCoop extends Controls {
 				
 			}
 			
-			if(gc.getInput().isKeyDown(Input.KEY_LSHIFT)) {
+			if(gc.getInput().isKeyDown(Input.KEY_RSHIFT)) {
 				(this.selectedFlight2).takeOff(this.selectedFlight2);
 			}
 			if(gc.getInput().isKeyDown(Input.KEY_DELETE)) {
