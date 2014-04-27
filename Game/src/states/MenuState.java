@@ -148,11 +148,11 @@ public class MenuState extends BasicGameState {
 			/* Load all the hover images */
 			public void load(){
 				play = new HoverImage(playButton, playHover, 439, 349);
-				quit = new HoverImage(quitButton, quitHover, 1078, 534);
-				credits = new HoverImage(creditsButton, creditsHover, 20, 534);
+				quit = new HoverImage(quitButton, quitHover, 1078, 539);
+				credits = new HoverImage(creditsButton, creditsHover, 20, 537);
 				controls = new HoverImage(controlsButton, controlsHover, 490, 534);
-				score = new HoverImage(scoreButton, scoreHover, 225, 534);
-				achieve = new HoverImage(achieveButton, achieveHover, 780, 535);
+				score = new HoverImage(scoreButton, scoreHover, 223, 540);
+				achieve = new HoverImage(achieveButton, achieveHover, 765, 540);
 			}
 		});
 
