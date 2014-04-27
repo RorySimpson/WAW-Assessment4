@@ -319,16 +319,6 @@ public class AchieveViewerState extends BasicGameState{
 				/* Load all the hoverImages */
 				public void load(){
 					menuReturn = new HoverImage(menuButton, menuHover, 20, 20);
-					silverAchieve = new HoverImage(locked, silverImg, 240, 240);
-					goldAchieve = new HoverImage(locked, goldImg, 320, 240);
-					timeAchieve = new HoverImage(locked, timeImg, 400, 240);
-					noPlanesLostAchieve = new HoverImage(locked, noPlanesLostImg, 480, 240);
-					planesLandedAchieve = new HoverImage(locked, planesLandedImg, 560, 240);
-					flightPlanChangedAchieve = new HoverImage(locked, flightPlanChangedImg, 640,240);
-					crashAchieve = new HoverImage (locked, crashImg, 720, 240);
-					completeFlightPlanAchieve = new HoverImage (locked, completeFlightPlanImg, 800, 240);
-					allAchievedAchieve = new HoverImage (locked, allAchievedImg, 880, 240);
-
 					scrollBack = new HoverImage(buttonBack, buttonBackHover, 326, 267);
 					scrollForward = new HoverImage(buttonForward, buttonForwardHover, 844, 267);
 				}
@@ -422,55 +412,55 @@ public class AchieveViewerState extends BasicGameState{
 		if (currentAchieved.getSilverAchievementGained() == true){
 			silverImg.draw(scrollPosition + 0*80, 240);
 		} else {
-			silverUnachieved.draw(scrollPosition + 0*80, 240);
+			locked.draw(scrollPosition + 0*80, 240);
 			}
 		
 		if (currentAchieved.getGoldAchievementGained() == true){
 			goldImg.draw(scrollPosition + 1*80, 240);
 		} else {
-			goldUnachieved.draw(scrollPosition + 1*80, 240);
+			locked.draw(scrollPosition + 1*80, 240);
 			}
 		
 		if (currentAchieved.getTimeAchievementGained() == true){
 			timeImg.draw(scrollPosition + 2*80, 240);
 		} else {
-			timeUnachieved.draw(scrollPosition + 2*80, 240);
+			locked.draw(scrollPosition + 2*80, 240);
 			}
 		
 		if (currentAchieved.getNoPlaneLossAchievementGained() == true){
 			noPlanesLostImg.draw(scrollPosition + 3*80, 240);
 		} else {
-			noPlanesLostUnachieved.draw(scrollPosition + 3*80, 240);
+			locked.draw(scrollPosition + 3*80, 240);
 			}
 		
 		if (currentAchieved.getPlanesLandedAchievementGained() == true){
 			planesLandedImg.draw(scrollPosition + 4*80, 240);
 		} else {
-			planesLandedUnachieved.draw(scrollPosition + 4*80, 240);
+			locked.draw(scrollPosition + 4*80, 240);
 			}
 		
 		if (currentAchieved.getFlightPlanChangedAchievementGained() == true){
 			flightPlanChangedImg.draw(scrollPosition + 5*80, 240);
 		} else {
-			flightPlanChangedUnachieved.draw(scrollPosition + 5*80, 240);
+			locked.draw(scrollPosition + 5*80, 240);
 			}
 		
 		if (currentAchieved.getCrashAchievementGained() == true){
 			crashImg.draw(scrollPosition + 6*80, 240);
 		} else {
-			crashUnachieved.draw(scrollPosition + 6*80, 240);
+			locked.draw(scrollPosition + 6*80, 240);
 			}
 		
 		if (currentAchieved.getCompleteFlightPlanAchievementGained() == true){
 			completeFlightPlanImg.draw(scrollPosition + 7*80, 240);
 		} else {
-			completeFlightPlanUnachieved.draw(scrollPosition + 7*80, 240);
+			locked.draw(scrollPosition + 7*80, 240);
 			}
 		
 		if (currentAchieved.getAllAchievementsEarned() == true){
 			allAchievedImg.draw(scrollPosition + 8*80, 240);
 		} else {
-			allAchievedUnachieved.draw(scrollPosition + 8*80, 240);
+			locked.draw(scrollPosition + 8*80, 240);
 			}
 		
 		blankAchievement.draw(scrollPosition +9*80, 240);
@@ -488,7 +478,7 @@ public class AchieveViewerState extends BasicGameState{
 		
 		//declare position of text box
 		int y = 400;
-		int x = 350;
+		int x = 500;
 		
 		g.setColor(Color.white);
 		
