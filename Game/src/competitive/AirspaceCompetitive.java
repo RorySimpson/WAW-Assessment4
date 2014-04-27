@@ -27,13 +27,14 @@ public class AirspaceCompetitive extends Airspace {
 	private int	numberOfGameLoopsSinceLastPlayer1FlightAdded, numberOfGameLoopsSinceLastPlayer2FlightAdded;
 	private int player1Score, player2Score;
 	private CargoCompetitive cargo;
-	protected SeparationRulesCompetitive 	separationRules;
+	private SeparationRulesCompetitive 	separationRules;
+	private ControlsCompetitive controls;
 
 
 	public AirspaceCompetitive() {
 
 		super();
-		this.setControls(new ControlsCompetitive(this));
+		this.controls = new ControlsCompetitive(this);
 		this.listOfFlightsPlayer1 = new ArrayList<FlightCompetitive>();
 		this.listOfFlightsPlayer2 = new ArrayList<FlightCompetitive>();
 		this.addPlayer1FlightNext=false;
@@ -68,16 +69,16 @@ public class AirspaceCompetitive extends Airspace {
 		this.setNumberOfGameLoops(0); 
 		this.setNumberOfGameLoopsWhenDifficultyIncreases(3600);
 
-		numberOfGameLoopsSinceLastPlayer1FlightAdded = 60*5;
-		numberOfGameLoopsSinceLastPlayer2FlightAdded =60*5;
+		this.numberOfGameLoopsSinceLastPlayer1FlightAdded = 60*5;
+		this.numberOfGameLoopsSinceLastPlayer2FlightAdded =60*5;
 
 		// Prevents user immediately entering game over state upon replay
 		this.getSeparationRules().setGameOverViolation(false);
 
 		// Prevents information about flight from previous game being displayed
 
-		((ControlsCompetitive) this.getControls()).setSelectedFlight1(null);
-		((ControlsCompetitive) this.getControls()).setSelectedFlight2(null);
+		this.getControls().setSelectedFlight1(null);
+		this.getControls().setSelectedFlight2(null);
 
 		// Resetting variables for cargo
 		cargo.setCurrentHolder(null);
@@ -240,15 +241,15 @@ public class AirspaceCompetitive extends Airspace {
 		}
 		this.getListOfFlightsInAirspace().remove(flight);
 
-		Flight selected1 = ((ControlsCompetitive) this.getControls()).getSelectedFlight1();
-		Flight selected2 = ((ControlsCompetitive) this.getControls()).getSelectedFlight2();
+		Flight selected1 = this.getControls().getSelectedFlight1();
+		Flight selected2 = this.getControls().getSelectedFlight2();
 		// If flight was selected, de-select it
 		if (!(this.getListOfFlightsInAirspace().contains(selected1))) {
-			((ControlsCompetitive) this.getControls()).setSelectedFlight1(null);
-
+			this.getControls().setSelectedFlight1(null);
 		}
+		
 		if (!(this.getListOfFlightsInAirspace().contains(selected2))) {
-			((ControlsCompetitive) this.getControls()).setSelectedFlight2(null);
+			this.getControls().setSelectedFlight2(null);
 
 		}
 	}
@@ -312,7 +313,7 @@ public class AirspaceCompetitive extends Airspace {
 
 
 		this.separationRules.update(this);
-		((ControlsCompetitive)this.controls).update(gc);
+		this.controls.update(gc);
 	}
 
 
@@ -387,6 +388,43 @@ public class AirspaceCompetitive extends Airspace {
 	public void setPlayer2Score(int player2Score) {
 		this.player2Score = player2Score;
 	}
+	
+	@Override
+	public ControlsCompetitive getControls(){
+		return this.controls;
+	}
+	
+	public void setControls(ControlsCompetitive controls){
+		this.controls = controls;
+	}
+
+	public boolean isAddPlayer1FlightNext() {
+		return addPlayer1FlightNext;
+	}
+
+	public void setAddPlayer1FlightNext(boolean addPlayer1FlightNext) {
+		this.addPlayer1FlightNext = addPlayer1FlightNext;
+	}
+
+	public int getNumberOfGameLoopsSinceLastPlayer1FlightAdded() {
+		return numberOfGameLoopsSinceLastPlayer1FlightAdded;
+	}
+
+	public void setNumberOfGameLoopsSinceLastPlayer1FlightAdded(
+			int numberOfGameLoopsSinceLastPlayer1FlightAdded) {
+		this.numberOfGameLoopsSinceLastPlayer1FlightAdded = numberOfGameLoopsSinceLastPlayer1FlightAdded;
+	}
+
+	public int getNumberOfGameLoopsSinceLastPlayer2FlightAdded() {
+		return numberOfGameLoopsSinceLastPlayer2FlightAdded;
+	}
+
+	public void setNumberOfGameLoopsSinceLastPlayer2FlightAdded(
+			int numberOfGameLoopsSinceLastPlayer2FlightAdded) {
+		this.numberOfGameLoopsSinceLastPlayer2FlightAdded = numberOfGameLoopsSinceLastPlayer2FlightAdded;
+	}
+	
+	
 }
 
 

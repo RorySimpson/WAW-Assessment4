@@ -326,7 +326,7 @@ public class PlayCompetitiveState extends PlayState {
 		// Render Explosions
 		g.setWorldClip(11, 0, Game.MAXIMUMWIDTH -11, Game.MAXIMUMHEIGHT-40);
 		for (CrashCompetitive crash : airspace.getSeparationRules().getListOfActiveCrashes()){
-			explosion.draw((float)crash.getPointOfCrash().getX()-50, (float)crash.getPointOfCrash().getY()-90 );
+			explosion.draw((float)crash.getPointOfCrash().getX() - 50, (float)crash.getPointOfCrash().getY() - 90 );
 		}
 		g.setWorldClip(0, 0, Game.MAXIMUMWIDTH, Game.MAXIMUMHEIGHT);
 
