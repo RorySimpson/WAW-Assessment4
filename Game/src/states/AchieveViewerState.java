@@ -33,7 +33,8 @@ public class AchieveViewerState extends BasicGameState{
 		flightPlanChangedUnachieved, flightPlanChangedImg,
 		crashUnachieved, crashImg,
 		completeFlightPlanUnachieved, completeFlightPlanImg,
-		allAchievedUnachieved, allAchievedImg;
+		allAchievedUnachieved, allAchievedImg,
+        locked;
 	
 	/* Hover images */
 	private HoverImage
@@ -95,6 +96,12 @@ public class AchieveViewerState extends BasicGameState{
 				}
 			});
 			
+			loading.add(new DeferredFile(
+					"res/menu_graphics/achievements/locked.png"){
+				public void loadFile(String filename) throws SlickException{
+					locked = new Image(filename);
+				}
+			});
 			loading.add(new DeferredFile(
 					"res/menu_graphics/achievements/goldUnachieved.png"){
 				public void loadFile(String filename) throws SlickException{
@@ -231,15 +238,15 @@ public class AchieveViewerState extends BasicGameState{
 				/* Load all the images */
 				public void load(){
 					menuReturn = new HoverImage(menuButton, menuHover, 20, 20);
-					silverAchieve = new HoverImage(silverUnachieved, silverImg, 240, 240);
-					goldAchieve = new HoverImage(goldUnachieved, goldImg, 320, 240);
-					timeAchieve = new HoverImage(timeUnachieved, timeImg, 400, 240);
-					noPlanesLostAchieve = new HoverImage(noPlanesLostUnachieved, noPlanesLostImg, 480, 240);
-					planesLandedAchieve = new HoverImage(planesLandedUnachieved, planesLandedImg, 560, 240);
-					flightPlanChangedAchieve = new HoverImage(flightPlanChangedUnachieved, flightPlanChangedImg, 640,240);
-					crashAchieve = new HoverImage (crashUnachieved, crashImg, 720, 240);
-					completeFlightPlanAchieve = new HoverImage (completeFlightPlanUnachieved, completeFlightPlanImg, 800, 240);
-					allAchievedAchieve = new HoverImage (allAchievedUnachieved, allAchievedImg, 880, 240);
+					silverAchieve = new HoverImage(locked, silverImg, 240, 240);
+					goldAchieve = new HoverImage(locked, goldImg, 320, 240);
+					timeAchieve = new HoverImage(locked, timeImg, 400, 240);
+					noPlanesLostAchieve = new HoverImage(locked, noPlanesLostImg, 480, 240);
+					planesLandedAchieve = new HoverImage(locked, planesLandedImg, 560, 240);
+					flightPlanChangedAchieve = new HoverImage(locked, flightPlanChangedImg, 640,240);
+					crashAchieve = new HoverImage (locked, crashImg, 720, 240);
+					completeFlightPlanAchieve = new HoverImage (locked, completeFlightPlanImg, 800, 240);
+					allAchievedAchieve = new HoverImage (locked, allAchievedImg, 880, 240);
 
 				}
 			});
