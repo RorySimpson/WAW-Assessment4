@@ -374,4 +374,9 @@ public class FlightCompetitive extends Flight {
 	}
 
 
+	public void setFlightPlan(FlightPlanCompetitive flightPlan) {
+		this.flightPlan = flightPlan;
+	}
+
+
 }

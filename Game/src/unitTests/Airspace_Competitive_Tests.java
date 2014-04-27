@@ -10,7 +10,8 @@ import org.junit.Before;
 public class Airspace_Competitive_Tests {
 	
 	private AirspaceCompetitive airspace;
-	private  Flight flight1;
+	private  FlightCompetitive flight1;
+	
 	
 	@Before
 	public void setUp() throws Exception {
@@ -55,8 +56,61 @@ public class Airspace_Competitive_Tests {
 	}
 	
 	@Test
-	public void checkWhatPlayerNeedsFlightTest(){
+	public void checkWhatPlayerNeedsFlightTest1(){
+		airspace.getListOfFlightsPlayer2().add(new FlightCompetitive(airspace, true));
+		airspace.checkWhatPlayerNeedsFlight();
+		assertTrue(airspace.isAddPlayer1FlightNext());
+	}
+	
+	@Test
+	public void checkWhatPlayerNeedsFlightTest2(){
 		airspace.getListOfFlightsPlayer1().add(new FlightCompetitive(airspace, true));
+		airspace.checkWhatPlayerNeedsFlight();
+		assertFalse(airspace.isAddPlayer1FlightNext());
+	}
+	
+	@Test
+	public void checkWhatPlayerNeedsFlightTest3(){
+		airspace.checkWhatPlayerNeedsFlight();
+		assertTrue(airspace.isAddPlayer1FlightNext());
+	}
+	
+	@Test 
+	public void updateScoreTest1(){
+		flight1.setPlayer2(true);
+		airspace.updateScore(flight1);
+		assertEquals(1, airspace.getPlayer2Score());
+		assertEquals(0, airspace.getPlayer1Score());
+		
+	}
+	
+	@Test 
+	public void updateScoreTest2(){
+		flight1.setPlayer2(false);
+		airspace.updateScore(flight1);
+		assertEquals(0, airspace.getPlayer2Score());
+		assertEquals(1, airspace.getPlayer1Score());
+		
+	}
+	
+	@Test
+	public void throwbackIntoAirspaceTest(){
+		
+		flight1.setTargetHeading(0);
+		airspace.throwbackIntoAirspace(flight1);
+		assertTrue(flight1.getTargetHeading() >135 && flight1.getTargetHeading() < 225);
+	}
+	
+	@Test 
+	public void removeSpecificFlightTest1(){
+		assertEquals(0, airspace.getListOfFlightsPlayer2().size());
+		airspace.getListOfFlightsPlayer2().add(flight1);
+		airspace.getListOfFlights().add(flight1);
+		assertEquals(1, airspace.getListOfFlightsPlayer2().size());
+		airspace.removeSpecificFlight(0);
+		assertEquals(0, airspace.getListOfFlightsPlayer2().size());
+		
+		
 	}
 
 }
