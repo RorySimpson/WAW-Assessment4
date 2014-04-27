@@ -70,7 +70,7 @@ public class AirspaceCompetitive extends Airspace {
 		this.setNumberOfGameLoopsWhenDifficultyIncreases(3600);
 
 		this.numberOfGameLoopsSinceLastPlayer1FlightAdded = 60*5;
-		this.numberOfGameLoopsSinceLastPlayer2FlightAdded =60*5;
+		this.numberOfGameLoopsSinceLastPlayer2FlightAdded = 60*5;
 
 		// Prevents user immediately entering game over state upon replay
 		this.getSeparationRules().setGameOverViolation(false);

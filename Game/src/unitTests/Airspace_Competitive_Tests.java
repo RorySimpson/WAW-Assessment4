@@ -38,13 +38,25 @@ public class Airspace_Competitive_Tests {
 		assertEquals(300, airspace.getNumberOfGameLoopsSinceLastPlayer1FlightAdded());
 		assertEquals(300, airspace.getNumberOfGameLoopsSinceLastPlayer2FlightAdded());
 		assertFalse(airspace.getSeparationRules().getGameOverViolation());
-		assertEquals(null, airspace.getControls().getSelectedFlight1());
-		assertEquals(null, airspace.getControls().getSelectedFlight2());
-		assertEquals(null, airspace.getCargo().getCurrentHolder());
+		assertNull(airspace.getControls().getSelectedFlight1());
+		assertNull(airspace.getControls().getSelectedFlight2());
+		assertNull(airspace.getCargo().getCurrentHolder());
 		assertEquals(0, airspace.getPlayer1Score());
 		assertEquals(0, airspace.getPlayer2Score());
 		
 		
+	}
+	
+	@Test
+	public void createAndSetSeparationRulesTest(){
+		airspace.setSeparationRules(null);
+		airspace.createAndSetSeparationRules();
+		assertNotNull(airspace.getSeparationRules());
+	}
+	
+	@Test
+	public void checkWhatPlayerNeedsFlightTest(){
+		airspace.getListOfFlightsPlayer1().add(new FlightCompetitive(airspace, true));
 	}
 
 }

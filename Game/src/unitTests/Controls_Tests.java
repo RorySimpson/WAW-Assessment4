@@ -24,7 +24,7 @@ public class Controls_Tests {
 	private Flight flight;
 
 	@Before
-	public void Setup(){
+	public void setUp() {
 		
     	airspace = new Airspace();
     	airspace.newWaypoint(350, 150, "A");
@@ -80,9 +80,10 @@ public class Controls_Tests {
 		newAirspace.addEntryPoint(new EntryPoint(0, 20));
 		Flight newFlight = new Flight(newAirspace);
 		
-		controls.setSelectedFlight(newFlight);
+		newAirspace.getListOfFlights().add(newFlight);
+		newAirspace.getControls().setSelectedFlight(newFlight);
 			
-		assertEquals(newFlight, controls.getSelectedFlight());
+		assertEquals(newFlight, newAirspace.getControls().getSelectedFlight());
 	}
 
 	@Test
