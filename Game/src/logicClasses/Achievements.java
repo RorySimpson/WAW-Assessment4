@@ -155,4 +155,40 @@ public class Achievements {
 	public void setAchievementGained(boolean achievementGained){
 		this.achievementGained = achievementGained;
 	}
+	
+	public boolean getSilverAchievementGained(){
+		return silverAchievementGained;
+	}
+	
+	public boolean getGoldAchievementGained(){
+		return goldAchievementGained; 	
+	}
+	
+	public boolean getTimeAchievementGained(){
+		return timeAchievementGained;
+	}
+	
+	public boolean getNoPlaneLossAchievementGained(){
+		return noPlaneLossAchievementGained;
+	}
+	
+	public boolean getPlanesLandedAchievementGained(){
+		return planesLandedAchievementGained;
+	}
+	
+	public boolean getFlightPlanChangedAchievementGained(){
+		return flightPlanChangedAchievementGained;
+	}
+	
+	public boolean getCrashAchievementGained(){
+		return crashAchievementGained;
+	}
+	
+	public boolean getCompleteFlightPlanAchievementGained(){
+		return completeFlightPlanAchievementGained;
+	}
+	
+	public boolean getAllAchievementsEarned(){
+		return allAchievementsEarned;
+	}
 }

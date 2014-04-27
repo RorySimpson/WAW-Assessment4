@@ -28,6 +28,8 @@ import org.newdawn.slick.util.ResourceLoader;
 
 
 
+
+import stateContainer.Game;
 import states.PlayState;
 import util.DeferredFile;
 
@@ -463,10 +465,6 @@ public class PlayCoopState extends PlayState {
 			
 			Input input = gc.getInput();
 			
-			if (gameJustFinished)
-			{	
-				explosion.draw((float)airspace.getSeparationRules().getPointOfCrash().getX() -50, (float)airspace.getSeparationRules().getPointOfCrash().getY() -90 );
-			}
 
 			
 			// Drawing Achievements
@@ -592,8 +590,25 @@ public class PlayCoopState extends PlayState {
 				airspace.resetAirspace();
 				gameplayMusic.stop();
 				endOfGameSound.play();
-				sbg.enterState(stateContainer.Game.GAMEOVERSTATE);
 				gameEnded = true;
+				
+				/* Set the achievements */
+				((Game)sbg).setAchievements(airspace.getScore().getAchievements());
+				((Game)sbg).setCurrentScore(airspace.getScore( ).getCurrentScore());
+
+
+				/* Lights up for next game session */
+				red = 255;
+				blue = 255;
+				green = 255;
+				brightness = new Color( red , blue, green);
+				countdownToLightReduction = 40;
+				
+				/* Switch states to Game Over screen */
+				sbg.enterState(stateContainer.Game.GAMEOVERCOOPSTATE);
+				currentCoord = 600;
+				targetCoord = 600;
+				synch = 180;
 
 			}					
 

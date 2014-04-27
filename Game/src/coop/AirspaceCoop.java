@@ -11,6 +11,8 @@ import coop.FlightCoop;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 
+import events.EventController;
+
 
 public class AirspaceCoop extends Airspace {
 	
@@ -37,6 +39,7 @@ public class AirspaceCoop extends Airspace {
 		this.setListOfFlightsInAirspace(new ArrayList<Flight>());
 		this.listOfFlightsPlayer1 = new ArrayList<FlightCoop>();
 		this.listOfFlightsPlayer2 = new ArrayList<FlightCoop>();
+		this.eventController = new EventController(this);
 		
 		this.setNumberOfGameLoopsSinceLastFlightAdded(0); 
 		this.setNumberOfGameLoops(0); 

@@ -71,6 +71,9 @@ public class HunterFlight {
 			}
 			targetHeading = angle;
 		}
+		else {
+			targetHeading = currentHeading;
+		}
 		
 	}
 	

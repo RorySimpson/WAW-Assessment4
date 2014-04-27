@@ -64,7 +64,7 @@ public class PlayState extends BasicGameState {
     /* Booleans to help out with the game events */
 	protected boolean settingDifficulty;
 	protected boolean gameEnded;
-	protected boolean gameJustFinished = false;
+	
 	
     /* Achievements objects */
 	protected Achievements achievement;
@@ -76,8 +76,7 @@ public class PlayState extends BasicGameState {
 
     /* A game over delay to allow the explosion to appear before displaying 
      * the game over screen */
-	protected static final int GAMEOVERTIME = 90;
-	protected int countdownToGameOverState;
+
 
     /* A synchroniser to decide how long should the achievements text appear for */
 	protected int synch = 180;
@@ -603,14 +602,6 @@ public class PlayState extends BasicGameState {
 			
 			Input input = gc.getInput();
 			
-			/* Render the explosion on crash */
-			if (gameJustFinished)
-			{	
-				explosion.draw((float)airspace.getSeparationRules()
-						.getPointOfCrash().getX() -50, 
-						(float)airspace.getSeparationRules()
-							.getPointOfCrash().getY() -90 );
-			}
 			 
 			// Drawing Achievements
 			if (airspace.getScore().getAchievements().getAchievementGained()){
@@ -638,33 +629,7 @@ public class PlayState extends BasicGameState {
 			}
 		}	
 	}
-	/*protected void renderFlightPanel(Flight f, Graphics g, int baseY){						
-		//draw border if flight is selected					
-		if (f.getSelected()){					
-			g.drawRoundRect(1, baseY, 135, 50, 3);				
-		}					
-							
-		int h = panelFont.getHeight();					
-							
-		//draw icon, rotated to match plane					
-		flightIcon.setRotation((float)f.getCurrentHeading());					
-		flightIcon.draw(7, 7 +baseY);					
-		//draw flight name at bottom of box					
-		panelFont.drawString(4, 50 -h +baseY, f.getFlightName());					
-							
-		String[] data = new String[] {					
-				"Plan: " +f.getFlightPlan().toString(),			
-				"Speed: " +String.valueOf(Math.round(f.getVelocity())) +" mph",			
-				"Altitude: " +String.valueOf(Math.round(f.getCurrentAltitude())) +" ft"			
-		};					
-							
-		baseY = baseY +3;					
-		for (String str: data){					
-			panelFont.drawString(40, baseY, str);				
-			baseY += h;				
-		}					
-							
-	}	*/					
+				
 							
 	/* Override the update method */
 	@Override
@@ -678,29 +643,6 @@ public class PlayState extends BasicGameState {
 		/* Get user input */
 		Input input = gc.getInput();
 		
-		/* Accommodate for explosion before displaying game over */
-		if(gameJustFinished){
-			if(countdownToGameOverState < GAMEOVERTIME){
-				countdownToGameOverState += 1;
-			}
-			else {
-				gameJustFinished = false;
-				gameEnded = true;
-
-				/* Lights up for next game session */
-				red = 255;
-				blue = 255;
-				green = 255;
-				brightness = new Color( red , blue, green);
-				countdownToLightReduction = 40;
-				
-				/* Switch states to Game Over screen */
-				sbg.enterState(stateContainer.Game.GAMEOVERLOADINGSTATE);
-				currentCoord = 600;
-				targetCoord = 600;
-				synch = 180;
-			}
-		}
 		
 		// Checks if the game has been retried and if it has resets the airspace
 		if (gameEnded){
@@ -821,8 +763,7 @@ public class PlayState extends BasicGameState {
 			airspace.update(gc );
 
 			/* If there is a crash */
-			if (airspace.getSeparationRules().getGameOverViolation()
-					&& !gameJustFinished){
+			if (airspace.getSeparationRules().getGameOverViolation()){
                 //pass the game time as of game over into the crashAchievement
 				achievementMessage = achievement.crashAchievement((int) time); 
 				airspace.getSeparationRules().setGameOverViolation(false);
@@ -834,7 +775,21 @@ public class PlayState extends BasicGameState {
 				/* Stop the music and play the game over sound */
 				gameplayMusic.stop();
 				endOfGameSound.play();
-				gameJustFinished = true;
+				
+				gameEnded = true;
+
+				/* Lights up for next game session */
+				red = 255;
+				blue = 255;
+				green = 255;
+				brightness = new Color( red , blue, green);
+				countdownToLightReduction = 40;
+				
+				/* Switch states to Game Over screen */
+				sbg.enterState(stateContainer.Game.GAMEOVERLOADINGSTATE);
+				currentCoord = 600;
+				targetCoord = 600;
+				synch = 180;
                 }
 			
 		
@@ -867,7 +822,7 @@ public class PlayState extends BasicGameState {
 				airspace.getEventController().getListOfTornados().add(tornado);
 			}*/
 			
-			if (!gameplayMusic.playing() && (!musicPaused) && !gameJustFinished){
+			if (!gameplayMusic.playing() && (!musicPaused) ){
 				//Loops gameplay music based on random number created in init (what?)
 				gameplayMusic.loop(1.0f, 0.5f);
 			}			

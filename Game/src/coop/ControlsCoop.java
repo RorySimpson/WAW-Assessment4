@@ -34,28 +34,7 @@ public class ControlsCoop extends Controls {
 	@Override
 	public void update(GameContainer gc, Airspace airspace) {
 
-//		if(gc.getInput().isKeyPressed(Input.KEY_LSHIFT)) {
-//			if(airspaceCoop.getListOfFlightsPlayer1().size()>0) {
-//				if(this.selectedFlight1==null) {
-//					this.selectedFlight1 = airspaceCoop.getListOfFlightsPlayer1().get(0);
-//					this.selectedFlight1.setSelected(true);
-//				}
-//				else {
-//					if(airspaceCoop.getListOfFlightsPlayer1().indexOf(selectedFlight1)==airspaceCoop.getListOfFlightsPlayer1().size()-1) {
-//						this.selectedFlight1.setSelected(false);
-//						this.selectedFlight1 = airspaceCoop.getListOfFlightsPlayer1().get(0);
-//						this.selectedFlight1.setSelected(true);
-//					} 
-//					else {
-//						this.selectedFlight1.setSelected(false);
-//						this.selectedFlight1 = airspaceCoop.getListOfFlightsPlayer1().get(airspaceCoop.getListOfFlightsPlayer1().indexOf(selectedFlight1)+1);
-//						this.selectedFlight1.setSelected(true);
-//					}
-//				}
-//			}
-//		}
-		
-		if(gc.getInput().isKeyPressed(Input.KEY_LSHIFT)) {
+		if(gc.getInput().isKeyPressed(Input.KEY_LCONTROL)) {
 			if(airspaceCoop.getListOfFlightsPlayer1().size()>0) {
 				if (this.selectedFlight1 == null){
 					for (int i = 0; i< airspaceCoop.getListOfFlightsPlayer1().size(); i++){
@@ -83,7 +62,7 @@ public class ControlsCoop extends Controls {
 			
 		}
 		
-		if(gc.getInput().isKeyPressed(Input.KEY_RSHIFT)) {
+		if(gc.getInput().isKeyPressed(Input.KEY_RCONTROL)) {
 			if(airspaceCoop.getListOfFlightsPlayer2().size()>0) {
 				if (this.selectedFlight2 == null){
 					for (int i = 0; i< airspaceCoop.getListOfFlightsPlayer2().size(); i++){
@@ -112,50 +91,33 @@ public class ControlsCoop extends Controls {
 		}
 		
 		
-		
-//		if(gc.getInput().isKeyPressed(Input.KEY_RSHIFT)) {
-//			if(airspaceCoop.getListOfFlightsPlayer2().size()>0) {
-//				if(this.selectedFlight2==null) {
-//					this.selectedFlight2 = airspaceCoop.getListOfFlightsPlayer2().get(0);
-//					this.selectedFlight2.setSelected(true);
-//				}
-//				else {
-//					if(airspaceCoop.getListOfFlightsPlayer2().indexOf(selectedFlight2)==airspaceCoop.getListOfFlightsPlayer2().size()-1) {
-//						this.selectedFlight2.setSelected(false);
-//						this.selectedFlight2 = airspaceCoop.getListOfFlightsPlayer2().get(0);
-//						this.selectedFlight2.setSelected(true);
-//					} 
-//					else {
-//						this.selectedFlight2.setSelected(false);
-//						this.selectedFlight2 = airspaceCoop.getListOfFlightsPlayer2().get(airspaceCoop.getListOfFlightsPlayer2().indexOf(selectedFlight2)+1);
-//						this.selectedFlight2.setSelected(true);
-//					}
-//				}
-//			}
-//		}
-		
+	
 		
 		if(this.selectedFlight1!=null) {
-			if(gc.getInput().isKeyDown(Input.KEY_A)) {
-				this.selectedFlight1.decrementHeading();
-			}
-			if(gc.getInput().isKeyDown(Input.KEY_D)) {
-				this.selectedFlight1.incrementHeading();
-			}
-			if(gc.getInput().isKeyPressed(Input.KEY_S)) {
-				if(this.selectedFlight1.getTargetAltitude() > 2000){
-					this.selectedFlight1.setTargetAltitude(this.selectedFlight1.getTargetAltitude()-1000);
+			if(!this.getSelectedFlight1().isGrounded()){
+				
+				if(gc.getInput().isKeyDown(Input.KEY_A)) {
+					this.selectedFlight1.decrementHeading();
+				}
+				if(gc.getInput().isKeyDown(Input.KEY_D)) {
+					this.selectedFlight1.incrementHeading();
+				}
+				if(gc.getInput().isKeyPressed(Input.KEY_S)) {
+					if(this.selectedFlight1.getTargetAltitude() > 2000){
+						this.selectedFlight1.setTargetAltitude(this.selectedFlight1.getTargetAltitude()-1000);
+					}
+				}
+				if(gc.getInput().isKeyPressed(Input.KEY_W)) {
+					if(this.selectedFlight1.getTargetAltitude() < 5000){
+						this.selectedFlight1.setTargetAltitude(this.selectedFlight1.getTargetAltitude()+1000);
+					}
 				}
 			}
-			if(gc.getInput().isKeyPressed(Input.KEY_W)) {
-				if(this.selectedFlight1.getTargetAltitude() < 5000){
-					this.selectedFlight1.setTargetAltitude(this.selectedFlight1.getTargetAltitude()+1000);
-				}
-			}
-			if(gc.getInput().isKeyDown(Input.KEY_T)) {
+			
+			if(gc.getInput().isKeyDown(Input.KEY_Q)) {
 				((FlightCoop)this.selectedFlight1).takeOff(this.selectedFlight1);
 			}
-			if(gc.getInput().isKeyDown(Input.KEY_L)) {
+			if(gc.getInput().isKeyDown(Input.KEY_E)) {
 				this.selectedFlight1.land();
 			}
 			
@@ -170,23 +132,29 @@ public class ControlsCoop extends Controls {
 			
 		}
 		if(this.selectedFlight2!=null) {
-			if(gc.getInput().isKeyDown(Input.KEY_LEFT)) {
-				this.selectedFlight2.decrementHeading();
-			}
-			if(gc.getInput().isKeyDown(Input.KEY_RIGHT)) {
-				this.selectedFlight2.incrementHeading();
-			}
-			if(gc.getInput().isKeyPressed(Input.KEY_DOWN)) {
-				if(this.selectedFlight2.getTargetAltitude() > 2000){
-					this.selectedFlight2.setTargetAltitude(this.selectedFlight2.getTargetAltitude()-1000);
+			
+			if(!this.getSelectedFlight2().isGrounded()){
+				
+				if(gc.getInput().isKeyDown(Input.KEY_LEFT)) {
+					this.selectedFlight2.decrementHeading();
 				}
-			}
-			if(gc.getInput().isKeyPressed(Input.KEY_UP)) {
-				if(this.selectedFlight2.getTargetAltitude() < 5000){
-					this.selectedFlight2.setTargetAltitude(this.selectedFlight2.getTargetAltitude()+1000);
+				if(gc.getInput().isKeyDown(Input.KEY_RIGHT)) {
+					this.selectedFlight2.incrementHeading();
 				}
+				if(gc.getInput().isKeyPressed(Input.KEY_DOWN)) {
+					if(this.selectedFlight2.getTargetAltitude() > 2000){
+						this.selectedFlight2.setTargetAltitude(this.selectedFlight2.getTargetAltitude()-1000);
+					}
+				}
+				if(gc.getInput().isKeyPressed(Input.KEY_UP)) {
+					if(this.selectedFlight2.getTargetAltitude() < 5000){
+						this.selectedFlight2.setTargetAltitude(this.selectedFlight2.getTargetAltitude()+1000);
+					}
+				}
+				
 			}
-			if(gc.getInput().isKeyDown(Input.KEY_SLASH)) {
+			
+			if(gc.getInput().isKeyDown(Input.KEY_RSHIFT)) {
 				(this.selectedFlight2).takeOff(this.selectedFlight2);
 			}
 			if(gc.getInput().isKeyDown(Input.KEY_DELETE)) {

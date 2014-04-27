@@ -15,6 +15,10 @@ import org.newdawn.slick.util.ResourceLoader;
 
 import util.DeferredFile;
 import util.HoverImage;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import logicClasses.Achievements;
 import stateContainer.Game;
 
@@ -24,7 +28,11 @@ public class AchieveViewerState extends BasicGameState{
 
 	/* Images */
 	public static Image
-		menuBackground, menuButton, menuHover,
+		menuBackground, menuButton, menuHover, 
+		sideCoverLeft, sideCoverRight, 
+		buttonBack, buttonBackHover,
+		buttonForward, buttonForwardHover,
+		blankAchievement,
 		silverUnachieved, silverImg,
 		goldUnachieved, goldImg,
 		timeUnachieved, timeImg,
@@ -38,15 +46,33 @@ public class AchieveViewerState extends BasicGameState{
 	
 	/* Hover images */
 	private HoverImage
-		menuReturn, silverAchieve, goldAchieve, timeAchieve, noPlanesLostAchieve, planesLandedAchieve,
-		flightPlanChangedAchieve, crashAchieve, completeFlightPlanAchieve, allAchievedAchieve;
+		menuReturn, scrollBack, scrollForward;
 	
 	/* Copy of achievements pulled from game container */
 	private Achievements
 		currentAchieved;
 	
+	/* float used to keep track of the pixel position of the images in the achievements scroll*/
+	private float
+		scrollPosition = 560;
+	
+	/* int used to keep track of achievement currently being viewed*/
+	private int
+		achievementPosition = 1;
+	
 	/* Check if mouse has been released */
 	private boolean mouseBeenReleased;
+	
+	//String arrays for achievement information
+	private String[][] achText1;	//[section, line]
+	private String[][] achText2;	//[section, line]
+	private String[][] achText3;	//[section, line]
+	private String[][] achText4;	//[section, line]
+	private String[][] achText5;	//[section, line]
+	private String[][] achText6;	//[section, line]
+	private String[][] achText7;	//[section, line]
+	private String[][] achText8;	//[section, line]
+	private String[][] achText9;    //[section, line]
 	
 	/* Empty constructor for consistency */
 	public AchieveViewerState(int state){
@@ -71,6 +97,21 @@ public class AchieveViewerState extends BasicGameState{
 					menuBackground = new Image(filename);
 				}
 			});
+			
+			//side covers img
+			loading.add(new DeferredFile(
+					"res/menu_graphics/new/achievement_fade_left.png"){	
+				public void loadFile(String filename) throws SlickException{
+					sideCoverLeft = new Image(filename);
+				}
+			});
+			
+			loading.add(new DeferredFile(
+					"res/menu_graphics/new/achievement_fade_right.png"){	
+				public void loadFile(String filename) throws SlickException{
+					sideCoverRight = new Image(filename);
+				}
+			});
 
 			//menu return hoverButton img
 			loading.add(new DeferredFile(
@@ -86,6 +127,46 @@ public class AchieveViewerState extends BasicGameState{
 					menuHover = new Image(filename);
 				}
 					
+			});
+			
+			//achievement scroll back button img
+			loading.add(new DeferredFile(
+					"res/menu_graphics/new/back.png"){
+				public void loadFile(String filename) throws SlickException{
+					buttonBack = new Image(filename);
+				}
+			});
+
+			loading.add(new DeferredFile(
+					"res/menu_graphics/new/back_hover.png"){
+				public void loadFile(String filename) throws SlickException{
+					buttonBackHover = new Image(filename);
+				}
+					
+			});
+			
+			//achievement scroll forward button img
+			loading.add(new DeferredFile(
+					"res/menu_graphics/new/forward.png"){
+				public void loadFile(String filename) throws SlickException{
+					buttonForward = new Image(filename);
+				}
+			});
+
+			loading.add(new DeferredFile(
+					"res/menu_graphics/new/forward_hover.png"){
+				public void loadFile(String filename) throws SlickException{
+					buttonForwardHover = new Image(filename);
+				}
+					
+			});
+			
+			//blank achievement img
+			loading.add(new DeferredFile(	
+					"res/menu_graphics/achievements/blankAchievement.png"){
+				public void loadFile(String filename) throws SlickException{
+					blankAchievement = new Image(filename);
+				}
 			});
 			
 			//gold achievement img
@@ -235,7 +316,7 @@ public class AchieveViewerState extends BasicGameState{
 					return "set up AchieveViewerState buttons";
 				}
 
-				/* Load all the images */
+				/* Load all the hoverImages */
 				public void load(){
 					menuReturn = new HoverImage(menuButton, menuHover, 20, 20);
 					silverAchieve = new HoverImage(locked, silverImg, 240, 240);
@@ -248,34 +329,67 @@ public class AchieveViewerState extends BasicGameState{
 					completeFlightPlanAchieve = new HoverImage (locked, completeFlightPlanImg, 800, 240);
 					allAchievedAchieve = new HoverImage (locked, allAchievedImg, 880, 240);
 
+					scrollBack = new HoverImage(buttonBack, buttonBackHover, 326, 267);
+					scrollForward = new HoverImage(buttonForward, buttonForwardHover, 844, 267);
 				}
 			});
+			
+			/* achText1 */
+			achText1 = new String[][] {
+					{"Points - Silver Total",
+						"Score at least 1000 points!",}
+			};
+			
+			/* achText2 */
+			achText2 = new String[][] {
+					{"Points - Gold Total",
+						"Score at least 2000 points!",}
+			};
+			
+			/* achText3 */
+			achText3 = new String[][] {
+					{"Time Played",
+						"Play for long enough to fulfill your end game ATCO fantasy!!",}
+			};
+			
+			/* achText4 */
+			achText4 = new String[][] {
+					{"No Planes Lost",
+						"Play for long enough where no planes leave without fulfilling",
+						"their flight plan!"}
+			};
+			
+			/* achText5 */
+			achText5 = new String[][] {
+					{"Planes Landed",
+						"Land enough planes to fulfill your end game ATCO fantasy!!",}
+			};
+			
+			/* achText6 */
+			achText6 = new String[][] {
+					{"Flight Plan Changed",
+						"Change a flight plan and fulfill your end game ATCO fantasy!!",}
+			};
+			
+			/* achText7 */
+			achText7 = new String[][] {
+					{"Crash a Plane",
+						"Crash a plane and... fulfill your sadistic fantasies!!",}
+			};
+			
+			/* achText8 */
+			achText8 = new String[][] {
+					{"Complete a Flight Plan",
+						"Successfully complete a plane's flight plan!",}
+			};
+			
+			/* achText9 */
+			achText9 = new String[][] {
+					{"ALL ACHIEVEMENTS CLEARED",
+						"Become the ultimate ATCO!!",}
+			};
+			
 		}
-
-		
-		/*try {
-			Font awtFont = new Font("Courier New", Font.PLAIN, 20);
-			font = new TrueTypeFont(awtFont, false);
-		} catch(Exception e){
-			e.printStackTrace();
-		}*/
-
-		/*credits = new String[][] {
-				{"Music Assets",
-					"\"Jarvic 8\" Kevin MacLeod (incompetech.com)",
-					"Licensed under Creative Commons: By Attribution 3.0",
-					"http://creativecommons.org/licenses/by/3.0/"
-				},
-				{"Images",
-					"Loading screen plane created by Sallee Design",
-					"http://salleedesign.com/resources/plane-psd/"
-				},
-				{"Font",
-					"A love of thunder",
-					"Downloaded from DaFont",
-					"http://www.dafont.com/a-love-of-thunder.font"
-				}
-		};*/
 	}
 	
 
@@ -293,24 +407,183 @@ public class AchieveViewerState extends BasicGameState{
 	
 		/* Draw the menu background */
 		menuBackground.draw(0,0);
+	
+		//draw background panel
+		g.setColor(new Color(255, 200, 200, 50));	//grey, semi-transparent
+		g.fillRoundRect (50, 330, 1100, 220, 5);
+		g.setColor(new Color(255, 150, 80, 50));	//pale orange, semi-transparent
+		g.fillRoundRect (235, 235, 730, 90, 2);
+	
+		//draw correct images based on relevant bool in currentAchieved in the scroll area
+		blankAchievement.draw(scrollPosition -3*80, 240);
+		blankAchievement.draw(scrollPosition -2*80, 240);
+		blankAchievement.draw(scrollPosition -1*80, 240);
+		
+		if (currentAchieved.getSilverAchievementGained() == true){
+			silverImg.draw(scrollPosition + 0*80, 240);
+		} else {
+			silverUnachieved.draw(scrollPosition + 0*80, 240);
+			}
+		
+		if (currentAchieved.getGoldAchievementGained() == true){
+			goldImg.draw(scrollPosition + 1*80, 240);
+		} else {
+			goldUnachieved.draw(scrollPosition + 1*80, 240);
+			}
+		
+		if (currentAchieved.getTimeAchievementGained() == true){
+			timeImg.draw(scrollPosition + 2*80, 240);
+		} else {
+			timeUnachieved.draw(scrollPosition + 2*80, 240);
+			}
+		
+		if (currentAchieved.getNoPlaneLossAchievementGained() == true){
+			noPlanesLostImg.draw(scrollPosition + 3*80, 240);
+		} else {
+			noPlanesLostUnachieved.draw(scrollPosition + 3*80, 240);
+			}
+		
+		if (currentAchieved.getPlanesLandedAchievementGained() == true){
+			planesLandedImg.draw(scrollPosition + 4*80, 240);
+		} else {
+			planesLandedUnachieved.draw(scrollPosition + 4*80, 240);
+			}
+		
+		if (currentAchieved.getFlightPlanChangedAchievementGained() == true){
+			flightPlanChangedImg.draw(scrollPosition + 5*80, 240);
+		} else {
+			flightPlanChangedUnachieved.draw(scrollPosition + 5*80, 240);
+			}
+		
+		if (currentAchieved.getCrashAchievementGained() == true){
+			crashImg.draw(scrollPosition + 6*80, 240);
+		} else {
+			crashUnachieved.draw(scrollPosition + 6*80, 240);
+			}
+		
+		if (currentAchieved.getCompleteFlightPlanAchievementGained() == true){
+			completeFlightPlanImg.draw(scrollPosition + 7*80, 240);
+		} else {
+			completeFlightPlanUnachieved.draw(scrollPosition + 7*80, 240);
+			}
+		
+		if (currentAchieved.getAllAchievementsEarned() == true){
+			allAchievedImg.draw(scrollPosition + 8*80, 240);
+		} else {
+			allAchievedUnachieved.draw(scrollPosition + 8*80, 240);
+			}
+		
+		blankAchievement.draw(scrollPosition +9*80, 240);
+		blankAchievement.draw(scrollPosition +10*80, 240);
+		blankAchievement.draw(scrollPosition +11*80, 240);
+		
+		//draw side covers for achievement scrolling
+		sideCoverRight.draw(760,230);
+		sideCoverLeft.draw(0,230);		
 		
 		//draw hover buttons in correct locations
 		menuReturn.render(posX, posY);
-		silverAchieve.render(posX, posY);
-		goldAchieve.render(posX, posY);
-		timeAchieve.render(posX, posY);
-		noPlanesLostAchieve.render(posX, posY);
-		planesLandedAchieve.render(posX, posY);
-		flightPlanChangedAchieve.render(posX, posY); 
-		crashAchieve.render(posX, posY); 
-		completeFlightPlanAchieve.render(posX, posY); 
-		allAchievedAchieve.render(posX, posY);
+		scrollBack.render(posX, posY);
+		scrollForward.render(posX,  posY);
 		
-		//draw background panel
-		g.setColor(new Color(250, 235, 215, 50));	//pale orange, semi-transparent
-		g.fillRoundRect (50, 330, 1100, 220, 5);
-		g.fillRoundRect (235, 235, 730, 90, 2);
+		//declare position of text box
+		int y = 400;
+		int x = 350;
 		
+		g.setColor(Color.white);
+		
+		switch (achievementPosition){
+		case 1:
+			for (String[] section: achText1){
+				for (String line: section){
+					g.drawString(line, x, y);
+					y += 15;
+				}
+				y += 30;
+			}
+			
+			break;
+			
+		case 2:
+			for (String[] section: achText2){
+				for (String line: section){
+					g.drawString(line, x, y);
+					y += 15;
+				}
+				y += 30;
+			}
+			break;
+		
+		case 3:
+			for (String[] section: achText3){
+				for (String line: section){
+					g.drawString(line, x, y);
+					y += 15;
+				}
+				y += 30;
+			}
+			break;
+			
+		case 4:
+			for (String[] section: achText4){
+				for (String line: section){
+					g.drawString(line, x, y);
+					y += 15;
+				}
+				y += 30;
+			}
+			break;
+			
+		case 5:
+			for (String[] section: achText5){
+				for (String line: section){
+					g.drawString(line, x, y);
+					y += 15;
+				}
+				y += 30;
+			}
+			break;
+			
+		case 6:
+			for (String[] section: achText6){
+				for (String line: section){
+					g.drawString(line, x, y);
+					y += 15;
+				}
+				y += 30;
+			}
+			break;
+			
+		case 7:
+			for (String[] section: achText7){
+				for (String line: section){
+					g.drawString(line, x, y);
+					y += 15;
+				}
+				y += 30;
+			}
+			break;
+			
+		case 8:
+			for (String[] section: achText8){
+				for (String line: section){
+					g.drawString(line, x, y);
+					y += 15;
+				}
+				y += 30;
+			}
+			break;
+			
+		case 9:
+			for (String[] section: achText9){
+				for (String line: section){
+					g.drawString(line, x, y);
+					y += 15;
+				}
+				y += 30;
+			}
+			break;
+		}
 	}
 
 	/**
@@ -336,6 +609,24 @@ public class AchieveViewerState extends BasicGameState{
 				if (menuReturn.isMouseOver(posX, posY)){
 					sbg.enterState(stateContainer.Game.MENUSTATE);
 				}
+				
+				if (scrollForward.isMouseOver(posX, posY)){
+					if ((scrollPosition >-80)){
+						scrollPosition -= 80;
+						achievementPosition += 1;
+						System.out.println("scroll position" + scrollPosition);
+						System.out.println("achieve position" + achievementPosition);
+					}
+				}
+				
+				if (scrollBack.isMouseOver(posX, posY)){
+					if ((scrollPosition < 560)){
+						scrollPosition += 80;
+						achievementPosition -= 1;
+						System.out.println("scroll postion" + scrollPosition);
+						System.out.println("achieve position" + achievementPosition);
+					}
+				}
 			}
 			/* else mouse is dragged*/
 		}	
@@ -343,6 +634,19 @@ public class AchieveViewerState extends BasicGameState{
 		else if (!mouseBeenReleased){	
 			mouseBeenReleased = true;
 		}
+		
+
+		/*currentStatusImagesList.set(0, silverUnachieved);
+		private boolean silverAchievementGained 			= false;
+		private boolean goldAchievementGained 				= false;
+		private boolean timeAchievementGained 				= false;
+		private boolean noPlaneLossAchievementGained 		= false;
+		private boolean planesLandedAchievementGained 		= false;
+		private boolean flightPlanChangedAchievementGained 	= false;
+		private boolean crashAchievementGained 				= false;
+		private boolean completeFlightPlanAchievementGained = false;
+		
+		private boolean allAchievementsEarned				= false;*/
 	}
 
 	/**

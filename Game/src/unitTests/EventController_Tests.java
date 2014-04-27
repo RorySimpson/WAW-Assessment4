@@ -80,4 +80,48 @@ public class EventController_Tests {
 		eventController.updateRadioMalfunctionEvent(); 
 		*/
 	}
+	
+	@Test
+	public void newTornadoTimeTest(){
+		int time = eventController.newTornadoTime();
+		assertTrue(7200 <= time && time < 21599);
+	}
+	
+	@Test
+	public void spawnHunterFlightTest(){
+		eventController.setNextHunterFlightTime(1);
+		try {
+			assertTrue(eventController.spawnHunterFlight());
+		} catch (SlickException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		eventController.setNextHunterFlightTime(2);
+		try {
+			assertFalse(eventController.spawnHunterFlight());
+		} catch (SlickException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void spawnTornadoTest(){
+		eventController.setNextTornadoTime(1);
+		try {
+			assertTrue(eventController.spawnTornado());
+		} catch (SlickException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		eventController.setNextTornadoTime(2);
+		try {
+			assertFalse(eventController.spawnTornado());
+		} catch (SlickException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }

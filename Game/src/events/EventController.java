@@ -115,6 +115,7 @@ public class EventController {
 	
 	public void render (Graphics g, GameContainer gc) throws SlickException{
 		
+		this.volcano.render(g, gc);
 		
 		for (HunterFlight hunterFlight : listOfHunterFlights){
 			hunterFlight.render(g, gc);
@@ -124,7 +125,7 @@ public class EventController {
 			tornado.render(g, gc);
 		}
 		
-		this.volcano.render(g, gc);
+		
 	}
 	
 	
@@ -190,4 +191,21 @@ public class EventController {
 	public int getTimeUntilRadioMalfunction(){
 		return timeUntilRadioMalfunction;
 	}
+	
+	public int getNextHunterFlightTime(){
+		return nextHunterFlightTime;
+	}
+	
+	public void setNextHunterFlightTime(int nextHunterFlightTime){
+		this.nextHunterFlightTime = nextHunterFlightTime;
+	}
+	
+	public int getNextTornadoTime(){
+		return nextTornadoTime;
+	}
+	
+	public void setNextTornadoTime(int nextTornadoTime){
+		this.nextTornadoTime = nextTornadoTime;
+	}
+	
 }
