@@ -264,6 +264,10 @@ public class Controls {
 		selectedFlight = flight1;
 		menu.setFlight(flight1);
 	}
+	public void setSelectedFlight(Flight flight1, boolean bool){
+		selectedFlight = flight1;
+		
+	}
 	
 	public Flight getSelectedFlight(){
 		return selectedFlight;

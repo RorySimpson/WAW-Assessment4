@@ -48,16 +48,15 @@ public class Controls_Tests {
     	
 		flight = new Flight(airspace);
 		
-		controls = airspace.getControls();
 
 	}
 
 	@Test
 	public void testChangeModeByClickingOnFlight() {
-		airspace.getControls().setSelectedFlight(flight);
-		controls.getSelectedFlight().getFlightPlan().setChangingPlan(true);
-		controls.changeModeByClickingOnFlight();
-		assertTrue(controls.getSelectedFlight().getFlightPlan().getChangingPlan());
+		airspace.getControls().setSelectedFlight(flight,true);
+		airspace.getControls().getSelectedFlight().getFlightPlan().setChangingPlan(true);
+		airspace.getControls().changeModeByClickingOnFlight();
+		assertFalse(airspace.getControls().getSelectedFlight().getFlightPlan().getChangingPlan());
 	}
 
 	@Test
@@ -81,7 +80,11 @@ public class Controls_Tests {
 		Flight newFlight = new Flight(newAirspace);
 		
 		newAirspace.getListOfFlights().add(newFlight);
-		newAirspace.getControls().setSelectedFlight(newFlight);
+
+		newAirspace.getControls().setSelectedFlight(newFlight,true);
+
+		newAirspace.getControls().setSelectedFlight(newFlight, true);
+
 			
 		assertEquals(newFlight, newAirspace.getControls().getSelectedFlight());
 	}
