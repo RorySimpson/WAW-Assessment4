@@ -123,6 +123,10 @@ public class Tornado {
 		Random rand = new Random();
 		int directionx = rand.nextInt(4)-2;
 		int directiony = rand.nextInt(4)-2;
+		
+		// Below ensures that the tornado always moves
+		if(directionx == 0) directionx = 1;
+		if(directiony == 0) directiony = 1;
 				
 		if (countdownTillTornadoTriesToLeave > 0){
 			

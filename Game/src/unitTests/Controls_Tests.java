@@ -59,15 +59,6 @@ public class Controls_Tests {
 		assertFalse(airspace.getControls().getSelectedFlight().getFlightPlan().getChangingPlan());
 	}
 
-	@Test
-	public void testCheckSelected() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGiveHeadingWithMouse() {
-		fail("Not yet implemented");
-	}
 	
 	@Test // This also tests 'setSelectedFlight()'
 	// 		 No need to repeat test!

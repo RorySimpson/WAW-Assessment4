@@ -61,20 +61,6 @@ public class Flight implements Serializable{ //ignore, its for online mode, does
 
 
 	// CONSTRUCTOR
-	public Flight() { //Constructor for serialising
-		
-		this.x = 0;
-		this.y = 0;
-		this.targetAltitude = 0;
-		this.targetHeading = 0;
-		this.currentHeading = 0;
-		this.turningRight = false;
-		this.turningLeft = false;
-		//this.flightPlan = new FlightPlan(airspace, this);
-		//this.currentAltitude = generateAltitude();
-		this.selected = false;
-		
-	}
 	
 	public Flight(Airspace airspace) {
 		this.x = 0;
@@ -109,7 +95,7 @@ public class Flight implements Serializable{ //ignore, its for online mode, does
 
 	/**
 	 * generateAltitude: Randomly assigns one of three different altitudes to a flight
-	 * @return A random altitude (either 28000, 29000 or 30000)
+	 * @return A random altitude (either 3000, 4000 or 0)
 	 */
 
 	public int generateAltitude() {	//{!} not converted to using min/max
@@ -259,12 +245,8 @@ public class Flight implements Serializable{ //ignore, its for online mode, does
 		if ((distanceX <= RADIUS) && (distanceY <= RADIUS)) {
 			// The plane is going away from the way point
 			if (closestDistance < distanceFromWaypoint){
-				System.out.println("Here");
 				if (waypoint instanceof ExitPoint){
-					System.out.println("Here");
 					if (((ExitPoint)waypoint).isRunway()){
-						System.out.println("Here");
-						System.out.println(currentAltitude<1000);
 						return currentAltitude<1000;
 					}
 					else return true;					

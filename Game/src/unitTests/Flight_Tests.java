@@ -45,7 +45,7 @@ public class Flight_Tests {
 	public void generateAltitudeTest1() {
 		// Testing the function returns an altitude within a certain range.
     	int result = flight1.generateAltitude();
-    	assertTrue(result >=27000 && result<= 30000);
+    	assertTrue(result >=3000 && result<= 4000);
     	
 	}
 	
@@ -168,24 +168,19 @@ public class Flight_Tests {
 	
 	@Test
 	public void checkIfFlightAtWaypointTest1(){
-		// Test that waypoint detection works at exactly 15 pixels away.
+		// Test that waypoint detection works at within 15 pixels.
 		Waypoint waypoint = new Waypoint(350, 150, "TEST");
+		flight1.setX(350);
+		flight1.setY(150);
+		flight1.checkIfFlightAtWaypoint(waypoint);
 		flight1.setX(335);
 		flight1.setY(135);
 		assertTrue(flight1.checkIfFlightAtWaypoint(waypoint));
 	}
 	
-	@Test
-	public void checkIfFlightAtWaypointTest2(){
-		// Test that waypoint detection works at within 15 pixels .
-		Waypoint waypoint = new Waypoint(350, 150, "TEST");
-		flight1.setX(350);
-		flight1.setY(150);
-		assertTrue(flight1.checkIfFlightAtWaypoint(waypoint));
-	}
 	
 	@Test
-	public void checkIfFlightAtWaypointTest3(){
+	public void checkIfFlightAtWaypointTest2(){
 		// // Test that waypoint detection doesn't work further than 15 pixels away.
 		Waypoint waypoint = new Waypoint(350, 150, "TEST");
 		flight1.setX(1000);
@@ -194,7 +189,7 @@ public class Flight_Tests {
 	}
 	
 	@Test
-	public void checkIfFlightAtWaypointTest4(){
+	public void checkIfFlightAtWaypointTest3(){
 		// Test that waypoint detection works when close enough in terms of 
 		// Y coordinate but too far away in terms of X cooordinate
 		Waypoint waypoint = new Waypoint(350, 150, "TEST");
@@ -204,7 +199,7 @@ public class Flight_Tests {
 	}
 	
 	@Test
-	public void checkIfFlightAtWaypointTest5(){
+	public void checkIfFlightAtWaypointTest4(){
 		// Test that waypoint detection works when close enough in terms of 
 		// X coordinate but too far away in terms of Y cooordinate
 		Waypoint waypoint = new Waypoint(350, 150, "TEST");
@@ -241,7 +236,7 @@ public class Flight_Tests {
 		flight1.setAltitude(27000);
 		flight1.setTargetAltitude(28000);
 		flight1.updateAltitude();
-		assertEquals(27001, flight1.getAltitude(), 0.1);
+		assertEquals(27005, flight1.getAltitude(), 0.1);
 		
 	}
 	
@@ -258,7 +253,7 @@ public class Flight_Tests {
 	@Test
 	public void updateAltitudeTest3(){
 		// Testing that the Flight moves towards the target altitude.
-		flight1.setCurrentAltitude(26999);
+		flight1.setCurrentAltitude(26995);
 		flight1.setTargetAltitude(27000);
 		flight1.updateAltitude();
 		assertEquals(27000, flight1.getAltitude(), 0.1);
@@ -271,14 +266,14 @@ public class Flight_Tests {
 		flight1.setCurrentAltitude(28000);
 		flight1.setTargetAltitude(27000);
 		flight1.updateAltitude();
-		assertEquals(27999, flight1.getAltitude(), 0.1);
+		assertEquals(27995, flight1.getAltitude(), 0.1);
 		
 	}
 	
 	@Test
 	public void updateAltitudeTest5(){
 		// Testing that the Flight moves towards the target altitude.
-		flight1.setCurrentAltitude(27001);
+		flight1.setCurrentAltitude(27005);
 		flight1.setTargetAltitude(27000);
 		flight1.updateAltitude();
 		assertEquals(27000, flight1.getAltitude(), 0.1);
@@ -296,7 +291,7 @@ public class Flight_Tests {
 		flight1.updateCurrentHeading();
 		assertTrue(flight1.getTurningRight());
 		assertFalse(flight1.getTurningLeft());
-		assertEquals(288.5, flight1.getCurrentHeading(), 0.1);
+		assertEquals(288.9, flight1.getCurrentHeading(), 0.1);
 		
 	}
 	
@@ -308,7 +303,7 @@ public class Flight_Tests {
 		flight1.updateCurrentHeading();
 		assertTrue(flight1.getTurningLeft());
 		assertFalse(flight1.getTurningRight());
-		assertEquals(287.5, flight1.getCurrentHeading(), 0.1);
+		assertEquals(287.1, flight1.getCurrentHeading(), 0.1);
 		
 	}
 	
@@ -320,7 +315,7 @@ public class Flight_Tests {
 		flight1.updateCurrentHeading();
 		assertTrue(flight1.getTurningRight());
 		assertFalse(flight1.getTurningLeft());
-		assertEquals(270.5, flight1.getCurrentHeading(), 0.1);
+		assertEquals(270.9, flight1.getCurrentHeading(), 0.1);
 		
 	}
 	
@@ -332,7 +327,7 @@ public class Flight_Tests {
 		flight1.updateCurrentHeading();
 		assertTrue(flight1.getTurningRight());
 		assertFalse(flight1.getTurningLeft());
-		assertEquals(288.5, flight1.getCurrentHeading(), 0.1);
+		assertEquals(288.9, flight1.getCurrentHeading(), 0.1);
 		
 	}
 	
@@ -344,7 +339,7 @@ public class Flight_Tests {
 		flight1.updateCurrentHeading();
 		assertTrue(flight1.getTurningRight());
 		assertFalse(flight1.getTurningLeft());
-		assertEquals(150.5, flight1.getCurrentHeading(), 0.1);
+		assertEquals(150.9, flight1.getCurrentHeading(), 0.1);
 		
 	}
 	
@@ -356,7 +351,7 @@ public class Flight_Tests {
 		flight1.updateCurrentHeading();
 		assertTrue(flight1.getTurningLeft());
 		assertFalse(flight1.getTurningRight());
-		assertEquals(19.5, flight1.getCurrentHeading(), 0.1);
+		assertEquals(19.1, flight1.getCurrentHeading(), 0.1);
 		
 	}
 	

@@ -148,10 +148,12 @@ public class SeparationRules_Tests {
 		flight1.setY(1);
 		tornado.setX(1);
 		tornado.setY(1);
-		
+		airspace.getListOfFlights().add(flight1);
+		airspace.getEventController().getListOfTornados().add(tornado);
 		separationRules.checkTornadoOnFlightCollision(airspace);
-		assertTrue(flight1.getAltitude() >= 2000 && flight1.getAltitude() <= 5000
+		assertTrue(flight1.getCurrentAltitude() >= 2000 && flight1.getCurrentAltitude() <= 5000
 				   && flight1.getCurrentHeading() >= 0 && flight1.getCurrentHeading() <= 360);
+		
 	}
 	
 	@Test

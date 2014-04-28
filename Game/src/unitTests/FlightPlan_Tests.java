@@ -158,13 +158,16 @@ public class FlightPlan_Tests {
 	}
 	
 	@Test
-	public void updateFlightPlanTest(){
+	public void updateFlightPlanTest1(){
 		
 		// Tests that a waypoint is removed from the flightplan when visited.
 		int previousSize = flight1.getFlightPlan().getCurrentRoute().size();
 		flight1.setX(flight1.getFlightPlan().getCurrentRoute().get(0).getX());
 		flight1.setY(flight1.getFlightPlan().getCurrentRoute().get(0).getY());
-		flight1.update(score);
+		flight1.getFlightPlan().updateFlightPlan(new ScoreTracking());
+		flight1.setX(flight1.getFlightPlan().getCurrentRoute().get(0).getX() + 10);
+		flight1.setY(flight1.getFlightPlan().getCurrentRoute().get(0).getY() + 10);
+		flight1.getFlightPlan().updateFlightPlan(new ScoreTracking());
 		assertEquals(previousSize - 1, flight1.getFlightPlan().getCurrentRoute().size(), 0);
 		
 	}
