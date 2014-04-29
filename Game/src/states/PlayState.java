@@ -61,8 +61,6 @@ public class PlayState extends BasicGameState {
 	protected String stringTime;
 	protected int counter = 0;
 
-	protected String clockString;
-
     /* Airspace object */
 	protected Airspace airspace;
 

@@ -213,7 +213,7 @@ public class MenuState extends BasicGameState {
 				mouseBeenReleased = false;
 				
 				if (play.isMouseOver(posX, posY)) {
-					sbg.enterState(stateContainer.Game.PLAYSTATE);
+					sbg.enterState(stateContainer.Game.MODESTATE);
 				}
 				
 				if (controls.isMouseOver(posX, posY)) {

@@ -35,7 +35,8 @@ public class Game extends StateBasedGame {
 		GAMEOVERLOADINGSTATE = 13,
 		PAUSECOMPETITIVESTATE = 14,
 		GAMEOVERCOMPETITIVESTATE = 15,
-		GAMEOVERCOOPSTATE = 16;
+		GAMEOVERCOOPSTATE = 16,
+		MODESTATE = 17;
 	
 
 	
@@ -78,10 +79,7 @@ public class Game extends StateBasedGame {
 		addState(new PauseCompetitiveState(PAUSECOMPETITIVESTATE));
 		addState(new GameOverCompetitiveState(GAMEOVERCOMPETITIVESTATE));
 		addState(new GameOverCoopState(GAMEOVERCOOPSTATE));
-		
-		
-		
-		
+		addState(new ModeSelectState(MODESTATE));
 	}
 	
 	public String getPreviousCompetitiveModeWinner() {
