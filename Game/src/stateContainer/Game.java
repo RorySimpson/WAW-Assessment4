@@ -16,7 +16,7 @@ import logicClasses.Achievements;
 
 public class Game extends StateBasedGame {
 
-	public static final String NAME = "When Planes Collide";
+	public static final String NAME = "Expect Turbulence";
 	
 	public static final int 
 		SPLASHSTATE = 0,

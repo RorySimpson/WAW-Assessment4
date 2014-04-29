@@ -86,9 +86,17 @@ public class FlightCompetitive extends Flight {
 	
 	}
 	
+	/**
+	 * turnRight: Turns flight directly without using target heading
+	 */
+	
 	public void turnRight(){
 		currentHeading = (currentHeading + 3) % 360;
 	}
+	
+	/**
+	 * turnLeft: Turns flight directly without using target heading
+	 */
 	
 	public void turnLeft(){
 		currentHeading = currentHeading - 3;
@@ -195,10 +203,10 @@ public class FlightCompetitive extends Flight {
 		double distanceFromRunway;
 
 
-		distanceFromRunway 	=  Math.sqrt(Math.pow(this.x-this.airspace.getAirportRight().getBeginningOfRunway().getX(), 2)
-				+ Math.pow(this.y-this.airspace.getAirportRight().getBeginningOfRunway().getY(), 2));
+		distanceFromRunway 	=  Math.sqrt(Math.pow(this.x - this.airspace.getAirportRight().getBeginningOfRunway().getX(), 2)
+				+ Math.pow(this.y - this.airspace.getAirportRight().getBeginningOfRunway().getY(), 2));
 
-		double descentPerPixel 		= this.currentAltitude/distanceFromRunway;
+		double descentPerPixel 	= this.currentAltitude/distanceFromRunway;
 
 		rate = descentPerPixel* (this.velocity * gameScale);
 

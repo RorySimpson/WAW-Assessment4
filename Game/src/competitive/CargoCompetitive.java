@@ -22,7 +22,7 @@ public class CargoCompetitive {
 	Image cargoImage;
 
 
-	CargoCompetitive(){
+	public CargoCompetitive(){
 		this.location = generateRandomCargoLocation();
 		this.currentHolder = null;
 	}
