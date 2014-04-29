@@ -39,7 +39,10 @@ public class PlayState extends BasicGameState {
 		backgroundImage, difficultyBackground,
 		statusBarImage, clockImage, windImage,
 		flightIcon,messageBoxImage, scoreCoinImage,
-		cursorImg, achievementBox, soundOffImage, soundOnImage, pauseImage;
+		cursorImg, achievementBox, soundOffImage, 
+		soundOnImage, pauseImage, moonImage, sunImage,
+		dayTimeImage;
+
 
     /* Explosion animation for crashes */
 	protected Animation explosion;
@@ -57,6 +60,8 @@ public class PlayState extends BasicGameState {
 	protected static float time;
 	protected String stringTime;
 	protected int counter = 0;
+
+	protected String clockString;
 
     /* Airspace object */
 	protected Airspace airspace;
@@ -87,6 +92,7 @@ public class PlayState extends BasicGameState {
 	/* Constants to dictate how low should the brightness go to */
 	protected static final int MAXIMUMBRIGHTNESS = 255;
 	protected static final int MINIMUMBRIGHTNESS = 25;
+
     /* How long should the day last */
 	protected int countdownToLightReduction = 40;
 
@@ -292,6 +298,20 @@ public class PlayState extends BasicGameState {
 					"res/graphics/new/coin.png"){
 				public void loadFile(String filename) throws SlickException{
 					scoreCoinImage = new Image(filename);
+                        }
+				});
+
+			loading.add(new DeferredFile(
+					"res/graphics/new/moon.png"){
+				public void loadFile(String filename) throws SlickException{
+					moonImage = new Image(filename);
+                        }
+				});
+
+			loading.add(new DeferredFile(
+					"res/graphics/new/sun.png"){
+				public void loadFile(String filename) throws SlickException{
+					sunImage = new Image(filename);
 				}
 			});
 			
@@ -459,10 +479,11 @@ public class PlayState extends BasicGameState {
 
 			// Set font for the rest of the rendering
 			g.setFont(font);
-			
+
 			/* Accommodate day/night transition */
 			if(countdownToLightReduction != 0){
 				countdownToLightReduction --;
+
 			}
 			/* Check if it's night or day. 25 is the 
 			 * minimum value that we drop to */
@@ -503,8 +524,6 @@ public class PlayState extends BasicGameState {
 					green --;
 					brightness = new Color( red , blue, green);
 				}
-				
-				
 			}
 			
 			
@@ -522,7 +541,14 @@ public class PlayState extends BasicGameState {
 			g.setColor(Color.white);
 			clockImage.draw(6,565);
 			g.drawString(stringTime, 31, 570);
-			
+
+			// Drawing moon and sun
+			dayTimeImage = (red > (MAXIMUMBRIGHTNESS - MINIMUMBRIGHTNESS)/2) ? sunImage:moonImage;
+			String dayTimeString = (dayTimeImage == sunImage) ? "Daytime":"Nighttime";
+
+			dayTimeImage.draw(160,570);
+			g.drawString(dayTimeString, 190, 570);
+
 			// Drawing Score
 			scoreCoinImage.draw(90, 573);
 			g.drawString(airspace.getScore().toString(), 110, 570);
