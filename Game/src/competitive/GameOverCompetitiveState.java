@@ -105,7 +105,7 @@ public class GameOverCompetitiveState extends BasicGameState {
 		
 		int	posX = Mouse.getX();
 		int posY = stateContainer.Game.MAXIMUMHEIGHT -Mouse.getY();
-			//Fixing posY to reflect graphics coords
+		//Fixing posY to reflect graphics coords
 		
 		// Menu Button
 		if (posX > 728 && posX < 844 && posY > 380 && posY < 426)

@@ -24,11 +24,13 @@ public class HunterFlight {
 	private EntryPoint entryPoint;
 	private Flight victim;
 	private boolean turningLeft, turningRight, hasVictim;
+	private Airspace airspace;
 	
 	
 	public HunterFlight(Airspace airspace){
 		x = generateX();
 		y = -10;
+		this.airspace = airspace;
 		currentHeading = 225;
 		targetHeading = 225;
 		velocity = 150;
@@ -59,7 +61,7 @@ public class HunterFlight {
 	
 	public void calculateHeadingToVictim() {
 		
-		if (victim != null){
+		if (victim != null || airspace.checkIfFlightHasLeftAirspace(victim)){
 			double deltaX;
 			double deltaY;
 			deltaY = victim.getY() - y;
