@@ -544,8 +544,8 @@ public class PlayState extends BasicGameState {
 			dayTimeImage = (red > (MAXIMUMBRIGHTNESS - MINIMUMBRIGHTNESS)/2) ? sunImage:moonImage;
 			String dayTimeString = (dayTimeImage == sunImage) ? "Daytime":"Nighttime";
 
-			dayTimeImage.draw(160,570);
-			g.drawString(dayTimeString, 190, 570);
+			dayTimeImage.draw(260,570);
+			g.drawString(dayTimeString, 290, 570);
 
 			// Drawing Score
 			scoreCoinImage.draw(90, 573);

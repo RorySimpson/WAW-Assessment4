@@ -6,6 +6,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.loading.LoadingList;
 import org.newdawn.slick.geom.*;
 
+import stateContainer.Game;
 import util.DeferredFile;
 
 
@@ -136,6 +137,8 @@ public class Airport {
 	
 	public void render(Graphics g, GameContainer gc) throws SlickException { 
 		
+		g.setWorldClip(11, 0, Game.MAXIMUMWIDTH -11, Game.MAXIMUMHEIGHT-40);
+		
 		airportImage.setRotation(runwayHeading);
 		// Airport image centred in middle of airspace
 		if (airportNumber == 1){
@@ -157,6 +160,8 @@ public class Airport {
 				
 			}
 		}
+		
+		g.setWorldClip(0, 0, Game.MAXIMUMWIDTH, Game.MAXIMUMHEIGHT);
 		
 	} 
 	
