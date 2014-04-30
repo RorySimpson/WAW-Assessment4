@@ -34,6 +34,8 @@ import states.PlayState;
 import util.DeferredFile;
 
 public class PlayCoopState extends PlayState {
+	
+	protected float time;
 
 
 	private AirspaceCoop airspace;

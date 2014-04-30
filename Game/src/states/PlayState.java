@@ -57,7 +57,7 @@ public class PlayState extends BasicGameState {
 	protected  static TrueTypeFont panelFont;	
 
     /* Timer  */
-	protected static float time;
+	protected float time;
 	protected String stringTime;
 	protected int counter = 0;
 

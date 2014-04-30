@@ -40,6 +40,7 @@ public class PlayCompetitiveState extends PlayState {
 	private boolean explosionOccurs = false;
 	private float decMins, decSecs, secondsOccured;
 	private int secs;
+	protected float time;
 
 
 	public PlayCompetitiveState(int state) {
