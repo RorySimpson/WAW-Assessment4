@@ -345,6 +345,7 @@ public class PlayCompetitiveState extends PlayState {
 		if (gameEnded){
 
 			airspace.resetAirspace();
+			airspace.init(gc);
 			time = 0;
 			gameEnded = false;
 			airspace.getScore().resetScore();
