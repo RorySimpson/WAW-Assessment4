@@ -44,9 +44,13 @@ public class HunterFlight {
 		if (airspace.getListOfFlightsInAirspace().size() == 0){
 			;
 		}
-		else{
-			hasVictim = true;
-			victim = airspace.getListOfFlightsInAirspace().get(0);
+		else {
+			for (int i = 0; i < airspace.getListOfFlightsInAirspace().size(); i++){
+				if (!airspace.getListOfFlightsInAirspace().get(i).getFlightPlan().getEntryPoint().isRunway()){
+					hasVictim = true;
+					victim = airspace.getListOfFlightsInAirspace().get(i);
+				}
+			}
 		}
 	}
 	
