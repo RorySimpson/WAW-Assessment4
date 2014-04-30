@@ -94,7 +94,13 @@ public class GameOverCompetitiveState extends BasicGameState {
 		gameOverBackground.draw(0,0);
 		
 		winner = ((Game)sbg).getPreviousCompetitiveModeWinner();
-		g.drawString(winner + " has won ", 600,500);
+		if(winner == "Draw"){
+			g.drawString(winner, 600,500);
+		}
+		
+		else{
+			g.drawString(winner + " has won ", 600,500);
+		}
 		
 		
 		int	posX = Mouse.getX();
@@ -102,12 +108,12 @@ public class GameOverCompetitiveState extends BasicGameState {
 			//Fixing posY to reflect graphics coords
 		
 		// Menu Button
-		if (posX>728&&posX<844&&posY>380&&posY<426)
+		if (posX > 728 && posX < 844 && posY > 380 && posY < 426)
 			menuHover.draw(728,380);
 		else menuButton.draw(728,380);
 		 
 		// Play Again Button
-		if (posX>354&&posX<582&&posY>380&&posY<424)
+		if (posX > 354 && posX < 582 && posY > 380 && posY < 424)
 			playAgainHover.draw(354,380);
 		else playAgainButton.draw(354,380);
 		

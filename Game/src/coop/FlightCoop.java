@@ -177,11 +177,23 @@ public class FlightCoop extends Flight {
 						g.drawString("Lower Me",(int) this.getX() -29, (int)this.getY()-28);
 					}
 					
+					else if (this.getFlightPlan().getCurrentRoute().get(0) == this.getAirspace().getAirportRight().getBeginningOfRunway() && this.getCurrentAltitude() > 2000){
+						g.drawString("Lower Me",(int) this.getX() -29, (int)this.getY()-28);
+					}
+					
 					else if (this.getFlightPlan().getCurrentRoute().get(0) == this.getAirspace().getAirportLeft().getBeginningOfRunway() && this.getCurrentAltitude() <= 2000){
 						g.drawString("Line Me Up",(int) this.getX() -33, (int)this.getY()-28);
 					}
 					
+					else if (this.getFlightPlan().getCurrentRoute().get(0) == this.getAirspace().getAirportRight().getBeginningOfRunway() && this.getCurrentAltitude() <= 2000){
+						g.drawString("Line Me Up",(int) this.getX() -33, (int)this.getY()-28);
+					}
+					
 					else if (this.getFlightPlan().getCurrentRoute().get(0) == this.getAirspace().getAirportLeft().getBeginningOfRunway() && this.getCurrentAltitude() <= 2000){
+						g.drawString("Landing",(int) this.getX() -33, (int)this.getY()-28);
+					}
+					
+					else if (this.getFlightPlan().getCurrentRoute().get(0) == this.getAirspace().getAirportRight().getBeginningOfRunway() && this.getCurrentAltitude() <= 2000){
 						g.drawString("Landing",(int) this.getX() -33, (int)this.getY()-28);
 					}
 					
