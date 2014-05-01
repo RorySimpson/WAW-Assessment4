@@ -20,8 +20,8 @@ public class Connection {
 			BufferedReader in = new BufferedReader(new InputStreamReader(httpcon.getInputStream()));
 
 			// Store returned data to hashtable. The data is in the format
-			// name:score, with each key => value pair being on a newline.
-			String inputLine;
+			// name^%:^%score, with each key => value pair being on a newline.
+			String inputLine; 
 			while ((inputLine = in.readLine()) != null) {
 				scores.add(inputLine);
 			}
@@ -43,7 +43,7 @@ public class Connection {
 	
 	public int getLowestScore(){
 		getScores();
-		String[] parts = scores.get(scores.size() - 1).split(":");
+		String[] parts = scores.get(scores.size() - 1).split(":::");
 		return Integer.parseInt(parts[1]);
 	}
 	
