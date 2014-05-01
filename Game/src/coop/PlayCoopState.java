@@ -589,7 +589,7 @@ public class PlayCoopState extends PlayState {
 			airspace.newCoopFlight(gc);
 			airspace.update(gc);
 			if (airspace.getSeparationRules().getGameOverViolation() == true){
-				achievementMessage = achievement.crashAchievement((int) time); //pass the game time as of game over into the crashAchievement
+				achievement.crashAchievement();
 				airspace.getSeparationRules().setGameOverViolation(false);
 				gameplayMusic.stop();
 				endOfGameSound.play();

@@ -326,6 +326,8 @@ public class Flight implements Serializable{ //ignore, its for online mode, does
 			}
 
 		}
+		
+		airspace.getScore().getAchievements().planeLandedAchievement();
 	}
 
 	public void steerLandingFlight(){

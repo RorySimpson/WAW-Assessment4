@@ -19,6 +19,7 @@ import stateContainer.Game;
 public class Airspace {
 
 	private int maximumNumberOfFlightsInAirspace;
+	private int flightLostTimer; //helps track for achievement
 	protected int	numberOfGameLoopsSinceLastFlightAdded;
 	protected int numberOfGameLoops;
 	protected int numberOfGameLoopsWhenDifficultyIncreases;
@@ -358,16 +359,24 @@ public class Airspace {
 			this.listOfFlightsInAirspace.get(i).update(score);
 			if(this.listOfFlightsInAirspace.get(i).getFlightPlan().getCurrentRoute().size()==0) {
 				this.removeSpecificFlight(i);
+				score.procCompleteFlightAchieve();
 			}
 			else if (this.checkIfFlightHasLeftAirspace(this.getListOfFlights().get(i))) {
 				if(this.getListOfFlights().get(i).isControllable()){
 					score.reduceScoreOnFlightLost();
 					score.reduceMultiplierOnFlightLost();
+					this.flightLostTimer = 0;
 					
 				}
 				this.removeSpecificFlight(i);
 			}
 			
+		}
+		
+		//tracking for minutes without flight lost achievement
+		flightLostTimer += 1;
+		if (flightLostTimer >= 3000){
+			score.procminsWithoutPlaneLossAchievement();
 		}
 		
 		this.eventController.update(gc);
