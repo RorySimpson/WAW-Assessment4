@@ -117,7 +117,7 @@ public class GameOverState extends BasicGameState {
 		// Check to see if a new global high score has been set (top 10 scores)
 		int score = ((Game)sbg).getCurrentScore();
 		int lowestScore = connection.getLowestScore();
-
+		
 		connection.clearData();
 
 		/* If current score bigger than the lowest score */

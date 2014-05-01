@@ -28,10 +28,10 @@ public class Connection {
 			in.close();
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
-			scores.add("ERROR:Sorry, we couldn't load highscores!");
+			scores.add("ERROR:::Sorry, we couldn't load highscores!");
 		} catch (IOException e) {
 			e.printStackTrace();
-			scores.add("ERRORSorry, we couldn't load highscores!");
+			scores.add("ERROR:::Sorry, we couldn't load highscores!");
 		}
 		return scores;
 	}
@@ -44,6 +44,9 @@ public class Connection {
 	public int getLowestScore(){
 		getScores();
 		String[] parts = scores.get(scores.size() - 1).split(":::");
+		if (parts[1] == "Sorry, we couldn't load highscores!"){
+			return 0;
+		}
 		return Integer.parseInt(parts[1]);
 	}
 	
