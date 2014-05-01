@@ -44,10 +44,11 @@ public class Connection {
 	public int getLowestScore(){
 		getScores();
 		String[] parts = scores.get(scores.size() - 1).split(":::");
-		if (parts[1] == "Sorry, we couldn't load highscores!"){
-			return 0;
+		System.out.println(parts[1]);
+		if (parts[1].equals("Sorry, we couldn't load highscores!")){
+			return 999999999;
 		}
-		return Integer.parseInt(parts[1]);
+			return Integer.parseInt(parts[1]);
 	}
 	
 	public Boolean sendNewScore(String Name, int Score){
