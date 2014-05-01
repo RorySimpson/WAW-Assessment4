@@ -44,7 +44,6 @@ public class Connection {
 	public int getLowestScore(){
 		getScores();
 		String[] parts = scores.get(scores.size() - 1).split(":::");
-		System.out.println(parts[1]);
 		if (parts[1].equals("Sorry, we couldn't load highscores!")){
 			return 999999999;
 		}
