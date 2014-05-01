@@ -150,7 +150,7 @@ public class MenuState extends BasicGameState {
 				play = new HoverImage(playButton, playHover, 439, 349);
 				quit = new HoverImage(quitButton, quitHover, 1078, 539);
 				credits = new HoverImage(creditsButton, creditsHover, 20, 537);
-				controls = new HoverImage(controlsButton, controlsHover, 490, 534);
+				controls = new HoverImage(controlsButton, controlsHover, 490, 533);
 				score = new HoverImage(scoreButton, scoreHover, 223, 540);
 				achieve = new HoverImage(achieveButton, achieveHover, 765, 540);
 			}
