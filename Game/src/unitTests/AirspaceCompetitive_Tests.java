@@ -7,7 +7,7 @@ import competitive.*;
 import org.junit.Test;
 import org.junit.Before;
 
-public class Airspace_Competitive_Tests {
+public class AirspaceCompetitive_Tests {
 	
 	private AirspaceCompetitive airspace;
 	private  FlightCompetitive flight1;
