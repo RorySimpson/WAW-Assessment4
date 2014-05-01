@@ -111,7 +111,7 @@ public class ScoreState extends BasicGameState {
 		int y = 300;
 		
 		for (String s : scores) {
-			String[] parts = s.split(":");
+			String[] parts = s.split(":::");
 			g.drawString(parts[0],500,y);
 		    g.drawString(parts[1],700,y);
 		    y += 25;
