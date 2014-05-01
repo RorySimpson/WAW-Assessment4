@@ -722,7 +722,7 @@ public class PlayState extends BasicGameState {
 
 			/* Check if user deserves an achievement for staying
 			 * long enough in the game */
-			achievement.timeAchievement((int) time);
+			airspace.getScore().getAchievements().timeAchievement((int) time);
 
 			/* For computing the  time in a readable format */
 			float decMins=time/1000/60;
@@ -788,8 +788,7 @@ public class PlayState extends BasicGameState {
 
 			/* If there is a crash */
 			if (airspace.getSeparationRules().getGameOverViolation()){
-                //pass the game time as of game over into the crashAchievement
-				achievementMessage = achievement.crashAchievement((int) time); 
+				airspace.getScore().getAchievements().crashAchievement();
 				airspace.getSeparationRules().setGameOverViolation(false);
 
 				/* Set the achievements */

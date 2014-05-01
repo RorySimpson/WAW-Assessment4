@@ -345,14 +345,13 @@ public class AchieveViewerState extends BasicGameState{
 			/* achText4 */
 			achText4 = new String[][] {
 					{"No Planes Lost",
-						"Play for long enough where no planes leave without fulfilling",
-						"their flight plan!"}
+						"Play for long enough where no planes leave without fulfilling their flight plan!"}
 			};
 			
 			/* achText5 */
 			achText5 = new String[][] {
-					{"Planes Landed",
-						"Land enough planes to fulfill your end game ATCO fantasy!!",}
+					{"Plane Landed",
+						"Land a plane and fulfill your end game ATCO fantasy!!",}
 			};
 			
 			/* achText6 */
@@ -400,7 +399,7 @@ public class AchieveViewerState extends BasicGameState{
 	
 		//draw background panel
 		g.setColor(new Color(255, 200, 200, 50));	//grey, semi-transparent
-		g.fillRoundRect (50, 330, 1100, 220, 5);
+		g.fillRoundRect (50, 330, 1100, 75, 5);
 		g.setColor(new Color(255, 150, 80, 50));	//pale orange, semi-transparent
 		g.fillRoundRect (235, 235, 730, 90, 2);
 	
@@ -433,7 +432,7 @@ public class AchieveViewerState extends BasicGameState{
 			locked.draw(scrollPosition + 3*80, 240);
 			}
 		
-		if (currentAchieved.getPlanesLandedAchievementGained() == true){
+		if (currentAchieved.getPlaneLandedAchievementGained() == true){
 			planesLandedImg.draw(scrollPosition + 4*80, 240);
 		} else {
 			locked.draw(scrollPosition + 4*80, 240);
@@ -477,8 +476,8 @@ public class AchieveViewerState extends BasicGameState{
 		scrollForward.render(posX,  posY);
 		
 		//declare position of text box
-		int y = 400;
-		int x = 500;
+		int y = 350;
+		int x = 100;
 		
 		g.setColor(Color.white);
 		

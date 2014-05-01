@@ -113,6 +113,15 @@ public class ScoreTracking {
 		currentMultiplier = 1;
 	}
 	
+	//Assists with achievement events
+	public void procCompleteFlightAchieve(){
+		achievements.completeFlightPlanAchievement();
+	}
+	
+	public void procminsWithoutPlaneLossAchievement(){
+		achievements.minsWithoutPlaneLossAchievement();
+	}
+	
 	public boolean getNegMult(){
 		return this.negMult;
 	}

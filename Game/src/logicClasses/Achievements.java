@@ -5,7 +5,7 @@ public class Achievements {
 	//FIELDS
 	private int numberOfAchievements 			= 0;
 	private static final int MAXACHIEVEMENTS 	= 8; //not including all achivements earned
-	private static final int ACHIEVEMENTTIME 	= 0;
+	private static final int ACHIEVEMENTTIME 	= 60000;
 	private String achievementMessage 			= "";
 	
 	//Achievements gained booleans
@@ -13,7 +13,7 @@ public class Achievements {
 	private boolean goldAchievementGained 				= false;
 	private boolean timeAchievementGained 				= false;
 	private boolean noPlaneLossAchievementGained 		= false;
-	private boolean planesLandedAchievementGained 		= false;
+	private boolean planeLandedAchievementGained 		= false;
 	private boolean flightPlanChangedAchievementGained 	= false;
 	private boolean crashAchievementGained 				= false;
 	private boolean completeFlightPlanAchievementGained = false;
@@ -79,9 +79,9 @@ public class Achievements {
 		return achievementMessage;
 	}
 	
-	public String crashAchievement(int gameTime){
+	public String crashAchievement(){
 		
-		if (gameTime <= 40000 && crashAchievementGained == false){
+		if (crashAchievementGained == false){
 			//then display achievement
 			achievementMessage = "Crash Achievement Gained";
 			completeAchievement();
@@ -101,7 +101,6 @@ public class Achievements {
 		return achievementMessage;
 	}
 	
-	//Never Called!!
 	public String completeFlightPlanAchievement(){
 		if (completeFlightPlanAchievementGained == false){
 		//display achievement
@@ -113,27 +112,22 @@ public class Achievements {
 	}
 	
 	//Never Called!!
-	public String minsWithoutPlaneLossAchievement(int timeWithoutLoss){
+	public String minsWithoutPlaneLossAchievement(){
 		if (noPlaneLossAchievementGained == false){
-			if (timeWithoutLoss >= 10){
 				//display achievement
 				achievementMessage = "Time Without Losing Plane Achievement Gained";
 				completeAchievement();
 				noPlaneLossAchievementGained = true;
-			}
 		}
 		return achievementMessage;
 	}
 	
-	//Never Called!!
-	public String planesLandedAchievement(int planesLanded){
-		if (planesLandedAchievementGained == false){
-			if (planesLanded >= 10){
-				//display achievement
+	
+	public String planeLandedAchievement(){
+		if (planeLandedAchievementGained == false){
 				achievementMessage = "Landing Achievement Gained";
 				completeAchievement();
-				planesLandedAchievementGained = true;
-			}
+				planeLandedAchievementGained = true;
 		}
 		return achievementMessage;
 	}
@@ -172,8 +166,8 @@ public class Achievements {
 		return noPlaneLossAchievementGained;
 	}
 	
-	public boolean getPlanesLandedAchievementGained(){
-		return planesLandedAchievementGained;
+	public boolean getPlaneLandedAchievementGained(){
+		return planeLandedAchievementGained;
 	}
 	
 	public boolean getFlightPlanChangedAchievementGained(){
