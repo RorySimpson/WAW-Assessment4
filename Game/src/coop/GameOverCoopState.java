@@ -136,7 +136,7 @@ public class GameOverCoopState extends BasicGameState {
 		if ((posX > 1150 && posX < 1170) && (posY > 550 && posY < 580))
 			quitHover.draw(1148,556);
 		else quitButton.draw(1148,556);
-		g.drawString(achievement.crashAchievement(60), 900, 30);
+
 		g.setColor(Color.white);
 		
 		if(newHighScore == true){

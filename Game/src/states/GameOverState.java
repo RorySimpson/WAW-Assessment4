@@ -168,8 +168,6 @@ public class GameOverState extends BasicGameState {
 			quitHover.draw(1148,556);
 		else quitButton.draw(1148,556);
 
-		/* Give crash achievement as a consoloation */
-		g.drawString(achievement.crashAchievement(60), 900, 30);
 		g.setColor(Color.white);
 		
 		/* If user got a new high score */

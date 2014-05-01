@@ -4,8 +4,8 @@ public class Achievements {
 
 	//FIELDS
 	private int numberOfAchievements 			= 0;
-	private static final int MAXACHIEVEMENTS 	= 8;
-	private static final int ACHIEVEMENTTIME 	= 600000;
+	private static final int MAXACHIEVEMENTS 	= 8; //not including all achivements earned
+	private static final int ACHIEVEMENTTIME 	= 0;
 	private String achievementMessage 			= "";
 	
 	//Achievements gained booleans
