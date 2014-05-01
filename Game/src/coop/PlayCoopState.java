@@ -34,6 +34,8 @@ import states.PlayState;
 import util.DeferredFile;
 
 public class PlayCoopState extends PlayState {
+	
+	protected float time;
 
 
 	private AirspaceCoop airspace;
@@ -497,8 +499,10 @@ public class PlayCoopState extends PlayState {
 		// Checks if the game has been retried and if it has resets the airspace
 
 		if (gameEnded){
-
+			
+			System.out.println("ended");
 			airspace.resetAirspace();
+			airspace.init(gc);
 			time = 0;
 			gameEnded = false;
 			settingDifficulty = true;
@@ -587,7 +591,6 @@ public class PlayCoopState extends PlayState {
 			if (airspace.getSeparationRules().getGameOverViolation() == true){
 				achievementMessage = achievement.crashAchievement((int) time); //pass the game time as of game over into the crashAchievement
 				airspace.getSeparationRules().setGameOverViolation(false);
-				airspace.resetAirspace();
 				gameplayMusic.stop();
 				endOfGameSound.play();
 				gameEnded = true;

@@ -40,6 +40,7 @@ public class PlayCompetitiveState extends PlayState {
 	private boolean explosionOccurs = false;
 	private float decMins, decSecs, secondsOccured;
 	private int secs;
+	protected float time;
 
 
 	public PlayCompetitiveState(int state) {
@@ -344,6 +345,7 @@ public class PlayCompetitiveState extends PlayState {
 		if (gameEnded){
 
 			airspace.resetAirspace();
+			airspace.init(gc);
 			time = 0;
 			gameEnded = false;
 			airspace.getScore().resetScore();
@@ -402,6 +404,12 @@ public class PlayCompetitiveState extends PlayState {
 			if(airspace.getPlayer1Score() > airspace.getPlayer2Score()){
 				((Game)sbg).setPreviousCompetitiveModeWinner("Player 1");
 			}
+			
+			if(airspace.getPlayer1Score() == airspace.getPlayer2Score()){
+				((Game)sbg).setPreviousCompetitiveModeWinner("Draw");
+			}
+			
+			
 			else{
 				((Game)sbg).setPreviousCompetitiveModeWinner("Player 2");
 			}

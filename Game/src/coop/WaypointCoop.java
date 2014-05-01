@@ -48,6 +48,18 @@ public class WaypointCoop extends Waypoint {
 			} 
 		}
 		
+		if(controls.getSelectedFlight2() !=null && controls.getSelectedFlight1() !=null ){
+			if (controls.getSelectedFlight2().getFlightPlan().getCurrentRoute().indexOf(this) == 0 &&
+					controls.getSelectedFlight1().getFlightPlan().getCurrentRoute().indexOf(this) == 0){
+				image = getNextWaypointImage();
+				g.setColor(Color.magenta);
+				g.drawOval((float)this.x-20, (float)this.y-20, 40, 40);
+				g.setColor(Color.black);
+			} 
+		}
+		
+		
+		
 		if (image == null){
 			image = getWaypointImage();
 		}

@@ -4,6 +4,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
+import stateContainer.Game;
 import logicClasses.Airport;
 import logicClasses.Airspace;
 
@@ -16,6 +17,8 @@ public class AirportCoop extends Airport {
 	
 	@Override
 	public void render(Graphics g, GameContainer gc) throws SlickException { 
+		
+		g.setWorldClip(11, 0, Game.MAXIMUMWIDTH -11, Game.MAXIMUMHEIGHT-40);
 		
 		getAirportImage().setRotation(getRunwayHeading());
 		// Airport image centred in middle of airspace
@@ -46,6 +49,8 @@ public class AirportCoop extends Airport {
 				
 			}
 		}
+		
+		g.setWorldClip(0, 0, Game.MAXIMUMWIDTH, Game.MAXIMUMHEIGHT);
 		
 	} 
 

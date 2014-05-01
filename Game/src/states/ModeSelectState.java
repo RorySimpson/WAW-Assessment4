@@ -87,18 +87,18 @@ public class ModeSelectState extends BasicGameState
 			}
 		}
 
-		Input input = new Input(Input.ANY_CONTROLLER);
-		if(input.isKeyDown(Input.KEY_P)) {
+		Input input = gc.getInput();
+		if(input.isKeyPressed(Input.KEY_P)) {
 			sbg.enterState(stateContainer.Game.PLAYSTATE);
 		}
-		if(input.isKeyDown(Input.KEY_C)) {
+		if(input.isKeyPressed(Input.KEY_C)) {
 			sbg.enterState(stateContainer.Game.PLAYCOOPSTATE);
 		}
-		if(input.isKeyDown(Input.KEY_O)) {
+		if(input.isKeyPressed(Input.KEY_O)) {
 			sbg.enterState(stateContainer.Game.ONLINEPLAYSTATE);
 		}
 		
-		if(input.isKeyDown(Input.KEY_V)) {
+		if(input.isKeyPressed(Input.KEY_V)) {
 			sbg.enterState(stateContainer.Game.PLAYCOMPETITIVESTATE);
 		}
 }	
