@@ -339,6 +339,13 @@ public class PlayCompetitiveState extends PlayState {
 	@Override
 	public void update(GameContainer gc, StateBasedGame sbg, int delta)
 			throws SlickException {
+		
+		 /* Get mouse position */
+		int posX = Mouse.getX();
+		int posY = stateContainer.Game.MAXIMUMHEIGHT -Mouse.getY();
+
+		
+		Input input = gc.getInput();
 
 		// Checks if the game has been retried and if it has resets the airspace
 
@@ -422,8 +429,28 @@ public class PlayCompetitiveState extends PlayState {
 			
 		}
 		
+		if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
+            /* If user pressed pause */
+			if((posX>1120&&posX<1165) && (posY>565&&posY<600)) {
+				sbg.enterState(stateContainer.Game.PAUSECOMPETITIVESTATE);				
+			}
+			
+			/* If user pressed the music button */
+			else if((posX>1160&&posX<1200) && (posY>565&&posY<600)) {
+				
+				if(gameplayMusic.playing()){
+					gameplayMusic.pause();
+					musicPaused = true;
+				}
+				
+				else{
+					gameplayMusic.resume();
+					musicPaused = false;
+				}
+			}
+		}
+		
 
-		Input input = gc.getInput();
 
 		// Checking For Pause Screen requested in game
 
@@ -431,7 +458,7 @@ public class PlayCompetitiveState extends PlayState {
 			sbg.enterState(stateContainer.Game.PAUSECOMPETITIVESTATE);
 		}			
 
-		if (!gameplayMusic.playing()){
+		if (!gameplayMusic.playing()&& (!musicPaused)){
 			//Loops gameplay music based on random number created in init
 
 			gameplayMusic.loop(1.0f, 0.5f);
