@@ -1,15 +1,15 @@
 package states;
 
 import org.lwjgl.input.Mouse;
-import org.newdawn.slick.loading.DeferredResource;
-import org.newdawn.slick.loading.LoadingList;
-import org.newdawn.slick.state.BasicGameState;
-import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.loading.DeferredResource;
+import org.newdawn.slick.loading.LoadingList;
+import org.newdawn.slick.state.BasicGameState;
+import org.newdawn.slick.state.StateBasedGame;
 
 import util.DeferredFile;
 import util.HoverImage;
@@ -32,8 +32,8 @@ public class MenuState extends BasicGameState {
 
 	
 	/**
-	 * Menu state construcotr
-	 * @param state - takes a state TODO why
+	 * Menu state constructor
+	 * @param state - takes a state
 	 */
 	public MenuState(int state) {
 		this.mouseBeenReleased = false;
@@ -186,21 +186,6 @@ public class MenuState extends BasicGameState {
 	 */
 	@Override
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
-		
-		/* This will probably be commented out TODO  */
-		Input input = new Input(Input.ANY_CONTROLLER);
-		if(input.isKeyDown(Input.KEY_C)) {
-			sbg.enterState(stateContainer.Game.PLAYCOOPSTATE);
-		}
-		if(input.isKeyDown(Input.KEY_O)) {
-			sbg.enterState(stateContainer.Game.ONLINEPLAYSTATE);
-		}
-		
-		if(input.isKeyDown(Input.KEY_V)) {
-			sbg.enterState(stateContainer.Game.PLAYCOMPETITIVESTATE);
-		}
-		
-		
 		
 		/* Get mouse position */
 		int	posX = Mouse.getX(),

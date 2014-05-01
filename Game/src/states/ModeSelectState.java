@@ -1,36 +1,37 @@
 package states;
-import java.awt.Font;
-import util.DeferredFile;
+
 import org.lwjgl.input.Mouse;
-import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.loading.DeferredResource;
 import org.newdawn.slick.loading.LoadingList;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
-import org.newdawn.slick.TrueTypeFont;
+
+import util.DeferredFile;
+import util.HoverImage;
 
 public class ModeSelectState extends BasicGameState
 	{
 
 	
 	/* Images */
-	private static Image img;
-	private static TrueTypeFont font1,font2;
+	private static Image background, single, versus, coop,
+						 singleHover, versusHover, coopHover;
+	private HoverImage
+		singleImage, versusImage, coopImage;
 
-	
-	private String text;
-
+	private boolean mouseBeenReleased;
 	
 	/**
 	 * Empty constructor for consistency 
 	 * @param state - Takes a states
 	 */
 	public ModeSelectState(int state){
-		
+		this.mouseBeenReleased = false;
 	}
 	
 	
@@ -41,10 +42,61 @@ public class ModeSelectState extends BasicGameState
                 /* Deferred loading of images for better performances */
 			LoadingList loading = LoadingList.get();
 
-            Font font1 = new Font("Comic Sans MS", Font.BOLD, 24);
-            font2 = new TrueTypeFont(font1, false);
+			loading.add(new DeferredFile("res/menu_graphics/new/selectmode_background.jpg"){	
+				public void loadFile(String filename) throws SlickException{
+					background = new Image(filename);
+				}
+			});
 
-		text = "P to Play, C to Cooperate, O to pretend you play Online, V for Versus";
+			loading.add(new DeferredFile("res/menu_graphics/new/singleplayer.JPG"){	
+				public void loadFile(String filename) throws SlickException{
+					single = new Image(filename);
+				}
+			});
+
+			loading.add(new DeferredFile("res/menu_graphics/new/singleplayer_hover.JPG"){	
+				public void loadFile(String filename) throws SlickException{
+					singleHover = new Image(filename);
+				}
+			});
+
+			loading.add(new DeferredFile("res/menu_graphics/new/versus.JPG"){	
+				public void loadFile(String filename) throws SlickException{
+					versus = new Image(filename);
+				}
+			});
+
+			loading.add(new DeferredFile("res/menu_graphics/new/versus_hover.JPG"){	
+				public void loadFile(String filename) throws SlickException{
+					versusHover = new Image(filename);
+				}
+			});
+
+
+			loading.add(new DeferredFile("res/menu_graphics/new/coop.JPG"){	
+				public void loadFile(String filename) throws SlickException{
+					coop = new Image(filename);
+				}
+			});
+
+			loading.add(new DeferredFile("res/menu_graphics/new/coop_hover.JPG"){	
+				public void loadFile(String filename) throws SlickException{
+					coopHover = new Image(filename);
+				}
+			});
+
+        loading.add(new DeferredResource(){
+			public String getDescription() {
+				return "set up mode state buttons";
+			}
+
+			/* Load all the hover images */
+			public void load(){
+				singleImage = new HoverImage(single, singleHover, 120, 170);
+				coopImage = new HoverImage(coop, coopHover, 470, 170);
+				versusImage = new HoverImage(versus, versusHover, 820, 170);
+			}
+		});
 
         };
 	/**
@@ -56,15 +108,16 @@ public class ModeSelectState extends BasicGameState
 		
         /* Get mouse position */
 		int posX = Mouse.getX();
-		int posY = stateContainer.Game.MAXIMUMHEIGHT -Mouse.getY();
+		int posY = stateContainer.Game.MAXIMUMHEIGHT - Mouse.getY();
 			//Fixing posY to reflect graphics coords
 	
 		/* Draw the background */
-		// modeBackground.draw(0,0);
+		background.draw(0,0);
 
-		g.setFont(font2);
-        g.setColor(Color.red);
-		g.drawString(text,250,250);
+		/* Render the image */
+		singleImage.render(posX, posY);
+		coopImage.render(posX, posY);
+		versusImage.render(posX, posY);
 	}
 
 	/**
@@ -87,19 +140,27 @@ public class ModeSelectState extends BasicGameState
 			}
 		}
 
-		Input input = gc.getInput();
-		if(input.isKeyPressed(Input.KEY_P)) {
-			sbg.enterState(stateContainer.Game.PLAYSTATE);
-		}
-		if(input.isKeyPressed(Input.KEY_C)) {
-			sbg.enterState(stateContainer.Game.PLAYCOOPSTATE);
-		}
-		if(input.isKeyPressed(Input.KEY_O)) {
-			sbg.enterState(stateContainer.Game.ONLINEPLAYSTATE);
-		}
-		
-		if(input.isKeyPressed(Input.KEY_V)) {
-			sbg.enterState(stateContainer.Game.PLAYCOMPETITIVESTATE);
+		if (Mouse.isButtonDown(Input.MOUSE_LEFT_BUTTON)) {	
+			if(mouseBeenReleased){	//button first pressed
+				mouseBeenReleased = false;
+				
+				if (singleImage.isMouseOver(posX, posY)) {
+					sbg.enterState(stateContainer.Game.PLAYSTATE);
+				}
+				
+				if (versusImage.isMouseOver(posX, posY)) {
+					sbg.enterState(stateContainer.Game.PLAYCOMPETITIVESTATE);
+				} 
+
+				if (coopImage.isMouseOver(posX, posY)) {
+					sbg.enterState(stateContainer.Game.PLAYCOOPSTATE);
+				}
+			}
+			/* else mouse is dragged*/
+		}	
+        // Mouse just released without pressing a button
+		else if (!mouseBeenReleased){	
+			mouseBeenReleased = true;
 		}
 }	
 
