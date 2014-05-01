@@ -65,17 +65,24 @@ public class HunterFlight {
 	
 	public void calculateHeadingToVictim() {
 		
-		if (victim != null || airspace.checkIfFlightHasLeftAirspace(victim)){
-			double deltaX;
-			double deltaY;
-			deltaY = victim.getY() - y;
-			deltaX = victim.getX() - x;
-			double angle = Math.toDegrees(Math.atan2(deltaY, deltaX));
-			angle += 90;
-			if (angle < 0) {
-				angle += 360;
+		if (victim != null){
+			if(!airspace.checkIfFlightHasLeftAirspace(victim)){
+				double deltaX;
+				double deltaY;
+				deltaY = victim.getY() - y;
+				deltaX = victim.getX() - x;
+				double angle = Math.toDegrees(Math.atan2(deltaY, deltaX));
+				angle += 90;
+				if (angle < 0) {
+					angle += 360;
+				}
+				targetHeading = angle;
+				
 			}
-			targetHeading = angle;
+			else{
+				targetHeading = currentHeading;
+			}
+			
 		}
 		else {
 			targetHeading = currentHeading;
