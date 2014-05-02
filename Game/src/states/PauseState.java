@@ -9,6 +9,7 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.lwjgl.input.Mouse;
 
+import stateContainer.Game;
 import util.DeferredFile;
 
 public class PauseState extends BasicGameState {
@@ -180,6 +181,11 @@ public class PauseState extends BasicGameState {
 			sbg.enterState(stateContainer.Game.PLAYSTATE);
 		}
 		
+		
+		if(input.isKeyPressed(Input.KEY_Q)){
+			((Game)sbg).setGameEnded(true);
+			sbg.enterState(stateContainer.Game.GAMEOVERLOADINGSTATE);
+		}
         //check if buttons are pressed
 		if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
 			

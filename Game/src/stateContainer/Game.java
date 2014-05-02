@@ -47,6 +47,7 @@ public class Game extends StateBasedGame {
 	private String previousCompetitiveModeWinner;
 	private Achievements achievements = new Achievements();
 	private Client client;
+	private boolean gameEnded;
 
 
 	/**
@@ -110,6 +111,14 @@ public class Game extends StateBasedGame {
 	
 	public Client getClient() {
 		return this.client;
+	}
+
+	public boolean isGameEnded() {
+		return gameEnded;
+	}
+
+	public void setGameEnded(boolean gameEnded) {
+		this.gameEnded = gameEnded;
 	}
 
 	public static void main(String[] args) {
