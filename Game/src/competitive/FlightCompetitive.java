@@ -75,8 +75,8 @@ public class FlightCompetitive extends Flight {
 
 		distanceFromWaypoint = (int)Math.sqrt((int)Math.pow(distanceX,2) + (int)Math.pow(distanceY,2));
 		
-		// Check whether flight is within 10 pixels of waypoint.
-		if(distanceFromWaypoint < 10){
+		// Check whether flight is within 25 pixels of waypoint.
+		if(distanceFromWaypoint < 25){
 			return true;
 		}
 		
