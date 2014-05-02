@@ -485,6 +485,8 @@ public class Airspace {
 
 		} else {
 			
+			//TODO Fix.
+			/*
 			for(Flight a : listOfFlightsInAirspace){
 				if(a.isGrounded() && flight.getFlightPlan().getEntryPoint().isRunway()){
 					System.out.println("Flight already on runway!");
@@ -493,6 +495,16 @@ public class Airspace {
 			}
 			this.listOfFlightsInAirspace.add(flight);
 			return true;
+			*/
+			for(int i = 0; i < listOfFlightsInAirspace.size(); i++){
+				if(listOfFlightsInAirspace.get(i).isGrounded() && flight.getFlightPlan().getEntryPoint().isRunway()){
+					System.out.println("Flight already on runway!");
+					return false;
+				}
+			}
+			this.listOfFlightsInAirspace.add(flight);
+			return true;
+			
 		}
 	}
 	
