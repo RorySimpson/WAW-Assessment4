@@ -300,13 +300,6 @@ public class AirspaceCompetitive extends Airspace {
 
 				throwbackIntoAirspace(this.getListOfFlights().get(i));
 
-				/*if(cargo.getCurrentHolder() == this.getListOfFlights().get(i)){
-					cargo.setCurrentHolder(null);
-					cargo.setLocation(cargo.generateRandomCargoLocation());
-				}
-
-				this.removeSpecificFlight(i);*/
-
 			}
 
 		}

@@ -477,6 +477,10 @@ public class Airspace {
 	}
 	
 	public boolean addFlight(Flight flight) {
+		
+		if(flight == null){
+			return false;
+		}
 
 		// Checks whether the flight was already added before, and if it won't pass the maximum number of flights allowed
 		if ((this.listOfFlightsInAirspace.contains(flight))

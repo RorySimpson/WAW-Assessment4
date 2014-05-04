@@ -97,6 +97,7 @@ public class AirspaceCompetitive_Tests {
 	public void throwbackIntoAirspaceTest(){
 		
 		flight1.setTargetHeading(0);
+		flight1.setCurrentHeading(0);
 		airspace.throwbackIntoAirspace(flight1);
 		assertTrue(flight1.getTargetHeading() >135 && flight1.getTargetHeading() < 225);
 	}
