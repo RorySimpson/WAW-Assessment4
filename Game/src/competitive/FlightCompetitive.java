@@ -15,9 +15,10 @@ import logicClasses.*;
 public class FlightCompetitive extends Flight {
 	
 	private static Image player1Image, player2Image;
-	private boolean player2;
+	private boolean player2, crashed;
 	private FlightPlanCompetitive flightPlan;
 	private Image cargoFlightImage;
+	
 	
 	public FlightCompetitive(Airspace airspace, Boolean competitive){
 		super(airspace, competitive);
@@ -25,6 +26,7 @@ public class FlightCompetitive extends Flight {
 		this.flightPlan = new FlightPlanCompetitive(airspace, this, competitive);
 		this.velocity = 1600;
 		this.targetVelocity = 1600;
+		this.crashed = false;
 		
 		
 		
@@ -384,6 +386,14 @@ public class FlightCompetitive extends Flight {
 
 	public void setFlightPlan(FlightPlanCompetitive flightPlan) {
 		this.flightPlan = flightPlan;
+	}
+
+	public boolean isCrashed() {
+		return crashed;
+	}
+
+	public void setCrashed(boolean crashed) {
+		this.crashed = crashed;
 	}
 
 
