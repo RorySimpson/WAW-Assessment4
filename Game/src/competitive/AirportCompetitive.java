@@ -16,10 +16,11 @@ import logicClasses.ExitPoint;
 public class AirportCompetitive extends Airport {
 	
 	private Image landingApproachImage;
+	private AirspaceCompetitive airspace;
 	
-	AirportCompetitive(int airportNumber, Airspace airspace) {
+	AirportCompetitive(int airportNumber, AirspaceCompetitive airspace) {
 		super(airportNumber, airspace);
-		
+		this.airspace 					= airspace;
 	    this.beginningOfRunway 			= new ExitPoint(620, 505, "APR");
    		this.endOfRunway 				= new EntryPoint(620, 555);
    		landingApproachArea 			= new Polygon();
@@ -79,8 +80,8 @@ public class AirportCompetitive extends Airport {
 		
 		
 		//Draw landing approach if player 1's selected flight has the cargo
-		if((((ControlsCompetitive)this.getAirspace().getControls()).getSelectedFlight1() != null) && ((AirspaceCompetitive)this.getAirspace()).getCargo().getCurrentHolder() != null) {
-			if(((ControlsCompetitive)this.getAirspace().getControls()).getSelectedFlight1() == ((AirspaceCompetitive)this.getAirspace()).getCargo().getCurrentHolder()){
+		if((this.airspace.getControls().getSelectedFlight1() != null) && this.airspace.getCargo().getCurrentHolder() != null) {
+			if(this.airspace.getControls().getSelectedFlight1() == this.airspace.getCargo().getCurrentHolder()){
 				landingApproachImage.drawCentered(620, 390);
 				
 				
@@ -89,8 +90,8 @@ public class AirportCompetitive extends Airport {
 		}
 		
 		//Draw landing approach if player 2's selected flight has the cargo
-		if((((ControlsCompetitive)this.getAirspace().getControls()).getSelectedFlight2() != null) && ((AirspaceCompetitive)this.getAirspace()).getCargo().getCurrentHolder() != null){
-			if(((ControlsCompetitive)this.getAirspace().getControls()).getSelectedFlight2() == ((AirspaceCompetitive)this.getAirspace()).getCargo().getCurrentHolder()){
+		if((this.airspace.getControls().getSelectedFlight2() != null) && this.airspace.getCargo().getCurrentHolder() != null){
+			if(this.airspace.getControls().getSelectedFlight2() == this.airspace.getCargo().getCurrentHolder()){
 				landingApproachImage.drawCentered(620, 390);
 				
 				

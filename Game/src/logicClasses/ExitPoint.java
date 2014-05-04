@@ -13,11 +13,13 @@ public class ExitPoint extends Point {
 
 	static Image exitPointTop, exitPointRight, exitPointLeft,exitPointRunway;
 	private boolean runway = false;
+	
 	public ExitPoint(double xcoord, double ycoord, String name){
 		super(xcoord, ycoord, name);
 
 		//System.out.println("ExitPoint " + pointRef + " set:(" + x + "," + y +").");
 	}
+	
 	public boolean isRunway(){
 		return runway;
 	}

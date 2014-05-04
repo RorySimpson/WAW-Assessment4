@@ -18,16 +18,17 @@ public class FlightCompetitive extends Flight {
 	private boolean player2, crashed;
 	private FlightPlanCompetitive flightPlan;
 	private Image cargoFlightImage;
+	private AirspaceCompetitive airspace;
 	
 	
-	public FlightCompetitive(Airspace airspace, Boolean competitive){
+	public FlightCompetitive(AirspaceCompetitive airspace, Boolean competitive){
 		super(airspace, competitive);
 		this.player2 = false;
 		this.flightPlan = new FlightPlanCompetitive(airspace, this, competitive);
 		this.velocity = 1600;
 		this.targetVelocity = 1600;
 		this.crashed = false;
-		
+		this.airspace = airspace;
 		
 		
 	}
@@ -149,7 +150,7 @@ public class FlightCompetitive extends Flight {
 		
 		
 		// If flight doesn't have cargo then go no further as can't land.
-		if (((AirspaceCompetitive)this.getAirspace()).getCargo().getCurrentHolder() != this){
+		if (this.airspace.getCargo().getCurrentHolder() != this){
 			return;
 		}
 		
@@ -157,10 +158,10 @@ public class FlightCompetitive extends Flight {
 		
 		if (!isLanding()){
 			// If flight is within the landing approach area and has the correct altitude and heading then land.
-			if (this.getAirspace().getAirportRight().getLandingApproachArea()
+			if (this.airspace.getAirportRight().getLandingApproachArea()
 					.contains((float)this.getX(), (float)this.getY()) 
 					&& this.getCurrentHeading() >= 145 && this.getCurrentHeading() <= 225 && this.getCurrentAltitude() <= 2000
-					&& this.getFlightPlan().getCurrentRoute().get(0) == this.getAirspace().getAirportRight().getBeginningOfRunway())
+					&& this.getFlightPlan().getCurrentRoute().get(0) == this.airspace.getAirportRight().getBeginningOfRunway())
 			{
 
 
@@ -171,19 +172,19 @@ public class FlightCompetitive extends Flight {
 
 				this.setLandingDescentRate(this.findLandingDescentRate());
 
-				if(((ControlsCompetitive)this.getAirspace().getControls()).getSelectedFlight1() != null){
+				if(this.airspace.getControls().getSelectedFlight1() != null){
 					
-					if(((ControlsCompetitive)this.getAirspace().getControls()).getSelectedFlight1().isLanding()) {
-						((ControlsCompetitive)this.getAirspace().getControls()).setSelectedFlight1(null);
+					if(this.airspace.getControls().getSelectedFlight1().isLanding()) {
+						this.airspace.getControls().setSelectedFlight1(null);
 					}
 					else {
-						((ControlsCompetitive)this.getAirspace().getControls()).setSelectedFlight2(null);
+						this.airspace.getControls().setSelectedFlight2(null);
 					}
 					
 				}
 				
 				else{
-					((ControlsCompetitive)this.getAirspace().getControls()).setSelectedFlight2(null);
+					this.airspace.getControls().setSelectedFlight2(null);
 				}
 
 
@@ -237,7 +238,7 @@ public class FlightCompetitive extends Flight {
 		}
 		//Depending on a plane's speed, different images for the plane are drawn
 
-		if(((AirspaceCompetitive)airspace).getCargo().getCurrentHolder() == this){
+		if(airspace.getCargo().getCurrentHolder() == this){
 			cargoFlightImage.setRotation((float) currentHeading);
 			cargoFlightImage.draw((int) this.getX()-24, (int) this.getY()-22);
 		}
@@ -265,19 +266,19 @@ public class FlightCompetitive extends Flight {
 
 				g.drawString(Math.round(this.getCurrentAltitude()) + " ft",(int) this.getX()-30, (int) this.getY() + 10);
 
-				if(((AirspaceCompetitive)airspace).getCargo().getCurrentHolder() != null ){
+				if(airspace.getCargo().getCurrentHolder() != null ){
 					
 					// Checking whether to display landing message
 
-					if ((((AirspaceCompetitive)airspace).getCargo().getCurrentHolder() == this) && this.getCurrentAltitude() > 2000){
+					if ((airspace.getCargo().getCurrentHolder() == this) && this.getCurrentAltitude() > 2000){
 						g.drawString("Lower Me",(int) this.getX() -29, (int)this.getY()-28);
 					}
 
-					else if ((((AirspaceCompetitive)airspace).getCargo().getCurrentHolder() == this) && this.getCurrentAltitude() <= 2000){
+					else if ((airspace.getCargo().getCurrentHolder() == this) && this.getCurrentAltitude() <= 2000){
 						g.drawString("Line Me Up",(int) this.getX() -33, (int)this.getY()-28);
 					}
 
-					else if ((((AirspaceCompetitive)airspace).getCargo().getCurrentHolder() == this) && this.getCurrentAltitude() <= 2000){
+					else if ((airspace.getCargo().getCurrentHolder() == this) && this.getCurrentAltitude() <= 2000){
 						g.drawString("Landing",(int) this.getX() -33, (int)this.getY()-28);
 					}
 
@@ -302,19 +303,12 @@ public class FlightCompetitive extends Flight {
 		// If flight isn't selected then don't display current heading
 		else{
 			
-			if(player2){
-				g.drawString(Integer.toString(((AirspaceCompetitive)airspace).getListOfFlightsPlayer2().indexOf(this) + 1),(int)this.x - 5, (int)this.y + 25);
-			}
-			
-			else{
-				g.drawString(Integer.toString(((AirspaceCompetitive)airspace).getListOfFlightsPlayer1().indexOf(this) + 1),(int)this.x - 5, (int)this.y + 25);
-			}
 			
 			if (this.getCurrentAltitude() != 0){
 				g.setColor(Color.lightGray);
 				g.drawString(Math.round(this.getCurrentAltitude()) + " ft",(int) this.getX()-30, (int) this.getY() + 10);
-				if (((AirspaceCompetitive)airspace).getCargo().getCurrentHolder() != null) {
-					if ((((AirspaceCompetitive)airspace).getCargo().getCurrentHolder() == this)){
+				if (airspace.getCargo().getCurrentHolder() != null) {
+					if ((airspace.getCargo().getCurrentHolder() == this)){
 						g.drawString("Land Me",(int) this.getX() -29, (int)this.getY()-28);
 					}
 
@@ -366,6 +360,8 @@ public class FlightCompetitive extends Flight {
 
 	}
 	
+
+	
 	public boolean isSelectable(){
 		return (!isLanding() && !isTakingOff());
 	}
@@ -395,6 +391,8 @@ public class FlightCompetitive extends Flight {
 	public void setCrashed(boolean crashed) {
 		this.crashed = crashed;
 	}
+	
+	
 
 
 }

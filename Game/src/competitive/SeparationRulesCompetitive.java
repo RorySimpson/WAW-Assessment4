@@ -128,17 +128,17 @@ public class SeparationRulesCompetitive extends SeparationRules {
 		airspace.getListOfFlightsInAirspace().remove(flight1);
 		airspace.getListOfFlightsInAirspace().remove(flight2);
 		
-		Flight selected1 = ((ControlsCompetitive) airspace.getControls()).getSelectedFlight1();
-		Flight selected2 = ((ControlsCompetitive) airspace.getControls()).getSelectedFlight2();
+		Flight selected1 = airspace.getControls().getSelectedFlight1();
+		Flight selected2 = airspace.getControls().getSelectedFlight2();
 		
 		// If flight was selected, de-select it
 		if (!(airspace.getListOfFlightsInAirspace().contains(selected1))) {
-			((ControlsCompetitive) airspace.getControls()).setSelectedFlight1(null);
+			airspace.getControls().setSelectedFlight1(null);
 
 		}
 		
 		if (!(airspace.getListOfFlightsInAirspace().contains(selected2))) {
-			((ControlsCompetitive) airspace.getControls()).setSelectedFlight2(null);
+			airspace.getControls().setSelectedFlight2(null);
 
 		}
 		

@@ -12,12 +12,17 @@ import logicClasses.FlightPlan;
 import logicClasses.Point;
 
 public class FlightPlanCompetitive extends FlightPlan {
+	
+	private AirspaceCompetitive airspace;
+	private FlightCompetitive flight;
 
-	public FlightPlanCompetitive(Airspace airspace, FlightCompetitive flight, boolean competitive){
+	public FlightPlanCompetitive(AirspaceCompetitive airspace, FlightCompetitive flight, boolean competitive){
 		super(airspace, flight, competitive);
 		this.currentRoute = new ArrayList <Point>() ; 
 		this.currentRoute.add(airspace.getAirportRight().getBeginningOfRunway());
 		this.currentRoute.add(airspace.getAirportRight().getEndOfRunway());
+		this.airspace = airspace;
+		this.flight = flight;
 		
 		
 	}
@@ -27,10 +32,10 @@ public class FlightPlanCompetitive extends FlightPlan {
 	 * @param airspace
 	 */
 	
-	public void assignEntryPoint(Airspace airspace){
+	public void assignEntryPoint(AirspaceCompetitive airspace){
 		
 		// If flight is for player 1, assign left hand side entrypoint
-		if(((FlightCompetitive)flight).isPlayer2()){
+		if(flight.isPlayer2()){
 			flight.setX(airspace.getListOfEntryPoints().get(0).getX()); 
 			flight.setY(airspace.getListOfEntryPoints().get(0).getY());
 			entryPoint = airspace.getListOfEntryPoints().get(0);
@@ -54,7 +59,7 @@ public class FlightPlanCompetitive extends FlightPlan {
 		}
 		
 		// If flight is at next waypoint, remove that waypoint from the plan.
-		if(((FlightCompetitive)flight).checkIfFlightAtWaypoint(currentRoute.get(0))){
+		if(flight.checkIfFlightAtWaypoint(currentRoute.get(0))){
 			currentRoute.remove(0);
 		}
 	}
