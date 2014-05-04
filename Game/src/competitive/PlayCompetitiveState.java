@@ -412,7 +412,7 @@ public class PlayCompetitiveState extends PlayState {
 				((Game)sbg).setPreviousCompetitiveModeWinner("Player 1");
 			}
 			
-			if(airspace.getPlayer1Score() == airspace.getPlayer2Score()){
+			else if(airspace.getPlayer1Score() == airspace.getPlayer2Score()){
 				((Game)sbg).setPreviousCompetitiveModeWinner("Draw");
 			}
 			

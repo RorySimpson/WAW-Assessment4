@@ -94,6 +94,7 @@ public class GameOverCompetitiveState extends BasicGameState {
 		gameOverBackground.draw(0,0);
 		
 		winner = ((Game)sbg).getPreviousCompetitiveModeWinner();
+		
 		if(winner == "Draw"){
 			g.drawString(winner, 600,500);
 		}
