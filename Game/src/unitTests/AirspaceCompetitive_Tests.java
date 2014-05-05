@@ -7,7 +7,7 @@ import competitive.*;
 import org.junit.Test;
 import org.junit.Before;
 
-public class Airspace_Competitive_Tests {
+public class AirspaceCompetitive_Tests {
 	
 	private AirspaceCompetitive airspace;
 	private  FlightCompetitive flight1;
@@ -97,6 +97,7 @@ public class Airspace_Competitive_Tests {
 	public void throwbackIntoAirspaceTest(){
 		
 		flight1.setTargetHeading(0);
+		flight1.setCurrentHeading(0);
 		airspace.throwbackIntoAirspace(flight1);
 		assertTrue(flight1.getTargetHeading() >135 && flight1.getTargetHeading() < 225);
 	}

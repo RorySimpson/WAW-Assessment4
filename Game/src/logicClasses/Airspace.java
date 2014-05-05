@@ -18,12 +18,12 @@ import stateContainer.Game;
 
 public class Airspace {
 
-	private int maximumNumberOfFlightsInAirspace;
-	private int flightLostTimer; //helps track for achievement
+	protected int maximumNumberOfFlightsInAirspace;
+	protected int flightLostTimer; //helps track for achievement
 	protected int	numberOfGameLoopsSinceLastFlightAdded;
 	protected int numberOfGameLoops;
 	protected int numberOfGameLoopsWhenDifficultyIncreases;
-	private int randomNumberForFlightGeneration;
+	protected int randomNumberForFlightGeneration;
 	protected List<Flight> 		listOfFlightsInAirspace;
 	protected List<Waypoint> 		listOfWaypoints;
 	protected List<EntryPoint>	listOfEntryPoints;
@@ -477,6 +477,10 @@ public class Airspace {
 	}
 	
 	public boolean addFlight(Flight flight) {
+		
+		if(flight == null){
+			return false;
+		}
 
 		// Checks whether the flight was already added before, and if it won't pass the maximum number of flights allowed
 		if ((this.listOfFlightsInAirspace.contains(flight))
@@ -485,14 +489,17 @@ public class Airspace {
 
 		} else {
 			
-			for(Flight a : listOfFlightsInAirspace){
-				if(a.isGrounded() && flight.getFlightPlan().getEntryPoint().isRunway()){
+			//TODO Fix.
+
+			for(int i = 0; i < listOfFlightsInAirspace.size(); i++){
+				if(listOfFlightsInAirspace.get(i).isGrounded() && flight.getFlightPlan().getEntryPoint().isRunway()){
 					System.out.println("Flight already on runway!");
 					return false;
 				}
 			}
 			this.listOfFlightsInAirspace.add(flight);
 			return true;
+			
 		}
 	}
 	

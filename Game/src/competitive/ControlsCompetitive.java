@@ -105,74 +105,6 @@ public class ControlsCompetitive extends Controls {
 			
 		}
 		
-		//Hot Key '1' used to select flight labelled 1
-		if(airspaceCompetitive.getListOfFlightsPlayer1().size() >= 1){
-			if(gc.getInput().isKeyDown(Input.KEY_1)){
-				if(this.selectedFlight1 != null){
-					this.selectedFlight1.setSelected(false);
-				}
-				this.selectedFlight1 = airspaceCompetitive.getListOfFlightsPlayer1().get(0);
-				this.selectedFlight1.setSelected(true);
-			}
-		}
-		
-		//Hot Key '2' used to select flight labelled 2
-		if(airspaceCompetitive.getListOfFlightsPlayer1().size() >= 2){
-			if(gc.getInput().isKeyDown(Input.KEY_2)){
-				if(this.selectedFlight1 != null){
-					this.selectedFlight1.setSelected(false);
-				}
-				this.selectedFlight1 = airspaceCompetitive.getListOfFlightsPlayer1().get(1);
-				this.selectedFlight1.setSelected(true);
-			}
-		}
-		
-		//Hot Key '3' used to select flight labelled 3
-		if(airspaceCompetitive.getListOfFlightsPlayer1().size() >= 3){
-			if(gc.getInput().isKeyDown(Input.KEY_3)){
-				if(this.selectedFlight1 != null){
-					this.selectedFlight1.setSelected(false);
-				}
-				this.selectedFlight1 = airspaceCompetitive.getListOfFlightsPlayer1().get(2);
-				this.selectedFlight1.setSelected(true);
-			}
-		}
-		
-		//Hot Key 'Number pad 1' used to select flight labelled 1
-		if(airspaceCompetitive.getListOfFlightsPlayer2().size() >= 1){
-			if(gc.getInput().isKeyDown(Input.KEY_NUMPAD1)){
-				if(this.selectedFlight2 != null){
-					this.selectedFlight2.setSelected(false);
-				}
-				this.selectedFlight2 = airspaceCompetitive.getListOfFlightsPlayer2().get(0);
-				this.selectedFlight2.setSelected(true);
-			}
-		}
-		
-		//Hot Key 'Number pad 2' used to select flight labelled 2
-		if(airspaceCompetitive.getListOfFlightsPlayer2().size() >= 2){
-			if(gc.getInput().isKeyDown(Input.KEY_NUMPAD2)){
-				if(this.selectedFlight2 != null){
-					this.selectedFlight2.setSelected(false);
-				}
-				this.selectedFlight2 = airspaceCompetitive.getListOfFlightsPlayer2().get(1);
-				this.selectedFlight2.setSelected(true);
-			}
-		}
-		
-		//Hot Key 'Number pad 3' used to select flight labelled 3
-		if(airspaceCompetitive.getListOfFlightsPlayer2().size() >= 3){
-			if(gc.getInput().isKeyDown(Input.KEY_NUMPAD3)){
-				if(this.selectedFlight2 != null){
-					this.selectedFlight2.setSelected(false);
-				}
-				this.selectedFlight2 = airspaceCompetitive.getListOfFlightsPlayer2().get(2);
-				this.selectedFlight2.setSelected(true);
-			}
-		}
-		
-		
-		
 		
 		
 		if(this.selectedFlight1!=null) {
@@ -258,13 +190,11 @@ public class ControlsCompetitive extends Controls {
 	 */
 	@Override
 	public void render(GameContainer gc, Graphics g) throws SlickException {
+		
 		if(selectedFlight1 != null) {
-						
-			
 			
 				g.setColor(Color.white);
 				g.drawString("P1", (int)this.selectedFlight1.getX()-5, (int)this.selectedFlight1.getY()-45);
-				
 			
 		}
 			if(selectedFlight2 != null) {
@@ -272,7 +202,6 @@ public class ControlsCompetitive extends Controls {
 				g.setColor(Color.white);
 				g.drawString("P2", (int)this.selectedFlight2.getX()-5, (int)this.selectedFlight2.getY()-45);
 				
-			
 		}
 		
 	}

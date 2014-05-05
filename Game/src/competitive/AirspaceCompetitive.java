@@ -29,11 +29,13 @@ public class AirspaceCompetitive extends Airspace {
 	private CargoCompetitive cargo;
 	private SeparationRulesCompetitive 	separationRules;
 	private ControlsCompetitive controls;
+	private AirportCompetitive airport;
 
 
 	public AirspaceCompetitive() {
 
 		super();
+		//this.airport = new AirportCompetitive(1, this);
 		this.controls = new ControlsCompetitive(this);
 		this.listOfFlightsPlayer1 = new ArrayList<FlightCompetitive>();
 		this.listOfFlightsPlayer2 = new ArrayList<FlightCompetitive>();
@@ -300,13 +302,6 @@ public class AirspaceCompetitive extends Airspace {
 
 				throwbackIntoAirspace(this.getListOfFlights().get(i));
 
-				/*if(cargo.getCurrentHolder() == this.getListOfFlights().get(i)){
-					cargo.setCurrentHolder(null);
-					cargo.setLocation(cargo.generateRandomCargoLocation());
-				}
-
-				this.removeSpecificFlight(i);*/
-
 			}
 
 		}
@@ -342,6 +337,26 @@ public class AirspaceCompetitive extends Airspace {
 		controls.render(gc,g);
 	}
 
+	public boolean addFlight(Flight flight) {
+		
+		if(flight == null){
+			return false;
+		}
+
+		// Checks whether the flight was already added before, and if it won't pass the maximum number of flights allowed
+		if ((this.listOfFlightsInAirspace.contains(flight))
+				&& (this.listOfFlightsInAirspace.size() > this.maximumNumberOfFlightsInAirspace - 1)) {
+			return false;
+
+		} else {
+			
+			//TODO Fix.
+
+			this.listOfFlightsInAirspace.add(flight);
+			return true;
+			
+		}
+	}
 
 
 	public ArrayList<FlightCompetitive> getListOfFlightsPlayer1() {
@@ -423,6 +438,11 @@ public class AirspaceCompetitive extends Airspace {
 			int numberOfGameLoopsSinceLastPlayer2FlightAdded) {
 		this.numberOfGameLoopsSinceLastPlayer2FlightAdded = numberOfGameLoopsSinceLastPlayer2FlightAdded;
 	}
+
+
+	
+
+	
 	
 	
 }

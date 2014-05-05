@@ -46,7 +46,7 @@ public class SeparationRulesCompetitive extends SeparationRules {
 			if ((lateralDistanceBetweenFlightAndCargo(airspace.getListOfFlights().get(i), airspace.getCargo()) < CARGOPICKUPDISTANCE)){
 
 				// Ensures that the cargo isn't being carried by another flight when a flight tries to pick it up.
-				if(airspace.getCargo().getCurrentHolder() == null){
+				if(airspace.getCargo().getCurrentHolder() == null && !((FlightCompetitive)airspace.getListOfFlights().get(i)).isCrashed()){
 					airspace.getCargo().setCurrentHolder(airspace.getListOfFlights().get(i));
 				}
 
@@ -79,7 +79,9 @@ public class SeparationRulesCompetitive extends SeparationRules {
 							airspace.getCargo().getLocation().setLocation(airspace.getListOfFlights().get(i).getX(), airspace.getListOfFlights().get(i).getY()); 
 						}
 						this.gameOverViolation = true;
-
+						
+						((FlightCompetitive)airspace.getListOfFlights().get(i)).setCrashed(true);
+						((FlightCompetitive)airspace.getListOfFlights().get(i)).setCrashed(true);
 						airspace.getListOfFlights().get(i).setVelocity(0);
 						airspace.getListOfFlights().get(i).setTargetVelocity(0);
 						airspace.getListOfFlights().get(j).setVelocity(0);
@@ -126,17 +128,17 @@ public class SeparationRulesCompetitive extends SeparationRules {
 		airspace.getListOfFlightsInAirspace().remove(flight1);
 		airspace.getListOfFlightsInAirspace().remove(flight2);
 		
-		Flight selected1 = ((ControlsCompetitive) airspace.getControls()).getSelectedFlight1();
-		Flight selected2 = ((ControlsCompetitive) airspace.getControls()).getSelectedFlight2();
+		Flight selected1 = airspace.getControls().getSelectedFlight1();
+		Flight selected2 = airspace.getControls().getSelectedFlight2();
 		
 		// If flight was selected, de-select it
 		if (!(airspace.getListOfFlightsInAirspace().contains(selected1))) {
-			((ControlsCompetitive) airspace.getControls()).setSelectedFlight1(null);
+			airspace.getControls().setSelectedFlight1(null);
 
 		}
 		
 		if (!(airspace.getListOfFlightsInAirspace().contains(selected2))) {
-			((ControlsCompetitive) airspace.getControls()).setSelectedFlight2(null);
+			airspace.getControls().setSelectedFlight2(null);
 
 		}
 		

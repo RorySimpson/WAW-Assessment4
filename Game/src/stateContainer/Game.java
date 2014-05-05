@@ -2,7 +2,7 @@ package stateContainer;
 
 import org.newdawn.slick.AppGameContainer;
 
-import client.Client;
+
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
@@ -30,7 +30,6 @@ public class Game extends StateBasedGame {
 		PLAYCOOPSTATE = 8,
 		PAUSECOOPSTATE = 9,
 		ACHIEVEVIEWERSTATE = 10,
-		ONLINEPLAYSTATE = 11,
 		PLAYCOMPETITIVESTATE = 12,
 		GAMEOVERLOADINGSTATE = 13,
 		PAUSECOMPETITIVESTATE = 14,
@@ -46,7 +45,7 @@ public class Game extends StateBasedGame {
 	private int currentScore;
 	private String previousCompetitiveModeWinner;
 	private Achievements achievements = new Achievements();
-	private Client client;
+	private boolean gameEnded;
 
 
 	/**
@@ -73,7 +72,6 @@ public class Game extends StateBasedGame {
 		addState(new PlayCoopState(PLAYCOOPSTATE));
 		addState(new PauseCoopState(PAUSECOOPSTATE));
 		addState(new AchieveViewerState(ACHIEVEVIEWERSTATE));
-		addState(new OnlinePlayState(ONLINEPLAYSTATE));
 		addState(new PlayCompetitiveState(PLAYCOMPETITIVESTATE));
 		addState(new GameOverLoadingState(GAMEOVERLOADINGSTATE));
 		addState(new PauseCompetitiveState(PAUSECOMPETITIVESTATE));
@@ -108,8 +106,13 @@ public class Game extends StateBasedGame {
 		this.currentScore = currentScore;
 	}
 	
-	public Client getClient() {
-		return this.client;
+
+	public boolean isGameEnded() {
+		return gameEnded;
+	}
+
+	public void setGameEnded(boolean gameEnded) {
+		this.gameEnded = gameEnded;
 	}
 
 	public static void main(String[] args) {

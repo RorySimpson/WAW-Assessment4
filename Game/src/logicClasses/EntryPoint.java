@@ -13,6 +13,7 @@ public class EntryPoint extends Point {
 	
 	static Image entryPointTop, entryPointRight, entryPointLeft,entryPointRunway;
 	private boolean runway;
+	
     public EntryPoint(double xcoord, double ycoord) {
     	super(xcoord, ycoord);
     }

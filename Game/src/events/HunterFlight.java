@@ -10,6 +10,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
+import stateContainer.Game;
 import logicClasses.*;
 
 public class HunterFlight {
@@ -170,9 +171,13 @@ public class HunterFlight {
 	}
 	
 	public void drawHunterFlight(Graphics g, GameContainer gc ){
-
+		
+		g.setWorldClip(11, 0, Game.MAXIMUMWIDTH -11, Game.MAXIMUMHEIGHT-40);
+		
 		hunterFlightImage.setRotation((int) currentHeading);
 		hunterFlightImage.drawCentered((int) this.x, (int) this.y);
+		
+		g.setWorldClip(0, 0, Game.MAXIMUMWIDTH, Game.MAXIMUMHEIGHT);
 	}
 	
 	public void init(GameContainer gc) throws SlickException {

@@ -668,13 +668,13 @@ public class PlayState extends BasicGameState {
 		Input input = gc.getInput();
 		
 		
-		// Checks if the game has been retried and if it has resets the airspace
-		if (gameEnded){
+		// Cecks if the game has been retried and if it has resets the airspace
+		if (((Game)sbg).isGameEnded()){
 			airspace.resetAirspace();
 			airspace.init(gc);
 	    	time = 0;
 
-	    	gameEnded = false;
+	    	((Game)sbg).setGameEnded(false); 
 	    	settingDifficulty = true;
 
 	    	airspace.getScore().resetScore();
@@ -799,8 +799,7 @@ public class PlayState extends BasicGameState {
 				gameplayMusic.stop();
 				endOfGameSound.play();
 				
-				gameEnded = true;
-
+				((Game)sbg).setGameEnded(true);
 				/* Lights up for next game session */
 				red = 255;
 				blue = 255;
@@ -818,6 +817,7 @@ public class PlayState extends BasicGameState {
 		
 			// Checking For Pause Screen requested in game
 			if (input.isKeyPressed(Input.KEY_P)) {
+				
 				sbg.enterState(stateContainer.Game.PAUSESTATE);
 			}			
 			
