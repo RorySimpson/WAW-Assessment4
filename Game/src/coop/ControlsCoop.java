@@ -176,7 +176,7 @@ public class ControlsCoop extends Controls {
 				this.selectedFlight2.land();
 			}
 			
-			if(gc.getInput().isKeyDown(Input.KEY_NUMPAD0)) {
+			if(gc.getInput().isKeyDown(Input.KEY_NEXT)) {
 				this.selectedFlight2.setSelected(false);
 				airspaceCoop.getListOfFlightsPlayer1().add(this.selectedFlight2);
 				airspaceCoop.getListOfFlightsPlayer2().remove(this.selectedFlight2);
