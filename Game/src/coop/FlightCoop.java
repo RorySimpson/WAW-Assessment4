@@ -15,13 +15,14 @@ public class FlightCoop extends Flight {
 	
 	boolean player2;
 	private static Image player1Image, player2Image;
+	private AirspaceCoop airspace;
 	
 	
 	
-	public FlightCoop(Airspace airspace) {
+	public FlightCoop(AirspaceCoop airspace) {
 		super(airspace);
 		this.player2 = false;
-		// TODO Auto-generated constructor stub
+		this.airspace = airspace;
 	}
 	
 	@Override
@@ -67,19 +68,19 @@ public class FlightCoop extends Flight {
 
 				this.setLandingDescentRate(this.findLandingDescentRate());
 				
-				if(((ControlsCoop)this.getAirspace().getControls()).getSelectedFlight1() != null){
+				if(this.airspace.getControls().getSelectedFlight1() != null){
 					
-					if(((ControlsCoop)this.getAirspace().getControls()).getSelectedFlight1().isLanding()) {
-						((ControlsCoop)this.getAirspace().getControls()).setSelectedFlight1(null);
+					if(this.airspace.getControls().getSelectedFlight1().isLanding()) {
+						this.airspace.getControls().setSelectedFlight1(null);
 					}
 					else {
-						((ControlsCoop)this.getAirspace().getControls()).setSelectedFlight2(null);
+						this.airspace.getControls().setSelectedFlight2(null);
 					}
 					
 				}
 				
 				else{
-					((ControlsCoop)this.getAirspace().getControls()).setSelectedFlight2(null);
+					this.airspace.getControls().setSelectedFlight2(null);
 				}
 				
 
@@ -100,11 +101,11 @@ public class FlightCoop extends Flight {
 
 				this.setLandingDescentRate(this.findLandingDescentRate());
 
-				if(((ControlsCoop)this.getAirspace().getControls()).getSelectedFlight1().isLanding()) {
-					((ControlsCoop)this.getAirspace().getControls()).setSelectedFlight1(null);
+				if(this.airspace.getControls().getSelectedFlight1().isLanding()) {
+					this.airspace.getControls().setSelectedFlight1(null);
 				}
 				else {
-					((ControlsCoop)this.getAirspace().getControls()).setSelectedFlight2(null);
+					this.airspace.getControls().setSelectedFlight2(null);
 				}
 
 			}
@@ -117,14 +118,14 @@ public class FlightCoop extends Flight {
 		setTakingOff(true);
 		setTargetVelocity((minVelocity +maxVelocity) /2);
 		setTargetAltitude(minAltitude);
-		if(((AirspaceCoop)getAirspace()).getListOfFlightsPlayer1().contains(flight)){
-			((ControlsCoop)getAirspace().getControls()).getSelectedFlight1().setSelected(false);
-			((ControlsCoop)getAirspace().getControls()).setSelectedFlight1(null);
+		if(this.airspace.getListOfFlightsPlayer1().contains(flight)){
+			this.airspace.getControls().getSelectedFlight1().setSelected(false);
+			this.airspace.getControls().setSelectedFlight1(null);
 		}
 		
 		else{
-			((ControlsCoop)getAirspace().getControls()).getSelectedFlight2().setSelected(false);
-			((ControlsCoop)getAirspace().getControls()).setSelectedFlight2(null);
+			this.airspace.getControls().getSelectedFlight2().setSelected(false);
+			this.airspace.getControls().setSelectedFlight2(null);
 		}
 		
 	}

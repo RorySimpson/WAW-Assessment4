@@ -26,10 +26,10 @@ public class WaypointCoop extends Waypoint {
 	 * @throws SlickException Slick2d exception handler
 	 */
 
-	public void render(Graphics g, Airspace airspace) throws SlickException {
+	public void render(Graphics g, AirspaceCoop airspace) throws SlickException {
 		Image image;
 		image = null;
-		ControlsCoop controls = (ControlsCoop)airspace.getControls();
+		ControlsCoop controls = airspace.getControls();
 		if(controls.getSelectedFlight1() !=null){ // If there is a selected flight use its next waypoint and draw it as next
 			if (controls.getSelectedFlight1().getFlightPlan().getCurrentRoute().indexOf(this)==0){
 				image = getNextWaypointImage();

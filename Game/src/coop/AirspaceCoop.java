@@ -19,11 +19,12 @@ public class AirspaceCoop extends Airspace {
 	private ArrayList<FlightCoop> listOfFlightsPlayer1;
 	private ArrayList<FlightCoop> listOfFlightsPlayer2;
 	boolean addPlayer1Flight;
+	private ControlsCoop controls;
 	
 	public AirspaceCoop() {
 		
 		super();
-		this.setControls(new ControlsCoop(this));
+		this.controls = new ControlsCoop(this);
 		this.listOfFlightsPlayer1 = new ArrayList<FlightCoop>();
 		this.listOfFlightsPlayer2 = new ArrayList<FlightCoop>();
 		this.addPlayer1Flight=false;
@@ -50,8 +51,8 @@ public class AirspaceCoop extends Airspace {
 		
 		// Prevents information about flight from previous game being displayed
 		//this.getControls().setSelectedFlight(null);  	
-		((ControlsCoop) this.getControls()).setSelectedFlight1(null);
-		((ControlsCoop) this.getControls()).setSelectedFlight2(null);
+		this.controls.setSelectedFlight1(null);
+		this.controls.setSelectedFlight2(null);
 		
 		
 	}
@@ -181,15 +182,15 @@ public class AirspaceCoop extends Airspace {
 		}
 		this.getListOfFlightsInAirspace().remove(flight);
 		
-		Flight selected1 = ((ControlsCoop) this.getControls()).getSelectedFlight1();
-		Flight selected2 = ((ControlsCoop) this.getControls()).getSelectedFlight2();
+		Flight selected1 = this.controls.getSelectedFlight1();
+		Flight selected2 = this.controls.getSelectedFlight2();
 		// If flight was selected, de-select it
 		if (!(this.getListOfFlightsInAirspace().contains(selected1))) {
-			((ControlsCoop) this.getControls()).setSelectedFlight1(null);
+			this.controls.setSelectedFlight1(null);
 
 		}
 		if (!(this.getListOfFlightsInAirspace().contains(selected2))) {
-			((ControlsCoop) this.getControls()).setSelectedFlight2(null);
+			this.controls.setSelectedFlight2(null);
 
 		}
 	}
@@ -209,6 +210,15 @@ public class AirspaceCoop extends Airspace {
 
 	public void setListOfFlightsPlayer2(ArrayList<FlightCoop> listOfFlightsPlayer2) {
 		this.listOfFlightsPlayer2 = listOfFlightsPlayer2;
+	}
+
+	public ControlsCoop getControls() {
+		return controls;
+	}
+
+
+	public void setControls(ControlsCoop controls) {
+		this.controls = controls;
 	}
 	
 
