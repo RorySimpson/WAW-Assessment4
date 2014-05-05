@@ -142,8 +142,12 @@ public class FlightCoop extends Flight {
 		
 	}
 	
-
-
+	/**
+	 * drawFlight: draws the flight at it's current x,y and draws its information around within a circle.
+	 * Different images for the flight are used depending on how fast the plane is.
+	 * @param g - Graphics libraries required by slick2d.
+	 * @param gc - GameContainer required by slick2d.
+	 */
 	@Override
 	public void drawFlight(Graphics g, GameContainer gc ){
 
