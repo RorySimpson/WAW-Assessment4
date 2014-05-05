@@ -38,7 +38,7 @@ public class PlayCompetitiveState extends PlayState {
 
 	private AirspaceCompetitive airspace;
 	private boolean explosionOccurs = false;
-	private float decMins, decSecs, secondsOccured;
+	private float decMins, decSecs, secondsOccurred;
 	private int secs;
 	protected float time;
 	private String countdown;
@@ -316,7 +316,7 @@ public class PlayCompetitiveState extends PlayState {
 		
 		// Render Time in Multiplier Bar. Completely filled when gameover.
 		g.setColor(Color.cyan);
-		g.fillRect(0, 600 - 600 *(secondsOccured / 300), 11, 600 *(secondsOccured / 300));
+		g.fillRect(0, 600 - 600 *(secondsOccurred / 300), 11, 600 *(secondsOccurred / 300));
 		g.setColor(Color.white);
 
 
@@ -372,30 +372,14 @@ public class PlayCompetitiveState extends PlayState {
 
 		time += delta;
 		achievement.timeAchievement((int) time);
-		decMins = time/1000/60;
-		int mins = (int) decMins;
-		decSecs=decMins-mins;
-		
-		secondsOccured = time/1000;
-		secs = Math.round(decSecs*60);
-		
-		countdown = String.valueOf(300 - secs);
+
+		secondsOccurred = time/1000;
+
+		countdown = String.valueOf(300 - Math.round(secondsOccurred));
 
 		String stringMins="";
 		String stringSecs="";
-		if(secs>=60){
-			secs -= 60;
-			mins+=1;
-			// {!} should do +60 score every minute(possibly) 
-			//     - after 3 minutes adds on 2 less points every time?
-			airspace.getScore().updateTimeScore();
-		}
-		if(mins<10) {
-			stringMins="0"+mins;
-		}
-		else {
-			stringMins=String.valueOf(mins);
-		}
+
 		if(secs<10) {
 			stringSecs="0"+secs;
 		}
@@ -417,7 +401,7 @@ public class PlayCompetitiveState extends PlayState {
 		}		
 		
 		// Game ends after 5 minutes of playing.
-		if ((int)decMins >= 5){
+		if (secondsOccurred >= 300){
 			
 			if(airspace.getPlayer1Score() > airspace.getPlayer2Score()){
 				((Game)sbg).setPreviousCompetitiveModeWinner("Player 1");
