@@ -350,12 +350,12 @@ public class PlayCompetitiveState extends PlayState {
 
 		// Checks if the game has been retried and if it has resets the airspace
 
-		if (((Game)sbg).isGameEnded()){
+		if (((Game)sbg).isGameEndedComp()){
 			airspace.resetAirspace();
 			airspace.init(gc);
 	    	time = 0;
 
-	    	((Game)sbg).setGameEnded(false); 
+	    	((Game)sbg).setGameEndedComp(false); 
 	    	settingDifficulty = true;
 
 	    	airspace.getScore().resetScore();

@@ -46,6 +46,8 @@ public class Game extends StateBasedGame {
 	private String previousCompetitiveModeWinner;
 	private Achievements achievements = new Achievements();
 	private boolean gameEnded;
+	private boolean gameEndedCoop;
+	private boolean gameEndedComp;
 
 
 	/**
@@ -109,6 +111,22 @@ public class Game extends StateBasedGame {
 
 	public boolean isGameEnded() {
 		return gameEnded;
+	}
+
+	public boolean isGameEndedCoop() {
+		return gameEndedCoop;
+	}
+
+	public void setGameEndedCoop(boolean gameEndedCoop) {
+		this.gameEndedCoop = gameEndedCoop;
+	}
+
+	public boolean isGameEndedComp() {
+		return gameEndedComp;
+	}
+
+	public void setGameEndedComp(boolean gameEndedComp) {
+		this.gameEndedComp = gameEndedComp;
 	}
 
 	public void setGameEnded(boolean gameEnded) {
