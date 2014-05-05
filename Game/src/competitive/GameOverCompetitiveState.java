@@ -94,13 +94,13 @@ public class GameOverCompetitiveState extends BasicGameState {
 		gameOverBackground.draw(0,0);
 		
 		winner = ((Game)sbg).getPreviousCompetitiveModeWinner();
-		
-		if(winner == "Draw"){
-			g.drawString(winner, 450, 500);
-		}
-		
-		else{
-			g.drawString(winner + " has won ", 450, 500);
+		if(winner!=null){
+			if(winner == "Draw"){
+				g.drawString(winner, 450, 500);
+			}
+			else{
+				g.drawString(winner + " has won ", 450, 500);
+			}
 		}
 		
 		
