@@ -60,25 +60,6 @@ public class Controls_Tests {
 	}
 
 	
-	@Test // This also tests 'setSelectedFlight()'
-	// 		 No need to repeat test!
-	public void testGetSelectedFlight() throws SlickException {			
-		Airspace newAirspace = new Airspace();
-		newAirspace.addEntryPoint(new EntryPoint(10, 10));
-		newAirspace.addEntryPoint(new EntryPoint(20, 20));
-		newAirspace.addEntryPoint(new EntryPoint(20, 0));
-		newAirspace.addEntryPoint(new EntryPoint(0, 20));
-		Flight newFlight = new Flight(newAirspace);
-		
-		newAirspace.getListOfFlights().add(newFlight);
-
-		newAirspace.getControls().setSelectedFlight(newFlight,true);
-
-		newAirspace.getControls().setSelectedFlight(newFlight, true);
-
-			
-		assertEquals(newFlight, newAirspace.getControls().getSelectedFlight());
-	}
 
 	@Test
 	public void testSetDifficultyValueOfGame() {		
