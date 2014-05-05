@@ -506,15 +506,15 @@ public class PlayCoopState extends PlayState {
 
 		// Checks if the game has been retried and if it has resets the airspace
 
-		if (gameEnded){
-			
-			System.out.println("ended");
+		if (((Game)sbg).isGameEnded()){
 			airspace.resetAirspace();
 			airspace.init(gc);
-			time = 0;
-			gameEnded = false;
-			settingDifficulty = true;
-			airspace.getScore().resetScore();
+	    	time = 0;
+
+	    	((Game)sbg).setGameEnded(false); 
+	    	settingDifficulty = true;
+
+	    	airspace.getScore().resetScore();
 		}
 
 
