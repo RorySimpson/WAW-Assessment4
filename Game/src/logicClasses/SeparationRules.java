@@ -16,13 +16,21 @@ public class SeparationRules {
 
 	protected int warningLateralSeparation, warningVerticalSeparation; 
 	protected int gameOverLateralSeparation, gameOverVerticalSeparation;
+	/* Whether the game over violation occurred */
 	protected boolean gameOverViolation; 
+	/* Where the crash happened */
 	protected Point2D pointOfCrash;
+	/* Distances for collision and hunterflight */
 	protected final static int COLLISIONDISTANCE = 10;
 	protected final static int HUNTERFLIGHTCOLLISIONDISTANCE = 25;
 
 	//CONSTRUCTOR
+	/**
+	 * Constructor that sets the default values
+	 * @param difficultyVal default values depend on the difficulty chosen
+	 */
 	public SeparationRules(int difficultyVal){
+		/* Sets the warning separation */
 		this.warningLateralSeparation = 100; 
 		this.warningVerticalSeparation = 999; 
 		this.gameOverViolation = false;
@@ -51,7 +59,6 @@ public class SeparationRules {
 	 * @param flight2 - A flight from the airspace.
 	 * @return A double representing the lateral distance between the two flights passed as parameters.
 	 */
-
 	public double lateralDistanceBetweenFlights(Flight flight1, Flight flight2){
 		return Math.sqrt(Math.pow((flight1.getX() - flight2.getX()), 2) + Math.pow(( flight1.getY() - flight2.getY()),2));
 	}
@@ -107,6 +114,11 @@ public class SeparationRules {
 		}
 	}
 
+	/**
+	 * Checks if a volcano projectile hit a plane, and if it did, it stops the plane and
+	 * calls the game over screen
+	 * @param airspace
+	 */
 	public void checkVolcanoProjectileOnFlightCollision(Airspace airspace){
 
 		for(VolcanoProjectile projectile: airspace.getEventController().getVolcano().getListOfProjectilesLaunched()){
@@ -117,12 +129,15 @@ public class SeparationRules {
 					flight.setVelocity(0);
 					this.pointOfCrash.setLocation(flight.getX(), flight.getY());
 				}
-
 			}
-
 		}
 	}
 
+	/**
+	 * Checks whether a tornado hit a plane, and if it did, change the altitude and heading
+	 * to a random number within the limits
+	 * @param airspace
+	 */
 	public void checkTornadoOnFlightCollision(Airspace airspace){
 
 		for(Tornado tornado: airspace.getEventController().getListOfTornados()){
@@ -140,12 +155,15 @@ public class SeparationRules {
 					flight.setCurrentHeading(random2);
 					this.pointOfCrash.setLocation(flight.getX(), flight.getY());
 				}
-
 			}
-
 		}
 	}
 
+	/**
+	 * Checks if the hunter flight collided with any of the planes, and if it did
+	 * stops the plane and calls a game over screen
+	 * @param airspace
+	 */
 	public void checkHunterFlightCollision(Airspace airspace){
 
 		for (HunterFlight hunterFlight : airspace.getEventController().getListOfHunterFlights()){
@@ -157,7 +175,6 @@ public class SeparationRules {
 				}
 			}
 		}
-
 	}
 
 
@@ -170,16 +187,12 @@ public class SeparationRules {
 	 * @param airspace - The airspace object is passed as the render method requires knowledge of
 	 * flights in the airspace, which is stored within the airspace. 
 	 */
-
 	public void render(Graphics g, GameContainer gc, Airspace airspace){
 
 		for (int i = 0; i < airspace.getListOfFlights().size(); i++) {
-
 			for (int j = i + 1; j < airspace.getListOfFlights().size(); j++ ) {	
-
 				if (this.lateralDistanceBetweenFlights(airspace.getListOfFlights().get(i), 
 						airspace.getListOfFlights().get(j)) <= this.getWarningLateralSeparation()) {
-
 					if (this.verticalDistanceBetweenFlights(airspace.getListOfFlights().get(i), 
 							airspace.getListOfFlights().get(j)) <= this.getWarningVerticalSeparation()) {
 
@@ -193,10 +206,10 @@ public class SeparationRules {
 							g.drawLine(f1x, f1y, f2x, f2y);
 							g.setLineWidth(1);
 						}
-					}}
+					}
+				}
 			}
 		}
-
 	}
 
 	/**
@@ -205,7 +218,6 @@ public class SeparationRules {
 	 * @param airspace - The airspace object is passed as the checkViolation method requires knowledge of
 	 * flights in the airspace, which is stored within the airspace.
 	 */
-
 	public void update(Airspace airspace) {
 
 		this.checkFlightOnFlightViolation(airspace);
@@ -257,6 +269,4 @@ public class SeparationRules {
 	public void setPointOfCrash(Point2D pointOfCrash) {
 		this.pointOfCrash = pointOfCrash;
 	}
-
 }
-

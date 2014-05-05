@@ -12,36 +12,53 @@ import org.newdawn.slick.SlickException;
 
 import stateContainer.Game;
 
-public class Flight implements Serializable{ //ignore, its for online mode, doesn't do anything
+public class Flight { 
 
 	// FIELDS
+	/* Images */
 	protected static Image 
-	regularFlightImage, slowFlightImage, fastFlightImage, shadowImage, cargoFlightImage;
+	regularFlightImage, slowFlightImage, fastFlightImage, 
+	shadowImage, cargoFlightImage;
+
+	/* Helps converting pixels to game distance */
 	protected static double gameScale = 1/1000.0;
 
+	/* Velocity and altitude limits */
 	protected int
 	minVelocity = 200, maxVelocity = 400,
 	minAltitude = 2000, maxAltitude = 5000;
+
+	/* Values that decide acceleration, turning rate and climbing rate */
 	protected double
 	accel = 20/60.0,
 	climbRate = 5,
 	turnRate = 0.9;	
 
+	/* The number of the flight */
 	protected int flightNumber;
+	/* The name of the flight */
 	protected String flightName;
+	/* Velocities */
 	protected double
 	x, y,
 	velocity, targetVelocity;
+	/* Plane's heading */
 	protected double
 	currentHeading, targetHeading;
+	/* The altitude of the plane  */
 	protected int 
 	currentAltitude, targetAltitude;
 
+	/* Whether the plane is turning */
 	protected boolean turningRight, turningLeft;
 
+	/* Airspace and flight plan objects */
 	protected Airspace airspace;
 	protected FlightPlan flightPlan;
+
+	/* Whether a plane is selected */
 	protected boolean selected;
+	/* The radius that determines the selection radius of a plane */
 	protected final static int RADIUS = 30;
 	protected int closestDistance = Integer.MAX_VALUE; // this is the maximum distance a plane
 	// can be away from the waypoint once it has 
@@ -49,27 +66,34 @@ public class Flight implements Serializable{ //ignore, its for online mode, does
 	protected int distanceFromWaypoint;
 	protected double landingDescentRate = 0;
 
+	/* Sets all booleans to false besides controllable as
+	 * a default should be controllable by default */
 	protected boolean 
-	takingOff = false,
-	waitingToTakeOff = false,
-	landing = false,
-	circling = false,
-	partCircling = false,
-	finalApproach = false,
-	controllable = true,
-	bonus;
+        takingOff = false,
+        waitingToTakeOff = false,
+        landing = false,
+        circling = false,
+        partCircling = false,
+        finalApproach = false,
+        controllable = true,
+        bonus;
 
 
-	// CONSTRUCTOR
-	
+	/**
+	 * Flight constructor resets everything
+	 * @param airspace
+	 */
 	public Flight(Airspace airspace) {
+		/* Flight coordinates */
 		this.x = 0;
 		this.y = 0;
+
 		this.targetAltitude = 0;
 		this.targetHeading = 0;
 		this.currentHeading = 0;
 		this.turningRight = false;
 		this.turningLeft = false;
+
 		this.airspace = airspace;
 		this.flightPlan = new FlightPlan(airspace, this);
 		this.currentAltitude = generateAltitude();
@@ -77,14 +101,22 @@ public class Flight implements Serializable{ //ignore, its for online mode, does
 		this.bonus = false;
 	}
 	
+	/**
+	 * Flight constuor for competitive
+	 * @param airspace
+	 * @param competitive whether it's for comeptitive mode
+	 */
 	public Flight(Airspace airspace, Boolean competitive){
+		/* Flight coordinates */
 		this.x = 0;
 		this.y = 0;
+
 		this.targetAltitude = 0;
 		this.targetHeading = 0;
 		this.currentHeading = 0;
 		this.turningRight = false;
 		this.turningLeft = false;
+
 		this.airspace = airspace;
 		this.currentAltitude = generateAltitude();
 		this.selected = false;
@@ -92,17 +124,16 @@ public class Flight implements Serializable{ //ignore, its for online mode, does
 
 	// METHODS
 
-
 	/**
 	 * generateAltitude: Randomly assigns one of three different altitudes to a flight
 	 * @return A random altitude (either 3000, 4000 or 0)
 	 */
-
-	public int generateAltitude() {	//{!} not converted to using min/max
+	public int generateAltitude() {	
 		if(getFlightPlan().getEntryPoint().isRunway()){
 			return 0;
 		}else{
 			Random rand = new Random();
+			/* Generate random altitude */
 			int check = rand.nextInt(((maxAltitude-minAltitude)/1000) - 1);
 			return minAltitude + (check + 1) * 1000;
 		}
@@ -110,21 +141,22 @@ public class Flight implements Serializable{ //ignore, its for online mode, does
 
 	/**
 	 * calculateHeadingToFirstWaypoint: calculates heading between flight's current position and the first waypoint
-	 * in the flight's plan. The flight's current position will always be it's entrypoint because this method
+	 * in the flight's plan. The flight's current position will always be its entrypoint because this method
 	 * is only called within the newFlight() function in airspace.
 	 * @param desX - The X coordinate of the waypoint
 	 * @param dexY - The Y coordinate of the waypoint
 	 * @return The heading between the flight and first waypoint.
 	 */
-
 	public double calculateHeadingToNextWaypoint(double desX, double desY) {
 
 		this.turningLeft = false;
 		this.turningRight = false;
+
 		double deltaX;
 		double deltaY;
 		deltaY = desY - this.y;
 		deltaX = desX - this.x;
+
 		double angle = Math.toDegrees(Math.atan2(deltaY, deltaX));
 		angle += 90;
 		if (angle < 0) {
@@ -140,7 +172,6 @@ public class Flight implements Serializable{ //ignore, its for online mode, does
 	 * towards it's target heading.
 	 * @param degreeTurnedBy - The amount of degrees you want to turn left by.
 	 */
-
 	public void turnFlightLeft(int degreeTurnedBy) {
 
 		this.turningRight = false;
@@ -159,7 +190,6 @@ public class Flight implements Serializable{ //ignore, its for online mode, does
 	 * towards it's target heading.
 	 * @param degreeTurnedBy - The amount of degrees you want to turn right by.
 	 */
-
 	public void turnFlightRight(int degreeTurnedBy) {
 
 		this.turningLeft = false;
@@ -179,7 +209,6 @@ public class Flight implements Serializable{ //ignore, its for online mode, does
 	 * done using newHeading % 360.
 	 * @param newHeading - The heading the flight has been commmanded to fly at.
 	 */
-
 	public void giveHeading(int newHeading) {
 		this.turningRight = false;
 		this.turningLeft = false;
@@ -187,6 +216,9 @@ public class Flight implements Serializable{ //ignore, its for online mode, does
 		this.targetHeading = newHeading;
 	}
 
+	/**
+	 * Increments the heading by 1 and resets it to 0 if it's over 360
+	 */
 	public void incrementHeading() {
 		this.targetHeading+=1;
 		this.currentHeading+=1;
@@ -198,6 +230,9 @@ public class Flight implements Serializable{ //ignore, its for online mode, does
 		}
 	}
 
+	/**
+	 * Decrements heading by 1 and resets it to 360 if it's under 0
+	 */
 	public void decrementHeading() {
 		this.targetHeading-=1;
 		this.currentHeading-=1;
@@ -216,9 +251,7 @@ public class Flight implements Serializable{ //ignore, its for online mode, does
 	 * @param Waypoint - The next waypoint in the flight's plan.
 	 * @return True if flight is at it's next waypoint and it is moving away from that waypoint.
 	 */
-
 	public boolean checkIfFlightAtWaypoint(Point waypoint) {
-
 
 		if (waypoint == airspace.getAirportLeft().getBeginningOfRunway() && this.landing == false){
 			return false;
@@ -260,79 +293,89 @@ public class Flight implements Serializable{ //ignore, its for online mode, does
 		return false;
 	}
 
+	/**
+	 * Distnace from waypoint to be considered visisted
+	 * @param waypoint
+	 * @return
+	 */
 	public int minDistanceFromWaypoint(Point waypoint){	
 		return closestDistance;
 	}
+	/**
+	 * Resets the value back to maximum
+	 */
 	public void resetMinDistanceFromWaypoint(){
 		closestDistance = Integer.MAX_VALUE;
 	}
 
+	/**
+	 * Take off the plane
+	 */
 	public void takeOff(){
 		takingOff = true;
+		/* Set a starting speed */
 		setVelocity(100);
+		/* Speed up to an average speed */
 		setTargetVelocity((minVelocity +maxVelocity) /2);
+		/* Raise to the minimum altitude */
 		setTargetAltitude(minAltitude);
 	}
 
+	/**
+	 * Whether the altitude is right to land
+	 * @return
+	 */
 	public boolean altToLand(){
 		if(currentAltitude <= 720){
 			return true;
 		}else{
-
 			return false;
 		}
 	}
+	/**
+	 * Method for landing hte plane
+	 */
 	public void land(){	
-		// if next point is an exit point
-
-
-
-
+		// If plane not already landing
 		if (!landing){
+			// If the next waypoint is an airport, and the heading is facing the right airport, sets it to land
 			if (this.airspace.getAirportRight().getLandingApproachArea()
 					.contains((float)this.x, (float)this.y) 
 					&& this.currentHeading >= 45 && this.currentHeading <= 135 && this.currentAltitude <= 2000
 					&& this.getFlightPlan().getCurrentRoute().get(0) == this.airspace.getAirportRight().getBeginningOfRunway())
 			{
 
-
 				this.landing 		= true;
-
 				this.targetVelocity = velocity;
 
-
 				this.landingDescentRate = this.findLandingDescentRate();
-
 				this.airspace.getControls().setSelectedFlight(null);	
-
 			}
 
 
+			// If the next waypoint is an airport, and the heading is facing the left airport, sets it to land
 			if (this.airspace.getAirportLeft().getLandingApproachArea()
 					.contains((float)this.x, (float)this.y) 
 					&& this.currentHeading >= 225 && this.currentHeading <= 305 && this.currentAltitude <= 2000
 					&& this.getFlightPlan().getCurrentRoute().get(0) == this.airspace.getAirportLeft().getBeginningOfRunway())
 			{
-
-
 				this.landing 		= true;
-
 				this.targetVelocity = velocity;
 
 				this.landingDescentRate = this.findLandingDescentRate();
-
 				this.airspace.getControls().setSelectedFlight(null);	
-
 			}
-
 		}
-		
 		airspace.getScore().getAchievements().planeLandedAchievement();
 	}
 
+	/**
+	 * Get the landing flight to face the last exitpoint (end of runway waypoint)
+	 */
 	public void steerLandingFlight(){
 		if (this.flightPlan.getCurrentRoute().size() != 0){
-			this.targetHeading = calculateHeadingToNextWaypoint(this.getFlightPlan().getCurrentRoute().get(0).getX(),this.getFlightPlan().getCurrentRoute().get(0).getY());
+			this.targetHeading = calculateHeadingToNextWaypoint(this.getFlightPlan().getCurrentRoute().get(0).getX()
+					,this.getFlightPlan().getCurrentRoute().get(0).getY());
 		}
 
 	}
@@ -361,7 +404,6 @@ public class Flight implements Serializable{ //ignore, its for online mode, does
 
 
 		double descentPerPixel 		= this.currentAltitude/distanceFromRunway;
-
 		rate = descentPerPixel* (this.velocity * gameScale);
 
 		return rate;
@@ -375,12 +417,10 @@ public class Flight implements Serializable{ //ignore, its for online mode, does
 	 * @param g - Graphics libraries required by slick2d.
 	 * @param gc - GameContainer required by slick2d.
 	 */
-
 	public void drawFlight(Graphics g, GameContainer gc ){
 
 		g.setColor(Color.white);
 		g.setWorldClip(11, 0, Game.MAXIMUMWIDTH -11, Game.MAXIMUMHEIGHT-40);
-
 
 		// Scale the shadow in accordance to the altitude of the flight
 		if (this.currentAltitude > 50)
@@ -390,41 +430,38 @@ public class Flight implements Serializable{ //ignore, its for online mode, does
 			shadowImage.draw((int) this.x-35, (int) this.y, shadowScale);
 		}
 		//Depending on a plane's speed, different images for the plane are drawn
-		
 		if(this.bonus){
 		
 			cargoFlightImage.setRotation((int) currentHeading);
 			cargoFlightImage.draw((int) this.getX()-24, (int) this.getY()-22);
 		}
 
-		else if(velocity <= 275){	//{!} not converted to using min/max
+		/* Draw the slow planes */
+		else if(velocity <= 275){	
 
 			slowFlightImage.setRotation((int) currentHeading);
 			slowFlightImage.draw((int) this.x-10, (int) this.y-10);
 
 		}
 
-		else if(velocity>270 && velocity<340){	//{!} not converted to using min/max
+		/* Draw the medium speed planes */
+		else if(velocity>270 && velocity<340){	
 
 			regularFlightImage.setRotation((int) currentHeading);
 			regularFlightImage.draw((int) this.x-10, (int) this.y-10);
 
 		}
 
+		/* Draw the fast planes */
 		else{
 			fastFlightImage.setRotation((int) currentHeading);
 			fastFlightImage.draw((int) this.x-10, (int) this.y-10);
-
 		}
 
 		// Drawing Separation Circle
 
-
-
-
 		// Drawing information around flight
 		// If flight is selected then also display current heading
-
 		if (this.selected){
 			if (this.currentAltitude != 0 ){
 				g.setColor(Color.white);
@@ -459,13 +496,11 @@ public class Flight implements Serializable{ //ignore, its for online mode, does
 						else{
 							g.drawString("Aim: "+this.flightPlan.getPointByIndex(0).getPointRef(),(int) this.x -22, (int)this.y-28);
 						}
-
 					}
 				}
 
 				g.drawOval((int) this.x - 50, (int) this.y - 50, 100, 100);
 			}
-
 		}
 
 		// If flight isn't selected then don't display current heading
@@ -502,7 +537,6 @@ public class Flight implements Serializable{ //ignore, its for online mode, does
 		}
 
 		g.setWorldClip(0, 0, Game.MAXIMUMWIDTH, Game.MAXIMUMHEIGHT);
-
 	}
 
 
@@ -514,14 +548,11 @@ public class Flight implements Serializable{ //ignore, its for online mode, does
 	 * and it's current heading. The velocity of the plane is scaled so that it can be used for 
 	 * movement in terms of pixels.
 	 */
-
 	public void updateXYCoordinates() {
 		double vs = velocity *gameScale;
 
 		this.x += vs * Math.sin(Math.toRadians(currentHeading));
-
 		this.y -= vs * Math.cos(Math.toRadians(currentHeading));
-
 	}
 
 	/**
@@ -529,14 +560,13 @@ public class Flight implements Serializable{ //ignore, its for online mode, does
 	 * If target altitude is less than current altitude, decrease current altitude. If current altitude and
 	 * target altitude are the same, do nothing.
 	 */
-
 	public void updateAltitude() {
 
 		if(this.landingDescentRate != 0)
 		{
 			if(this.currentAltitude < 0)
 			{
-				this.currentAltitude			= 0;
+				this.currentAltitude	= 0;
 				this.landingDescentRate = 0;
 				this.targetAltitude		= 0;
 			}
@@ -574,7 +604,6 @@ public class Flight implements Serializable{ //ignore, its for online mode, does
 			 * If plane has been given a heading so no turning direction specified,
 			 * below works out whether it should turn left or right to that heading
 			 */
-
 			if(this.turningRight == false && this.turningLeft == false){
 
 				if (Math.abs(this.targetHeading - this.currentHeading) == 180) {
@@ -604,7 +633,6 @@ public class Flight implements Serializable{ //ignore, its for online mode, does
 			}
 
 			// If plane is already turning right or user has told it to turn right
-
 			if (this.turningRight == true) {
 				this.currentHeading += turnRate;
 				if (Math.round(this.currentHeading) >= 360 && this.targetHeading != 360) {
@@ -613,7 +641,6 @@ public class Flight implements Serializable{ //ignore, its for online mode, does
 			}
 
 			// If plane is already turning left or user has told it to turn left
-
 			if (this.turningLeft == true) {
 				this.currentHeading -= turnRate;
 				if (Math.round(this.currentHeading) <= 0 && this.targetHeading != 0) {
@@ -623,11 +650,15 @@ public class Flight implements Serializable{ //ignore, its for online mode, does
 		}
 	}
 
+	/**
+	 * Method to change the velocity of the planes
+	 */
 	public void updateVelocity(){
 
-
-
+		/* Delta velocity */
 		double dv = 0.01*(targetVelocity - velocity);
+
+		/* Set the right velocity */
 		if (targetVelocity > velocity) {
 			dv = Math.min(dv , accel);
 		}else{
@@ -636,11 +667,13 @@ public class Flight implements Serializable{ //ignore, its for online mode, does
 
 		velocity += dv;
 
-		if (Math.abs(targetVelocity - velocity)< 0.5){
 
+		/* Increase velocity */
+		if (Math.abs(targetVelocity - velocity)< 0.5){
 			velocity = targetVelocity;
 		}
 
+		/* If the plane got enough speed, it means it took off */
 		if (takingOff && (Math.abs(minVelocity - velocity)< 0.5)){
 			takingOff = false;
 		}
@@ -653,7 +686,6 @@ public class Flight implements Serializable{ //ignore, its for online mode, does
 	 * init: initialises resources such as images.
 	 * @param gc - GameContainer required by slick2d.
 	 */
-
 	public void init(GameContainer gc) throws SlickException {
 		if (regularFlightImage == null){
 			regularFlightImage = new Image("res/graphics/flight.png");
@@ -670,32 +702,33 @@ public class Flight implements Serializable{ //ignore, its for online mode, does
 		if(cargoFlightImage == null){
 			cargoFlightImage = new Image("res/graphics/new/cargoFlight.png");
 		}
-
 	}
 
 
 	/**
 	 * Update: calls all the update functions.
 	 */
-
 	public void update(ScoreTracking score) {
-
-
 		this.updateVelocity();
 		this.updateCurrentHeading();
 		this.updateXYCoordinates();
 		this.updateAltitude();
+
 		this.flightPlan.update(score);
 
+		/* Steer flight to the end of the runway */
 		if(this.landing){
 			this.steerLandingFlight();
 		}
-
-
-
-
 	}
 
+	/**
+	 * Tests whether a plane is within the right tolerance to land properly
+	 * @param x1
+	 * @param x2
+	 * @param tolerance
+	 * @return
+	 */
 	public boolean withinTolerance(double x1, double x2,double tolerance){
 		return Math.abs(x1 - x2) <= tolerance;
 	}
@@ -704,21 +737,14 @@ public class Flight implements Serializable{ //ignore, its for online mode, does
 	 * @param g - Graphics libraries required by slick2d.
 	 * @param gc - GameContainer required by slick2d.
 	 */
-
-
 	public void render(Graphics g, GameContainer gc) throws SlickException {
 
 		this.drawFlight(g, gc);
 		this.flightPlan.render(g,gc);
-
-
-
-
 	}
 
 
 	// MUTATORS AND ACCESSORS
-
 
 	public double getX() {
 		return this.x;
@@ -954,9 +980,4 @@ public class Flight implements Serializable{ //ignore, its for online mode, does
 	public void setBonus(boolean bonus) {
 		this.bonus = bonus;
 	}
-
-
-
-
-
 }

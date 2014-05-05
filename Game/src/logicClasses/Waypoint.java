@@ -11,13 +11,17 @@ import util.DeferredFile;
 
 public class Waypoint extends Point {
 
+	/* Images */
 	static Image nextWaypointImage, waypointImage;
 
-
+	/**
+	 * Constructor that takes coordinates and a waypoint name
+	 * @param xcoord
+	 * @param ycoord
+	 * @param name
+	 */
 	public Waypoint(double xcoord, double ycoord, String name){
 		super(xcoord, ycoord, name);
-
-		//System.out.println("Waypoint " + pointRef + " set:(" + x + "," + y +").");
 	}
 
 	// INIT, RENDER
@@ -27,9 +31,9 @@ public class Waypoint extends Point {
 	 * @param gc Slick2d game container
 	 * @throws SlickException Slick2d exception handler
 	 */
-
 	public void init(GameContainer gc) throws SlickException {
 		{
+			/* Loads all the images in a deferred mode to improve the performance */
 			LoadingList loading = LoadingList.get();
 			
 			if (waypointImage == null){
@@ -47,7 +51,6 @@ public class Waypoint extends Point {
 					}
 				});
 			}
-			
 		}
 	}
 
@@ -58,10 +61,10 @@ public class Waypoint extends Point {
 	 * @param airspace object
 	 * @throws SlickException Slick2d exception handler
 	 */
-
 	public void render(Graphics g, Airspace airspace) throws SlickException {
 		Image image;
-		if(airspace.getControls().getSelectedFlight() !=null){ // If there is a selected flight use its next waypoint and draw it as next
+        // If there is a selected flight use its next waypoint and draw it as next
+		if(airspace.getControls().getSelectedFlight() !=null){ 
 			if (airspace.getControls().getSelectedFlight().getFlightPlan().getCurrentRoute().indexOf(this)==0){
 				image = nextWaypointImage;
 				g.setColor(Color.white);
@@ -95,7 +98,4 @@ public class Waypoint extends Point {
 	public static void setWaypointImage(Image waypointImage) {
 		Waypoint.waypointImage = waypointImage;
 	}
-
-
-
 }
