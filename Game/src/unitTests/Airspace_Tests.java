@@ -42,6 +42,7 @@ public class Airspace_Tests {
 
 		
 	}
+
 	
 	// Testing new_waypoint()
 	@Test
