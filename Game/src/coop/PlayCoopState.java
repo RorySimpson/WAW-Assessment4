@@ -529,6 +529,12 @@ public class PlayCoopState extends PlayState {
 			airspace.resetAirspace();
 			airspace.init(gc);
 	    	time = 0;
+	    	/* Lights up for next game session */
+			red = 255;
+			blue = 255;
+			green = 255;
+			brightness = new Color( red , blue, green);
+			countdownToLightReduction = 40;
 
 	    	((Game)sbg).setGameEndedCoop(false); 
 	    	settingDifficulty = true;
@@ -647,12 +653,6 @@ public class PlayCoopState extends PlayState {
 				((Game)sbg).setCurrentScore(airspace.getScore( ).getCurrentScore());
 
 
-				/* Lights up for next game session */
-				red = 255;
-				blue = 255;
-				green = 255;
-				brightness = new Color( red , blue, green);
-				countdownToLightReduction = 40;
 				
 				/* Switch states to Game Over screen */
 				sbg.enterState(stateContainer.Game.GAMEOVERCOOPSTATE);

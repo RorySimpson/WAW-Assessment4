@@ -673,6 +673,12 @@ public class PlayState extends BasicGameState {
 			airspace.resetAirspace();
 			airspace.init(gc);
 	    	time = 0;
+	    	/* Lights up for next game session */
+			red = 255;
+			blue = 255;
+			green = 255;
+			brightness = new Color( red , blue, green);
+			countdownToLightReduction = 40;
 
 	    	((Game)sbg).setGameEnded(false); 
 	    	settingDifficulty = true;
@@ -682,7 +688,7 @@ public class PlayState extends BasicGameState {
 		
 		
 		
-		// SIM: Checks whether the user is still choosing the difficulty
+		// Checks whether the user is still choosing the difficulty
 		if(settingDifficulty){
 			if (Mouse.isButtonDown(Input.MOUSE_LEFT_BUTTON)) {
 				if((posX>100&&posX<216) && (posY>300&&posY<354)) {
@@ -800,12 +806,7 @@ public class PlayState extends BasicGameState {
 				endOfGameSound.play();
 				
 				((Game)sbg).setGameEnded(true);
-				/* Lights up for next game session */
-				red = 255;
-				blue = 255;
-				green = 255;
-				brightness = new Color( red , blue, green);
-				countdownToLightReduction = 40;
+
 				
 				/* Switch states to Game Over screen */
 				sbg.enterState(stateContainer.Game.GAMEOVERLOADINGSTATE);

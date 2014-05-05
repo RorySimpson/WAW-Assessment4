@@ -354,6 +354,12 @@ public class PlayCompetitiveState extends PlayState {
 			airspace.resetAirspace();
 			airspace.init(gc);
 	    	time = 0;
+	    	/* Lights up for next game session */
+			red = 255;
+			blue = 255;
+			green = 255;
+			brightness = new Color( red , blue, green);
+			countdownToLightReduction = 40;
 
 	    	((Game)sbg).setGameEndedComp(false); 
 	    	settingDifficulty = true;
