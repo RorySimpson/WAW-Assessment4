@@ -202,6 +202,7 @@ public class PauseCompetitiveState extends BasicGameState {
 			/* If user has pressed to go back to main menu */
 			if (posX>520 && posX<700 && posY>500 && posY < 600){
 				((Game)sbg).setGameEndedComp(true);
+				((Game)sbg).setPreviousCompetitiveModeWinner("Draw");
 				sbg.enterState(stateContainer.Game.GAMEOVERCOMPETITIVESTATE);
 			}
 			

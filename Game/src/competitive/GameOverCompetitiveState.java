@@ -120,7 +120,7 @@ public class GameOverCompetitiveState extends BasicGameState {
 			
 			else{
 				gameOverBackground.draw(0,0);
-				g.drawString(winner + " has won ", 450, 500);
+				g.drawString(winner , 450, 500);
 			}
 		}
 		

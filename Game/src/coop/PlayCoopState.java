@@ -646,7 +646,7 @@ public class PlayCoopState extends PlayState {
 				airspace.getSeparationRules().setGameOverViolation(false);
 				gameplayMusic.stop();
 				endOfGameSound.play();
-				gameEnded = true;
+				((Game)sbg).setGameEndedCoop(true);
 				
 				/* Set the achievements */
 				((Game)sbg).setAchievements(airspace.getScore().getAchievements());

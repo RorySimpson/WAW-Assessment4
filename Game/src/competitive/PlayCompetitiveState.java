@@ -395,10 +395,7 @@ public class PlayCompetitiveState extends PlayState {
 		airspace.newCompetitiveFlight(gc);
 		airspace.update(gc);
 		
-		if (airspace.getSeparationRules().getGameOverViolation() == true){
-			
 
-		}		
 		
 		// Game ends after 5 minutes of playing.
 		if (secondsOccurred >= 300){
@@ -419,7 +416,7 @@ public class PlayCompetitiveState extends PlayState {
 			airspace.getSeparationRules().setGameOverViolation(false);
 			airspace.resetAirspace();
 			gameplayMusic.stop();
-			gameEnded = true;
+			((Game)sbg).setGameEndedComp(true);
 			sbg.enterState(stateContainer.Game.GAMEOVERCOMPETITIVESTATE);
 			
 		}
