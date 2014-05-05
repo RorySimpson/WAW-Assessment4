@@ -125,21 +125,24 @@ public class FlightCoop extends Flight {
 	 * takeOff: Configures a flight for taking off and starts the taking off sequence.
 	 */
 	
-	
+
 	public void takeOff(Flight flight){
-		setTakingOff(true);
-		setTargetVelocity((minVelocity +maxVelocity) /2);
-		setTargetAltitude(minAltitude);
-		if(this.airspace.getListOfFlightsPlayer1().contains(flight)){
-			this.airspace.getControls().getSelectedFlight1().setSelected(false);
-			this.airspace.getControls().setSelectedFlight1(null);
+		if(flight.isGrounded()){
+			setTakingOff(true);
+			setTargetVelocity((minVelocity +maxVelocity) /2);
+			setTargetAltitude(minAltitude);
+			if(this.airspace.getListOfFlightsPlayer1().contains(flight)){
+				this.airspace.getControls().getSelectedFlight1().setSelected(false);
+				this.airspace.getControls().setSelectedFlight1(null);
+			}
+
+			else{
+				this.airspace.getControls().getSelectedFlight2().setSelected(false);
+				this.airspace.getControls().setSelectedFlight2(null);
+			}
+
 		}
-		
-		else{
-			this.airspace.getControls().getSelectedFlight2().setSelected(false);
-			this.airspace.getControls().setSelectedFlight2(null);
-		}
-		
+
 	}
 	
 	/**
