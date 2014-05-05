@@ -11,12 +11,13 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.lwjgl.input.Mouse;
 
+import stateContainer.Game;
 import util.DeferredFile;
 
 public class PauseCompetitiveState extends BasicGameState {
 	
 	private static Image
-		nextPageButton, previousPageButton, menuButton, quitButton, backButton,
+		nextPageButton, previousPageButton, menuButton, menuButtonHover, quitButton, backButton,
 		nextPageButtonHover, previousPageButtonHover, quitButtonHover, backButtonHover,
 		pauseBackgroundPage1, pauseBackgroundPage2;
 	//private static TrueTypeFont font;
@@ -84,9 +85,15 @@ public class PauseCompetitiveState extends BasicGameState {
 				}
 			});
 
-			loading.add(new DeferredFile("res/menu_graphics/menu_button.png"){
+			loading.add(new DeferredFile("res/menu_graphics/new/menu_button.png"){
 				public void loadFile(String filename) throws SlickException{
 					menuButton = new Image(filename);
+				}
+			});
+			
+			loading.add(new DeferredFile("res/menu_graphics/new/menu_hover.png"){
+				public void loadFile(String filename) throws SlickException{
+					menuButtonHover = new Image(filename);
 				}
 			});
 
@@ -145,6 +152,11 @@ public class PauseCompetitiveState extends BasicGameState {
 			quitButtonHover.draw(1150,550);
 		else quitButton.draw(1150,550);
 		
+		/* Menu button hovering */
+		if (posX>520 && posX<700 && posY>500 && posY < 600)
+			menuButtonHover.draw(535,533);
+		else menuButton.draw(535,533);
+		
 	}
 	
 	@Override
@@ -185,6 +197,12 @@ public class PauseCompetitiveState extends BasicGameState {
 				// Selecting Previous Page Button
 				if (posX>30 && posX<241 && posY>280 && posY<315) 
 					pageNumber = 1;		
+			}
+			
+			/* If user has pressed to go back to main menu */
+			if (posX>520 && posX<700 && posY>500 && posY < 600){
+				((Game)sbg).setGameEnded(true);
+				sbg.enterState(stateContainer.Game.GAMEOVERLOADINGSTATE);
 			}
 			
 		}
