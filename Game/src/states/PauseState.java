@@ -16,7 +16,7 @@ public class PauseState extends BasicGameState {
 	
 	/* Images */
 	private static Image
-		nextPageButton, previousPageButton, menuButton, quitButton, backButton,
+		nextPageButton, previousPageButton, menuButton, menuButtonHover, quitButton, backButton,
 		nextPageButtonHover, previousPageButtonHover, quitButtonHover, backButtonHover,
 		pauseBackgroundPage1, pauseBackgroundPage2;
 	
@@ -91,9 +91,15 @@ public class PauseState extends BasicGameState {
 				}
 			});
 
-			loading.add(new DeferredFile("res/menu_graphics/menu_button.png"){
+			loading.add(new DeferredFile("res/menu_graphics/new/menu_button.png"){
 				public void loadFile(String filename) throws SlickException{
 					menuButton = new Image(filename);
+				}
+			});
+			
+			loading.add(new DeferredFile("res/menu_graphics/new/menu_hover.png"){
+				public void loadFile(String filename) throws SlickException{
+					menuButtonHover = new Image(filename);
 				}
 			});
 
@@ -160,6 +166,11 @@ public class PauseState extends BasicGameState {
 			quitButtonHover.draw(1150,550);
 		else quitButton.draw(1150,550);
 		
+		/* Menu button hovering */
+		if (posX>520 && posX<700 && posY>500 && posY < 600)
+			menuButtonHover.draw(535,533);
+		else menuButton.draw(535,533);
+				
 	}
 	
 	/**
@@ -181,11 +192,6 @@ public class PauseState extends BasicGameState {
 			sbg.enterState(stateContainer.Game.PLAYSTATE);
 		}
 		
-		
-		if(input.isKeyPressed(Input.KEY_Q)){
-			((Game)sbg).setGameEnded(true);
-			sbg.enterState(stateContainer.Game.GAMEOVERLOADINGSTATE);
-		}
         //check if buttons are pressed
 		if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
 			
@@ -209,6 +215,12 @@ public class PauseState extends BasicGameState {
 			else if (pageNumber == 2){
 				if (posX>30 && posX<241 && posY>280 && posY<315) 
 					pageNumber = 1;		
+			}
+			
+			/* If user has pressed to go back to main menu */
+			if (posX>520 && posX<700 && posY>500 && posY < 600){
+				((Game)sbg).setGameEnded(true);
+				sbg.enterState(stateContainer.Game.GAMEOVERLOADINGSTATE);
 			}
 			
 		}
