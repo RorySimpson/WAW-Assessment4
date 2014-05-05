@@ -27,6 +27,11 @@ public class PauseCoopState extends BasicGameState {
 		
 	}
 
+	/**
+	 * init: Initialises all the resources required for the PauseCoopState class.
+	 * @param gc GameContainer
+	 * @throws SlickException
+	 */
 	
 	@Override
 	public void init(GameContainer gc, StateBasedGame sbj) throws SlickException {
@@ -115,6 +120,14 @@ public class PauseCoopState extends BasicGameState {
 						
 	}
 	
+	/**
+	 * render: Render all of the graphics in the PauseCoopState class
+	 * @param g Graphics
+	 * @param gc GameContainer
+	 * 
+	 * @throws SlickException
+	 */
+	
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
 		
@@ -154,6 +167,10 @@ public class PauseCoopState extends BasicGameState {
 		
 	}
 	
+	/**
+	 * update: Update all logic in the PauseCoopState class
+	 * @param gc GameContainer
+	 */
 	@Override
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
 		

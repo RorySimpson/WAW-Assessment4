@@ -45,7 +45,11 @@ public class PlayCoopState extends PlayState {
 		super(state);
 		achievement = new Achievements();
 	}
-
+	/**
+	 * init: Initialises all the resources required for the PlayCoopState class.
+	 * @param gc GameContainer
+	 * @throws SlickException
+	 */
 	@Override
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
 		
@@ -251,6 +255,10 @@ public class PlayCoopState extends PlayState {
 	    airspace.init(gc);
 	}
 	
+	/**
+	 * drawEventMessage: Draws relevant messages regarding the game state in the bottom bar.
+	 */
+	
 	@Override
 	public void drawEventMessage(GameContainer gc, Graphics g){
 
@@ -306,6 +314,14 @@ public class PlayCoopState extends PlayState {
 
 
 	}
+	
+	/**
+	 * render: Render all of the graphics in the PlayCoopState class
+	 * @param g Graphics
+	 * @param gc GameContainer
+	 * 
+	 * @throws SlickException
+	 */
 	
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
@@ -490,7 +506,10 @@ public class PlayCoopState extends PlayState {
 		
 	}
 	
-
+	/**
+	 * update: Update all logic in the PlayCoopState class
+	 * @param gc GameContainer
+	 */
 
 	@Override
 	public void update(GameContainer gc, StateBasedGame sbg, int delta)

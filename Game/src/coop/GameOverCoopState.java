@@ -43,6 +43,12 @@ public class GameOverCoopState extends BasicGameState {
 		connection = new Connection();
 	}
 	
+	/**
+	 * init: Initialises all the resources required for the GameOverCoopState class.
+	 * @param gc GameContainer
+	 * @throws SlickException
+	 */
+	
 	@Override
 	public void init(GameContainer gc, StateBasedGame sbg)
 				throws SlickException {
@@ -94,6 +100,9 @@ public class GameOverCoopState extends BasicGameState {
 		}
 	}
 	
+	/**
+	 * enter: Setup for state upon entering the state.
+	 */
 	@Override
 	public void enter(GameContainer gc, StateBasedGame sbg){
 
@@ -111,6 +120,14 @@ public class GameOverCoopState extends BasicGameState {
 			nameTextField.setText("Whats your name?");
 		}
 	}
+	
+	/**
+	 * render: Render all of the graphics in the GameOverCoopState class
+	 * @param g Graphics
+	 * @param gc GameContainer
+	 * 
+	 * @throws SlickException
+	 */
 	
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
@@ -157,6 +174,11 @@ public class GameOverCoopState extends BasicGameState {
 		}
 	}
 	
+	/**
+	 * updateTextBox: Updates and handles the text box used to enter in identifiers
+	 * for highscores.
+	 */
+	
 	public void updateTextBox(Input input,StateBasedGame sbg){
 	    text = nameTextField.getText();
 	    if (nameTextField.hasFocus()) {
@@ -183,7 +205,10 @@ public class GameOverCoopState extends BasicGameState {
 
 	}
 	
-
+	/**
+	 * update: Update all logic in the GameOverCoopState class
+	 * @param gc GameContainer
+	 */
 	@Override
 	public void update(GameContainer gc, StateBasedGame sbg, int delta)throws SlickException {
 
