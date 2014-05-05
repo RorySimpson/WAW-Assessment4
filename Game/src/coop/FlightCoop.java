@@ -25,6 +25,12 @@ public class FlightCoop extends Flight {
 		this.airspace = airspace;
 	}
 	
+	/**
+	 * init: Initialises all the resources required for the FlightCoop class.
+	 * @param gc GameContainer
+	 * @throws SlickException
+	 */
+	
 	@Override
 	public void init(GameContainer gc) throws SlickException {
 
@@ -46,12 +52,14 @@ public class FlightCoop extends Flight {
 
 	}
 	
+	/**
+	 * land: Checks whether it is appropriate for a flight to land. If it is appropriate,
+	 * the landing sequence is started.
+	 * 
+	 */
+	
 	@Override
 	public void land(){	
-		// if next point is an exit point
-		
-		
-		
 		
 		if (!isLanding()){
 			if (this.getAirspace().getAirportRight().getLandingApproachArea()
@@ -112,6 +120,10 @@ public class FlightCoop extends Flight {
 
 		}
 	}
+	
+	/**
+	 * takeOff: Configures a flight for taking off and starts the taking off sequence.
+	 */
 	
 	
 	public void takeOff(Flight flight){

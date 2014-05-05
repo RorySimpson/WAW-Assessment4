@@ -48,6 +48,12 @@ public class VolcanoProjectile {
 		}
 	}
 	
+	/**
+	 * updateXYCoordinates: updates the x and y values of the projectiles depending on it's velocity 
+	 * and it's current heading. The velocity of the plane is scaled so that it can be used for 
+	 * movement in terms of pixels.
+	 */
+	
 	public void updateXYCoordinates() {
 		double vs = velocity *gameScale;
 		
@@ -57,10 +63,22 @@ public class VolcanoProjectile {
 
 	}
 	
+	/**
+	 * init: Initialises all the resources required for the volcano projectile class.
+	 * @param gc GameContainer
+	 * @throws SlickException
+	 */
 	public void init(GameContainer gc) throws SlickException{
 		volcanoProjectileImage = new Image("res/graphics/new/volcanoProjectile.png");
 	}
 	
+	/**
+	 * render: Render all of the graphics for the volcano projectile
+	 * @param g Graphics
+	 * @param gc GameContainer
+	 * 
+	 * @throws SlickException
+	 */
 	public void render(Graphics g, GameContainer gc) throws SlickException{
 		
 		
@@ -69,6 +87,11 @@ public class VolcanoProjectile {
 		volcanoProjectileImage.drawCentered((float)x, (float) y);
 		g.setWorldClip(0, 0, Game.MAXIMUMWIDTH, Game.MAXIMUMHEIGHT);
 	}
+	
+	/**
+	 * update: Update all logic in the volcano projectile class
+	 * @param gc GameContainer
+	 */
 	
 	public void update(){
 		updateXYCoordinates();
