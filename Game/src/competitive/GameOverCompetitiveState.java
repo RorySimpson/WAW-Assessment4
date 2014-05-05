@@ -22,7 +22,8 @@ public class GameOverCompetitiveState extends BasicGameState {
 	private static Image 
 		quitButton, menuButton, playAgainButton,   
 		quitHover, menuHover, playAgainHover,
-		gameOverBackground;
+		gameOverBackground, player1HasWonBackground,
+		player2HasWonBackground;
 	
 	
 
@@ -82,6 +83,21 @@ public class GameOverCompetitiveState extends BasicGameState {
 					menuHover = new Image(filename);
 				}
 			});
+			
+			loading.add(new DeferredFile("res/menu_graphics/new/gameover_player1won.png"){
+				public void loadFile(String filename) throws SlickException{
+					player1HasWonBackground = new Image(filename);
+				}
+			});
+			
+			loading.add(new DeferredFile("res/menu_graphics/new/gameover_player2won.png"){
+				public void loadFile(String filename) throws SlickException{
+					player2HasWonBackground = new Image(filename);
+				}
+			});
+			
+			
+			
 		}
 	}
 	
@@ -91,14 +107,19 @@ public class GameOverCompetitiveState extends BasicGameState {
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
 				throws SlickException{
 		
-		gameOverBackground.draw(0,0);
 		
 		winner = ((Game)sbg).getPreviousCompetitiveModeWinner();
 		if(winner!=null){
-			if(winner == "Draw"){
-				g.drawString(winner, 450, 500);
+			if(winner == "Player 1"){
+				player1HasWonBackground.draw(0,0);
 			}
+			
+			else if(winner == "Player 2"){
+				player2HasWonBackground.draw(0,0);
+			}
+			
 			else{
+				gameOverBackground.draw(0,0);
 				g.drawString(winner + " has won ", 450, 500);
 			}
 		}
