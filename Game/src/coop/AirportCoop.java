@@ -32,11 +32,13 @@ public class AirportCoop extends Airport {
 		g.setWorldClip(11, 0, Game.MAXIMUMWIDTH -11, Game.MAXIMUMHEIGHT-40);
 		
 		getAirportImage().setRotation(getRunwayHeading());
-		// Airport image centred in middle of airspace
+		
+		// Airport image drawn on left side of screen
 		if (getAirportNumber() == 1){
 			getAirportImage().drawCentered(1120, 495);
 		}
 		
+		// Airport image drawn on right side of screen
 		else{
 			getAirportImage().drawCentered(91, 495);
 		}
@@ -45,6 +47,7 @@ public class AirportCoop extends Airport {
 		
 		
 		if(this.airspace.getControls().getSelectedFlight1() != null){
+			// Landing approach triangle is drawn in selected flight player 1 needs to land
 			if(this.airspace.getControls().getSelectedFlight1().getFlightPlan().getCurrentRoute().get(0) == this.getBeginningOfRunway()){
 				if (getAirportNumber() == 1) getLandingApproachImageRight().drawCentered(900, 495);
 				if (getAirportNumber() == 2) getLandingApproachImageLeft().drawCentered(311, 495);
@@ -53,6 +56,7 @@ public class AirportCoop extends Airport {
 			}
 		}
 		if(this.airspace.getControls().getSelectedFlight2() != null){
+			// Landing approach triangle is drawn in selected flight player 2 needs to land
 			if(this.airspace.getControls().getSelectedFlight2().getFlightPlan().getCurrentRoute().get(0) == this.getBeginningOfRunway()){
 				if (getAirportNumber() == 1) getLandingApproachImageRight().drawCentered(900, 495);
 				if (getAirportNumber() == 2) getLandingApproachImageLeft().drawCentered(311, 495);

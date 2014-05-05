@@ -179,27 +179,33 @@ public class PauseCoopState extends BasicGameState {
 		
 		Input input = gc.getInput();
 		
+		// Press 'P' to go back to game.
 		if(input.isKeyPressed(Input.KEY_P)) {
 			pageNumber = 1;
 			sbg.enterState(stateContainer.Game.PLAYCOOPSTATE);
 		}
 		
 		if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
-			//check if buttons are pressed
 			
+			
+			// Press back to return to game
 			if (posX>20 && posX<40 && posY>20 && posY<40) {					
 				pageNumber = 1;
 				sbg.enterState(stateContainer.Game.PLAYCOOPSTATE);
 			}		
 			
+			// Press exit button to close game
 			if (posX>1150 && posX<1170 && posY>550 && posY<580) {
 				System.exit(0);
 			}
-
+			
+			// Select next page to go to page 2
 			if (pageNumber == 1){
 				if((posX > 1030 && posX < 1193) && (posY > 280 && posY < 315)) 
 					pageNumber = 2;			
 			}
+			
+			// Select back page to go to page 1
 			else if (pageNumber == 2){
 				if (posX>30 && posX<241 && posY>280 && posY<315) 
 					pageNumber = 1;		

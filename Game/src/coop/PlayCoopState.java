@@ -266,17 +266,20 @@ public class PlayCoopState extends PlayState {
 				waitingToLand = false;
 
 		for(Flight flight: airspace.getListOfFlights()){
-
+			
+			// Checks whether there is a plane waiting to take off at left airport
 			if (flight.getFlightPlan().getEntryPoint() == airspace.getAirportLeft().getEndOfRunway() && !flight.isTakingOff() 
 					&& flight.getAltitude() ==0){
 				waitingToTakeOffAtAPL = true;
 			}
 
+			// Checks whether there is a plane waiting to take off at right airport
 			if (flight.getFlightPlan().getEntryPoint() == airspace.getAirportRight().getEndOfRunway() && !flight.isTakingOff() 
 					&& flight.getAltitude() ==0){
 				waitingToTakeOffAtAPR = true;
 			}
 
+			// Checks whether there is a flight wanting to land
 			if ((flight.getFlightPlan().getCurrentRoute().get(0) == airspace.getAirportRight().getBeginningOfRunway() || 
 					flight.getFlightPlan().getCurrentRoute().get(0) == airspace.getAirportLeft().getBeginningOfRunway()) &&
 					!flight.isLanding()){
@@ -287,10 +290,13 @@ public class PlayCoopState extends PlayState {
 
 
 		}
-
+		
+		// Checks whether a volcano eruption will occur within 10 seconds
 		if(airspace.getEventController().getVolcano().getCountdownTillNextEruption() < 600){
 			eruptionAboutToOccur = true;
 		}
+		
+		// Display event messages in descending order of importance
 
 		if(eruptionAboutToOccur){
 			g.setColor(Color.red);
@@ -327,18 +333,18 @@ public class PlayCoopState extends PlayState {
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
 			throws SlickException {
 		
+		// Initialise music
 		gameplayMusic.setVolume(1);
 		g.setAntiAlias(true);
 		
 		
 		
 		// Checks whether the user is still choosing the difficulty
-		
 		if(settingDifficulty){
 
 			int posX = Mouse.getX();
 			int posY= stateContainer.Game.MAXIMUMHEIGHT -Mouse.getY();
-				//Fixing posY to reflect graphics coords
+			//Fixing posY to reflect graphics coords
 
 			difficultyBackground.draw(0,0);
 			
@@ -356,23 +362,25 @@ public class PlayCoopState extends PlayState {
 			else hardButton.draw(100,500);
 		}
 		
-		else{	//main game
-			//set font for the rest of the render
+		// Otherwise draw main game
+		else{	
+			
+			// Set font for game
 			g.setFont(font);
 			
-			// Drawing Side Images
-			
-			
+			// Day/Night Cycle logic
 			
 			if(countdownToLightReduction != 0){
 				countdownToLightReduction --;
 			}
 			else{
 				
+				// Checks when the brightness should start increasing 
 				if(red == 40){
 					increasingBrightness = true;	
 				}
 				
+				// Checks when the brightness should start decreasing 
 				else if(red == 255){
 					increasingBrightness = false;
 				}
@@ -395,7 +403,7 @@ public class PlayCoopState extends PlayState {
 				countdownToLightReduction = 40;
 			}
 			
-			
+			// Draw message box and background
 			backgroundImage.draw(0,0, brightness);
 			messageBoxImage.draw(11,560);
 			
@@ -548,7 +556,8 @@ public class PlayCoopState extends PlayState {
 
 		if(settingDifficulty){
 
-
+			// Checks what difficulty is selected
+			
 			if (Mouse.isButtonDown(Input.MOUSE_LEFT_BUTTON)) {
 				if((posX>100&&posX<216) && (posY>300&&posY<354)) {
 
@@ -577,11 +586,11 @@ public class PlayCoopState extends PlayState {
 				}	
 			}
 		}
-
-		else{	//main game
+		
+		// Otherwise run main game logic
+		else{	
 
 			// Updating Clock and Time
-
 			time += delta;
 			achievement.timeAchievement((int) time);
 			float decMins=time/1000/60;
@@ -614,6 +623,8 @@ public class PlayCoopState extends PlayState {
 
 			this.stringTime=stringMins+":"+stringSecs;
 			
+			
+			// Handle mouse presses for pause and mute
 			if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
                 /* If user pressed pause */
 				if((posX>1120&&posX<1165) && (posY>565&&posY<600)) {
@@ -641,6 +652,8 @@ public class PlayCoopState extends PlayState {
 
 			airspace.newCoopFlight(gc);
 			airspace.update(gc);
+			
+			// Checks whether the game over condition has been met
 			if (airspace.getSeparationRules().getGameOverViolation() == true){
 				achievement.crashAchievement();
 				airspace.getSeparationRules().setGameOverViolation(false);
@@ -664,7 +677,6 @@ public class PlayCoopState extends PlayState {
 
 
 			// Checking For Pause Screen requested in game
-
 			if (input.isKeyPressed(Input.KEY_P)) {
 				sbg.enterState(stateContainer.Game.PAUSECOOPSTATE);
 			}			

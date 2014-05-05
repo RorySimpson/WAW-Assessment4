@@ -43,11 +43,15 @@ public class AirspaceCoop extends Airspace {
 	@Override
 	public void resetAirspace() {
 		
+		// Reset Flight Lists
 		this.setListOfFlightsInAirspace(new ArrayList<Flight>());
 		this.listOfFlightsPlayer1 = new ArrayList<FlightCoop>();
 		this.listOfFlightsPlayer2 = new ArrayList<FlightCoop>();
+		
+		// Reset Events system
 		this.eventController = new EventController(this);
 		
+		// Reset game loop counters
 		this.setNumberOfGameLoopsSinceLastFlightAdded(0); 
 		this.setNumberOfGameLoops(0); 
 		this.setNumberOfGameLoopsWhenDifficultyIncreases(3600);
@@ -104,16 +108,17 @@ public class AirspaceCoop extends Airspace {
 					
 					double heading;
 					
-					
+					// If airport left is entrypoint, line it up on the runway
 					if (tempFlight.getFlightPlan().getEntryPoint() == this.getAirportLeft().getEndOfRunway())
 					{
 						heading = this.getAirportLeft().getRunwayHeading();
 					}
-					
+					// If airport right is entrypoint, line it up on the runway
 					else if(tempFlight.getFlightPlan().getEntryPoint() == this.getAirportRight().getEndOfRunway()){
 						
 						heading = this.getAirportRight().getRunwayHeading();
 					}
+					// Otherwise calculate heading to first waypoint
 					else
 					{
 						heading = tempFlight.calculateHeadingToNextWaypoint(
@@ -137,12 +142,16 @@ public class AirspaceCoop extends Airspace {
 	}
 	
 	/**
-	 * newCoopFlight: Adds a new flight to the right player and configures the flight
+	 * newCoopFlight: Allocates a flight to the correct player and configures the flight
 	 * appropriately.
 	 */
 	public void newCoopFlight(GameContainer gc) throws SlickException {
+		
+		// Checks whether a general flight was added into the airspace
 		if(this.newFlight(gc)){
 			FlightCoop addedFlight = (FlightCoop) this.getListOfFlightsInAirspace().get(this.getListOfFlightsInAirspace().size()-1);
+			
+			// Give flight to player 1 if they need a flight next
 			if(this.addPlayer1Flight) {
 				this.addPlayer1Flight=false;
 				addedFlight.setPlayer2(false);
@@ -150,6 +159,7 @@ public class AirspaceCoop extends Airspace {
 				System.out.println("Added a flight to player 1");
 			
 			}
+			// Give flight to player 2 if they need a flight next
 			else {
 				addedFlight.setPlayer2(true);
 				this.listOfFlightsPlayer2.add(addedFlight);
@@ -165,8 +175,9 @@ public class AirspaceCoop extends Airspace {
 	 * @param y The y coordinate of the waypoint
 	 * @param name The name used to reference the waypoint
 	 */
-
 	public boolean newWaypoint(int x, int y, String name)  {
+		
+		
 		if (withinAirspace(x, y))
 		{ 
 			// x and y must be within these bounds to be within screen space
@@ -187,16 +198,22 @@ public class AirspaceCoop extends Airspace {
 	 */
 	@Override
 	public void removeSpecificFlight(int flight) {
+		
+		// If player 1 flight, remove from player 1 flight list
 		if(this.listOfFlightsPlayer1.contains(this.getListOfFlightsInAirspace().get(flight))) {
 			this.listOfFlightsPlayer1.remove(this.getListOfFlightsInAirspace().get(flight));
 		}
+		// If player 2 flight, remove from player 2 flight list
 		else if(this.listOfFlightsPlayer2.contains(this.getListOfFlightsInAirspace().get(flight))) {
 			this.listOfFlightsPlayer2.remove(this.getListOfFlightsInAirspace().get(flight));
 		}
+		
+		// Remove flight from general list of flights in airspace
 		this.getListOfFlightsInAirspace().remove(flight);
 		
 		Flight selected1 = this.controls.getSelectedFlight1();
 		Flight selected2 = this.controls.getSelectedFlight2();
+		
 		// If flight was selected, de-select it
 		if (!(this.getListOfFlightsInAirspace().contains(selected1))) {
 			this.controls.setSelectedFlight1(null);
@@ -215,13 +232,17 @@ public class AirspaceCoop extends Airspace {
 	@Override
 	public void update(GameContainer gc) throws SlickException {
 		
+		// Update Loop counters
 		this.numberOfGameLoopsSinceLastFlightAdded++;
 		this.numberOfGameLoops++;
+		
+		// If the time is appropriate, increase the difficulty of the game
 		if (this.numberOfGameLoops >= this.numberOfGameLoopsWhenDifficultyIncreases) {
 			this.increaseDifficulty();
 	
 		}
 		
+		// Loop through flights and update their state.
 		for (int i = 0; i < this.listOfFlightsInAirspace.size(); i++) {
 			this.listOfFlightsInAirspace.get(i).update(score);
 			if(this.listOfFlightsInAirspace.get(i).getFlightPlan().getCurrentRoute().size()==0) {
@@ -240,12 +261,13 @@ public class AirspaceCoop extends Airspace {
 			
 		}
 		
-		//tracking for minutes without flight lost achievement
+		//Tracking for minutes without flight lost achievement
 		flightLostTimer += 1;
 		if (flightLostTimer >= 3000){
 			score.procminsWithoutPlaneLossAchievement();
 		}
 		
+		// Update other elements in airspace
 		this.eventController.update(gc);
 		this.separationRules.update(this);
 		this.controls.update(gc, this);
@@ -261,11 +283,11 @@ public class AirspaceCoop extends Airspace {
 	@Override
 	public void render(Graphics g, GameContainer gc) throws SlickException { 
 		
-		
+		// Render airports
 		this.airportLeft.render(g, gc);
 		this.airportRight.render(g, gc);
 		
-
+		// Render Points
 		for (Waypoint w:listOfWaypoints) { // Draws waypoints
 			w.render(g, this);
 		}
@@ -276,13 +298,15 @@ public class AirspaceCoop extends Airspace {
 			e.render(g);
 		}
 		
+		// Render Event related elements
 		this.eventController.render(g,gc);
 		
+		// Render Flights
 		for (Flight f:listOfFlightsInAirspace) { // Draws flights in airspace
 			f.render(g, gc);
 		}
 		
-		
+		// Render Other Elements
 		separationRules.render(g, gc, this);
 		controls.render(gc,g);
 	}
