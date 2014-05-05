@@ -26,10 +26,18 @@ public class ControlsCoop extends Controls {
 		this.selectedThisLoop=false;
 	}
 	
+	/**
+	 * init: This method is overwritten to ensure that the flight menu used for single player
+	 * isn't initialised.
+	 */
 	@Override
 	public void init(GameContainer gc) throws SlickException {
 		
 	}
+	
+	/**
+	 * update: Handles all key button control events for the cooperative mode.
+	 */
 	
 	@Override
 	public void update(GameContainer gc, Airspace airspace) {
@@ -111,11 +119,15 @@ public class ControlsCoop extends Controls {
 					if(this.selectedFlight1.getTargetAltitude() < 5000){
 						this.selectedFlight1.setTargetAltitude(this.selectedFlight1.getTargetAltitude()+1000);
 					}
-				}
+				}		
 			}
 			
+			
+			
+			
+			
 			if(gc.getInput().isKeyDown(Input.KEY_Q)) {
-				((FlightCoop)this.selectedFlight1).takeOff(this.selectedFlight1);
+				this.selectedFlight1.takeOff(this.selectedFlight1);
 			}
 			if(gc.getInput().isKeyDown(Input.KEY_E)) {
 				this.selectedFlight1.land();
@@ -140,6 +152,9 @@ public class ControlsCoop extends Controls {
 				}
 				if(gc.getInput().isKeyDown(Input.KEY_RIGHT)) {
 					this.selectedFlight2.incrementHeading();
+				}
+				if (gc.getInput().isKeyDown(Input.KEY_END)) {
+					this.selectedFlight2.drawFlightPlan(gc, gc.getGraphics());
 				}
 				if(gc.getInput().isKeyPressed(Input.KEY_DOWN)) {
 					if(this.selectedFlight2.getTargetAltitude() > 2000){
@@ -173,10 +188,22 @@ public class ControlsCoop extends Controls {
 		}
 		
 	}
+	
+	/**
+	 * render: Render all of the graphics for the controls coop
+	 * @param g Graphics
+	 * @param gc GameContainer
+	 * 
+	 * @throws SlickException
+	 */
 	@Override
 	public void render(GameContainer gc, Graphics g) throws SlickException {
 		if(selectedFlight1 != null) {
-						
+			
+			if (gc.getInput().isKeyDown(Input.KEY_F)) {
+				this.selectedFlight1.drawFlightPlan(gc, g);
+			
+			}
 			
 			if(!selectedFlight1.getFlightPlan().getChangingPlan()){
 				g.setColor(Color.white);
@@ -185,6 +212,11 @@ public class ControlsCoop extends Controls {
 			
 		}
 			if(selectedFlight2 != null) {
+				
+			if (gc.getInput().isKeyDown(Input.KEY_END)) {
+				this.selectedFlight2.drawFlightPlan(gc, g);
+				
+			}
 						
 			
 			if(!selectedFlight2.getFlightPlan().getChangingPlan()){

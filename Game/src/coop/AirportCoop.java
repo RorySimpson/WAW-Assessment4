@@ -18,6 +18,14 @@ public class AirportCoop extends Airport {
 		this.airspace = airspace;
 	}
 	
+	/**
+	 * render: Render all of the graphics for the AirportCoop
+	 * @param g Graphics
+	 * @param gc GameContainer
+	 * 
+	 * @throws SlickException
+	 */
+	
 	@Override
 	public void render(Graphics g, GameContainer gc) throws SlickException { 
 		

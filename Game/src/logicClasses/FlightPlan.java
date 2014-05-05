@@ -20,31 +20,44 @@ public class FlightPlan {
 	protected EntryPoint entryPoint;
 	protected ExitPoint exitPoint;
 	protected List<Point>
-		currentRoute = new ArrayList<Point>(), // Array that stores the current list of waypoints
-		waypointsAlreadyVisited; // Array that stores all the waypoints the flight has passed through
-	protected Flight flight; // The flight object associated with the flight plan
+        // Array that stores the current list of waypoints
+		currentRoute = new ArrayList<Point>(), 
+        // Array that stores all the waypoints the flight has passed through
+		waypointsAlreadyVisited; 
+    // The flight object associated with the flight plan
+	protected Flight flight; 
 	
+    // What waypoint is the mouse currently hovering over
 	protected Point 
-		waypointMouseIsOver, // What waypoint is the mouse currently hovering over
+		waypointMouseIsOver, 
 		waypointClicked;
+    // Is the user currently changing the flight plan?
 	protected Boolean
-		changingPlan, // Is the user currently changing the flight plan?
-		draggingWaypoint;// Is the user currently dragging a waypoint?
+		changingPlan, 
+        // Is the user currently dragging a waypoint?
+		draggingWaypoint;
 	protected int closestDistance;
-	protected static final int	//waypoint ID references
+    //waypoint ID references
+	protected static final int	
 		A = 0, B = 1, C = 2, D = 3, E = 4, F = 5, G = 6, H = 7, I = 8, J = 9;
 	
 
-	// CONSTRUCTOR
-	
+	/**
+	 * Constructor to initalise all the default values
+	 * @param airspace takes an airspace
+	 * @param flight take a flight
+	 */
 	public FlightPlan(Airspace airspace, Flight flight) {
+		/* Generates an entry point for a new flight */
 		this.flight = flight;
 		this.entryPoint = generateEntryPoint(airspace);
 		
+		/* Generate a velocity for a new flight */
 		double v = generateVelocity();
 		flight.setVelocity(v);
 		flight.setTargetVelocity(v);
 	
+		/* Sets the default values for a new plane */
 		this.currentRoute = buildRoute(airspace, this.entryPoint);
 		this.waypointsAlreadyVisited = new ArrayList<Point>();
 		this.changingPlan = false;
@@ -52,9 +65,15 @@ public class FlightPlan {
 				
 	}
 	
+	/**
+	 * Constructor for competitve mode
+	 * @param airspace an airspace object
+	 * @param flight a plane
+	 * @param competitive whether it's competitive mode to differentiate between
+	 * constructors
+	 */
 	public FlightPlan(Airspace airspace, Flight flight, Boolean competitive) {
 		this.flight = flight;
-		
 	}
 
 	// METHODS
@@ -64,18 +83,18 @@ public class FlightPlan {
 	 * @param airspace airspace object
 	 * @return airspace.getListofEntryPoints 
 	 */
-	
 	public EntryPoint generateEntryPoint(Airspace airspace){
 		
+		/* Create new random number to randomise the spwaning entry point */
 		Random rand = new Random();
 		int randomNumber = rand.nextInt(airspace.getListOfEntryPoints().size());
 	
 		// Setting flights x and y to the coordinates of it's entrypoint
-		flight.setX(airspace.getListOfEntryPoints().get(randomNumber).getX()); // choose one a get the x and y values
+        // choose one a get the x and y values
+		flight.setX(airspace.getListOfEntryPoints().get(randomNumber).getX()); 
 		flight.setY(airspace.getListOfEntryPoints().get(randomNumber).getY());
 		
 		return airspace.getListOfEntryPoints().get(randomNumber);
-		
 	}
 	
 	/**
@@ -85,41 +104,48 @@ public class FlightPlan {
 	 * @return tempRoute
 	 */
 	
+	/**
+	 * Build a route for a plane
+	 * @param airspace an airspace object
+	 * @param entryPoint the entry point that start the flight plan
+	 * @return
+	 */
 	public ArrayList<Point> buildRoute(Airspace airspace, EntryPoint entryPoint) {
-		ArrayList<Point> tempRoute = new ArrayList<Point>();  // Create the array lists for route and points
+        // Create the array lists for route and points
+		ArrayList<Point> tempRoute = new ArrayList<Point>();  
 		ArrayList<Waypoint> tempListOfWaypoints = new ArrayList<Waypoint>();
 		ArrayList<ExitPoint> tempListOfExitPoints = new ArrayList<ExitPoint>();
 		Boolean exitpointAdded = false;
-		
-		if (!airspace.getListOfWaypoints().isEmpty()&& !airspace.getListOfExitPoints().isEmpty()) { // if there is a list of waypoints and a list of exit points
+
+        // if there is a list of waypoints and a list of exit points	
+		if (!airspace.getListOfWaypoints().isEmpty()&& !airspace.getListOfExitPoints().isEmpty()) { 
 				Random rand = new Random();
 				
 				// Initialising Temporary Lists
-				
-				for (int i = 0; i < airspace.getListOfWaypoints().size(); i++) { //loop through all waypoints and add them to tempwaypoints
+                //loop through all waypoints and add them to tempwaypoints
+				for (int i = 0; i < airspace.getListOfWaypoints().size(); i++) { 
 					tempListOfWaypoints.add(airspace.getListOfWaypoints().get(i));
 				}
 				
-				for (int i = 0; i < airspace.getListOfExitPoints().size(); i++) {// loop through all exit points and add them to temppoints
+                // loop through all exit points and add them to temppoints
+				for (int i = 0; i < airspace.getListOfExitPoints().size(); i++) {
 					tempListOfExitPoints.add(airspace.getListOfExitPoints().get(i));
 				}
 				
 				// Adding Waypoints to Plan
-				
 				int pointsInPlan = rand.nextInt(3) + 3; 
 				
+				/* Add the waypoints to the route */
 				for (int i = 0; i < pointsInPlan - 1; i++) {
 					int waypointIndex = rand.nextInt(tempListOfWaypoints.size());
 					tempRoute.add(tempListOfWaypoints.get(waypointIndex));
 					tempListOfWaypoints.remove(waypointIndex);
 				}
 				
-				
 				// Adding ExitPoint to Plan
-				
 				int ExitPointIndex = rand.nextInt(tempListOfExitPoints.size());
 				
-				
+				/* Make sure an exitpoint exists for each route */
 				while (exitpointAdded == false){
 					
 					if (this.entryPoint.getY() == tempListOfExitPoints.get(ExitPointIndex).getY()){
@@ -159,13 +185,15 @@ public class FlightPlan {
 	/**
 	 * generateVelocity: Creates a velocity from a range of values
 	 */
-
 	public int generateVelocity() {
 		Random rand = new Random();
 		
+		/* If the plane is landed, its velocity is 0 */
 		if(entryPoint.isRunway()){
 			return 0;
 		}
+
+		/* Return a velocity between max and min */
 		int	min = flight.getMinVelocity(),
 			max = flight.getMaxVelocity();
 		return (rand.nextInt(min) + (max -min));
@@ -173,16 +201,20 @@ public class FlightPlan {
 	
 	/**
 	 * isMouseOnWaypoint: Used to tell what waypoint the mouse is currently over
+	 * for changing the flight plan successfully
 	 */
-	
 	private boolean isMouseOnWaypoint() {
-		int mouseX = Mouse.getX(); //Get mouse coordinates
+        //Get mouse coordinates
+		int mouseX = Mouse.getX(); 
 		int mouseY = Game.MAXIMUMHEIGHT -Mouse.getY();
-		
-		if(this.getCurrentRoute().isEmpty()) { //If there are no waypoints
+
+        //If there are no waypoints in the flight plan, there's nothing to change
+		if(this.getCurrentRoute().isEmpty()) { 
 			return false;
 		}
 		
+		/* Whether there is a waypoint within the range of 
+		 * where the mouse clicked */
 		for (Waypoint w: flight.getAirspace().getListOfWaypoints()){
 			if (Math.abs(mouseX -w.getX()) <= 15
 					&& Math.abs(mouseY -w.getY()) <= 15){
@@ -199,31 +231,31 @@ public class FlightPlan {
 	/**
 	 * updateFlightPlan: Handles updating the flight plan when a flight passes through a waypoint
 	 */
-	
 	public void updateFlightPlan(ScoreTracking score){
 		int waypointScore = 0;
-		if (this.currentRoute.size() > 0) { //Check to see if there are still waypoints to visit and then check if the flight is passing through waypoint
+        //Check to see if there are still waypoints to visit and 
+		//then check if the flight is passing through waypoint
+		if (this.currentRoute.size() > 0) { 
 			if (this.flight.checkIfFlightAtWaypoint(currentRoute.get(0))) {
 				this.waypointsAlreadyVisited.add(this.currentRoute.get(0));
 				
-				closestDistance = this.flight.minDistanceFromWaypoint(this.currentRoute.get(0)); // get the closest distance from the waypoint
+                // get the closest distance from the waypoint
+				closestDistance = this.flight.minDistanceFromWaypoint(this.currentRoute.get(0)); 
 				flight.resetMinDistanceFromWaypoint();
-				waypointScore = score.updateWaypointScore(closestDistance); // update the score based on how close to the waypoints
+                // update the score based on how close to the waypoints
+				waypointScore = score.updateWaypointScore(closestDistance); 
 				score.increaseMultiplierOnWaypointPassed();
 
 				this.currentRoute.remove(0);
 			}
 			score.updateScore(waypointScore, flight.isBonus());
-			
 		}
-
 	}
 	
 	/**
 	 * changeFlightPlan: Handles the user changing the flightplan using the mouse in 
 	 * plan mode
 	 */
-	
 	public void changeFlightPlan(ScoreTracking score){
 		if (this.flight.getSelected() && this.currentRoute.size() > 0 ){
 
@@ -282,9 +314,9 @@ public class FlightPlan {
 	 * @param g Slick2d graphics object
 	 * @param gs Slick2d gamecontainer object
 	 */
-	
 	public void drawFlightsPlan(Graphics g, GameContainer gc){
 
+		/* If there are any waypoints in the flight plan */
 		if (this.currentRoute.size() > 0){
 			
 			g.setColor(Color.cyan);
@@ -296,15 +328,19 @@ public class FlightPlan {
 				}
 			}
 			
+			/* If a waypoint is being changed */
 			else if(draggingWaypoint){
 				for(int i=1; i<this.currentRoute.size();i++) {
 					
-					// This is needed as i=1 behavours differently to other values of i when first waypoint is being dragged.
+					// This is needed as i=1 behaviours differently to other values of i 
+					// when first waypoint is being dragged.
 					if(i==1){
+						/* Draw the lines between the waypoints in plan mode */
 						if(this.waypointClicked == this.currentRoute.get(0) ) {
 							g.drawLine(Mouse.getX(),600-Mouse.getY() , (float)this.currentRoute.get(1).getX(),(float)this.currentRoute.get(1).getY());
 						}
 						
+						/* Next waypoint */
 						else if (this.waypointClicked == this.currentRoute.get(1)){
 							g.drawLine((float)this.currentRoute.get(i+1).getX(), (float)this.currentRoute.get(i+1).getY(),Mouse.getX(),600-Mouse.getY());
 							g.drawLine((float)this.currentRoute.get(i-1).getX(), (float)this.currentRoute.get(i-1).getY(),Mouse.getX(),600-Mouse.getY());
@@ -312,6 +348,7 @@ public class FlightPlan {
 							
 						}
 						
+						/* Random waypoint from the flight plan */
 						else{
 							g.drawLine((float)this.currentRoute.get(i).getX(), (float)this.currentRoute.get(i).getY(), (float)this.currentRoute.get(i-1).getX(), (float)this.currentRoute.get(i-1).getY());
 						}
@@ -330,14 +367,10 @@ public class FlightPlan {
 						else{
 							g.drawLine((float)this.currentRoute.get(i).getX(), (float)this.currentRoute.get(i).getY(), (float)this.currentRoute.get(i-1).getX(), (float)this.currentRoute.get(i-1).getY());
 						}
-						
 					}
 				}
 			}
-				
 		}
-		
-		
 	}
 	
 	/**
@@ -346,7 +379,6 @@ public class FlightPlan {
 	 * @param g slick2d graphics object
 	 * @param gc slick2d gamecontainer object
 	 */
-	
 	public void markUnavailableWaypoints(Graphics g, GameContainer gc){
 		for (int i = 0; i < this.waypointsAlreadyVisited.size(); i++){
 			g.drawLine((float) this.waypointsAlreadyVisited.get(i).getX()-14, (float) this.waypointsAlreadyVisited.get(i).getY()-14, (float) this.waypointsAlreadyVisited.get(i).getX()+14, (float) this.waypointsAlreadyVisited.get(i).getY()+14);
@@ -354,27 +386,34 @@ public class FlightPlan {
 		}
 	}
 	
+	/**
+	 * Update method to keep track of score
+	 * @param score takes the score
+	 */
 	public void update(ScoreTracking score) {
 		
 		this.updateFlightPlan(score);
 		if(this.changingPlan == true){
 			this.changeFlightPlan(score);
 		}
-
 	}
 	
+	/**
+	 * Renders the game graphics
+	 * @param g graphics object
+	 * @param gc game container
+	 * @throws SlickException
+	 */
 	public void render(Graphics g, GameContainer gc) throws SlickException {
-
 
 		if(this.flight.getSelected()) {
 			if(this.changingPlan == true){
+				/* Draws the lines between waypoints to show the flight plan */
 				this.drawFlightsPlan(g, gc);
+				/* Mark teh unavailable waypoints with an X */
 				this.markUnavailableWaypoints(g, gc);
 			}
-			
-
 		}
-		
 	}
 	
 

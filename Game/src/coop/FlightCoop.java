@@ -25,6 +25,12 @@ public class FlightCoop extends Flight {
 		this.airspace = airspace;
 	}
 	
+	/**
+	 * init: Initialises all the resources required for the FlightCoop class.
+	 * @param gc GameContainer
+	 * @throws SlickException
+	 */
+	
 	@Override
 	public void init(GameContainer gc) throws SlickException {
 
@@ -46,12 +52,14 @@ public class FlightCoop extends Flight {
 
 	}
 	
+	/**
+	 * land: Checks whether it is appropriate for a flight to land. If it is appropriate,
+	 * the landing sequence is started.
+	 * 
+	 */
+	
 	@Override
 	public void land(){	
-		// if next point is an exit point
-		
-		
-		
 		
 		if (!isLanding()){
 			if (this.getAirspace().getAirportRight().getLandingApproachArea()
@@ -113,6 +121,10 @@ public class FlightCoop extends Flight {
 		}
 	}
 	
+	/**
+	 * takeOff: Configures a flight for taking off and starts the taking off sequence.
+	 */
+	
 	
 	public void takeOff(Flight flight){
 		setTakingOff(true);
@@ -130,13 +142,20 @@ public class FlightCoop extends Flight {
 		
 	}
 	
-
-
+	/**
+	 * drawFlight: draws the flight at it's current x,y and draws its information around within a circle.
+	 * Different images for the flight are used depending on how fast the plane is.
+	 * @param g - Graphics libraries required by slick2d.
+	 * @param gc - GameContainer required by slick2d.
+	 */
 	@Override
 	public void drawFlight(Graphics g, GameContainer gc ){
 
 		g.setColor(Color.white);
 		g.setWorldClip(11, 0, Game.MAXIMUMWIDTH -11, Game.MAXIMUMHEIGHT-40);
+		
+		
+		
 
 			// Scale the shadow in accordance to the altitude of the flight
 			if (this.getCurrentAltitude() > 50)
@@ -246,6 +265,28 @@ public class FlightCoop extends Flight {
 
 		g.setWorldClip(0, 0, Game.MAXIMUMWIDTH, Game.MAXIMUMHEIGHT);
 
+	}
+	
+	/**
+	 * drawFlightsPlan: Draws the graphics required for the flightplan
+	 * @param g Slick2d graphics object
+	 * @param gs Slick2d gamecontainer object
+	 */
+	
+	public void drawFlightPlan(GameContainer gc, Graphics g){
+
+		if (this.getFlightPlan().getCurrentRoute().size() > 0){
+			
+			if (this.player2){
+				g.setColor(Color.orange);
+			}
+			else {
+				g.setColor(Color.cyan);
+			}
+			for(int i=1; i<this.getFlightPlan().getCurrentRoute().size();i++) {
+				g.drawLine((float)this.getFlightPlan().getCurrentRoute().get(i).getX(), (float)this.getFlightPlan().getCurrentRoute().get(i).getY(), (float)this.getFlightPlan().getCurrentRoute().get(i-1).getX(), (float)this.getFlightPlan().getCurrentRoute().get(i-1).getY());
+			}
+		}
 	}
 
 	public boolean isPlayer2() {

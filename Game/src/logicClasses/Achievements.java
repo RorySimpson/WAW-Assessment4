@@ -3,12 +3,16 @@ package logicClasses;
 public class Achievements {
 
 	//FIELDS
+	/* Default number of achievements */
 	private int numberOfAchievements 			= 0;
+	/* Constant holding the maximum number of achievements */
 	private static final int MAXACHIEVEMENTS 	= 8; //not including all achivements earned
+	/* How much should the user play to get the time achievement */
 	private static final int ACHIEVEMENTTIME 	= 60000;
+	/* Empty achievement message */
 	private String achievementMessage 			= "";
 	
-	//Achievements gained booleans
+	//Achievements gained booleans initiated to false
 	private boolean silverAchievementGained 			= false;
 	private boolean goldAchievementGained 				= false;
 	private boolean timeAchievementGained 				= false;
@@ -19,7 +23,8 @@ public class Achievements {
 	private boolean completeFlightPlanAchievementGained = false;
 	
 	private boolean allAchievementsEarned				= false;
-	private boolean achievementGained                   = false; //bool that is set/deset to render onscreen achievement box
+	// Bool that is set/unset to render on-screen achievement box
+	private boolean achievementGained                   = false; 
 		
 	//CONSTRUCTOR
 	public Achievements(){
@@ -27,6 +32,12 @@ public class Achievements {
 	}
 	
 	//METHODS
+	/**
+	 * Display the achievements text for the achievmeents related 
+	 * to number of points
+	 * @param pointsTotal How many points the user has at the time
+	 * @return the message
+	 */
 	public String pointsAchievement(int pointsTotal){
 		
 		if (silverAchievementGained == false){
@@ -52,37 +63,48 @@ public class Achievements {
 		return achievementMessage;
 	}
 	
-	//used to increment total achievement count, sets bool used for rendering achievement box
+	/**
+	 * Used to increment total achievement count
+	 */
 	public void completeAchievement(){
+		/* Keep count of achievements */
 		numberOfAchievements += 1;
 		achievementGained = true;
 		
+        // Display achievement
 		if (numberOfAchievements == MAXACHIEVEMENTS){
-			//then display achievement
 			allAchievementsEarned = true;
 			
 		}
-		
 	}
 	
+	/**
+	 * Time achievement for playing for a certain amount of time 
+	 * @param gameTime How long the player has been played for
+	 * @return the message
+	 */
 	public String timeAchievement(int gameTime){
 		
 		if (timeAchievementGained == false){
 			if (gameTime >= ACHIEVEMENTTIME){
-				//then display achievement
+				// Then display achievement
 				achievementMessage = "Time Achievement Gained";
 				completeAchievement();
 				timeAchievementGained = true;
 			}
 		}
-		
+
 		return achievementMessage;
 	}
 	
+	/**
+	 * Achievement for crashing 
+	 * @return the message
+	 */
 	public String crashAchievement(){
 		
 		if (crashAchievementGained == false){
-			//then display achievement
+			// Display achievement
 			achievementMessage = "Crash Achievement Gained";
 			completeAchievement();
 			crashAchievementGained = true;
@@ -91,6 +113,10 @@ public class Achievements {
 		return achievementMessage;
 	}
 	
+	/**
+	 * Achievement for changing the flight plan 
+	 * @return the message
+	 */
 	public String changeFlightPlanAchievement(){
 		if (flightPlanChangedAchievementGained == false){
 			//display achievement
@@ -101,39 +127,50 @@ public class Achievements {
 		return achievementMessage;
 	}
 	
+	/**
+	 * Achievement for ocmpleting a flight plan 
+	 * @return the message
+	 */
 	public String completeFlightPlanAchievement(){
 		if (completeFlightPlanAchievementGained == false){
-		//display achievement
-		achievementMessage = "Complete Flight Plan Achievement Gained";
-		completeAchievement();
-		completeFlightPlanAchievementGained = true;
+            //display achievement
+            achievementMessage = "Complete Flight Plan Achievement Gained";
+            completeAchievement();
+            completeFlightPlanAchievementGained = true;
 		}
 		return achievementMessage;
 	}
 	
-	//Never Called!!
+	/**
+	 * Minutes passed without  losing a plane
+	 * @return
+	 */
 	public String minsWithoutPlaneLossAchievement(){
 		if (noPlaneLossAchievementGained == false){
-				//display achievement
-				achievementMessage = "Time Without Losing Plane Achievement Gained";
-				completeAchievement();
-				noPlaneLossAchievementGained = true;
+            //display achievement
+            achievementMessage = "Time Without Losing Plane Achievement Gained";
+            completeAchievement();
+            noPlaneLossAchievementGained = true;
 		}
 		return achievementMessage;
 	}
 	
 	
+	/**
+	 * achievment for landing a plane 
+	 * @return the message
+	 */
 	public String planeLandedAchievement(){
 		if (planeLandedAchievementGained == false){
-				achievementMessage = "Landing Achievement Gained";
-				completeAchievement();
-				planeLandedAchievementGained = true;
+            achievementMessage = "Landing Achievement Gained";
+            completeAchievement();
+            planeLandedAchievementGained = true;
 		}
 		return achievementMessage;
 	}
 	
 	//GETTERS AND SETTERS
-	
+
 	public int getNumberOfAchievements(){
 		return numberOfAchievements;
 	}

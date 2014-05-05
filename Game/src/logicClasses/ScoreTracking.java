@@ -2,6 +2,7 @@ package logicClasses;
 
 public class ScoreTracking {
 	
+	/*  */
 	private int currentScore = 0;
 	private int currentMultiplier = 1;
 	private int progressionTowardsNextMultiplier = 0;

@@ -27,7 +27,9 @@ public class Volcano {
 		this.listOfProjectilesLaunched = new ArrayList<VolcanoProjectile>();
 	}
 	
-
+	/**
+	 * eruption: Creates projectiles to be released during eruption.
+	 */
 	public void eruption(GameContainer gc) throws SlickException{
 		
 		Random rand = new Random();
@@ -39,6 +41,10 @@ public class Volcano {
 		}
 	}
 	
+	/**
+	 * checkIfProjectilesHasLeftAirspace: Checks whether the projectiles launched from the volcano
+	 * have left the airspace.
+	 */
 	public boolean checkIfProjectileHasLeftAirspace(VolcanoProjectile projectile){
 		// x and y must be within these bounds to be within screen space
 				// Not quite the same with withinAirspace method
@@ -51,9 +57,23 @@ public class Volcano {
 				}
 	}
 	
+	/**
+	 * init: Initialises all the resources required for the volcano class.
+	 * @param gc GameContainer
+	 * @throws SlickException
+	 */
+	
 	public void init (GameContainer gc) throws SlickException{
         volcanoImage = new Image("res/graphics/new/volcano.png");
 	}
+	
+	/**
+	 * render: Render all of the graphics for the volcano
+	 * @param g Graphics
+	 * @param gc GameContainer
+	 * 
+	 * @throws SlickException
+	 */
 	
 	public void render(Graphics g, GameContainer gc) throws SlickException{
 		
@@ -65,6 +85,11 @@ public class Volcano {
 		}
 		
 	}
+	
+	/**
+	 * update: Update all logic in the volcano class
+	 * @param gc GameContainer
+	 */
 	
 	public void update(GameContainer gc) throws SlickException{
 		

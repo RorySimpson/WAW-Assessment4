@@ -36,13 +36,25 @@ public class EventController {
 		this.airspace=airspace;
 	}
 	
+	/**
+	 * newRadioMalfunctionTime: Generates a new point in time at which a 
+	 * radio malfunction will occur.
+	 * 
+	 */
+	
 	public int newRadioMalfunctionTime() {
 		
+		//Radio Malfunction occurs at a time between 4 minutes and 6 minutes
 		Random rand = new Random();
-		//Radio Malfunction occurs at a time between 2 minutes and 6 minutes
 		int randNum = rand.nextInt(14800)+ 7200;
 		return randNum;
 	}
+	
+	/**
+	 * newHunterFlightTime: Generates a new point in time at which a 
+	 * hunter flight will spawn.
+	 * 
+	 */
 	
 	public int newHunterFlightTime(){
 		
@@ -52,6 +64,12 @@ public class EventController {
 		return timeTillNextHunterFlight;
 	}
 	
+	/**
+	 * newHunterTornadoTime: Generates a new point in time at which a 
+	 * tornado will spawn.
+	 * 
+	 */
+	
 	public int newTornadoTime(){
 		
 		Random rand = new Random();
@@ -59,6 +77,11 @@ public class EventController {
 		
 		return timeTillNextTornado;
 	}
+	
+	/**
+	 * spawnHunterFlight: Adds a hunter flight into the airspace.
+	 * 
+	 */
 	
 	public boolean spawnHunterFlight() throws SlickException{
 		
@@ -72,6 +95,11 @@ public class EventController {
 		return false;
 	}
 	
+	/**
+	 * spawnTornado: Adds a tornado into the airspace.
+	 *
+	 */
+	
 	public boolean spawnTornado() throws SlickException{
 		nextTornadoTime --;
 		if (nextTornadoTime == 0){
@@ -82,6 +110,10 @@ public class EventController {
 		
 		return false;
 	}
+	
+	/**
+	 * updateRadioMalfunctionEvent: Updates the state of the radio malfunction event.
+	 */
 	
 	public void updateRadioMalfunctionEvent(){
 		
@@ -108,10 +140,24 @@ public class EventController {
 		
 	}
 	
+	/**
+	 * init: Initialises all the resources required for the event controller class, and any other classes that are rendered within it
+	 * @param gc GameContainer
+	 * @throws SlickException
+	 */
+	
 	public void init (GameContainer gc) throws SlickException{
 		
 		this.volcano.init(gc);
 	}
+	
+	/**
+	 * render: Render all of the graphics for the event controller
+	 * @param g Graphics
+	 * @param gc GameContainer
+	 * 
+	 * @throws SlickException
+	 */
 	
 	public void render (Graphics g, GameContainer gc) throws SlickException{
 		
@@ -128,6 +174,10 @@ public class EventController {
 		
 	}
 	
+	/**
+	 * update: Update all logic in the event controller class
+	 * @param gc GameContainer
+	 */
 	
 	public void update(GameContainer gc) throws SlickException{
 		this.volcano.update(gc);
