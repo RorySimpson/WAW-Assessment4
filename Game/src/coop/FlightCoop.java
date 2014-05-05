@@ -137,6 +137,9 @@ public class FlightCoop extends Flight {
 
 		g.setColor(Color.white);
 		g.setWorldClip(11, 0, Game.MAXIMUMWIDTH -11, Game.MAXIMUMHEIGHT-40);
+		
+		
+		
 
 			// Scale the shadow in accordance to the altitude of the flight
 			if (this.getCurrentAltitude() > 50)
@@ -246,6 +249,28 @@ public class FlightCoop extends Flight {
 
 		g.setWorldClip(0, 0, Game.MAXIMUMWIDTH, Game.MAXIMUMHEIGHT);
 
+	}
+	
+	/**
+	 * drawFlightsPlan: Draws the graphics required for the flightplan
+	 * @param g Slick2d graphics object
+	 * @param gs Slick2d gamecontainer object
+	 */
+	
+	public void drawFlightPlan(GameContainer gc, Graphics g){
+
+		if (this.getFlightPlan().getCurrentRoute().size() > 0){
+			
+			if (this.player2){
+				g.setColor(Color.orange);
+			}
+			else {
+				g.setColor(Color.cyan);
+			}
+			for(int i=1; i<this.getFlightPlan().getCurrentRoute().size();i++) {
+				g.drawLine((float)this.getFlightPlan().getCurrentRoute().get(i).getX(), (float)this.getFlightPlan().getCurrentRoute().get(i).getY(), (float)this.getFlightPlan().getCurrentRoute().get(i-1).getX(), (float)this.getFlightPlan().getCurrentRoute().get(i-1).getY());
+			}
+		}
 	}
 
 	public boolean isPlayer2() {
