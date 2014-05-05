@@ -41,6 +41,7 @@ public class PlayCompetitiveState extends PlayState {
 	private float decMins, decSecs, secondsOccured;
 	private int secs;
 	protected float time;
+	private String countdown;
 
 
 	public PlayCompetitiveState(int state) {
@@ -291,7 +292,7 @@ public class PlayCompetitiveState extends PlayState {
 		// Drawing Clock and Time
 		g.setColor(Color.white);
 		clockImage.draw(6,565);
-		g.drawString(stringTime, 31, 570);
+		g.drawString(countdown, 31, 570);
 
 		// Drawing Score
 		g.setColor(Color.cyan);
@@ -369,6 +370,8 @@ public class PlayCompetitiveState extends PlayState {
 		
 		secondsOccured = time/1000;
 		secs = Math.round(decSecs*60);
+		
+		countdown = String.valueOf(300 - secs);
 
 		String stringMins="";
 		String stringSecs="";
