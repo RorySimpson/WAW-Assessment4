@@ -1,6 +1,7 @@
 package coop;
 
 import org.newdawn.slick.GameContainer;
+
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
@@ -9,10 +10,12 @@ import logicClasses.Airport;
 import logicClasses.Airspace;
 
 public class AirportCoop extends Airport {
+	
+	public AirspaceCoop airspace;
 
-	AirportCoop(int airportNumber, Airspace airspace) {
+	AirportCoop(int airportNumber, AirspaceCoop airspace) {
 		super(airportNumber, airspace);
-		// TODO Auto-generated constructor stub
+		this.airspace = airspace;
 	}
 	
 	@Override
@@ -33,16 +36,16 @@ public class AirportCoop extends Airport {
 		
 		
 		
-		if(((ControlsCoop)this.getAirspace().getControls()).getSelectedFlight1() != null){
-			if(((ControlsCoop)this.getAirspace().getControls()).getSelectedFlight1().getFlightPlan().getCurrentRoute().get(0) == this.getBeginningOfRunway()){
+		if(this.airspace.getControls().getSelectedFlight1() != null){
+			if(this.airspace.getControls().getSelectedFlight1().getFlightPlan().getCurrentRoute().get(0) == this.getBeginningOfRunway()){
 				if (getAirportNumber() == 1) getLandingApproachImageRight().drawCentered(900, 495);
 				if (getAirportNumber() == 2) getLandingApproachImageLeft().drawCentered(311, 495);
 				
 				
 			}
 		}
-		if(((ControlsCoop)this.getAirspace().getControls()).getSelectedFlight2() != null){
-			if(((ControlsCoop)this.getAirspace().getControls()).getSelectedFlight2().getFlightPlan().getCurrentRoute().get(0) == this.getBeginningOfRunway()){
+		if(this.airspace.getControls().getSelectedFlight2() != null){
+			if(this.airspace.getControls().getSelectedFlight2().getFlightPlan().getCurrentRoute().get(0) == this.getBeginningOfRunway()){
 				if (getAirportNumber() == 1) getLandingApproachImageRight().drawCentered(900, 495);
 				if (getAirportNumber() == 2) getLandingApproachImageLeft().drawCentered(311, 495);
 				
