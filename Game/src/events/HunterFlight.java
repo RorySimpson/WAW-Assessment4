@@ -41,6 +41,11 @@ public class HunterFlight {
 		generateVictim(airspace);
 	}
 	
+	/**
+	 * generateVictim: Selects a flight in the airspace for the hunter flight
+	 * to chase.
+	 */
+	
 	public void generateVictim(Airspace airspace){
 		if (airspace.getListOfFlightsInAirspace().size() == 0){
 			;
@@ -55,6 +60,11 @@ public class HunterFlight {
 		}
 	}
 	
+	/**
+	 * generateX: Selects whether the flight will enter from the top left hand corner or the top right
+	 * hand corner.
+	 */
+	
 	public int generateX(){
 		if (Math.random() < 0.5){
 			return 0;
@@ -63,6 +73,10 @@ public class HunterFlight {
 			return 1200;
 		}
 	}
+	
+	/**
+	 * calculateHeadingToVictim: generate heading to the hunter flights victim.
+	 */
 	
 	public void calculateHeadingToVictim() {
 		
@@ -91,12 +105,24 @@ public class HunterFlight {
 		
 	}
 	
+	/**
+	 * updateXYCoordinates: updates the x and y values of the plane depending on it's velocity 
+	 * and it's current heading. The velocity of the plane is scaled so that it can be used for 
+	 * movement in terms of pixels.
+	 */
+	
 	public void updateXYCoordinates() {
 		
 		double vs = velocity * gameScale;
 		x += vs * Math.sin(Math.toRadians(currentHeading));
 		y -= vs * Math.cos(Math.toRadians(currentHeading));
 	}
+	
+	/**
+	 * updateCurrentHeading(): Moves the current heading towards the target heading. If a user has issued
+	 * a heading but not specified what way to turn, this method will determine what way it would be quicker 
+	 * to turn towards it's target heading.
+	 */
 	
 	public void updateCurrentHeading() {
 		
@@ -159,6 +185,10 @@ public class HunterFlight {
 		}
 	}
 	
+	/**
+	 * inAirspace: Calculates whether the hunter flight is still within the airspace.
+	 */
+	
 	public boolean inAirspace(){
 		
 		if (x > 1220 || x < -20|| y > 620 || y < -20) { 
@@ -170,6 +200,10 @@ public class HunterFlight {
 		}
 	}
 	
+	/**
+	 * drawHunterFlight: Draws the graphical representation of the hunter flight in the airspace.
+	 */
+	
 	public void drawHunterFlight(Graphics g, GameContainer gc ){
 		
 		g.setWorldClip(11, 0, Game.MAXIMUMWIDTH -11, Game.MAXIMUMHEIGHT-40);
@@ -180,9 +214,20 @@ public class HunterFlight {
 		g.setWorldClip(0, 0, Game.MAXIMUMWIDTH, Game.MAXIMUMHEIGHT);
 	}
 	
+	/**
+	 * init: Initialises all the resources required for the hunter flight class.
+	 * @param gc GameContainer
+	 * @throws SlickException
+	 */
+	
 	public void init(GameContainer gc) throws SlickException {
 		hunterFlightImage = new Image("res/graphics/new/hunterflight.png");
 	}
+	
+	/**
+	 * update: Update all logic in the hunter flight class
+	 * @param gc GameContainer
+	 */
 	
 	public void update(Airspace airspace) {
 		if (!hasVictim){
@@ -191,6 +236,14 @@ public class HunterFlight {
 		updateCurrentHeading();
 		updateXYCoordinates();	
 	}
+	
+	/**
+	 * render: Render all of the graphics for the hunter flight
+	 * @param g Graphics
+	 * @param gc GameContainer
+	 * 
+	 * @throws SlickException
+	 */
 	
 	public void render(Graphics g, GameContainer gc) throws SlickException {
 		this.drawHunterFlight(g, gc);	

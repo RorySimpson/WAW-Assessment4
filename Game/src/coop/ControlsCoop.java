@@ -26,10 +26,18 @@ public class ControlsCoop extends Controls {
 		this.selectedThisLoop=false;
 	}
 	
+	/**
+	 * init: This method is overwritten to ensure that the flight menu used for single player
+	 * isn't initialised.
+	 */
 	@Override
 	public void init(GameContainer gc) throws SlickException {
 		
 	}
+	
+	/**
+	 * update: Handles all key button control events for the cooperative mode.
+	 */
 	
 	@Override
 	public void update(GameContainer gc, Airspace airspace) {
@@ -180,6 +188,14 @@ public class ControlsCoop extends Controls {
 		}
 		
 	}
+	
+	/**
+	 * render: Render all of the graphics for the controls coop
+	 * @param g Graphics
+	 * @param gc GameContainer
+	 * 
+	 * @throws SlickException
+	 */
 	@Override
 	public void render(GameContainer gc, Graphics g) throws SlickException {
 		if(selectedFlight1 != null) {

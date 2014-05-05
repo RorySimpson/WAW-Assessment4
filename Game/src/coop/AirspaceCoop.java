@@ -37,7 +37,9 @@ public class AirspaceCoop extends Airspace {
 	}
 	
 	
-	// override reset to reset the two selected flights to null
+	/**
+	 * resetAirspace: Resets variables for the airspace when the game is restarted.
+	 */
 	@Override
 	public void resetAirspace() {
 		
@@ -53,16 +55,16 @@ public class AirspaceCoop extends Airspace {
 		// Prevents user immediately entering game over state upon replay
 		this.getSeparationRules().setGameOverViolation(false);
 		
-		// Prevents information about flight from previous game being displayed
-		//this.getControls().setSelectedFlight(null);  	
+		// Prevents information about flight from previous game being displayed  	
 		this.controls.setSelectedFlight1(null);
 		this.controls.setSelectedFlight2(null);
 		
 		
 	}
 	
-	//a new method for creating flights that calls the old one, but also adds
-	//the flight to either the player 1 or 2 list
+	/**
+	 * new Flight: Creates a new flight
+	 */
 	@Override
 	public boolean newFlight(GameContainer gc) throws SlickException {
 
@@ -133,6 +135,11 @@ public class AirspaceCoop extends Airspace {
 		}
 		return false;
 	}
+	
+	/**
+	 * newCoopFlight: Adds a new flight to the right player and configures the flight
+	 * appropriately.
+	 */
 	public void newCoopFlight(GameContainer gc) throws SlickException {
 		if(this.newFlight(gc)){
 			FlightCoop addedFlight = (FlightCoop) this.getListOfFlightsInAirspace().get(this.getListOfFlightsInAirspace().size()-1);
@@ -175,7 +182,9 @@ public class AirspaceCoop extends Airspace {
 	}
 	
 	
-	// override the method for removing flights to include the two selected flight lists
+	/**
+	 * removeSpecificFlight: Removes all traces of a flight from the game.
+	 */
 	@Override
 	public void removeSpecificFlight(int flight) {
 		if(this.listOfFlightsPlayer1.contains(this.getListOfFlightsInAirspace().get(flight))) {
@@ -200,7 +209,7 @@ public class AirspaceCoop extends Airspace {
 	}
 	
 	/**
-	 * update: Update all logic in the airspace class
+	 * update: Update all logic in the airspace coop class
 	 * @param gc GameContainer
 	 */
 	@Override
@@ -243,7 +252,7 @@ public class AirspaceCoop extends Airspace {
 	}
 	
 	/**
-	 * render: Render all of the graphics in the airspace
+	 * render: Render all of the graphics in the airspace coop
 	 * @param g Graphics
 	 * @param gc GameContainer
 	 * 

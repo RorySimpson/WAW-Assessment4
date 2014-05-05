@@ -47,6 +47,10 @@ public class Tornado {
 		randomDirection = rand.nextInt(2);
 	}
 	
+	/**
+	 * randomiseLocation: randomises the spawning location of the tornadoes.
+	 */
+	
 	public void randomiseLocation(){
 		Random rand = new Random();
 		int random = rand.nextInt(9);
@@ -91,12 +95,18 @@ public class Tornado {
 		originalY = this.y;
 	}
 	
-	// Tornado enters the screen
+	/**
+	 * attack: Starts the tornado
+	 */
+	
 	public void attack(){
 		attacking = true;
 	}
 	
-	// Checks if the tornado is still within the airspace
+	/**
+	 * inAirspace: Checks whether a tornado is in the airspace.
+	 */
+	
 	public boolean inAirspace(){
 	
 		if (this.x > 1220 || this.x < -20|| this.y > 620 || this.y < -20) { 
@@ -108,17 +118,9 @@ public class Tornado {
 		}
 	}
 	
-	public double getX()
-		{
-			return x;
-		}
-
-	public double getY()
-		{
-			return y;
-		}
-
-	// Update coordinates
+	/**
+	 * updateXYCoordinates: updates the x and y values of the tornado.
+	 */
 	public void updateXY(){
 		Random rand = new Random();
 		int directionx = rand.nextInt(4)-2;
@@ -173,12 +175,23 @@ public class Tornado {
 		}
 	}
 	
-	// Initialise
+	/**
+	 * init: Initialises all the resources required for the tornado class.
+	 * @param gc GameContainer
+	 * @throws SlickException
+	 */
+	
 	public void init (GameContainer gc) throws SlickException{
 		tornadoImage = new Image("res/graphics/new/tornado.png");
 		}
 	
-	// Renders the image
+	/**
+	 * render: Render all of the graphics for the tornado
+	 * @param g Graphics
+	 * @param gc GameContainer
+	 * 
+	 * @throws SlickException
+	 */
 	public void render(Graphics g, GameContainer gc) throws SlickException{
 		g.setWorldClip(11, 0, Game.MAXIMUMWIDTH -11, Game.MAXIMUMHEIGHT-40);
 		tornadoImage.setRotation(tornadoImage.getRotation()+50);
@@ -186,7 +199,10 @@ public class Tornado {
 		g.setWorldClip(0, 0, Game.MAXIMUMWIDTH, Game.MAXIMUMHEIGHT);
 	}
 	
-	// Updates the logic
+	/**
+	 * update: Update all logic in the tornado class
+	 * @param gc GameContainer
+	 */
 	public void update(GameContainer gc) throws SlickException{
 		if (attacking && this.inAirspace()){
 			this.updateXY();
@@ -216,6 +232,15 @@ public class Tornado {
 	public void setY(double y){
 		this.y = y;
 	}
+	
+	public double getX(){
+		return x;
+	}
+
+	public double getY(){
+		return y;
+	}
+
 	
 	public boolean getAttacking(){
 		return attacking;

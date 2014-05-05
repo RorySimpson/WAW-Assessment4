@@ -403,6 +403,8 @@ public class AchieveViewerState extends BasicGameState{
 		g.setColor(new Color(255, 150, 80, 50));	//pale orange, semi-transparent
 		g.fillRoundRect (235, 235, 730, 90, 2);
 	
+		
+	
 		//draw correct images based on relevant bool in currentAchieved in the scroll area
 		blankAchievement.draw(scrollPosition -3*80, 240);
 		blankAchievement.draw(scrollPosition -2*80, 240);
@@ -573,6 +575,10 @@ public class AchieveViewerState extends BasicGameState{
 			}
 			break;
 		}
+		
+		g.setColor(Color.cyan);
+		g.drawRect(558, 240, 81, 80);
+		g.setColor(Color.white);
 	}
 
 	/**

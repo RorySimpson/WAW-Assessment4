@@ -25,6 +25,12 @@ public class FlightCoop extends Flight {
 		this.airspace = airspace;
 	}
 	
+	/**
+	 * init: Initialises all the resources required for the FlightCoop class.
+	 * @param gc GameContainer
+	 * @throws SlickException
+	 */
+	
 	@Override
 	public void init(GameContainer gc) throws SlickException {
 
@@ -46,12 +52,14 @@ public class FlightCoop extends Flight {
 
 	}
 	
+	/**
+	 * land: Checks whether it is appropriate for a flight to land. If it is appropriate,
+	 * the landing sequence is started.
+	 * 
+	 */
+	
 	@Override
 	public void land(){	
-		// if next point is an exit point
-		
-		
-		
 		
 		if (!isLanding()){
 			if (this.getAirspace().getAirportRight().getLandingApproachArea()
@@ -113,6 +121,10 @@ public class FlightCoop extends Flight {
 		}
 	}
 	
+	/**
+	 * takeOff: Configures a flight for taking off and starts the taking off sequence.
+	 */
+	
 	
 	public void takeOff(Flight flight){
 		setTakingOff(true);
@@ -130,8 +142,12 @@ public class FlightCoop extends Flight {
 		
 	}
 	
-
-
+	/**
+	 * drawFlight: draws the flight at it's current x,y and draws its information around within a circle.
+	 * Different images for the flight are used depending on how fast the plane is.
+	 * @param g - Graphics libraries required by slick2d.
+	 * @param gc - GameContainer required by slick2d.
+	 */
 	@Override
 	public void drawFlight(Graphics g, GameContainer gc ){
 
