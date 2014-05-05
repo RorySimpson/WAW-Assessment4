@@ -25,6 +25,7 @@ public class AirspaceCoop extends Airspace {
 		
 		super();
 		this.controls = new ControlsCoop(this);
+		this.setControls(this.controls);
 		this.listOfFlightsPlayer1 = new ArrayList<FlightCoop>();
 		this.listOfFlightsPlayer2 = new ArrayList<FlightCoop>();
 		this.addPlayer1Flight=false;
@@ -195,6 +196,48 @@ public class AirspaceCoop extends Airspace {
 		}
 	}
 	
+	/**
+	 * update: Update all logic in the airspace class
+	 * @param gc GameContainer
+	 */
+	@Override
+	public void update(GameContainer gc) throws SlickException {
+		
+		this.numberOfGameLoopsSinceLastFlightAdded++;
+		this.numberOfGameLoops++;
+		if (this.numberOfGameLoops >= this.numberOfGameLoopsWhenDifficultyIncreases) {
+			this.increaseDifficulty();
+	
+		}
+		
+		for (int i = 0; i < this.listOfFlightsInAirspace.size(); i++) {
+			this.listOfFlightsInAirspace.get(i).update(score);
+			if(this.listOfFlightsInAirspace.get(i).getFlightPlan().getCurrentRoute().size()==0) {
+				this.removeSpecificFlight(i);
+				score.procCompleteFlightAchieve();
+			}
+			else if (this.checkIfFlightHasLeftAirspace(this.getListOfFlights().get(i))) {
+				if(this.getListOfFlights().get(i).isControllable()){
+					score.reduceScoreOnFlightLost();
+					score.reduceMultiplierOnFlightLost();
+					this.flightLostTimer = 0;
+					
+				}
+				this.removeSpecificFlight(i);
+			}
+			
+		}
+		
+		//tracking for minutes without flight lost achievement
+		flightLostTimer += 1;
+		if (flightLostTimer >= 3000){
+			score.procminsWithoutPlaneLossAchievement();
+		}
+		
+		this.eventController.update(gc);
+		this.separationRules.update(this);
+		this.controls.update(gc, this);
+	}
 
 	public ArrayList<FlightCoop> getListOfFlightsPlayer1() {
 		return listOfFlightsPlayer1;
