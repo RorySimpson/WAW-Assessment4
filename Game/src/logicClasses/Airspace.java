@@ -18,37 +18,54 @@ import stateContainer.Game;
 
 public class Airspace {
 
+	/* The maximum number of flights allowed in the airspace */
 	protected int maximumNumberOfFlightsInAirspace;
-	protected int flightLostTimer; //helps track for achievement
-	protected int	numberOfGameLoopsSinceLastFlightAdded;
+
+	/* Helps with keeping track of achievementj */
+	protected int flightLostTimer;
+
+	/* Counts the game loops for adjusting settings */
+	protected int numberOfGameLoopsSinceLastFlightAdded;
 	protected int numberOfGameLoops;
 	protected int numberOfGameLoopsWhenDifficultyIncreases;
+
+	/* Randomises the flights generation */
 	protected int randomNumberForFlightGeneration;
+
+	/* Creates lists of planes and points */
 	protected List<Flight> 		listOfFlightsInAirspace;
 	protected List<Waypoint> 		listOfWaypoints;
 	protected List<EntryPoint>	listOfEntryPoints;
 	protected List<ExitPoint> 	listOfExitPoints;
+
+	/* Creates the required objects */
 	protected SeparationRules 	separationRules;
 	protected Airport 			airportLeft;
 	protected Airport airportRight;
-	protected int 				difficultyValueOfGame = 1; 
 	protected Controls 			controls;
 	protected ScoreTracking 		score;
 	protected EventController eventController;
+	/* Difficulty of the game is set with integers, but it will be
+	 * overwritten by the user choice */
+	protected int 				difficultyValueOfGame = 1; 
 	
 	
 	// CONSTRUCTOR
 	public Airspace() {
+		/* A maximum number of flights for the airspace */
 		this.maximumNumberOfFlightsInAirspace 	= 10;
+
+		/* Creates a list of planes and points */
 		this.listOfFlightsInAirspace 			= new ArrayList<Flight>();
 		this.listOfWaypoints 					= new ArrayList<Waypoint>();
 		this.listOfEntryPoints 					= new ArrayList<EntryPoint>();
 		this.listOfExitPoints 					= new ArrayList<ExitPoint>();
+		/* Creates the 2 airports and assigns them an integer to differentiate them
+		 * an integer has been used instead of boolean to allow scalability */
 		this.airportRight						= new Airport(1, this);
 		this.airportLeft						= new Airport(2,this);
+		/* Create an event controller object */
 		this.eventController					= new EventController(this);
-		
-		
 		
 		// Stores how many loops since the last flight was spawned before another flight can enter
 		this.numberOfGameLoopsSinceLastFlightAdded = 0;
@@ -86,10 +103,7 @@ public class Airspace {
 		
 		// Prevents information about flight from previous game being displayed
 		this.controls.setSelectedFlight(null);  	
-		
 		this.eventController = new EventController(this);
-		
-		
 	}
 	
 	/**
@@ -224,6 +238,8 @@ public class Airspace {
 					tempFlight.setFlightName(this.generateFlightName());
 					tempFlight.setTargetAltitude(tempFlight.getAltitude());
 					
+					/* If the plane needs to take off from the
+					 * right airport prepare it to take off  */
 					double heading;
 					if (tempFlight.getFlightPlan().getEntryPoint() == this.airportLeft.getEndOfRunway())
 					{
@@ -231,12 +247,17 @@ public class Airspace {
 						tempFlight.setWaitingToTakeOff(true);
 					}
 					
+					/* If the plane needs to take off from the 
+					 * right airport prepare it to take off */
 					else if(tempFlight.getFlightPlan().getEntryPoint() == this.airportRight.getEndOfRunway()){
 						
 						heading = airportRight.getRunwayHeading();
 						tempFlight.setWaitingToTakeOff(true);
 					}
 					
+					/* If the plane needs to go to a normal waypoint
+					 * prepare it to enter with the right heading 
+					 * facing the first waypoint */
 					else
 					{
 						heading = tempFlight.calculateHeadingToNextWaypoint(
@@ -247,29 +268,29 @@ public class Airspace {
 					tempFlight.setTargetHeading(heading);
 					tempFlight.setCurrentHeading(heading);
 					
+					/* Set a bonus flight with a 5% chance */
 					if(rand.nextInt(20) == 1){
 						tempFlight.setBonus(true);
 					}
 					
+					/* Add plane */
 					if(addFlight(tempFlight)){
 						this.numberOfGameLoopsSinceLastFlightAdded = 0;
 						this.listOfFlightsInAirspace.get(
 								this.listOfFlightsInAirspace.size() -1).init(gc);
 						return true;
 					}
-					
 				}
 			}
 		}
+
 		return false;
 	}
-	
 	
 	/**
 	 * generateFlightName: Generate a random name for a flight, based on UK flight tail numbers
 	 * @return Returns a random string that can be used to identify a flight.
 	 */
-	
 	public String generateFlightName() {
 		String name = "G-";
 		Random rand = new Random();
@@ -285,7 +306,6 @@ public class Airspace {
 	 * using unnecessary resources.
 	 * @param flight The flight being checked.
 	 */
-
 	public boolean checkIfFlightHasLeftAirspace(Flight flight) {
 		// x and y must be within these bounds to be within screen space
 		// Not quite the same with withinAirspace method
@@ -296,13 +316,11 @@ public class Airspace {
 		{
 			return false;
 		}
-
 	}
 
 	/**
 	 * increaseDifficulty 
 	 */
-	
 	public void increaseDifficulty(){
 		this.numberOfGameLoopsWhenDifficultyIncreases += 3600;
 		if (this.randomNumberForFlightGeneration - 50 > 0) {
@@ -311,7 +329,6 @@ public class Airspace {
 	}
 	
 
-
 	// INIT, RENDER, UPDATE
 	
 	/**
@@ -319,7 +336,6 @@ public class Airspace {
 	 * @param gc GameContainer
 	 * @throws SlickException
 	 */
-	
 	public void init(GameContainer gc) throws SlickException {
 		
 		this.controls.init(gc);
@@ -338,29 +354,35 @@ public class Airspace {
 		for (int i = 0; i < this.listOfEntryPoints.size(); i++) { // Initialising entry point
 			this.listOfEntryPoints.get(i).init(gc);
 		}
-		
 	}
 	
 	/**
 	 * update: Update all logic in the airspace class
 	 * @param gc GameContainer
 	 */
-	
 	public void update(GameContainer gc) throws SlickException {
 		
+		/* Increase the number of loop every update */
 		this.numberOfGameLoopsSinceLastFlightAdded++;
 		this.numberOfGameLoops++;
+
+		/* Increase difficulty after a set number of loops */
 		if (this.numberOfGameLoops >= this.numberOfGameLoopsWhenDifficultyIncreases) {
 			this.increaseDifficulty();
-	
 		}
 		
+		/* Loop through all the planes */
 		for (int i = 0; i < this.listOfFlightsInAirspace.size(); i++) {
+			/* Update score */
 			this.listOfFlightsInAirspace.get(i).update(score);
+			/* Remove plane that finished its flight plan
+			 * and add score for finishing a flight plan */
 			if(this.listOfFlightsInAirspace.get(i).getFlightPlan().getCurrentRoute().size()==0) {
 				this.removeSpecificFlight(i);
 				score.procCompleteFlightAchieve();
 			}
+			/* If plane left the screen without finishing its flight plan
+			 * it decreases score and penalises the multiplier */
 			else if (this.checkIfFlightHasLeftAirspace(this.getListOfFlights().get(i))) {
 				if(this.getListOfFlights().get(i).isControllable()){
 					score.reduceScoreOnFlightLost();
@@ -370,15 +392,15 @@ public class Airspace {
 				}
 				this.removeSpecificFlight(i);
 			}
-			
 		}
 		
-		//tracking for minutes without flight lost achievement
+		// Tracking for minutes without flight lost achievement
 		flightLostTimer += 1;
 		if (flightLostTimer >= 3000){
 			score.procminsWithoutPlaneLossAchievement();
 		}
 		
+		/* Update all objects */
 		this.eventController.update(gc);
 		this.separationRules.update(this);
 		this.controls.update(gc, this);
@@ -415,8 +437,6 @@ public class Airspace {
 		for (Flight f:listOfFlightsInAirspace) { // Draws flights in airspace
 			f.render(g, gc);
 		}
-		
-		
 		separationRules.render(g, gc, this);
 		controls.render(gc,g);
 	}
@@ -476,6 +496,11 @@ public class Airspace {
 		}
 	}
 	
+	/**
+	 * Add a flight
+	 * @param flight object
+	 * @return whether the plane was added
+	 */
 	public boolean addFlight(Flight flight) {
 		
 		if(flight == null){
@@ -491,18 +516,23 @@ public class Airspace {
 			
 			//TODO Fix.
 
+			/* Forbid adding a plane to an airport that already has a plane */
 			for(int i = 0; i < listOfFlightsInAirspace.size(); i++){
 				if(listOfFlightsInAirspace.get(i).isGrounded() && flight.getFlightPlan().getEntryPoint().isRunway()){
 					System.out.println("Flight already on runway!");
 					return false;
 				}
 			}
+			/* Add flight to airspace */
 			this.listOfFlightsInAirspace.add(flight);
 			return true;
-			
 		}
 	}
 	
+	/**
+	 * Remove a specific flight
+	 * @param flight the flight that needs to be removed
+	 */
 	public void removeSpecificFlight(int flight) {
 		this.listOfFlightsInAirspace.remove(flight);
 		

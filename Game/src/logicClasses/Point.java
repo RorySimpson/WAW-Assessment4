@@ -10,14 +10,23 @@ public class Point {
 
 	// CONSTRUCTORS
 
-	//Point Constructor taking two doubles for X then Y coordinates.
+	/**
+	 *Point consturcot taking 2 doubles for X and Y coord 
+	 * @param xcoord x coord
+	 * @param ycoord y coord
+	 */
 	public Point(double xcoord, double ycoord) {
 		x = xcoord;
 		y = ycoord;
 		pointRef = "-";
 	}
 
-	//Point Constructor that also takes pointRef string, more commonly used.
+	/**
+	 * Point constructor that takes pointRef string to assign names to exitpoints 
+	 * @param xcoord x coord
+	 * @param ycoord y coord
+	 * @param name waypoint name 
+	 */
 	public Point(double xcoord, double ycoord, String name){
 		x = xcoord; 
 		y = ycoord;
@@ -26,7 +35,6 @@ public class Point {
 
 
 	// MUTATORS AND ACCESSORS
-
 	public double getX() {
 		return this.x;
 	}
@@ -54,5 +62,4 @@ public class Point {
 	public boolean equals(Point point){
 		return ((point.getX()==x) && (point.getY()==y));
 	}
-
 }

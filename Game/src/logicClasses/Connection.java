@@ -9,7 +9,7 @@ public class Connection {
 	private List<String> scores = new ArrayList<String>();
 
 	/**
-	 * getScores: Opens a http connection to a php page which returns the
+	 * getScores: Opens a HTTP connection to a PHP page which returns the
 	 * highscore data, this is then saved in a hashMap
 	 */
 	public List<String> getScores() {
@@ -41,15 +41,27 @@ public class Connection {
 		return scores.get(0);
 	}
 	
+	/**
+	 * Get the lowest score in order to know if the score made
+	 * a high score table
+	 * @return
+	 */
 	public int getLowestScore(){
 		getScores();
 		String[] parts = scores.get(scores.size() - 1).split(":::");
 		if (parts[1].equals("Sorry, we couldn't load highscores!")){
+			/* Return dummy value if error occurred */
 			return 999999999;
 		}
 			return Integer.parseInt(parts[1]);
 	}
 	
+	/**
+	 * Method to send a new score to add to the high score table
+	 * @param Name player name
+	 * @param Score the score that needs to be stored
+	 * @return
+	 */
 	public Boolean sendNewScore(String Name, int Score){
 	    try {
 		// Construct data
@@ -84,6 +96,9 @@ public class Connection {
 	    return false;
 	}
 
+	/**
+	 * Clear all the data
+	 */
 	public void clearData() {
 		scores.clear();
 	}

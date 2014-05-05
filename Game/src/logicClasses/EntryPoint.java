@@ -11,9 +11,16 @@ import util.DeferredFile;
 
 public class EntryPoint extends Point {
 	
+	/* Images */
 	static Image entryPointTop, entryPointRight, entryPointLeft,entryPointRunway;
+	/* Whether it's a runway entry point (the start of the airport) */
 	private boolean runway;
 	
+	/**
+	 * Constructor that takes the coordinates 
+	 * @param xcoord x coordinate
+	 * @param ycoord y coordinate
+	 */
     public EntryPoint(double xcoord, double ycoord) {
     	super(xcoord, ycoord);
     }
@@ -25,7 +32,6 @@ public class EntryPoint extends Point {
      * @param gc Game container required by Slick2d
      * @throws SlickException
      */
-    	
     	{
     		LoadingList loading = LoadingList.get();
     		if (entryPointTop == null)
@@ -48,9 +54,7 @@ public class EntryPoint extends Point {
     					entryPointLeft = new Image(filename);
     				}
     			});
-    		
     	}
-
     }
     public boolean isRunway(){
     	return runway;
@@ -60,11 +64,12 @@ public class EntryPoint extends Point {
 	 * @param g Graphics required by Slick2d
 	 * @throws SlickException
 	 */
-    
 	public void render(Graphics g) throws SlickException {
 		runway = false;
 		entryPointRunway = entryPointRight.copy();
 		entryPointRunway.setRotation(45);
+
+		/* Draw the 3 entry points */
 		if(y == 0){
 			entryPointTop.draw((int)x-20, (int)y);
 		}
@@ -75,11 +80,9 @@ public class EntryPoint extends Point {
 		
 		else if(x == 1200){
 			entryPointRight.draw((int)x-20, (int)y-20);
+        /* Or the runway point if it's none of the normal entry points */
 		}else{
 			runway = true;
 		}
     }
-	
-
-
 }
