@@ -71,37 +71,42 @@ public class SeparationRules_Tests {
 		flight2.setAltitude(27000);
 		
 	}
-	
+	//SR.1.1
 	//Test: lateralDistanceBetweenFlightAndTornado
 	@Test
 	public void lateralDistanceBetweenFlightAndTornadoTest(){
 		assertTrue(separationRules.lateralDistanceBetweenFlightAndTornado(flight1, tornado) >= 0);
 	}
 	
+	//SR.1.2
 	//Test: lateralDistanceBetweenFlightAndProjectile
 	@Test
 	public void lateralDistanceBetweenFlightAndProjectileTest(){
 		assertTrue(separationRules.lateralDistanceBetweenFlightAndProjectile(flight1, projectile) >= 0);
 	}
 	
+	//SR.1.3
 	//Test: lateralDistanceBetweenFlightAndHunterFlights
 	@Test
 	public void lateralDistanceBetweenFlightAndHunterFlightsTest(){
 		assertTrue(separationRules.lateralDistanceBetweenFlightAndHunterFlight(flight1, hunterFlight) >= 0);
 	}
 	
+	//SR.1.4
 	//Test: lateralDistanceBetweenFlights
 	@Test
 	public void lateralDistanceBetweenFLightsTest() {
 		assertTrue(separationRules.lateralDistanceBetweenFlights(flight1, flight2) >= 0);
 	}
 	
+	//SR.2
 	//Test: verticalDistanceBetweenFlights
 	@Test
 	public void verticalDistanceBetweenFlightsTest(){
 		assertTrue(separationRules.verticalDistanceBetweenFlights(flight1, flight2) >= 0);
 	}
 	
+	//SR.3
 	//Test: checkViolation for collisions between flights
 	@Test
 	public void checkViolationTrueTest(){
@@ -115,6 +120,7 @@ public class SeparationRules_Tests {
 		assertTrue(separationRules.getGameOverViolation());
 	}
 	
+	//SR.4.1
 	@Test
 	public void checkViolationFalseVerticalTest(){
 		// Tests that game over is not achieved when two flights aren't too close.
@@ -127,6 +133,7 @@ public class SeparationRules_Tests {
 		assertFalse(separationRules.getGameOverViolation());
 	}
 	
+	//SR.4.2
 	@Test
 	public void checkViolationFalseLateralTest(){
 		// Tests that game over is not achieved when two flights aren't too close.
@@ -139,8 +146,8 @@ public class SeparationRules_Tests {
 		assertFalse(separationRules.getGameOverViolation());
 	}
 	
+	//SR.5
 	//Test: checkTornadoOnFlightCollision for collisions between flights and tornados
-	
 	@Test
 	public void checkTornadoOnFlightCollisionTrueTest(){
 		// Test that random heading gave when flight and tornado are too close
@@ -156,6 +163,7 @@ public class SeparationRules_Tests {
 		
 	}
 	
+	//SR.6
 	@Test
 	public void checkTornadoOnFlightCollisionFalseTest(){
 		// Test that random heading gave when flight and tornado are too close
@@ -171,8 +179,8 @@ public class SeparationRules_Tests {
 		assertTrue(originalAltitude == flight1.getAltitude() && originalHeading == flight1.getCurrentHeading());
 	}
 	
+	//SR.7
 	//Test: checkVolcanoProjectileOnFlightCollision for collisions between flights and projectiles
-	
 	@Test
 	public void checkVolcanoProjectileOnFlightCollisionTrueTest(){
 		// Test that gameOverViolation set to true when flight and projectile are too close
@@ -184,7 +192,8 @@ public class SeparationRules_Tests {
 		separationRules.checkVolcanoProjectileOnFlightCollision(airspace);
 		assertTrue(separationRules.getGameOverViolation());
 	}
-		
+	
+	//SR.8
 	@Test
 	public void checkVolcanoProjectileOnFlightCollisionFalseTest(){
 		// Test that gameOverViolation set to false when flight and projectile aren't too close
@@ -197,8 +206,8 @@ public class SeparationRules_Tests {
 		assertFalse(separationRules.getGameOverViolation());
 	}
 	
+	//SR.9
 	//Test: checkHunterFlightCollision for collisions between flights and hunter flights
-	
 	@Test
 	public void checkHunterFlightCollisionTrueTest(){
 		// Test that gameOverViolation set to true when flight and a hunter flight are too close
@@ -210,7 +219,8 @@ public class SeparationRules_Tests {
 		separationRules.checkHunterFlightCollision(airspace);
 		assertTrue(separationRules.getGameOverViolation());
 	}
-			
+	
+	//SR.10
 	@Test
 	public void checkHunterFlightCollisionFalseTest(){
 		// Test that gameOverViolation set to false when flight and hunter flight aren't too close
