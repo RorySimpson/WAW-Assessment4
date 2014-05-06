@@ -48,7 +48,8 @@ public class ScoreTracking_Test {
 		airspace = null;
 		flight1 = null;
 	}
-
+	
+	//ST.1
 	@Test
 	public void testUpdateWaypointScore() {
 		// Test values for each interval of the way point scoring system
@@ -78,7 +79,8 @@ public class ScoreTracking_Test {
 		
 		
 	}
-
+	
+	//ST.2
 	@Test
 	public void testUpdateScore() {
 		int updatedScore = 50;
@@ -91,12 +93,14 @@ public class ScoreTracking_Test {
 		assertEquals(100, actualUpdatedScore);
 	}
 
+	//ST.3
 	@Test
 	public void testUpdateTimeScore() {
 		int actualUpdateTimeScore = scoreTrackingInstance.updateTimeScore();
 		assertEquals(2, actualUpdateTimeScore);
 	}
 
+	//ST.4
 	@Test
 	public void testReduceScoreOnFlightplanChange() {
 		int reducedScore = -10;
@@ -104,13 +108,14 @@ public class ScoreTracking_Test {
 		assertEquals(reducedScore, actualReducedScore);
 	}
 
+	//ST.5
 	@Test
 	public void testReduceScoreOnFlightLost() {
 		int actualReducedScore = scoreTrackingInstance.reduceScoreOnFlightLost();
 		assertEquals(-50, actualReducedScore);
-		
 	}
 
+	//ST.6
 	@Test
 	public void testResetScore() {
 		scoreTrackingInstance.updateScore(100, flight1.isBonus());
@@ -118,12 +123,14 @@ public class ScoreTracking_Test {
 		assertEquals(0, scoreTrackingInstance.getScore());
 	}
 
+	//ST.7
 	@Test
 	public void testGetScore() {
 		scoreTrackingInstance.updateScore(100, flight1.isBonus());
 		assertEquals(100, scoreTrackingInstance.getScore());
 	}
-
+	
+	//ST.8
 	@Test
 	public void testToString() {
 		scoreTrackingInstance.updateScore(100, flight1.isBonus());
