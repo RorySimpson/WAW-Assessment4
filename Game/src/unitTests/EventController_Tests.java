@@ -74,11 +74,7 @@ public class EventController_Tests {
 		eventController.setTimeUntilRadioMalfunction(1);
 		eventController.updateRadioMalfunctionEvent();
 		
-		/*
-		airspace.getControls().setSelectedFlight(flight);
-		eventController.setTimeUntilRadioMalfunction(1);
-		eventController.updateRadioMalfunctionEvent(); 
-		*/
+		
 	}
 	
 	@Test
