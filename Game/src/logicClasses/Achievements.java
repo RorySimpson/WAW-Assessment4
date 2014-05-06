@@ -43,7 +43,7 @@ public class Achievements {
 		if (silverAchievementGained == false){
 			if (pointsTotal >= 1000){
 				//then display silver achievement
-				achievementMessage = "Silver Achievement Gained";
+				achievementMessage = "Silver Achievement";
 				
 				silverAchievementGained = true;
 				completeAchievement();
@@ -53,7 +53,7 @@ public class Achievements {
 		if (goldAchievementGained == false){
 			if (pointsTotal >= 2000){
 				//then display gold achievement
-				achievementMessage = "Gold Achievement Gained";
+				achievementMessage = "Gold Achievement";
 				
 				goldAchievementGained = true;
 				completeAchievement();
@@ -88,7 +88,7 @@ public class Achievements {
 		if (timeAchievementGained == false){
 			if (gameTime >= ACHIEVEMENTTIME){
 				// Then display achievement
-				achievementMessage = "Time Achievement Gained";
+				achievementMessage = "Time Achievement";
 				completeAchievement();
 				timeAchievementGained = true;
 			}
@@ -105,7 +105,7 @@ public class Achievements {
 		
 		if (crashAchievementGained == false){
 			// Display achievement
-			achievementMessage = "Crash Achievement Gained";
+			achievementMessage = "Crash Achievement";
 			completeAchievement();
 			crashAchievementGained = true;
 		}
@@ -120,7 +120,7 @@ public class Achievements {
 	public String changeFlightPlanAchievement(){
 		if (flightPlanChangedAchievementGained == false){
 			//display achievement
-			achievementMessage = "Change Flight Plan Achievement Gained";
+			achievementMessage = "Change Flight Plan Achievement";
 			completeAchievement();
 			flightPlanChangedAchievementGained = true;
 		}
@@ -134,7 +134,7 @@ public class Achievements {
 	public String completeFlightPlanAchievement(){
 		if (completeFlightPlanAchievementGained == false){
             //display achievement
-            achievementMessage = "Complete Flight Plan Achievement Gained";
+            achievementMessage = "Complete Flight Plan Achievement";
             completeAchievement();
             completeFlightPlanAchievementGained = true;
 		}
@@ -148,7 +148,7 @@ public class Achievements {
 	public String minsWithoutPlaneLossAchievement(){
 		if (noPlaneLossAchievementGained == false){
             //display achievement
-            achievementMessage = "Time Without Losing Plane Achievement Gained";
+            achievementMessage = "Time Achievement";
             completeAchievement();
             noPlaneLossAchievementGained = true;
 		}
@@ -162,7 +162,7 @@ public class Achievements {
 	 */
 	public String planeLandedAchievement(){
 		if (planeLandedAchievementGained == false){
-            achievementMessage = "Landing Achievement Gained";
+            achievementMessage = "Landing Achievement";
             completeAchievement();
             planeLandedAchievementGained = true;
 		}
