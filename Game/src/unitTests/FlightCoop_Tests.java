@@ -30,6 +30,7 @@ public class FlightCoop_Tests {
     	airspace.getControls().setSelectedFlight1(flight2);
 	}
 	
+	//FCO.1.1
 	@Test
 	public void landTest1(){
 		flight1.setPlayer2(false);
@@ -45,6 +46,7 @@ public class FlightCoop_Tests {
 		assertNull(airspace.getControls().getSelectedFlight1());
 	}
 	
+	//FCO.1.2
 	@Test
 	public void landTest2(){
 		flight1.setPlayer2(false);
@@ -59,6 +61,7 @@ public class FlightCoop_Tests {
 		assertNotNull(airspace.getControls().getSelectedFlight1());
 	}
 	
+	//FCO.1.3
 	@Test
 	public void landTest3(){
 		flight1.setPlayer2(true);
@@ -74,6 +77,7 @@ public class FlightCoop_Tests {
 		assertNull(airspace.getControls().getSelectedFlight2());
 	}
 	
+	//FCO.1.4
 	@Test
 	public void landTest4(){
 		flight1.setPlayer2(true);
@@ -88,6 +92,7 @@ public class FlightCoop_Tests {
 		assertNotNull(airspace.getControls().getSelectedFlight2());
 	}
 	
+	//FCO.2
 	@Test
 	public void testTakeOff() {
 		flight1.setTakingOff(false);
