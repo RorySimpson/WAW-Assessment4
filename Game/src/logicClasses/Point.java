@@ -1,19 +1,20 @@
 package logicClasses;
 
-
 public class Point {
 
 	protected double x;
 	protected double y;
 	protected String pointRef;
 
-
 	// CONSTRUCTORS
 
 	/**
-	 *Point consturcot taking 2 doubles for X and Y coord 
-	 * @param xcoord x coord
-	 * @param ycoord y coord
+	 * Point consturcot taking 2 doubles for X and Y coord
+	 * 
+	 * @param xcoord
+	 *            x coord
+	 * @param ycoord
+	 *            y coord
 	 */
 	public Point(double xcoord, double ycoord) {
 		x = xcoord;
@@ -22,17 +23,21 @@ public class Point {
 	}
 
 	/**
-	 * Point constructor that takes pointRef string to assign names to exitpoints 
-	 * @param xcoord x coord
-	 * @param ycoord y coord
-	 * @param name waypoint name 
+	 * Point constructor that takes pointRef string to assign names to
+	 * exitpoints
+	 * 
+	 * @param xcoord
+	 *            x coord
+	 * @param ycoord
+	 *            y coord
+	 * @param name
+	 *            waypoint name
 	 */
-	public Point(double xcoord, double ycoord, String name){
-		x = xcoord; 
+	public Point(double xcoord, double ycoord, String name) {
+		x = xcoord;
 		y = ycoord;
 		pointRef = name;
 	}
-
 
 	// MUTATORS AND ACCESSORS
 	public double getX() {
@@ -59,7 +64,7 @@ public class Point {
 		this.pointRef = pointRef;
 	}
 
-	public boolean equals(Point point){
-		return ((point.getX()==x) && (point.getY()==y));
+	public boolean equals(Point point) {
+		return ((point.getX() == x) && (point.getY() == y));
 	}
 }

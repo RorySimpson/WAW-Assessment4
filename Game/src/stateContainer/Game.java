@@ -2,8 +2,6 @@ package stateContainer;
 
 import org.newdawn.slick.AppGameContainer;
 
-
-
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
@@ -18,34 +16,20 @@ public class Game extends StateBasedGame {
 
 	/* Title of the game */
 	public static final String NAME = "Expect Turbulence";
-	
+
 	/* More readable state names */
-	public static final int 
-		SPLASHSTATE = 0,
-		MENUSTATE = 1,
-	 	PLAYSTATE = 2,
-		GAMEOVERSTATE = 3,
-		PAUSESTATE = 4,
-		CREDITSSTATE = 5,
-		CONTROLSSTATE = 6,
-		SCORESTATE = 7,
-		PLAYCOOPSTATE = 8,
-		PAUSECOOPSTATE = 9,
-		ACHIEVEVIEWERSTATE = 10,
-		PLAYCOMPETITIVESTATE = 12,
-		GAMEOVERLOADINGSTATE = 13,
-		PAUSECOMPETITIVESTATE = 14,
-		GAMEOVERCOMPETITIVESTATE = 15,
-		GAMEOVERCOOPSTATE = 16,
-		MODESTATE = 17,
-		VSSTATE = 18,
-		COOPSTATE = 19,
-		SINGLESTATE = 20;
-	
+	public static final int SPLASHSTATE = 0, MENUSTATE = 1, PLAYSTATE = 2,
+			GAMEOVERSTATE = 3, PAUSESTATE = 4, CREDITSSTATE = 5,
+			CONTROLSSTATE = 6, SCORESTATE = 7, PLAYCOOPSTATE = 8,
+			PAUSECOOPSTATE = 9, ACHIEVEVIEWERSTATE = 10,
+			PLAYCOMPETITIVESTATE = 12, GAMEOVERLOADINGSTATE = 13,
+			PAUSECOMPETITIVESTATE = 14, GAMEOVERCOMPETITIVESTATE = 15,
+			GAMEOVERCOOPSTATE = 16, MODESTATE = 17, VSSTATE = 18,
+			COOPSTATE = 19, SINGLESTATE = 20;
+
 	/* Window size */
-	public static final int 
-		MAXIMUMWIDTH = 1200, MAXIMUMHEIGHT = 600;
-	
+	public static final int MAXIMUMWIDTH = 1200, MAXIMUMHEIGHT = 600;
+
 	/* Score */
 	private int currentScore;
 	/* Store the versus winner */
@@ -57,10 +41,11 @@ public class Game extends StateBasedGame {
 	private boolean gameEndedCoop;
 	private boolean gameEndedComp;
 
-
 	/**
-	 * Adds all states to a container 
-	 * @param NAME The game's title
+	 * Adds all states to a container
+	 * 
+	 * @param NAME
+	 *            The game's title
 	 */
 
 	public Game(String NAME) {
@@ -72,7 +57,7 @@ public class Game extends StateBasedGame {
 	 */
 	@Override
 	public void initStatesList(GameContainer gc) throws SlickException {
-		
+
 		addState(new SplashState(SPLASHSTATE));
 		enterState(SPLASHSTATE);
 		addState(new MenuState(MENUSTATE));
@@ -95,7 +80,7 @@ public class Game extends StateBasedGame {
 		addState(new CoopInfoState(COOPSTATE));
 		addState(new SingleInfoState(SINGLESTATE));
 	}
-	
+
 	// SETTERS AND GETTERS
 
 	public String getPreviousCompetitiveModeWinner() {
@@ -107,14 +92,13 @@ public class Game extends StateBasedGame {
 		this.previousCompetitiveModeWinner = previousCompetitiveModeWinner;
 	}
 
-	public void setAchievements(Achievements newAchievements){
-		achievements  = newAchievements;
+	public void setAchievements(Achievements newAchievements) {
+		achievements = newAchievements;
 	}
-	
-	public Achievements getAchievements(){
+
+	public Achievements getAchievements() {
 		return achievements;
 	}
-	
 
 	public int getCurrentScore() {
 		return currentScore;
@@ -123,7 +107,6 @@ public class Game extends StateBasedGame {
 	public void setCurrentScore(int currentScore) {
 		this.currentScore = currentScore;
 	}
-	
 
 	public boolean isGameEnded() {
 		return gameEnded;
@@ -150,20 +133,19 @@ public class Game extends StateBasedGame {
 	}
 
 	public static void main(String[] args) {
-		
+
 		AppGameContainer appgc;
-		
-//	    fLogger.info("Showing the main window.");
+
+		// fLogger.info("Showing the main window.");
 		try {
 			appgc = new AppGameContainer(new Game(NAME));
 			appgc.setDisplayMode(MAXIMUMWIDTH, MAXIMUMHEIGHT, false);
 			appgc.setTargetFrameRate(60);
 			appgc.setIcon("res/graphics/icon.png");
 			appgc.start();
-			
-			
+
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
-	}	
+	}
 }

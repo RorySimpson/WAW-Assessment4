@@ -20,33 +20,35 @@ public class DeferredFile_Test {
 
 	@Before
 	public void setUp() throws Exception {
-		LoadingList.get().add(deferredFileInstance = new DeferredFile("res/graphics/new/airport.png"){
-			public void loadFile(String filename) throws SlickException{
- 
-            }	
-		});
-	}
+		LoadingList.get().add(
+				deferredFileInstance = new DeferredFile(
+						"res/graphics/new/airport.png") {
+					public void loadFile(String filename) throws SlickException {
 
+					}
+				});
+	}
 
 	@Test
 	public void testGetDescription() {
-		assertEquals("res/graphics/new/airport.png", deferredFileInstance.getDescription());
-		
+		assertEquals("res/graphics/new/airport.png",
+				deferredFileInstance.getDescription());
+
 	}
-	
+
 	@Test
 	public void testLoad() throws IOException {
 		String filename = "dummy";
 		boolean throwsException;
-		try {	//handle errors here to avoid duplicating try/catch
+		try { // handle errors here to avoid duplicating try/catch
 			deferredFileInstance.loadFile(filename);
 		} catch (SlickException e) {
 			throwsException = true;
 			assertEquals(true, throwsException);
-			throw new IOException("error loading:\t" +filename);
-			
+			throw new IOException("error loading:\t" + filename);
+
 		}
-		
+
 	}
 
 }
