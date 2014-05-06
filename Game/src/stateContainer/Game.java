@@ -91,9 +91,9 @@ public class Game extends StateBasedGame {
 		addState(new GameOverCompetitiveState(GAMEOVERCOMPETITIVESTATE));
 		addState(new GameOverCoopState(GAMEOVERCOOPSTATE));
 		addState(new ModeSelectState(MODESTATE));
-		addState(new vsInfoState(VSSTATE));
-		addState(new coopInfoState(COOPSTATE));
-		addState(new singleInfoState(SINGLESTATE));
+		addState(new VsInfoState(VSSTATE));
+		addState(new CoopInfoState(COOPSTATE));
+		addState(new SingleInfoState(SINGLESTATE));
 	}
 	
 	// SETTERS AND GETTERS

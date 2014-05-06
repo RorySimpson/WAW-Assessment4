@@ -20,10 +20,11 @@ public class ModeSelectState extends BasicGameState
 	
 	/* Images */
 	private static Image background, single, versus, coop, howto,
-						 singleHover, versusHover, coopHover, howtoHover;
+						 singleHover, versusHover, coopHover,
+						 howtoHover, back, backHover;
 	private HoverImage
 		singleImage, versusImage, coopImage,
-		howtoSingle, howtoCoop, howtoVersus;
+		howtoSingle, howtoCoop, howtoVersus, backImage;
 
 	private boolean mouseBeenReleased;
 	
@@ -97,6 +98,18 @@ public class ModeSelectState extends BasicGameState
 				}
 			});
 
+			loading.add(new DeferredFile("res/menu_graphics/new/back.png"){	
+				public void loadFile(String filename) throws SlickException{
+					back = new Image(filename);
+				}
+			});
+
+			loading.add(new DeferredFile("res/menu_graphics/new/back_hover.png"){	
+				public void loadFile(String filename) throws SlickException{
+					backHover = new Image(filename);
+				}
+			});
+
         loading.add(new DeferredResource(){
 			public String getDescription() {
 				return "set up mode state buttons";
@@ -110,6 +123,7 @@ public class ModeSelectState extends BasicGameState
 				howtoSingle = new HoverImage(howto, howtoHover, 140, 540);
 				howtoCoop = new HoverImage(howto, howtoHover, 490, 540);
 				howtoVersus = new HoverImage(howto, howtoHover, 840, 540);
+				backImage = new HoverImage(back, backHover, 50, 50);
 			}
 		});
 
@@ -137,6 +151,8 @@ public class ModeSelectState extends BasicGameState
 		howtoSingle.render(posX, posY);
 		howtoCoop.render(posX, posY);
 		howtoVersus.render(posX, posY);
+
+		backImage.render(posX, posY);
 	}
 
 	/**
@@ -152,12 +168,6 @@ public class ModeSelectState extends BasicGameState
 			//Fixing posY to reflect graphics coords
 	
 		/* If Menu button has been pressed, go back to menu state */
-		if (Mouse.isButtonDown(Input.MOUSE_LEFT_BUTTON)) {
-			
-			if (posX > 20 && posX < 136 && posY > 20 && posY < 66) {
-				sbg.enterState(stateContainer.Game.MENUSTATE);
-			}
-		}
 
 		if (Mouse.isButtonDown(Input.MOUSE_LEFT_BUTTON)) {	
 			if(mouseBeenReleased){	//button first pressed
@@ -185,6 +195,10 @@ public class ModeSelectState extends BasicGameState
 
 				if (howtoCoop.isMouseOver(posX, posY)) {
 					sbg.enterState(stateContainer.Game.COOPSTATE);
+				}
+
+				if (backImage.isMouseOver(posX, posY)) {
+					sbg.enterState(stateContainer.Game.MENUSTATE);
 				}
 			}
 			/* else mouse is dragged*/

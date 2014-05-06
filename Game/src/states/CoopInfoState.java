@@ -15,7 +15,7 @@ import org.newdawn.slick.state.StateBasedGame;
 import util.DeferredFile;
 import util.HoverImage;
 
-public class vsInfoState extends BasicGameState {
+public class CoopInfoState extends BasicGameState {
 	
 	/* Images */
 	private static Image background, backButton, backButtonHover;
@@ -27,7 +27,7 @@ public class vsInfoState extends BasicGameState {
 		back;
 
 	/* Constructor so Eclipse doesn't complain */
-	public vsInfoState(int state) {
+	public CoopInfoState(int state) {
 		this.mouseBeenReleased = false;
 	}
 
@@ -42,7 +42,7 @@ public class vsInfoState extends BasicGameState {
 		{
 			LoadingList loading = LoadingList.get();
 
-			loading.add(new DeferredFile("res/menu_graphics/new/versus.jpg"){
+			loading.add(new DeferredFile("res/menu_graphics/new/coop.jpg"){
 				public void loadFile(String filename) throws SlickException{
 					background = new Image(filename);
 				}
@@ -121,6 +121,6 @@ public class vsInfoState extends BasicGameState {
 	 */
 	@Override
 	public int getID(){
-		return stateContainer.Game.VSSTATE;
+		return stateContainer.Game.COOPSTATE;
 	}
 }

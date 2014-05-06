@@ -15,7 +15,7 @@ import org.newdawn.slick.state.StateBasedGame;
 import util.DeferredFile;
 import util.HoverImage;
 
-public class singleInfoState extends BasicGameState {
+public class SingleInfoState extends BasicGameState {
 	
 	/* Images */
 	private static Image background, backButton, backButtonHover;
@@ -27,7 +27,7 @@ public class singleInfoState extends BasicGameState {
 		back;
 
 	/* Constructor so Eclipse doesn't complain */
-	public singleInfoState(int state) {
+	public SingleInfoState(int state) {
 		this.mouseBeenReleased = false;
 	}
 
