@@ -14,109 +14,108 @@ import org.newdawn.slick.state.StateBasedGame;
 import util.DeferredFile;
 import util.HoverImage;
 
-public class ModeSelectState extends BasicGameState
-	{
+public class ModeSelectState extends BasicGameState {
 
-	
 	/* Images */
-	private static Image background, single, versus, coop, howto,
-						 singleHover, versusHover, coopHover,
-						 howtoHover, back, backHover;
-	private HoverImage
-		singleImage, versusImage, coopImage,
-		howtoSingle, howtoCoop, howtoVersus, backImage;
+	private static Image background, single, versus, coop, howto, singleHover,
+			versusHover, coopHover, howtoHover, back, backHover;
+	private HoverImage singleImage, versusImage, coopImage, howtoSingle,
+			howtoCoop, howtoVersus, backImage;
 
 	private boolean mouseBeenReleased;
-	
+
 	/**
-	 * Empty constructor for consistency 
-	 * @param state - Takes a states
+	 * Empty constructor for consistency
+	 * 
+	 * @param state
+	 *            - Takes a states
 	 */
-	public ModeSelectState(int state){
+	public ModeSelectState(int state) {
 		this.mouseBeenReleased = false;
 	}
-	
+
 	@Override
 	public void init(GameContainer gc, StateBasedGame sbg)
 			throws SlickException {
-		
-                /* Deferred loading of images for better performances */
-			LoadingList loading = LoadingList.get();
 
-			loading.add(new DeferredFile("res/menu_graphics/new/selectmode_background.jpg"){	
-				public void loadFile(String filename) throws SlickException{
-					background = new Image(filename);
-				}
-			});
+		/* Deferred loading of images for better performances */
+		LoadingList loading = LoadingList.get();
 
-			loading.add(new DeferredFile("res/menu_graphics/new/singleButton.jpg"){	
-				public void loadFile(String filename) throws SlickException{
-					single = new Image(filename);
-				}
-			});
+		loading.add(new DeferredFile(
+				"res/menu_graphics/new/selectmode_background.jpg") {
+			public void loadFile(String filename) throws SlickException {
+				background = new Image(filename);
+			}
+		});
 
-			loading.add(new DeferredFile("res/menu_graphics/new/singleplayer_hover.JPG"){	
-				public void loadFile(String filename) throws SlickException{
-					singleHover = new Image(filename);
-				}
-			});
+		loading.add(new DeferredFile("res/menu_graphics/new/singleButton.jpg") {
+			public void loadFile(String filename) throws SlickException {
+				single = new Image(filename);
+			}
+		});
 
-			loading.add(new DeferredFile("res/menu_graphics/new/versusButton.jpg"){	
-				public void loadFile(String filename) throws SlickException{
-					versus = new Image(filename);
-				}
-			});
+		loading.add(new DeferredFile(
+				"res/menu_graphics/new/singleplayer_hover.JPG") {
+			public void loadFile(String filename) throws SlickException {
+				singleHover = new Image(filename);
+			}
+		});
 
-			loading.add(new DeferredFile("res/menu_graphics/new/versus_hover.JPG"){	
-				public void loadFile(String filename) throws SlickException{
-					versusHover = new Image(filename);
-				}
-			});
+		loading.add(new DeferredFile("res/menu_graphics/new/versusButton.jpg") {
+			public void loadFile(String filename) throws SlickException {
+				versus = new Image(filename);
+			}
+		});
 
+		loading.add(new DeferredFile("res/menu_graphics/new/versus_hover.JPG") {
+			public void loadFile(String filename) throws SlickException {
+				versusHover = new Image(filename);
+			}
+		});
 
-			loading.add(new DeferredFile("res/menu_graphics/new/coopButton.jpg"){	
-				public void loadFile(String filename) throws SlickException{
-					coop = new Image(filename);
-				}
-			});
+		loading.add(new DeferredFile("res/menu_graphics/new/coopButton.jpg") {
+			public void loadFile(String filename) throws SlickException {
+				coop = new Image(filename);
+			}
+		});
 
-			loading.add(new DeferredFile("res/menu_graphics/new/coop_hover.JPG"){	
-				public void loadFile(String filename) throws SlickException{
-					coopHover = new Image(filename);
-				}
-			});
+		loading.add(new DeferredFile("res/menu_graphics/new/coop_hover.JPG") {
+			public void loadFile(String filename) throws SlickException {
+				coopHover = new Image(filename);
+			}
+		});
 
-			loading.add(new DeferredFile("res/menu_graphics/new/howto.png"){	
-				public void loadFile(String filename) throws SlickException{
-					howto = new Image(filename);
-				}
-			});
+		loading.add(new DeferredFile("res/menu_graphics/new/howto.png") {
+			public void loadFile(String filename) throws SlickException {
+				howto = new Image(filename);
+			}
+		});
 
-			loading.add(new DeferredFile("res/menu_graphics/new/howto_hover.png"){	
-				public void loadFile(String filename) throws SlickException{
-					howtoHover = new Image(filename);
-				}
-			});
+		loading.add(new DeferredFile("res/menu_graphics/new/howto_hover.png") {
+			public void loadFile(String filename) throws SlickException {
+				howtoHover = new Image(filename);
+			}
+		});
 
-			loading.add(new DeferredFile("res/menu_graphics/new/back.png"){	
-				public void loadFile(String filename) throws SlickException{
-					back = new Image(filename);
-				}
-			});
+		loading.add(new DeferredFile("res/menu_graphics/new/back.png") {
+			public void loadFile(String filename) throws SlickException {
+				back = new Image(filename);
+			}
+		});
 
-			loading.add(new DeferredFile("res/menu_graphics/new/back_hover.png"){	
-				public void loadFile(String filename) throws SlickException{
-					backHover = new Image(filename);
-				}
-			});
+		loading.add(new DeferredFile("res/menu_graphics/new/back_hover.png") {
+			public void loadFile(String filename) throws SlickException {
+				backHover = new Image(filename);
+			}
+		});
 
-        loading.add(new DeferredResource(){
+		loading.add(new DeferredResource() {
 			public String getDescription() {
 				return "set up mode state buttons";
 			}
 
 			/* Load all the hover images */
-			public void load(){
+			public void load() {
 				singleImage = new HoverImage(single, singleHover, 120, 170);
 				coopImage = new HoverImage(coop, coopHover, 470, 170);
 				versusImage = new HoverImage(versus, versusHover, 820, 170);
@@ -127,21 +126,22 @@ public class ModeSelectState extends BasicGameState
 			}
 		});
 
-        };
+	};
+
 	/**
-	 * Overriding the rendering method to render our own resources 
+	 * Overriding the rendering method to render our own resources
 	 */
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g)
-			throws SlickException{
-		
-        /* Get mouse position */
+			throws SlickException {
+
+		/* Get mouse position */
 		int posX = Mouse.getX();
 		int posY = stateContainer.Game.MAXIMUMHEIGHT - Mouse.getY();
-			//Fixing posY to reflect graphics coords
-	
+		// Fixing posY to reflect graphics coords
+
 		/* Draw the background */
-		background.draw(0,0);
+		background.draw(0, 0);
 
 		/* Render the image */
 		singleImage.render(posX, posY);
@@ -156,30 +156,30 @@ public class ModeSelectState extends BasicGameState
 	}
 
 	/**
-	 * Overriding the update method to update our resources 
+	 * Overriding the update method to update our resources
 	 */
 	@Override
 	public void update(GameContainer gc, StateBasedGame sbg, int delta)
 			throws SlickException {
-	
-        /* Get mouse position */
+
+		/* Get mouse position */
 		int posX = Mouse.getX();
-		int posY = stateContainer.Game.MAXIMUMHEIGHT -Mouse.getY();
-			//Fixing posY to reflect graphics coords
-	
+		int posY = stateContainer.Game.MAXIMUMHEIGHT - Mouse.getY();
+		// Fixing posY to reflect graphics coords
+
 		/* If Menu button has been pressed, go back to menu state */
 
-		if (Mouse.isButtonDown(Input.MOUSE_LEFT_BUTTON)) {	
-			if(mouseBeenReleased){	//button first pressed
+		if (Mouse.isButtonDown(Input.MOUSE_LEFT_BUTTON)) {
+			if (mouseBeenReleased) { // button first pressed
 				mouseBeenReleased = false;
-				
+
 				if (singleImage.isMouseOver(posX, posY)) {
 					sbg.enterState(stateContainer.Game.PLAYSTATE);
 				}
-				
+
 				if (versusImage.isMouseOver(posX, posY)) {
 					sbg.enterState(stateContainer.Game.PLAYCOMPETITIVESTATE);
-				} 
+				}
 
 				if (coopImage.isMouseOver(posX, posY)) {
 					sbg.enterState(stateContainer.Game.PLAYCOOPSTATE);
@@ -201,19 +201,19 @@ public class ModeSelectState extends BasicGameState
 					sbg.enterState(stateContainer.Game.MENUSTATE);
 				}
 			}
-			/* else mouse is dragged*/
-		}	
-        // Mouse just released without pressing a button
-		else if (!mouseBeenReleased){	
+			/* else mouse is dragged */
+		}
+		// Mouse just released without pressing a button
+		else if (!mouseBeenReleased) {
 			mouseBeenReleased = true;
 		}
-}	
+	}
 
 	/**
 	 * Overriding the getID method for better readability
 	 */
 	@Override
-	public int getID(){
+	public int getID() {
 		return stateContainer.Game.MODESTATE;
-	}	
+	}
 }

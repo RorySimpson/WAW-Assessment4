@@ -19,30 +19,28 @@ import org.newdawn.slick.gui.TextField;
 import stateContainer.Game;
 
 public class VolcanoProjectile_Tests {
-	
+
 	private VolcanoProjectile projectile;
-	
+
 	@Before
-	public void setUp(){
+	public void setUp() {
 		projectile = new VolcanoProjectile();
 	}
-	
+
 	@Test
-	public void generateRandomHeadingTest(){
+	public void generateRandomHeadingTest() {
 		int heading = projectile.generateRandomHeading();
 		assertTrue(heading >= 0 && heading < 360);
 	}
-	
-	
+
 	@Test
-	public void updateXYCoordinatesTest(){
-		
+	public void updateXYCoordinatesTest() {
+
 		double originalX = projectile.getX();
 		double originalY = projectile.getY();
 		projectile.updateXYCoordinates();
-		assertTrue(originalX != projectile.getX() && originalY != projectile.getY());
+		assertTrue(originalX != projectile.getX()
+				&& originalY != projectile.getY());
 	}
-	
-	
 
 }

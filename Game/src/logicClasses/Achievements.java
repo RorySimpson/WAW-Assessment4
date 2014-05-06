@@ -2,91 +2,96 @@ package logicClasses;
 
 public class Achievements {
 
-	//FIELDS
+	// FIELDS
 	/* Default number of achievements */
-	private int numberOfAchievements 			= 0;
+	private int numberOfAchievements = 0;
 	/* Constant holding the maximum number of achievements */
-	private static final int MAXACHIEVEMENTS 	= 8; //not including all achivements earned
+	private static final int MAXACHIEVEMENTS = 8; // not including all
+													// achivements earned
 	/* How much should the user play to get the time achievement */
-	private static final int ACHIEVEMENTTIME 	= 60000;
+	private static final int ACHIEVEMENTTIME = 60000;
 	/* Empty achievement message */
-	private String achievementMessage 			= "";
-	
-	//Achievements gained booleans initiated to false
-	private boolean silverAchievementGained 			= false;
-	private boolean goldAchievementGained 				= false;
-	private boolean timeAchievementGained 				= false;
-	private boolean noPlaneLossAchievementGained 		= false;
-	private boolean planeLandedAchievementGained 		= false;
-	private boolean flightPlanChangedAchievementGained 	= false;
-	private boolean crashAchievementGained 				= false;
+	private String achievementMessage = "";
+
+	// Achievements gained booleans initiated to false
+	private boolean silverAchievementGained = false;
+	private boolean goldAchievementGained = false;
+	private boolean timeAchievementGained = false;
+	private boolean noPlaneLossAchievementGained = false;
+	private boolean planeLandedAchievementGained = false;
+	private boolean flightPlanChangedAchievementGained = false;
+	private boolean crashAchievementGained = false;
 	private boolean completeFlightPlanAchievementGained = false;
-	
-	private boolean allAchievementsEarned				= false;
+
+	private boolean allAchievementsEarned = false;
 	// Bool that is set/unset to render on-screen achievement box
-	private boolean achievementGained                   = false; 
-		
-	//CONSTRUCTOR
-	public Achievements(){
+	private boolean achievementGained = false;
+
+	// CONSTRUCTOR
+	public Achievements() {
 
 	}
-	
-	//METHODS
+
+	// METHODS
 	/**
-	 * Display the achievements text for the achievmeents related 
-	 * to number of points
-	 * @param pointsTotal How many points the user has at the time
+	 * Display the achievements text for the achievmeents related to number of
+	 * points
+	 * 
+	 * @param pointsTotal
+	 *            How many points the user has at the time
 	 * @return the message
 	 */
-	public String pointsAchievement(int pointsTotal){
-		
-		if (silverAchievementGained == false){
-			if (pointsTotal >= 1000){
-				//then display silver achievement
+	public String pointsAchievement(int pointsTotal) {
+
+		if (silverAchievementGained == false) {
+			if (pointsTotal >= 1000) {
+				// then display silver achievement
 				achievementMessage = "Silver Achievement";
-				
+
 				silverAchievementGained = true;
 				completeAchievement();
 			}
 		}
-		
-		if (goldAchievementGained == false){
-			if (pointsTotal >= 2000){
-				//then display gold achievement
+
+		if (goldAchievementGained == false) {
+			if (pointsTotal >= 2000) {
+				// then display gold achievement
 				achievementMessage = "Gold Achievement";
-				
+
 				goldAchievementGained = true;
 				completeAchievement();
-			}	
+			}
 		}
-		
+
 		return achievementMessage;
 	}
-	
+
 	/**
 	 * Used to increment total achievement count
 	 */
-	public void completeAchievement(){
+	public void completeAchievement() {
 		/* Keep count of achievements */
 		numberOfAchievements += 1;
 		achievementGained = true;
-		
-        // Display achievement
-		if (numberOfAchievements == MAXACHIEVEMENTS){
+
+		// Display achievement
+		if (numberOfAchievements == MAXACHIEVEMENTS) {
 			allAchievementsEarned = true;
-			
+
 		}
 	}
-	
+
 	/**
-	 * Time achievement for playing for a certain amount of time 
-	 * @param gameTime How long the player has been played for
+	 * Time achievement for playing for a certain amount of time
+	 * 
+	 * @param gameTime
+	 *            How long the player has been played for
 	 * @return the message
 	 */
-	public String timeAchievement(int gameTime){
-		
-		if (timeAchievementGained == false){
-			if (gameTime >= ACHIEVEMENTTIME){
+	public String timeAchievement(int gameTime) {
+
+		if (timeAchievementGained == false) {
+			if (gameTime >= ACHIEVEMENTTIME) {
 				// Then display achievement
 				achievementMessage = "Time Achievement";
 				completeAchievement();
@@ -96,130 +101,134 @@ public class Achievements {
 
 		return achievementMessage;
 	}
-	
+
 	/**
-	 * Achievement for crashing 
+	 * Achievement for crashing
+	 * 
 	 * @return the message
 	 */
-	public String crashAchievement(){
-		
-		if (crashAchievementGained == false){
+	public String crashAchievement() {
+
+		if (crashAchievementGained == false) {
 			// Display achievement
 			achievementMessage = "Crash Achievement";
 			completeAchievement();
 			crashAchievementGained = true;
 		}
-		
+
 		return achievementMessage;
 	}
-	
+
 	/**
-	 * Achievement for changing the flight plan 
+	 * Achievement for changing the flight plan
+	 * 
 	 * @return the message
 	 */
-	public String changeFlightPlanAchievement(){
-		if (flightPlanChangedAchievementGained == false){
-			//display achievement
+	public String changeFlightPlanAchievement() {
+		if (flightPlanChangedAchievementGained == false) {
+			// display achievement
 			achievementMessage = "Change Flight Plan Achievement";
 			completeAchievement();
 			flightPlanChangedAchievementGained = true;
 		}
 		return achievementMessage;
 	}
-	
+
 	/**
-	 * Achievement for ocmpleting a flight plan 
+	 * Achievement for ocmpleting a flight plan
+	 * 
 	 * @return the message
 	 */
-	public String completeFlightPlanAchievement(){
-		if (completeFlightPlanAchievementGained == false){
-            //display achievement
-            achievementMessage = "Complete Flight Plan Achievement";
-            completeAchievement();
-            completeFlightPlanAchievementGained = true;
+	public String completeFlightPlanAchievement() {
+		if (completeFlightPlanAchievementGained == false) {
+			// display achievement
+			achievementMessage = "Complete Flight Plan Achievement";
+			completeAchievement();
+			completeFlightPlanAchievementGained = true;
 		}
 		return achievementMessage;
 	}
-	
+
 	/**
-	 * Minutes passed without  losing a plane
+	 * Minutes passed without losing a plane
+	 * 
 	 * @return
 	 */
-	public String minsWithoutPlaneLossAchievement(){
-		if (noPlaneLossAchievementGained == false){
-            //display achievement
-            achievementMessage = "Time Achievement";
-            completeAchievement();
-            noPlaneLossAchievementGained = true;
+	public String minsWithoutPlaneLossAchievement() {
+		if (noPlaneLossAchievementGained == false) {
+			// display achievement
+			achievementMessage = "Time Achievement";
+			completeAchievement();
+			noPlaneLossAchievementGained = true;
 		}
 		return achievementMessage;
 	}
-	
-	
+
 	/**
-	 * achievment for landing a plane 
+	 * achievment for landing a plane
+	 * 
 	 * @return the message
 	 */
-	public String planeLandedAchievement(){
-		if (planeLandedAchievementGained == false){
-            achievementMessage = "Landing Achievement";
-            completeAchievement();
-            planeLandedAchievementGained = true;
+	public String planeLandedAchievement() {
+		if (planeLandedAchievementGained == false) {
+			achievementMessage = "Landing Achievement";
+			completeAchievement();
+			planeLandedAchievementGained = true;
 		}
 		return achievementMessage;
 	}
-	
-	//GETTERS AND SETTERS
 
-	public int getNumberOfAchievements(){
+	// GETTERS AND SETTERS
+
+	public int getNumberOfAchievements() {
 		return numberOfAchievements;
 	}
-	
-	public void setNumberOfAchievements(int noAchieved){
+
+	public void setNumberOfAchievements(int noAchieved) {
 		numberOfAchievements += noAchieved;
 	}
-	
-	public boolean getAchievementGained(){
+
+	public boolean getAchievementGained() {
 		return achievementGained;
 	}
-	
-	public void setAchievementGained(boolean achievementGained){
+
+	public void setAchievementGained(boolean achievementGained) {
 		this.achievementGained = achievementGained;
 	}
-	
-	public boolean getSilverAchievementGained(){
+
+	public boolean getSilverAchievementGained() {
 		return silverAchievementGained;
 	}
-	
-	public boolean getGoldAchievementGained(){
-		return goldAchievementGained; 	
+
+	public boolean getGoldAchievementGained() {
+		return goldAchievementGained;
 	}
-	
-	public boolean getTimeAchievementGained(){
+
+	public boolean getTimeAchievementGained() {
 		return timeAchievementGained;
 	}
-	
-	public boolean getNoPlaneLossAchievementGained(){
+
+	public boolean getNoPlaneLossAchievementGained() {
 		return noPlaneLossAchievementGained;
 	}
-	
-	public boolean getPlaneLandedAchievementGained(){
+
+	public boolean getPlaneLandedAchievementGained() {
 		return planeLandedAchievementGained;
 	}
-	
-	public boolean getFlightPlanChangedAchievementGained(){
+
+	public boolean getFlightPlanChangedAchievementGained() {
 		return flightPlanChangedAchievementGained;
 	}
-	
-	public boolean getCrashAchievementGained(){
+
+	public boolean getCrashAchievementGained() {
 		return crashAchievementGained;
 	}
-	
-	public boolean getCompleteFlightPlanAchievementGained(){
+
+	public boolean getCompleteFlightPlanAchievementGained() {
 		return completeFlightPlanAchievementGained;
 	}
-	
-	public boolean getAllAchievementsEarned(){
+
+	public boolean getAllAchievementsEarned() {
 		return allAchievementsEarned;
 	}
 }

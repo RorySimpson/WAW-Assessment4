@@ -11,26 +11,26 @@ import states.PlayState;
 public class PlayState_Test {
 	private Airspace airspaceInstance;
 	private PlayState playStateInstance;
-	
+
 	@Before
 	public void setup() {
 		int playState = 2;
-		playStateInstance =  new PlayState(playState);
+		playStateInstance = new PlayState(playState);
 		airspaceInstance = new Airspace();
 	}
 
 	@Test
 	public void testGetID() {
-		int actualID = playStateInstance.getID(); 
+		int actualID = playStateInstance.getID();
 		assertEquals(2, actualID);
 	}
-	
+
 	// This test also tests getAirspace
 	@Test
 	public void testSetAirspace() {
 		Airspace airspace = new Airspace();
 		playStateInstance.setAirspace(airspaceInstance);
-		
+
 		Airspace actualAirspace = playStateInstance.getAirspace();
 		assertEquals(airspace.toString(), actualAirspace.toString());
 	}
