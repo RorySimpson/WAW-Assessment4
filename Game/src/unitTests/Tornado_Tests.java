@@ -29,6 +29,7 @@ public class Tornado_Tests {
 		tornado = new Tornado(airspace);
 	}
 	
+	// T.1
 	@Test
 	public void randomiseLocationTest(){
 		tornado.setOriginalX(600);
@@ -39,12 +40,14 @@ public class Tornado_Tests {
 		assertTrue(tornado.getOriginalX() != originalXVal && tornado.getOriginalY() != originalYVal);
 	}
 	
+	// T.2
 	@Test
 	public void attackTest(){
 		tornado.attack();
 		assertTrue(tornado.getAttacking());
 	}
 	
+	// T.3
 	@Test 
 	public void inAirspaceFalseTest(){
 		tornado.setX(1500);
@@ -52,6 +55,7 @@ public class Tornado_Tests {
 		assertFalse(tornado.inAirspace());
 	}
 	
+	// T.4
 	@Test 
 	public void inAirspaceTrueTest(){
 		tornado.setX(600);
@@ -59,6 +63,7 @@ public class Tornado_Tests {
 		assertTrue(tornado.inAirspace());
 	}
 	
+	// T.5
 	@Test
 	public void updateXYTest(){
 		double originalX = tornado.getX();

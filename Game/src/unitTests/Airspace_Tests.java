@@ -43,7 +43,7 @@ public class Airspace_Tests {
 		
 	}
 
-	
+	// A.1
 	// Testing new_waypoint()
 	@Test
 	public void newWaypointTest(){
@@ -53,7 +53,7 @@ public class Airspace_Tests {
 		assertFalse(airspace.newWaypoint(-10000, 151, "TEST2"));
 	}
 	
-	
+	// A.2
 	// Testing new_exit_point()
 	@Test
 	public void newExitPointTest(){
@@ -63,6 +63,7 @@ public class Airspace_Tests {
 		assertFalse(airspace.newExitPoint(-100, 220, "TEST2"));
 	}
 
+	// A.3
 	// Testing new_entry_point()
 	@Test
 	public void newEntryPointTest(){
@@ -72,7 +73,7 @@ public class Airspace_Tests {
 		assertFalse(airspace.newEntryPoint(60, -540));
 	}
 
-	
+	// A.4
 	// Testing generate_flight_name()
 	@Test
 	public void generateFlightNameTest(){
@@ -81,6 +82,7 @@ public class Airspace_Tests {
 		assertTrue((name.length() == 6));
 	}
 	
+	// A.5
 	// Testing check_if_flight_has_left_airspace()
 	@Test
 	public void checkIfFlightHasLeftAirspaceTest(){

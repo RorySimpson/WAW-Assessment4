@@ -31,6 +31,7 @@ public class Volcano_Tests {
 		volcano.getListOfProjectilesLaunched().add(projectile);
 	}
 	
+	// V.1
 	@Test
 	public void checkIfProjectileHasLeftAirspaceTest(){
 		projectile.setX(600);

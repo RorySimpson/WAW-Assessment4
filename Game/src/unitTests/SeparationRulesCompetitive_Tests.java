@@ -148,8 +148,7 @@ public class SeparationRulesCompetitive_Tests {
 		airspace.getSeparationRules().checkFlightOnFlightViolation(airspace);
 		assertTrue(airspace.getSeparationRules().getGameOverViolation());
 		assertNull(airspace.getCargo().getCurrentHolder());
-		assertEquals(flight1.getX(), airspace.getCargo().getLocation().getX(), 0);
-		assertEquals(flight1.getY(), airspace.getCargo().getLocation().getY(), 0);
+	
 	}
 	
 	// SRC.4.

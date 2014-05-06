@@ -40,11 +40,14 @@ public class AirspaceCoop_Tests {
     	airspace.addFlight(flight);
 	}
 	
+	// ACO.1
 	@Test
 	public void newWaypointTest() {
 		assertTrue(airspace.newWaypoint(151, 500, "TEST"));
 		assertFalse(airspace.newWaypoint(-10000, 151, "TEST2"));
 	}
+	
+	// ACO.2
 	@Test
 	public void resetAirspaceTest(){
 		airspace.resetAirspace();
@@ -62,6 +65,8 @@ public class AirspaceCoop_Tests {
 		
 		
 	}
+	
+	// ACO.3
 	@Test
 	public void testRemoveSpecificFlight() {
 		airspace.removeSpecificFlight(0);

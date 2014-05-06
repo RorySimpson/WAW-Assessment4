@@ -74,17 +74,13 @@ public class EventController_Tests {
 		eventController.setTimeUntilRadioMalfunction(1);
 		eventController.updateRadioMalfunctionEvent();
 		
-		/*
-		airspace.getControls().setSelectedFlight(flight);
-		eventController.setTimeUntilRadioMalfunction(1);
-		eventController.updateRadioMalfunctionEvent(); 
-		*/
+		
 	}
 	
 	@Test
 	public void newTornadoTimeTest(){
 		int time = eventController.newTornadoTime();
-		assertTrue(7200 <= time && time < 21599);
+		assertTrue(1800 <= time && time < 5400);
 	}
 	
 	@Test
