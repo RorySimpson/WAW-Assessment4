@@ -96,9 +96,9 @@ public class GameOverCompetitiveState extends BasicGameState {
 				}
 			});
 			
-			loading.add(new DeferredFile("res/menu_graphics/new/drawBackground.png"){
+			loading.add(new DeferredFile("res/menu_graphics/new/draw.jpg"){
 				public void loadFile(String filename) throws SlickException{
-					player2HasWonBackground = new Image(filename);
+					drawBackground = new Image(filename);
 				}
 			});
 			
