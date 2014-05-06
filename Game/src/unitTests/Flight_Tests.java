@@ -3,6 +3,7 @@ package unitTests;
 import static org.junit.Assert.*;
 import logicClasses.*;
 
+
 import org.junit.Test;
 import org.junit.Before;
 
@@ -35,6 +36,8 @@ public class Flight_Tests {
     	airspace.newExitPoint(150, 200, "2");
     	airspace.newExitPoint(1200, 300, "3");
     	airspace.newExitPoint(590,195,"4");
+    	
+  
     	
     	flight1 = new Flight(airspace);
 		
@@ -379,10 +382,13 @@ public class Flight_Tests {
 		
 	}
 	
-	
-	
-	
-	
-
-
+	@Test
+	public void takeOffTest(){
+		flight1.setTakingOff(false);
+		flight1.takeOff();
+		assertTrue(flight1.getVelocity() == 100);
+		assertTrue(flight1.getTargetVelocity() == 300);
+		assertTrue(flight1.getTargetAltitude() == 2000);
+		
+	}
 }

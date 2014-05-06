@@ -47,7 +47,7 @@ public class Airport {
 	 * @param airportNumber Which airport (1 for right airport, 2 for left airport)
 	 * @param airspace The airspace
 	 */
-	protected Airport (int airportNumber,Airspace airspace) {
+	public Airport (int airportNumber,Airspace airspace) {
 
 		// Placing the airport off screen as the airport graphics are part of the graphics already
 		this.airspace = airspace;
