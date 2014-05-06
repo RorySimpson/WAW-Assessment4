@@ -244,7 +244,7 @@ public class FlightCoop extends Flight {
 		else{
 			
 			// Checks whether flight is grounded and doesn't draw information if waiting to take off.
-			if (this.isGrounded()){
+			if (!this.isGrounded()){
 				g.setColor(Color.lightGray);
 				
 				// Draw altitude around flight

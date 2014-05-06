@@ -50,6 +50,13 @@ public class PlayCoopState extends PlayState {
 	 * @param gc GameContainer
 	 * @throws SlickException
 	 */
+	
+	@Override
+	public void enter(GameContainer gc, StateBasedGame sbg) {
+		gc.getInput().clearKeyPressedRecord();
+
+	}
+	
 	@Override
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
 		
@@ -628,6 +635,8 @@ public class PlayCoopState extends PlayState {
 			if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
                 /* If user pressed pause */
 				if((posX>1120&&posX<1165) && (posY>565&&posY<600)) {
+					((Game)sbg).setAchievements(airspace.getScore().getAchievements());
+					((Game)sbg).setCurrentScore(airspace.getScore( ).getCurrentScore());
 					sbg.enterState(stateContainer.Game.PAUSECOOPSTATE);				
 				}
 				
@@ -678,6 +687,8 @@ public class PlayCoopState extends PlayState {
 
 			// Checking For Pause Screen requested in game
 			if (input.isKeyPressed(Input.KEY_P)) {
+				((Game)sbg).setAchievements(airspace.getScore().getAchievements());
+				((Game)sbg).setCurrentScore(airspace.getScore( ).getCurrentScore());
 				sbg.enterState(stateContainer.Game.PAUSECOOPSTATE);
 			}			
 
