@@ -108,6 +108,7 @@ public class PlayState extends BasicGameState {
      *  doesn't prompt us with warnings */
 	@Override
 	public void enter(GameContainer gc, StateBasedGame sbg) {
+		gc.getInput().clearKeyPressedRecord();
 		if(gc.getInput().isMouseButtonDown(Input.MOUSE_LEFT_BUTTON)) {
 			mouseBeenReleased = false;
 		}
@@ -781,6 +782,8 @@ public class PlayState extends BasicGameState {
 			if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
                 /* If user pressed pause */
 				if((posX>1120&&posX<1165) && (posY>565&&posY<600)) {
+					((Game)sbg).setAchievements(airspace.getScore().getAchievements());
+					((Game)sbg).setCurrentScore(airspace.getScore( ).getCurrentScore());
 					sbg.enterState(stateContainer.Game.PAUSESTATE);				
 				}
 				
@@ -829,7 +832,8 @@ public class PlayState extends BasicGameState {
 		
 			// Checking For Pause Screen requested in game
 			if (input.isKeyPressed(Input.KEY_P)) {
-				
+				((Game)sbg).setAchievements(airspace.getScore().getAchievements());
+				((Game)sbg).setCurrentScore(airspace.getScore( ).getCurrentScore());
 				sbg.enterState(stateContainer.Game.PAUSESTATE);
 			}			
 			

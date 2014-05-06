@@ -48,6 +48,12 @@ public class PlayCompetitiveState extends PlayState {
 		super(state);
 		achievement = new Achievements();
 	}
+	
+	@Override
+	public void enter(GameContainer gc, StateBasedGame sbg) {
+		gc.getInput().clearKeyPressedRecord();
+
+	}
 
 	@Override
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
