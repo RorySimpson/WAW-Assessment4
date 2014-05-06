@@ -42,8 +42,9 @@ public class Flight_Tests {
     	flight1 = new Flight(airspace);
 		
 	}
+	
+	// F.1
 	// Testing generate_altitude()
-
 	@Test
 	public void generateAltitudeTest1() {
 		// Testing the function returns an altitude within a certain range.
@@ -52,8 +53,8 @@ public class Flight_Tests {
     	
 	}
 	
+	// F.2.1
 	// Testing calculate_heading_to_first_waypoint()
-	
 	@Test
 	public void calculateHeadingToFirstWaypointTest1(){
 		//Testing it calculates the heading to the first waypoint.
@@ -63,6 +64,7 @@ public class Flight_Tests {
 		
 	}
 	
+	// F.2.2
 	@Test
 	public void calculateHeadingToFirstWaypointTest2(){
 		//Testing it calculates the heading to the first waypoint. 
@@ -74,10 +76,8 @@ public class Flight_Tests {
 	
 
 	
-	
+	// F.3.1
 	// Testing turn_flight_left(int degrees_turned_by)
-	
-	
 	@Test
 	public void turnFlightLeftTest1(){
 		flight1.setTargetHeading(10);
@@ -86,6 +86,7 @@ public class Flight_Tests {
 		assertEquals(350, flight1.getTargetHeading(), 0.1);
 	}
 	
+	// F.3.2
 	@Test
 	public void turnFlightLeftTest2(){
 		flight1.setTargetHeading(270);
@@ -94,6 +95,7 @@ public class Flight_Tests {
 		assertEquals(180, flight1.getTargetHeading(), 0.1);
 	}
 	
+	// F.3.3
 	@Test
 	public void turnFlightLeftTest3(){
 		flight1.setTargetHeading(90);
@@ -102,9 +104,8 @@ public class Flight_Tests {
 		assertEquals(0, flight1.getTargetHeading(), 0.1);
 	}
 	
-	
-	// Testing turn_flight_right(int degrees_turned_by)
-	
+	// F.4.1
+	// Testing turn_flight_right(int degrees_turned_by)	
 	@Test
 	public void turnFlightRightTest1(){
 		flight1.setTargetHeading(0);
@@ -113,6 +114,7 @@ public class Flight_Tests {
 		assertEquals(30, flight1.getTargetHeading(), 0.1);
 	}
 	
+	// F.4.2
 	@Test
 	public void turnFlightRightTest2(){
 		flight1.setTargetHeading(270);
@@ -121,6 +123,7 @@ public class Flight_Tests {
 		assertEquals(10, flight1.getTargetHeading(),0.1);
 	}
 	
+	// F.4.3
 	@Test
 	public void turnFlightRightTest3(){
 		flight1.setTargetHeading(270);
@@ -130,9 +133,8 @@ public class Flight_Tests {
 	}
 	
 
-	
+	// F.5.1
 	// Testing give_heading(int new_heading)
-	
 	@Test
 	public void giveHeadingTest1(){
 		flight1.setTargetHeading(0);
@@ -141,6 +143,7 @@ public class Flight_Tests {
 		assertEquals(0, flight1.getTargetHeading(), 0.1);
 	}
 	
+	// F.5.2
 	@Test
 	public void giveHeadingTest2(){
 		flight1.setTargetHeading(0);
@@ -149,6 +152,7 @@ public class Flight_Tests {
 		assertEquals(0, flight1.getTargetHeading(), 0.1);
 	}
 	
+	// F.5.3
 	@Test
 	public void giveHeadingTest3(){
 		flight1.setTargetHeading(0);
@@ -157,6 +161,7 @@ public class Flight_Tests {
 		assertEquals(90, flight1.getTargetHeading(), 0.1);
 	}
 	
+	// F.5.4
 	@Test
 	public void giveHeadingTest4(){
 		flight1.setTargetHeading(0);
@@ -165,10 +170,8 @@ public class Flight_Tests {
 		assertEquals(10, flight1.getTargetHeading(), 0.1);
 	}
 	
-	
+	// F.6.1
 	// Testing check_if_flight_at_waypoint()
-	
-	
 	@Test
 	public void checkIfFlightAtWaypointTest1(){
 		// Test that waypoint detection works at within 15 pixels.
@@ -181,7 +184,7 @@ public class Flight_Tests {
 		assertTrue(flight1.checkIfFlightAtWaypoint(waypoint));
 	}
 	
-	
+	// F.6.2
 	@Test
 	public void checkIfFlightAtWaypointTest2(){
 		// // Test that waypoint detection doesn't work further than 15 pixels away.
@@ -191,6 +194,7 @@ public class Flight_Tests {
 		assertFalse(flight1.checkIfFlightAtWaypoint(waypoint));
 	}
 	
+	// F.6.3
 	@Test
 	public void checkIfFlightAtWaypointTest3(){
 		// Test that waypoint detection works when close enough in terms of 
@@ -201,6 +205,7 @@ public class Flight_Tests {
 		assertFalse(flight1.checkIfFlightAtWaypoint(waypoint));
 	}
 	
+	// F.6.4
 	@Test
 	public void checkIfFlightAtWaypointTest4(){
 		// Test that waypoint detection works when close enough in terms of 
@@ -212,9 +217,8 @@ public class Flight_Tests {
 	}
 	
 	
-	
+	// F.7
 	// Testing update_x_y_coordinates()
-	
 	@Test
 	public void updateXYCoordinates(){
 		// Testing that it updates the x and y coordinate correctly.
@@ -230,9 +234,8 @@ public class Flight_Tests {
 	}
 	
 	
-	
+	// F.8.1
 	//Testing update_altitude()
-	
 	@Test
 	public void updateAltitudeTest1(){
 		// Testing that the Flight moves towards the target altitude.
@@ -243,6 +246,7 @@ public class Flight_Tests {
 		
 	}
 	
+	// F.8.2
 	@Test
 	public void updateAltitudeTest2(){
 		// Testing that the Flight doesn't move when at the target altitude.
@@ -253,6 +257,7 @@ public class Flight_Tests {
 		
 	}
 	
+	// F.8.3
 	@Test
 	public void updateAltitudeTest3(){
 		// Testing that the Flight moves towards the target altitude.
@@ -263,6 +268,7 @@ public class Flight_Tests {
 		
 	}
 	
+	// F.8.4
 	@Test
 	public void updateAltitudeTest4(){
 		// Testing that the Flight moves towards the target altitude.
@@ -273,6 +279,7 @@ public class Flight_Tests {
 		
 	}
 	
+	// F.8.5
 	@Test
 	public void updateAltitudeTest5(){
 		// Testing that the Flight moves towards the target altitude.
@@ -283,9 +290,8 @@ public class Flight_Tests {
 		
 	}
 	
-	
+	// F.9.1
 	//Testing update_current_heading()
-	
 	@Test
 	public void updateCurrentHeadingTest1(){
 		// Test that the current heading moves towards the target heading
@@ -298,6 +304,7 @@ public class Flight_Tests {
 		
 	}
 	
+	// F.9.2
 	@Test
 	public void updateCurrentHeadingTest2(){
 		// Test that the current heading moves towards the target heading
@@ -310,6 +317,7 @@ public class Flight_Tests {
 		
 	}
 	
+	// F.9.3
 	@Test
 	public void updateCurrentHeadingTest3(){
 		// Test that the current heading moves towards the target heading
@@ -322,6 +330,7 @@ public class Flight_Tests {
 		
 	}
 	
+	// F.9.4
 	@Test
 	public void updateCurrentHeadingTest4(){
 		// Test that the current heading moves towards the target heading
@@ -334,6 +343,7 @@ public class Flight_Tests {
 		
 	}
 	
+	// F.9.5
 	@Test
 	public void updateCurrentHeadingTest5(){
 		// Test that the current heading moves towards the target heading
@@ -346,6 +356,7 @@ public class Flight_Tests {
 		
 	}
 	
+	// F.9.6
 	@Test
 	public void updateCurrentHeadingTest6(){
 		// Test that the current heading moves towards the target heading
@@ -358,6 +369,7 @@ public class Flight_Tests {
 		
 	}
 	
+	// F.9.7
 	@Test
 	public void updateCurrentHeadingTest7(){
 		// Test that the current heading moves towards the target heading
@@ -370,6 +382,7 @@ public class Flight_Tests {
 		
 	}
 	
+	// F.9.8
 	@Test
 	public void updateCurrentHeadingTest8(){
 		// Test that the current heading moves towards the target heading
@@ -382,6 +395,7 @@ public class Flight_Tests {
 		
 	}
 	
+	// F.10
 	@Test
 	public void takeOffTest(){
 		flight1.setTakingOff(false);
