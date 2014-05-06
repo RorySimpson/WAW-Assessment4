@@ -84,7 +84,7 @@ public class EventController_Tests {
 	@Test
 	public void newTornadoTimeTest(){
 		int time = eventController.newTornadoTime();
-		assertTrue(7200 <= time && time < 21599);
+		assertTrue(1800 <= time && time < 5400);
 	}
 	
 	@Test
