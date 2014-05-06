@@ -235,5 +235,4 @@ public class MenuState extends BasicGameState {
 	public int getID() {
 		return stateContainer.Game.MENUSTATE;
 	}
-
 }

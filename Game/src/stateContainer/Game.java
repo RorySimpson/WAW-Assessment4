@@ -37,7 +37,10 @@ public class Game extends StateBasedGame {
 		PAUSECOMPETITIVESTATE = 14,
 		GAMEOVERCOMPETITIVESTATE = 15,
 		GAMEOVERCOOPSTATE = 16,
-		MODESTATE = 17;
+		MODESTATE = 17,
+		VSSTATE = 18,
+		COOPSTATE = 19,
+		SINGLESTATE = 20;
 	
 	/* Window size */
 	public static final int 
@@ -88,6 +91,9 @@ public class Game extends StateBasedGame {
 		addState(new GameOverCompetitiveState(GAMEOVERCOMPETITIVESTATE));
 		addState(new GameOverCoopState(GAMEOVERCOOPSTATE));
 		addState(new ModeSelectState(MODESTATE));
+		addState(new ModeSelectState(VSSTATE));
+		addState(new ModeSelectState(COOPSTATE));
+		addState(new ModeSelectState(SINGLESTATE));
 	}
 	
 	// SETTERS AND GETTERS
@@ -159,8 +165,5 @@ public class Game extends StateBasedGame {
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
-		
-		
-		
 	}	
 }

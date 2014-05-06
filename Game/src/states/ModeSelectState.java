@@ -19,10 +19,11 @@ public class ModeSelectState extends BasicGameState
 
 	
 	/* Images */
-	private static Image background, single, versus, coop,
-						 singleHover, versusHover, coopHover;
+	private static Image background, single, versus, coop, howto,
+						 singleHover, versusHover, coopHover, howtoHover;
 	private HoverImage
-		singleImage, versusImage, coopImage;
+		singleImage, versusImage, coopImage,
+		howtoSingle, howtoCoop, howtoVersus;
 
 	private boolean mouseBeenReleased;
 	
@@ -33,7 +34,6 @@ public class ModeSelectState extends BasicGameState
 	public ModeSelectState(int state){
 		this.mouseBeenReleased = false;
 	}
-	
 	
 	@Override
 	public void init(GameContainer gc, StateBasedGame sbg)
@@ -85,6 +85,18 @@ public class ModeSelectState extends BasicGameState
 				}
 			});
 
+			loading.add(new DeferredFile("res/menu_graphics/new/howto.png"){	
+				public void loadFile(String filename) throws SlickException{
+					howto = new Image(filename);
+				}
+			});
+
+			loading.add(new DeferredFile("res/menu_graphics/new/howto_hover.png"){	
+				public void loadFile(String filename) throws SlickException{
+					howtoHover = new Image(filename);
+				}
+			});
+
         loading.add(new DeferredResource(){
 			public String getDescription() {
 				return "set up mode state buttons";
@@ -95,6 +107,9 @@ public class ModeSelectState extends BasicGameState
 				singleImage = new HoverImage(single, singleHover, 120, 170);
 				coopImage = new HoverImage(coop, coopHover, 470, 170);
 				versusImage = new HoverImage(versus, versusHover, 820, 170);
+				howtoSingle = new HoverImage(howto, howtoHover, 140, 540);
+				howtoCoop = new HoverImage(howto, howtoHover, 490, 540);
+				howtoVersus = new HoverImage(howto, howtoHover, 840, 540);
 			}
 		});
 
@@ -118,6 +133,10 @@ public class ModeSelectState extends BasicGameState
 		singleImage.render(posX, posY);
 		coopImage.render(posX, posY);
 		versusImage.render(posX, posY);
+
+		howtoSingle.render(posX, posY);
+		howtoCoop.render(posX, posY);
+		howtoVersus.render(posX, posY);
 	}
 
 	/**
@@ -155,6 +174,10 @@ public class ModeSelectState extends BasicGameState
 				if (coopImage.isMouseOver(posX, posY)) {
 					sbg.enterState(stateContainer.Game.PLAYCOOPSTATE);
 				}
+
+				if (howtoVersus.isMouseOver(posX, posY)) {
+					sbg.enterState(stateContainer.Game.VSSTATE);
+				}
 			}
 			/* else mouse is dragged*/
 		}	
@@ -171,5 +194,4 @@ public class ModeSelectState extends BasicGameState
 	public int getID(){
 		return stateContainer.Game.MODESTATE;
 	}	
-	
 }
