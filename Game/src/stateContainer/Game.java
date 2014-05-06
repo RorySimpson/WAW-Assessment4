@@ -16,8 +16,10 @@ import logicClasses.Achievements;
 
 public class Game extends StateBasedGame {
 
+	/* Title of the game */
 	public static final String NAME = "Expect Turbulence";
 	
+	/* More readable state names */
 	public static final int 
 		SPLASHSTATE = 0,
 		MENUSTATE = 1,
@@ -37,14 +39,17 @@ public class Game extends StateBasedGame {
 		GAMEOVERCOOPSTATE = 16,
 		MODESTATE = 17;
 	
-
-	
+	/* Window size */
 	public static final int 
 		MAXIMUMWIDTH = 1200, MAXIMUMHEIGHT = 600;
 	
+	/* Score */
 	private int currentScore;
+	/* Store the versus winner */
 	private String previousCompetitiveModeWinner;
+	/* Achievements object */
 	private Achievements achievements = new Achievements();
+	/* Whether the game ended */
 	private boolean gameEnded;
 	private boolean gameEndedCoop;
 	private boolean gameEndedComp;
@@ -59,6 +64,9 @@ public class Game extends StateBasedGame {
 		super(NAME);
 	}
 
+	/**
+	 * Create all the states
+	 */
 	@Override
 	public void initStatesList(GameContainer gc) throws SlickException {
 		
@@ -82,6 +90,8 @@ public class Game extends StateBasedGame {
 		addState(new ModeSelectState(MODESTATE));
 	}
 	
+	// SETTERS AND GETTERS
+
 	public String getPreviousCompetitiveModeWinner() {
 		return previousCompetitiveModeWinner;
 	}
