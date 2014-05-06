@@ -135,13 +135,16 @@ public class GameOverCoopState extends BasicGameState {
 		
 		gameOverBackground.draw(0,0);
 		
+		//Display Score
 		g.drawString("Score: ", 600,500);
 		g.drawString(Integer.toString(((Game)sbg).getCurrentScore()), 655, 500);
 		
 		int	posX = Mouse.getX();
+		//Fixing posY to reflect graphics coords
 		int posY = stateContainer.Game.MAXIMUMHEIGHT -Mouse.getY();
-			//Fixing posY to reflect graphics coords
 		
+		
+		// Handles mouse effects on buttons
 		if (posX>728&&posX<844&&posY>380&&posY<426)
 			menuHover.draw(728,380);
 		else menuButton.draw(728,380);
@@ -156,6 +159,7 @@ public class GameOverCoopState extends BasicGameState {
 
 		g.setColor(Color.white);
 		
+		// Display text box to enter identifier for high score
 		if(newHighScore == true){
 			g.setColor(new Color(250, 235, 215, 50));	//pale orange, semi-transparent
 			g.fillRoundRect (50, 50, 1100, 150, 5);
@@ -165,6 +169,7 @@ public class GameOverCoopState extends BasicGameState {
 			nameTextField.render(gc, g);
 		}
 		
+		// Display successful high score submission message
 		if(success == true){
 		    g.setColor(new Color(250, 235, 215, 50));	//pale orange, semi-transparent
 		    g.fillRoundRect (50, 50, 1100, 150, 5);
@@ -178,30 +183,30 @@ public class GameOverCoopState extends BasicGameState {
 	 * updateTextBox: Updates and handles the text box used to enter in identifiers
 	 * for highscores.
 	 */
-	
+
 	public void updateTextBox(Input input,StateBasedGame sbg){
-	    text = nameTextField.getText();
-	    if (nameTextField.hasFocus()) {
-		
-		if(!textBoxCleared){
-		    nameTextField.setText("");
-		    textBoxCleared = true;
+		text = nameTextField.getText();
+		if (nameTextField.hasFocus()) {
+
+			if(!textBoxCleared){
+				nameTextField.setText("");
+				textBoxCleared = true;
+			}
+
+			// When the enter key is pressed retrieve its text and reset the textbox
+			if (input.isKeyDown(Input.KEY_ENTER)) {
+				nameTextField.setFocus(false);
+				connection.sendNewScore(text,((Game)sbg).getCurrentScore());
+				success = true;
+				newHighScore = false;
+			}
 		}
-		
-		// When the enter key is pressed retrieve its text and reset the textbox
-		if (input.isKeyDown(Input.KEY_ENTER)) {
-		    nameTextField.setFocus(false);
-		    connection.sendNewScore(text,((Game)sbg).getCurrentScore());
-		    success = true;
-		    newHighScore = false;
+		else{
+			if(text == ""){
+				nameTextField.setText("Whats your name?");
+			}
+
 		}
-	    }
-	    else{
-		if(text == ""){
-		    nameTextField.setText("Whats your name?");
-		}
-		//nameTextField.setText(text);
-	    }
 
 	}
 	
@@ -220,8 +225,10 @@ public class GameOverCoopState extends BasicGameState {
 		int posX = Mouse.getX(),
 			posY = stateContainer.Game.MAXIMUMHEIGHT -Mouse.getY();
 		
-
+		
 		if (Mouse.isButtonDown(Input.MOUSE_LEFT_BUTTON)){
+			
+			// Press Play Again button to return to the game screen
 			if(posX>354&&posX<582&&posY>380&&posY<424) {
 				success = false;
 				newHighScore = false;
@@ -229,6 +236,7 @@ public class GameOverCoopState extends BasicGameState {
 				sbg.enterState(stateContainer.Game.PLAYCOOPSTATE);
 			}
 			
+			// Press Menu button to return to the menu screen
 			if(posX>728&&posX<844&&posY>380&&posY<426) { // 116 46
 				success = false;
 				newHighScore = false;
@@ -236,6 +244,7 @@ public class GameOverCoopState extends BasicGameState {
 				sbg.enterState(stateContainer.Game.MENUSTATE);
 			}
 			
+			// Press quit button to exit game
 			if((posX > 1150 && posX < 1170) && (posY > 550 && posY < 580)) {
 				System.exit(0);
 			}

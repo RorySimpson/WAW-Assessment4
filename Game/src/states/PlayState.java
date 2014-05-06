@@ -60,6 +60,8 @@ public class PlayState extends BasicGameState {
 	protected float time;
 	protected String stringTime;
 	protected int counter = 0;
+	
+	private boolean mouseBeenReleased;
 
     /* Airspace object */
 	protected Airspace airspace;
@@ -106,7 +108,9 @@ public class PlayState extends BasicGameState {
      *  doesn't prompt us with warnings */
 	@Override
 	public void enter(GameContainer gc, StateBasedGame sbg) {
-		
+		if(gc.getInput().isMouseButtonDown(Input.MOUSE_LEFT_BUTTON)) {
+			mouseBeenReleased = false;
+		}
 	}
 
 
@@ -117,6 +121,7 @@ public class PlayState extends BasicGameState {
         /* Default values for when the game started */
 		gameEnded = false;
 		settingDifficulty = true;
+		mouseBeenReleased=true;
 
         /* Time starts at 0 */
 		time = 0;
@@ -667,7 +672,11 @@ public class PlayState extends BasicGameState {
 		/* Get user input */
 		Input input = gc.getInput();
 		
-		
+		if(mouseBeenReleased == false) {
+			if(!gc.getInput().isMouseButtonDown(Input.MOUSE_LEFT_BUTTON)){
+				mouseBeenReleased=true;
+			}
+		}
 		// Cecks if the game has been retried and if it has resets the airspace
 		if (((Game)sbg).isGameEnded()){
 			airspace.resetAirspace();
@@ -689,33 +698,35 @@ public class PlayState extends BasicGameState {
 		
 		
 		// Checks whether the user is still choosing the difficulty
-		if(settingDifficulty){
-			if (Mouse.isButtonDown(Input.MOUSE_LEFT_BUTTON)) {
-				if((posX>100&&posX<216) && (posY>300&&posY<354)) {
-					airspace.setDifficultyValueOfGame(1);
-					airspace.getControls().setDifficultyValueOfGame(Controls.EASY);
-					airspace.createAndSetSeparationRules();
+		if(settingDifficulty ){
+			if(mouseBeenReleased) {
+				if (Mouse.isButtonDown(Input.MOUSE_LEFT_BUTTON)) {
+					if((posX>100&&posX<216) && (posY>300&&posY<354)) {
+						airspace.setDifficultyValueOfGame(1);
+						airspace.getControls().setDifficultyValueOfGame(Controls.EASY);
+						airspace.createAndSetSeparationRules();
 
-					settingDifficulty = false;			
+						settingDifficulty = false;			
+					}
+
+
+					if((posX>100&&posX<284) && (posY>400&&posY<454)) {
+						airspace.setDifficultyValueOfGame(2);
+						airspace.getControls().setDifficultyValueOfGame(Controls.NORMAL);
+						airspace.createAndSetSeparationRules();
+
+						settingDifficulty = false;	
+					}
+
+
+					if((posX>100&&posX<227) && (posY>500&&posY<554)) {
+						airspace.setDifficultyValueOfGame(3);
+						airspace.getControls().setDifficultyValueOfGame(Controls.HARD);
+						airspace.createAndSetSeparationRules();
+
+						settingDifficulty = false;
+					}	
 				}
-				
-				
-				if((posX>100&&posX<284) && (posY>400&&posY<454)) {
-					airspace.setDifficultyValueOfGame(2);
-					airspace.getControls().setDifficultyValueOfGame(Controls.NORMAL);
-					airspace.createAndSetSeparationRules();
-
-					settingDifficulty = false;	
-				}
-				
-				
-				if((posX>100&&posX<227) && (posY>500&&posY<554)) {
-					airspace.setDifficultyValueOfGame(3);
-					airspace.getControls().setDifficultyValueOfGame(Controls.HARD);
-					airspace.createAndSetSeparationRules();
-
-					settingDifficulty = false;
-				}	
 			}
 		}
 		

@@ -61,7 +61,10 @@ public class FlightCoop extends Flight {
 	@Override
 	public void land(){	
 		
+		// Check if flight is already landing
 		if (!isLanding()){
+			
+			// Check whether flight is eligible to land at right airport
 			if (this.getAirspace().getAirportRight().getLandingApproachArea()
 					.contains((float)this.getX(), (float)this.getY()) 
 					&& this.getCurrentHeading() >= 45 && this.getCurrentHeading() <= 135 && this.getCurrentAltitude() <= 2000
@@ -70,32 +73,26 @@ public class FlightCoop extends Flight {
 
 
 				this.setLanding(true);
-				
 				this.setTargetVelocity(this.getVelocity());
-
-
 				this.setLandingDescentRate(this.findLandingDescentRate());
 				
+				// Deselect flight if selected
 				if(this.airspace.getControls().getSelectedFlight1() != null){
-					
 					if(this.airspace.getControls().getSelectedFlight1().isLanding()) {
 						this.airspace.getControls().setSelectedFlight1(null);
 					}
 					else {
 						this.airspace.getControls().setSelectedFlight2(null);
 					}
-					
 				}
 				
 				else{
 					this.airspace.getControls().setSelectedFlight2(null);
 				}
-				
-
 
 			}
 			
-		
+			// Check whether flight is eligible to land at left airport
 			if (this.getAirspace().getAirportLeft().getLandingApproachArea()
 					.contains((float)this.getX(), (float)this.getY()) 
 					&& this.getCurrentHeading() >= 225 && this.getCurrentHeading() <= 305 && this.getCurrentAltitude() <= 2000
@@ -108,7 +105,8 @@ public class FlightCoop extends Flight {
 				this.setTargetVelocity(this.getVelocity());
 
 				this.setLandingDescentRate(this.findLandingDescentRate());
-
+				
+				// Deselect flight if selected
 				if(this.airspace.getControls().getSelectedFlight1().isLanding()) {
 					this.airspace.getControls().setSelectedFlight1(null);
 				}
@@ -127,10 +125,14 @@ public class FlightCoop extends Flight {
 	
 
 	public void takeOff(Flight flight){
+		
+		// Checks if flight is waiting to take off
 		if(flight.isGrounded()){
 			setTakingOff(true);
 			setTargetVelocity((minVelocity +maxVelocity) /2);
 			setTargetAltitude(minAltitude);
+			
+			// Deselect flight for take off sequence
 			if(this.airspace.getListOfFlightsPlayer1().contains(flight)){
 				this.airspace.getControls().getSelectedFlight1().setSelected(false);
 				this.airspace.getControls().setSelectedFlight1(null);
@@ -157,8 +159,6 @@ public class FlightCoop extends Flight {
 		g.setColor(Color.white);
 		g.setWorldClip(11, 0, Game.MAXIMUMWIDTH -11, Game.MAXIMUMHEIGHT-40);
 		
-		
-		
 
 			// Scale the shadow in accordance to the altitude of the flight
 			if (this.getCurrentAltitude() > 50)
@@ -167,9 +167,9 @@ public class FlightCoop extends Flight {
 				getShadowImage().setRotation((int) getCurrentHeading());
 				getShadowImage().draw((int) this.getX()-35, (int) this.getY(), shadowScale);
 			}
-			//Depending on a plane's speed, different images for the plane are drawn
-
-			if(this.player2){	//{!} not converted to using min/max
+			
+			//Depending on a whether a flight is player 1 or player 2, draw different images
+			if(this.player2){	
 
 				player2Image.setRotation((float) this.getCurrentHeading());
 				player2Image.draw((int) this.getX()-10, (int) this.getY()-10);
@@ -179,10 +179,6 @@ public class FlightCoop extends Flight {
 				player1Image.setRotation((float) this.getCurrentHeading());
 				player1Image.draw((int) this.getX()-10, (int) this.getY()-10);
 			}
-
-		// Drawing Separation Circle
-
-
 
 
 		// Drawing information around flight
@@ -196,6 +192,9 @@ public class FlightCoop extends Flight {
 				g.drawString(Math.round(this.getCurrentAltitude()) + " ft",(int) this.getX()-30, (int) this.getY() + 10);
 
 				if (this.getFlightPlan().getCurrentRoute().size() > 0) {
+					
+					// Draw Landing Messages
+					
 					if (this.getFlightPlan().getCurrentRoute().get(0) == this.getAirspace().getAirportLeft().getBeginningOfRunway() && this.getCurrentAltitude() > 2000){
 						g.drawString("Lower Me",(int) this.getX() -29, (int)this.getY()-28);
 					}
@@ -226,7 +225,8 @@ public class FlightCoop extends Flight {
 
 				}
 				
-				if(this.player2){	//{!} not converted to using min/max
+				// Change colour depending on player
+				if(this.player2){	
 					g.setColor(Color.red);
 
 				}
@@ -240,27 +240,38 @@ public class FlightCoop extends Flight {
 
 		}
 
-		// If flight isn't selected then don't display current heading
+		
 		else{
-			if (this.getCurrentAltitude() != 0){
+			
+			// Checks whether flight is grounded and doesn't draw information if waiting to take off.
+			if (this.isGrounded()){
 				g.setColor(Color.lightGray);
+				
+				// Draw altitude around flight
 				g.drawString(Math.round(this.getCurrentAltitude()) + " ft",(int) this.getX()-30, (int) this.getY() + 10);
 				if (this.getFlightPlan().getCurrentRoute().size() > 0) {
+					
+					// Draw reminder for player to land flight
 					if (this.getFlightPlan().getCurrentRoute().get(0) == this.getAirspace().getAirportLeft().getBeginningOfRunway()){
 						g.drawString("Land Me",(int) this.getX() -29, (int)this.getY()-28);
 					}
 					
+					// Draw label for next waypoint
 					else{
 						g.drawString("Aim: "+this.getFlightPlan().getPointByIndex(0).getPointRef(),(int) this.getX() -22, (int)this.getY()-28);
 					}
 				}
+				
+				// Draw circle around flight
 				g.drawOval((int) this.getX() - 50, (int) this.getY() - 50, 100, 100);
 			}
 			
+			// Draw Take off reminder for right airport
 			else if (this.getCurrentAltitude() == 0 && isTakingOff() != true && this.getFlightPlan().getEntryPoint() == getAirspace().getAirportRight().getEndOfRunway()){
 				g.drawString("Take me off!",(int) this.getX()-80 , (int)this.getY()+28);
 			}
 			
+			// Draw Take off reminder for left airport
 			else if (this.getCurrentAltitude() == 0 && isTakingOff() != true && this.getFlightPlan().getEntryPoint() == getAirspace().getAirportLeft().getEndOfRunway()){
 				g.drawString("Take me off!",(int) this.getX()+50 , (int)this.getY()+28);
 			}
@@ -280,12 +291,15 @@ public class FlightCoop extends Flight {
 
 		if (this.getFlightPlan().getCurrentRoute().size() > 0){
 			
+			//Configure colour depeding on player
 			if (this.player2){
 				g.setColor(Color.orange);
 			}
 			else {
 				g.setColor(Color.cyan);
 			}
+			
+			//Draw lines between flights waypoints
 			for(int i=1; i<this.getFlightPlan().getCurrentRoute().size();i++) {
 				g.drawLine((float)this.getFlightPlan().getCurrentRoute().get(i).getX(), (float)this.getFlightPlan().getCurrentRoute().get(i).getY(), (float)this.getFlightPlan().getCurrentRoute().get(i-1).getX(), (float)this.getFlightPlan().getCurrentRoute().get(i-1).getY());
 			}

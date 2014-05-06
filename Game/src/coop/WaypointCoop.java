@@ -30,7 +30,9 @@ public class WaypointCoop extends Waypoint {
 		Image image;
 		image = null;
 		ControlsCoop controls = airspace.getControls();
-		if(controls.getSelectedFlight1() !=null){ // If there is a selected flight use its next waypoint and draw it as next
+		
+		 // If there is a selected flight use its next waypoint and draw it as next
+		if(controls.getSelectedFlight1() !=null){
 			if (controls.getSelectedFlight1().getFlightPlan().getCurrentRoute().indexOf(this)==0){
 				image = getNextWaypointImage();
 				g.setColor(Color.blue);
@@ -39,7 +41,8 @@ public class WaypointCoop extends Waypoint {
 			}
 		}	
 		
-		if(controls.getSelectedFlight2() !=null){ // If there is a selected flight use its next waypoint and draw it as next
+		// If there is a selected flight use its next waypoint and draw it as next
+		if(controls.getSelectedFlight2() !=null){ 
 			if (controls.getSelectedFlight2().getFlightPlan().getCurrentRoute().indexOf(this)==0){
 				image = getNextWaypointImage();
 				g.setColor(Color.red);
@@ -48,6 +51,7 @@ public class WaypointCoop extends Waypoint {
 			} 
 		}
 		
+		// If both players selected flight's next waypoint is the same, surround it in a neutral colour.
 		if(controls.getSelectedFlight2() !=null && controls.getSelectedFlight1() !=null ){
 			if (controls.getSelectedFlight2().getFlightPlan().getCurrentRoute().indexOf(this) == 0 &&
 					controls.getSelectedFlight1().getFlightPlan().getCurrentRoute().indexOf(this) == 0){
