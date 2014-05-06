@@ -33,18 +33,6 @@ public class VolcanoProjectile_Tests {
 		assertTrue(heading >= 0 && heading < 360);
 	}
 	
-	@Test
-	public void updateAltitudeTest(){
-		
-		projectile.setCurrentAltitude(5000);
-		projectile.updateAltitude();
-		assertTrue(projectile.getTargetAltitude() == 100);
-		
-		projectile.setCurrentAltitude(0);
-		projectile.setTargetAltitude(5000);
-		projectile.updateAltitude();
-		assertTrue(projectile.getCurrentAltitude() > 0);
-	}
 	
 	@Test
 	public void updateXYCoordinatesTest(){

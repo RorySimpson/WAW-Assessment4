@@ -129,7 +129,8 @@ public class Tornado {
 		// Below ensures that the tornado always moves
 		if(directionx == 0) directionx = 1;
 		if(directiony == 0) directiony = 1;
-				
+		
+		// Setting movement while tornado isn't allowed to leave
 		if (countdownTillTornadoTriesToLeave > 0){
 			
 			this.countdownTillTornadoTriesToLeave -= 1;
@@ -145,7 +146,9 @@ public class Tornado {
 			} else {
 				this.y += directiony;
 			}
-		} else {
+		}
+		// Setting movement while tornado is allowed to leave
+		else {
 			if (randomDirection % 2 == 0){
 				if (this.x <= originalX - 600){
 					this.x += directionx;
@@ -204,6 +207,8 @@ public class Tornado {
 	 * @param gc GameContainer
 	 */
 	public void update(GameContainer gc) throws SlickException{
+		// If tornado is still within airspace and it's attacking, update
+		// it's state.
 		if (attacking && this.inAirspace()){
 			this.updateXY();
 		}

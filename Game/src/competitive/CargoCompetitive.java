@@ -45,6 +45,23 @@ public class CargoCompetitive {
 		});
 	}
 	
+	/**
+	 * inAirspace: Calculates whether the hunter flight is still within the airspace.
+	 */
+	
+	public boolean inAirspace(){
+		
+		// If flight not within airspace, return false
+		if (location.getX() > 1220 || location.getX()  < -20|| location.getY()  > 620 || location.getY() < -20) { 
+			return false;
+		}
+		// Otherwise return true
+		else {
+			return true;
+		}
+	}
+	
+	
 	
 
 	/**

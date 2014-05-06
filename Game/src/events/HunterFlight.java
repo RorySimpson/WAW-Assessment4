@@ -47,9 +47,13 @@ public class HunterFlight {
 	 */
 	
 	public void generateVictim(Airspace airspace){
+		
+		// If airspace is empty don't pick flight
 		if (airspace.getListOfFlightsInAirspace().size() == 0){
 			;
 		}
+		
+		// Otherwise loop through airspace and choose victim.
 		else {
 			for (int i = 0; i < airspace.getListOfFlightsInAirspace().size(); i++){
 				if (!airspace.getListOfFlightsInAirspace().get(i).getFlightPlan().getEntryPoint().isRunway()){
@@ -66,9 +70,11 @@ public class HunterFlight {
 	 */
 	
 	public int generateX(){
+		// If random number is less than 0.5, then spawn on left hand side
 		if (Math.random() < 0.5){
 			return 0;
 		}
+		// Otherwise then spawn on right hand side
 		else {
 			return 1200;
 		}
@@ -82,6 +88,8 @@ public class HunterFlight {
 		
 		if (victim != null){
 			if(!airspace.checkIfFlightHasLeftAirspace(victim)){
+				// If flight has victim and is within airspace
+				// hunt the victim
 				double deltaX;
 				double deltaY;
 				deltaY = victim.getY() - y;
@@ -94,11 +102,14 @@ public class HunterFlight {
 				targetHeading = angle;
 				
 			}
+			// Otherwise fly straight
 			else{
 				targetHeading = currentHeading;
 			}
 			
 		}
+		
+		// Otherwise fly straight
 		else {
 			targetHeading = currentHeading;
 		}
@@ -191,11 +202,12 @@ public class HunterFlight {
 	
 	public boolean inAirspace(){
 		
+		// If flight not within airspace, return false
 		if (x > 1220 || x < -20|| y > 620 || y < -20) { 
 			return false;
 		}
-		else 
-		{
+		// Otherwise return true
+		else {
 			return true;
 		}
 	}
@@ -230,9 +242,13 @@ public class HunterFlight {
 	 */
 	
 	public void update(Airspace airspace) {
+		
+		// If flight hasn't got a victim, generate a victim
 		if (!hasVictim){
 			generateVictim(airspace);
 		}
+		
+		// Update Flight State
 		updateCurrentHeading();
 		updateXYCoordinates();	
 	}

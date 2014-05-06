@@ -12,8 +12,8 @@ import stateContainer.Game;
 
 public class VolcanoProjectile {
 	
-	private double x,y, climbRate = 60/60.0;
-	private int heading, velocity, currentAltitude, targetAltitude;
+	private double x,y;
+	private int heading, velocity;
 	private static double gameScale = 1/1000.0;
 	private Image volcanoProjectileImage;
 	
@@ -23,30 +23,17 @@ public class VolcanoProjectile {
 		this.y = Volcano.VOLCANOPOSITION.getY(); 
 		this.heading = generateRandomHeading();
 		this.velocity = 400;
-		this.currentAltitude = 1000;
-		this.targetAltitude = 5000;
+
 	}
-	
+	/**
+	 * generateRandomHeading: Picks a random heading for the projectile to be launched at.
+	 */
 	public int generateRandomHeading(){
 		Random rand = new Random();
 		return rand.nextInt(360);
 		
 	}
-	
-	public void updateAltitude(){
-		
-		if(this.currentAltitude == 5000){
-			this.targetAltitude = 100;
-		}
-		
-		if (this.currentAltitude > this.targetAltitude) {
-			this.currentAltitude -= climbRate;
-		}
 
-		else if (this.currentAltitude < this.targetAltitude) {
-			this.currentAltitude += climbRate;
-		}
-	}
 	
 	/**
 	 * updateXYCoordinates: updates the x and y values of the projectiles depending on it's velocity 
@@ -95,7 +82,6 @@ public class VolcanoProjectile {
 	
 	public void update(){
 		updateXYCoordinates();
-		updateAltitude();
 	}
 
 	public double getX() {
@@ -114,20 +100,6 @@ public class VolcanoProjectile {
 		this.y = y;
 	}
 	
-	public void setCurrentAltitude(int altitude){
-		this.currentAltitude = altitude;
-	}
-	
-	public int getTargetAltitude(){
-		return targetAltitude;
-	}
-	
-	public void setTargetAltitude(int targetAltitude){
-		this.targetAltitude = targetAltitude;
-	}
-	
-	public int getCurrentAltitude(){
-		return currentAltitude;
-	}
+
 
 }

@@ -46,7 +46,7 @@ public class EventController {
 		
 		//Radio Malfunction occurs at a time between 4 minutes and 6 minutes
 		Random rand = new Random();
-		int randNum = rand.nextInt(14800)+ 7200;
+		int randNum = rand.nextInt(14400)+ 7200;
 		return randNum;
 	}
 	
@@ -58,6 +58,7 @@ public class EventController {
 	
 	public int newHunterFlightTime(){
 		
+		// Hunter flights spawn every 4 to and 6 minutes
 		Random rand = new Random();
 		int timeTillNextHunterFlight = rand.nextInt(14400) + 7200;
 		
@@ -72,8 +73,9 @@ public class EventController {
 	
 	public int newTornadoTime(){
 		
+		// Tornadoes spawn every 1 to 1 and a half minutes 
 		Random rand = new Random();
-		int timeTillNextTornado = rand.nextInt(14400) + 7200;
+		int timeTillNextTornado = rand.nextInt(3600) + 1800;
 		
 		return timeTillNextTornado;
 	}
@@ -86,6 +88,8 @@ public class EventController {
 	public boolean spawnHunterFlight() throws SlickException{
 		
 		nextHunterFlightTime --;
+		
+		// If the time is appropriate then spawn hunter flight
 		if (nextHunterFlightTime == 0){
 			 listOfHunterFlights.add(new HunterFlight(airspace));
 			 nextHunterFlightTime = newHunterFlightTime();
@@ -102,6 +106,7 @@ public class EventController {
 	
 	public boolean spawnTornado() throws SlickException{
 		nextTornadoTime --;
+		// If the time is appropriate then spawn tornado
 		if (nextTornadoTime == 0){
 			 listOfTornadoes.add(new Tornado(airspace));
 			 nextTornadoTime = newTornadoTime();
@@ -118,6 +123,8 @@ public class EventController {
 	public void updateRadioMalfunctionEvent(){
 		
 		this.timeUntilRadioMalfunction--;
+		
+		// If the time is appropriate then make radio malfunction occur.
 		if(this.timeUntilRadioMalfunction==0){
 			
 			if(this.airspace.getListOfFlights().size()>0) {
@@ -163,10 +170,12 @@ public class EventController {
 		
 		this.volcano.render(g, gc);
 		
+		// Loop through and draw hunter flights
 		for (HunterFlight hunterFlight : listOfHunterFlights){
 			hunterFlight.render(g, gc);
 		}
 
+		// Loop through and draw tornadoes
 		for (Tornado tornado : listOfTornadoes){
 			tornado.render(g, gc);
 		}
@@ -183,15 +192,18 @@ public class EventController {
 		this.volcano.update(gc);
 		updateRadioMalfunctionEvent();
 		
+		// Spawn Hunter Flights
 		if(spawnHunterFlight()){
 			listOfHunterFlights.get(listOfHunterFlights.size()-1).init(gc);
 		}
 		
+		// Spawn Tornadoes
 		if(spawnTornado()){
 			 listOfTornadoes.get(listOfTornadoes.size()-1).init(gc);
 			 listOfTornadoes.get(listOfTornadoes.size()-1).attack();
 		}
 
+		// Update Hunter Flights
 		for (int i = 0; i < listOfHunterFlights.size(); i++){
 			if (listOfHunterFlights.get(i).inAirspace()){
 				listOfHunterFlights.get(i).update(airspace);
@@ -201,6 +213,7 @@ public class EventController {
 			}
 		}
 		
+		// Update Tornadoes
 		for (int i = 0; i < this.listOfTornadoes.size(); i++){
 			if (this.listOfTornadoes.get(i).inAirspace()){
 				listOfTornadoes.get(i).update(gc);
