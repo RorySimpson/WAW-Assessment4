@@ -66,7 +66,7 @@ public class vsInfoState extends BasicGameState {
 
 			/* Load all the hover images */
 			public void load(){
-				back = new HoverImage(backButton, backButtonHover, 100, 100);
+				back = new HoverImage(backButton, backButtonHover, 70, 70);
 			}
 		});
 		}

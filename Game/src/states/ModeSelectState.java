@@ -178,6 +178,14 @@ public class ModeSelectState extends BasicGameState
 				if (howtoVersus.isMouseOver(posX, posY)) {
 					sbg.enterState(stateContainer.Game.VSSTATE);
 				}
+
+				if (howtoSingle.isMouseOver(posX, posY)) {
+					sbg.enterState(stateContainer.Game.SINGLESTATE);
+				}
+
+				if (howtoCoop.isMouseOver(posX, posY)) {
+					sbg.enterState(stateContainer.Game.COOPSTATE);
+				}
 			}
 			/* else mouse is dragged*/
 		}	
