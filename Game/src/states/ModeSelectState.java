@@ -49,7 +49,7 @@ public class ModeSelectState extends BasicGameState
 				}
 			});
 
-			loading.add(new DeferredFile("res/menu_graphics/new/singleplayer.JPG"){	
+			loading.add(new DeferredFile("res/menu_graphics/new/singleButton.jpg"){	
 				public void loadFile(String filename) throws SlickException{
 					single = new Image(filename);
 				}
@@ -61,7 +61,7 @@ public class ModeSelectState extends BasicGameState
 				}
 			});
 
-			loading.add(new DeferredFile("res/menu_graphics/new/versus.JPG"){	
+			loading.add(new DeferredFile("res/menu_graphics/new/versusButton.jpg"){	
 				public void loadFile(String filename) throws SlickException{
 					versus = new Image(filename);
 				}
@@ -74,7 +74,7 @@ public class ModeSelectState extends BasicGameState
 			});
 
 
-			loading.add(new DeferredFile("res/menu_graphics/new/coop.JPG"){	
+			loading.add(new DeferredFile("res/menu_graphics/new/coopButton.jpg"){	
 				public void loadFile(String filename) throws SlickException{
 					coop = new Image(filename);
 				}
