@@ -12,7 +12,7 @@
   </class>  
   <class id="2" language="java" name="coop.FlightCoop" project="Game" file="/Game/src/coop/FlightCoop.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="275" width="253" x="1036" y="841"/>    
+    <position height="-1" width="-1" x="590" y="760"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -97,6 +97,7 @@
   </association>  
   <association id="14">    
     <bendpoint x="1024" y="472"/>    
+    <bendpoint x="843" y="520"/>    
     <end type="SOURCE" refId="5" navigable="false">      
       <attribute id="15" name="selectedFlight1"/>      
       <multiplicity id="16" minimum="0" maximum="1"/>    
@@ -141,6 +142,7 @@
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="30">    
+    <bendpoint x="911" y="764"/>    
     <end type="SOURCE" refId="8" navigable="false">      
       <attribute id="31" name="listOfFlightsPlayer1"/>      
       <multiplicity id="32" minimum="0" maximum="2147483647"/>    
@@ -149,6 +151,7 @@
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="33">    
+    <bendpoint x="914" y="834"/>    
     <end type="SOURCE" refId="8" navigable="false">      
       <attribute id="34" name="listOfFlightsPlayer2"/>      
       <multiplicity id="35" minimum="0" maximum="2147483647"/>    
