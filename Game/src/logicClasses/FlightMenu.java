@@ -18,28 +18,34 @@ import stateContainer.Game;
 
 
 public class FlightMenu implements MouseListener{
-	private static Image	//base images
+	/* Images */
+	private static Image
 		sliderBase, sliderRingBase, sliderIndicator, sliderIndicatorSelect,
 		button, buttonSelect;
 
-	private int	//graphics data
+	/* Data needed for graphics */
+	private int
 		altSize = 100, speedSize = 100, headingSize = 120,	//slider lengths
 		sliderWidth = 12, indicatorSize = 20,	//track and indicator sizes
 		buttonWidth = 55, buttonHeight = 25,	//buttonSizes
 		spacingSize = 6;	//spacing between components
 
-	private Image	//scaled instance copies
+	/* Scaled instance copies */
+	private Image
 		altBase, speedBase, headingBase, aIndicator, aIndicatorSelect,
 		aButton, aButtonSelect;
+	/* Font instances */
 	private TrueTypeFont
 		labelFont = new TrueTypeFont(new Font(Font.SANS_SERIF, Font.BOLD, 10), false),
 		buttonFont = new TrueTypeFont(new Font(Font.SANS_SERIF, Font.BOLD, 11), false);
+	/* Colours */
 	private Color
 		labelColor = Color.white,	//slider labels
 		buttonColor = Color.white,	//button labels
 		markerColor = Color.red;	//current position markers
 	
-	private Point2D.Float	//cached graphics position data
+	/* Cached graphics position data */
+	private Point2D.Float
 		altPos, speedPos, headingPos, cmdPos, abortPos,
 		altMarkerPos, speedMarkerPos,
 		altIndicatorPos, speedIndicatorPos, headingIndicatorPos;
@@ -48,15 +54,23 @@ public class FlightMenu implements MouseListener{
 	private Flight flight;	//bound Flight
 	private Airspace airspace;
 	
-	private int mode = NONE;	//active subcomponent
+	/* Active subcomponent */
+	/* No mode selected by default (mode refers to the radial menu 
+	 * modes such as speed changing or heading changing */
+	private int mode = NONE;	
+	/* Components needed for the radial controller */
 	private static final int
 		NONE = 0, ALT = 1, SPEED = 2, HEADING = 3, CMD = 4, ABORT = 5;
-	private double	//normalised indicator positions, range 0-1	|	heading in radians
+	/* Normalised indicator positions, range 0-1	|	heading in radians */
+	private double
 		altIndicator, speedIndicator, headingIndicator;
 
-
+	/**
+	 * Constructor to initalise the layout
+	 * @param airspace
+	 */
 	public FlightMenu(Airspace airspace) {
-		//initialise objects, initialise layout
+		// Initialise objects, initialise layout
 		this.airspace = airspace;
 		altPos = new Point2D.Float();
 		speedPos = new Point2D.Float();
@@ -72,8 +86,11 @@ public class FlightMenu implements MouseListener{
 	}
 
 
+	/**
+	 * Load images if needed
+	 * @throws SlickException
+	 */
 	public void init() throws SlickException{
-		//load images if needed
 		if (sliderBase == null)
 			sliderBase = new Image("res/graphics/FlightMenu/rectangle_slider.png");
 		if (sliderRingBase == null)
@@ -88,17 +105,27 @@ public class FlightMenu implements MouseListener{
 
 	}
 
+	/**
+	 * Render the required graphics
+	 * @param g the graphics 
+	 * @param gc game container
+	 * @throws SlickException
+	 */
 	public void render(Graphics g, GameContainer gc) throws SlickException {
 		
+		/* Doesn't render over all elements */
 		g.setWorldClip(11, 0, Game.MAXIMUMWIDTH, Game.MAXIMUMHEIGHT-40);
+
 		String cmdString;
 		if (flight != null){
 			//create scaled copies of images if invalidated
 			if (altBase == null){
 				altBase = sliderBase.getScaledCopy(altSize, sliderWidth);
 				altBase.setCenterOfRotation(0, 0);
-				altBase.setRotation(90);	//{!} will leave image positioned sliderWidth to the left
+				/* {!} will leave image positioned sliderWidth to the left */
+				altBase.setRotation(90);
 			}
+			/* Scaled copies of all the radial controller components */
 			if (speedBase == null)
 				speedBase = sliderBase.getScaledCopy(speedSize, sliderWidth);
 			if (headingBase == null)
@@ -116,8 +143,6 @@ public class FlightMenu implements MouseListener{
 			g.setColor(markerColor);
 			
 			//{!} constrain positions
-	
-			
 			if (flight.isCommandable()){
 				//draw altitude slider and labels
 				drawImage(altBase,  new Point2D.Float(altPos.x +sliderWidth, altPos.y));
@@ -187,12 +212,16 @@ public class FlightMenu implements MouseListener{
 			}
 			
 			
+			/* If the lfihgt is landed */
 			if (flight.getAltitude() == 0 && !flight.isTakingOff()){
 				
+				/* If it's at the left airport */
 				if (flight.getFlightPlan().getEntryPoint() == airspace.getAirportLeft().getEndOfRunway()){
 					
+					/* Set the position for the "Take off" button */
 					cmdPos.setLocation(flight.getX() + 50, -spacingSize/2.0 -buttonHeight);
 					
+					/* Draw the button */
 					if (CMD == mode)
 						drawImage(aButtonSelect, cmdPos);
 					else drawImage(aButton, cmdPos);
@@ -201,47 +230,64 @@ public class FlightMenu implements MouseListener{
 							cmdPos.x +(buttonWidth/2.0f), cmdPos.y +(buttonHeight/2.0f));
 					
 					cmdPos.setLocation(altPos.x -spacingSize -buttonWidth, -spacingSize/2.0 -buttonHeight);
-					
 				}
-				
+				/* If it's at the right airport */
 				else if(flight.getFlightPlan().getEntryPoint() == airspace.getAirportRight().getEndOfRunway()) {
 					
+					/* Draw the button */
 					if (CMD == mode)
 						drawImage(aButtonSelect, cmdPos);
 					else drawImage(aButton, cmdPos);
 					cmdString = "Take Off";
 					drawString(cmdString, buttonFont, buttonColor, 
 							cmdPos.x +(buttonWidth/2.0f), cmdPos.y +(buttonHeight/2.0f));
-					
 				}
-				
-				
-				
-				
 			}
-
 		}
 		g.setWorldClip(0, 0, Game.MAXIMUMWIDTH, Game.MAXIMUMHEIGHT);
-		
 	}
 
+	/**
+	 * Draws image at a point
+	 * @param image image to draw
+	 * @param pos point for position
+	 */
 	private void drawImage(Image image, Point2D pos){
 		image.draw((float)( pos.getX() +flight.getX() ), 
 		           (float)( pos.getY() +flight.getY() ) );
 	}
 	
+	/**
+	 * Draw string somewhere
+	 * @param str the string to draw
+	 * @param font what (TrueType) font to use
+	 * @param color colour to use
+	 * @param x x coordiante
+	 * @param y y coordinate
+	 */
 	private void drawString(String str, TrueTypeFont font, Color color, float x, float y){
 		font.drawString((float)( x -(font.getWidth(str)/2.0) +flight.getX() ),
 		                (float)( y -(font.getHeight()/2.0) +flight.getY() ),
 		                str, color);
 	}
 	
+	/**
+	 * Draw line somewhere
+	 * @param g graphics
+	 * @param x1 x coordinate of the first point of the line
+	 * @param y1 y coordinate of the first point of the line
+	 * @param x2 x coordinate of the second point of the line 
+	 * @param y2 y coordinate of the second point of the line 
+	 */
 	private void drawLine(Graphics g, float x1, float y1, float x2, float y2){
 		float	ox = (float)flight.getX(), 
 				oy = (float)flight.getY();
 		g.drawLine(x1 +ox, y1 +oy, x2 +ox, y2 +oy);
 	}
 
+	/**
+	 * Position all the radial menu graphics correctly
+	 */
 	private void position(){
 		mode = NONE;	//invalidate any current mouse movements
 
@@ -263,6 +309,9 @@ public class FlightMenu implements MouseListener{
 		setIndicatorPos();
 	}
 	
+	/**
+	 * Set the position of the altitude and speed markers on the radial menu
+	 */
 	private void setMarkerPos(){
 		if (flight != null){
 			altMarkerPos.setLocation(	//rescale from altitude to pixels
@@ -279,6 +328,9 @@ public class FlightMenu implements MouseListener{
 		}
 	}
 
+	/**
+	 * Set the indicator position of a selected plane
+	 */
 	private void setIndicatorPos(){
 		if (flight != null){
 			double	//slider half-widths ("radii")
@@ -322,6 +374,13 @@ public class FlightMenu implements MouseListener{
 				(val >= max) ? max : val;
 	}
 	
+	/**
+	 * Whether the mouse is in the indicator range in order to intract with it
+	 * @param pos position of the indicator
+	 * @param mouseX x position of the mouse
+	 * @param mouseY y position of the mouse
+	 * @return whether it is or not
+	 */
 	private Boolean inIndicator(Point2D pos, int mouseX, int mouseY){
 		int	x = (int)Math.round(pos.getX()),
 			y = (int)Math.round(pos.getY());
@@ -333,15 +392,25 @@ public class FlightMenu implements MouseListener{
 				mouseY>y && mouseY<(y+indicatorSize));
 	}
 	
+	/**
+	 * Whether the mouse is on the button (take off/ land)
+	 * @param pos position of the button
+	 * @param mouseX x coord of the mouse
+	 * @param mouseY y coord of the mouse
+	 * @return  whether it is or not
+	 */
 	private Boolean inButton(Point2D pos, int mouseX, int mouseY){
+		/* If there is a selected plane */
 		if(flight != null){
-				if (flight.getAltitude() == 0 && !flight.isTakingOff()){
-				
-					if (flight.getFlightPlan().getEntryPoint() == airspace.getAirportLeft().getEndOfRunway()){
-						cmdPos.setLocation(flight.getX() + 50, -spacingSize/2.0 -buttonHeight);
-					}
-				
-				}
+			/* And it's landed */
+            if (flight.getAltitude() == 0 && !flight.isTakingOff()){
+                /* if the mouse is over the button */
+                if (flight.getFlightPlan().getEntryPoint() 
+                        == airspace.getAirportLeft().getEndOfRunway()){
+                    cmdPos.setLocation(flight.getX() + 50, -spacingSize/2.0 -buttonHeight);
+                }
+            
+            }
 		}
 		
 		int	x = (int)Math.round(pos.getX()),
@@ -352,10 +421,15 @@ public class FlightMenu implements MouseListener{
 		
 		cmdPos.setLocation(altPos.x -spacingSize -buttonWidth, -spacingSize/2.0 -buttonHeight);
 		
+		/* Return result */
 		return (mouseX>x && mouseX<(x+buttonWidth) && 
 				mouseY>y && mouseY<(y+buttonHeight));
 	}
 
+	/**
+	 * New target altitude
+	 * @param altitude
+	 */
 	private void eventTargetAltitude(double altitude){
 		int targetAltitude = (int)Math.round(
 				multScale(altitude, flight.getMinAltitude(), flight.getMaxAltitude()));
@@ -363,6 +437,10 @@ public class FlightMenu implements MouseListener{
 		flight.setTargetAltitude((int)Math.round(targetAltitude));
 	}
 	
+	/**
+	 * New target speed
+	 * @param speed
+	 */
 	private void eventTargetSpeed(double speed){
 		double targetSpeed = multScale(speed, flight.getMinVelocity(), flight.getMaxVelocity());
 		System.out.println(String.format("speed := %1$3f", targetSpeed));
@@ -370,25 +448,28 @@ public class FlightMenu implements MouseListener{
 		//{!} nothing available to change at this time
 	}
 	
+	/**
+	 * New target heading
+	 * @param heading
+	 */
 	private void eventTargetHeading(double heading){
 		int targetHeading = (int)(Math.round(Math.toDegrees(heading)));
 		System.out.println(String.format("heading := %1$3d", targetHeading));
 		flight.giveHeading(targetHeading);	//NOT setTargetHeading
 	}
 
-	private void eventAbort(){
-		System.out.println("abort");
-		//{!} set flight parameters
-	}
-
+	/**
+	 * Land a plane
+	 */
 	private void eventLand(){
-		
-		
 		System.out.println("land");
 		//{!} set flight parameters
 		flight.land();
 	}
 
+	/**
+	 * Take-off a plane
+	 */
 	private void eventTakeoff(){
 		System.out.println("takeoff");
 		flight.takeOff();
@@ -409,8 +490,10 @@ public class FlightMenu implements MouseListener{
 	}
 
 	@Override
+	/**
+	 * Cleanly transfer to new input
+	 */
 	public void setInput(Input input) {
-		//cleanly transfer to new input
 		if (this.input != null)
 			this.input.removeMouseListener(this);
 		this.input = input;
@@ -424,6 +507,9 @@ public class FlightMenu implements MouseListener{
 	@Override
 	public void mouseClicked(int button, int x, int y, int clickCount) {}
 
+	/**
+	 * Whenever the mouse was pressed, check if a button was pressed
+	 */
 	@Override
 	public void mousePressed(int button, int x, int y) {
 		if (Input.MOUSE_RIGHT_BUTTON == button){
@@ -443,6 +529,9 @@ public class FlightMenu implements MouseListener{
 		}
 	}
 	
+	/**
+	 * If the mouse is dragged, reposition the sliders in the radial menu
+	 */
 	@Override
 	public void mouseDragged(int oldx, int oldy, int newx, int newy) {
 		switch (mode){
@@ -489,6 +578,9 @@ public class FlightMenu implements MouseListener{
 		}
 	}
 
+	/**
+	 * Release all the buttons and sliders on mouse releaes
+	 */
 	@Override
 	public void mouseReleased(int button, int x, int y) {
 		//disable invalid commands
@@ -519,7 +611,6 @@ public class FlightMenu implements MouseListener{
 				else eventLand();
 				break;
 			case ABORT:
-				eventAbort();
 				break;				
 			}
 			mode = NONE;
@@ -530,7 +621,8 @@ public class FlightMenu implements MouseListener{
 	@Override
 	public void mouseWheelMoved(int change) {}
 	
-	
+	// SETTERS AND GETTERS
+
 	public int getAltSize() {
 		return altSize;
 	}
@@ -642,6 +734,8 @@ public class FlightMenu implements MouseListener{
 	}
 
 	public void setFlight(Flight flight) {
+
+		/* Reset mode */
 		mode = NONE;
 		this.flight = flight;
 		if (flight != null){

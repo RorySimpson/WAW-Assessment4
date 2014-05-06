@@ -20,26 +20,27 @@ public class FlightPlan {
 	protected EntryPoint entryPoint;
 	protected ExitPoint exitPoint;
 	protected List<Point>
-        // Array that stores the current list of waypoints
-		currentRoute = new ArrayList<Point>(), 
-        // Array that stores all the waypoints the flight has passed through
-		waypointsAlreadyVisited; 
-    // The flight object associated with the flight plan
+        /* Array that stores the current list of waypoints */
+        currentRoute = new ArrayList<Point>(), 
+        /* Array that stores all the waypoints the flight has passed through */
+        waypointsAlreadyVisited; 
+        /* The flight object associated with the flight plan */
 	protected Flight flight; 
 	
-    // What waypoint is the mouse currently hovering over
+	/* What waypoint is the mouse currently hovering over */
 	protected Point 
 		waypointMouseIsOver, 
 		waypointClicked;
-    // Is the user currently changing the flight plan?
+	/* Is the user currently changing the flight plan? */
 	protected Boolean
 		changingPlan, 
-        // Is the user currently dragging a waypoint?
+		/* Is the user currently dragging a waypoint? */
 		draggingWaypoint;
 	protected int closestDistance;
-    //waypoint ID references
+	/* Waypoint ID references */
 	protected static final int	
-		A = 0, B = 1, C = 2, D = 3, E = 4, F = 5, G = 6, H = 7, I = 8, J = 9;
+		A = 0, B = 1, C = 2, D = 3, E = 4,
+		F = 5, G = 6, H = 7, I = 8, J = 9;
 	
 
 	/**
@@ -169,6 +170,7 @@ public class FlightPlan {
 					}
 				}
 				
+				/* Special cases for when the exit point is the airports (landing plane) */
 				if (exitPoint == airspace.getAirportLeft().getBeginningOfRunway()){
 					tempRoute.add(airspace.getAirportLeft().getEndOfRunway());
 				}
@@ -180,7 +182,6 @@ public class FlightPlan {
 		
 		return tempRoute;
 	}
-
 	
 	/**
 	 * generateVelocity: Creates a velocity from a range of values
