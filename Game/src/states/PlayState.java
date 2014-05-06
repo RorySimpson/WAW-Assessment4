@@ -636,12 +636,12 @@ public class PlayState extends BasicGameState {
 			if (airspace.getScore().getAchievements().getAchievementGained()){
 				
 				/* Draw the box first */
-				achievementBox.draw(900, 0);
+				achievementBox.draw(850, 10);
 				
 				/* Draw the text */
 				g.drawString(airspace.getScore().scoreAchievement(), 
 						stateContainer.Game.MAXIMUMWIDTH -font.getWidth
-						(airspace.getScore().scoreAchievement()) -10, 30);
+						(airspace.getScore().scoreAchievement()) -100, 30);
 				g.drawString(achievementMessage, 
 						stateContainer.Game.MAXIMUMWIDTH -10 -font.getWidth
 						(achievementMessage), 40);
