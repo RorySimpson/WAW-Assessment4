@@ -29,6 +29,7 @@ public class FlightCompetitive_Tests {
 	
 	// Testing generate_altitude()
 
+	// FC.1
 	@Test
 	public void generateAltitudeTest1() {
 		// Testing the function returns an altitude within a certain range.
@@ -37,6 +38,7 @@ public class FlightCompetitive_Tests {
 
 	}
 	
+	// FC.2.1
 	@Test
 	public void checkIfFlightAtWaypointTest1(){
 		// Test that waypoint detection works at within 15 pixels.
@@ -46,7 +48,7 @@ public class FlightCompetitive_Tests {
 		assertTrue(flight1.checkIfFlightAtWaypoint(waypoint));
 	}
 	
-	
+	// FC.2.2
 	@Test
 	public void checkIfFlightAtWaypointTest2(){
 		// // Test that waypoint detection doesn't work further than 15 pixels away.
@@ -56,6 +58,7 @@ public class FlightCompetitive_Tests {
 		assertFalse(flight1.checkIfFlightAtWaypoint(waypoint));
 	}
 	
+	// FC.2.3
 	@Test
 	public void checkIfFlightAtWaypointTest3(){
 		// Test that waypoint detection works when close enough in terms of 
@@ -66,6 +69,7 @@ public class FlightCompetitive_Tests {
 		assertFalse(flight1.checkIfFlightAtWaypoint(waypoint));
 	}
 	
+	// FC.2.4
 	@Test
 	public void checkIfFlightAtWaypointTest4(){
 		// Test that waypoint detection works when close enough in terms of 
@@ -76,6 +80,7 @@ public class FlightCompetitive_Tests {
 		assertFalse(flight1.checkIfFlightAtWaypoint(waypoint));
 	}
 	
+	// FC.3.1
 	@Test
 	public void turnRightTest1(){
 		flight1.setCurrentHeading(180);
@@ -84,6 +89,7 @@ public class FlightCompetitive_Tests {
 		
 	}
 	
+	// FC.3.2
 	@Test
 	public void turnRightTest2(){
 		flight1.setCurrentHeading(359);
@@ -92,6 +98,7 @@ public class FlightCompetitive_Tests {
 		
 	}
 	
+	// FC.4.1
 	@Test
 	public void turnLeftTest1(){
 		flight1.setCurrentHeading(180);
@@ -100,6 +107,7 @@ public class FlightCompetitive_Tests {
 		
 	}
 	
+	// FC.4.2
 	@Test
 	public void turnLeftTest2(){
 		flight1.setCurrentHeading(0);
@@ -108,6 +116,7 @@ public class FlightCompetitive_Tests {
 		
 	}
 	
+	// FC.5.1
 	@Test
 	public void landTest1(){
 		flight1.setPlayer2(false);
@@ -123,6 +132,7 @@ public class FlightCompetitive_Tests {
 		assertNull(airspace.getControls().getSelectedFlight1());
 	}
 	
+	// FC.5.2
 	@Test
 	public void landTest2(){
 		flight1.setPlayer2(false);
@@ -136,6 +146,7 @@ public class FlightCompetitive_Tests {
 		assertNotNull(airspace.getControls().getSelectedFlight1());
 	}
 	
+	// FC.5.3
 	@Test
 	public void landTest3(){
 		flight1.setPlayer2(true);
@@ -151,6 +162,7 @@ public class FlightCompetitive_Tests {
 		assertNull(airspace.getControls().getSelectedFlight2());
 	}
 	
+	// FC.5.4
 	@Test
 	public void landTest4(){
 		flight1.setPlayer2(true);
@@ -163,9 +175,4 @@ public class FlightCompetitive_Tests {
 		assertFalse(flight1.isLanding());
 		assertNotNull(airspace.getControls().getSelectedFlight2());
 	}
-	
-
-
-
-
 }

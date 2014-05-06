@@ -16,6 +16,7 @@ public class CargoCompetitive_Tests {
     	cargo = new CargoCompetitive();
 	}
 	
+	// CC.1
 	@Test
 	public void generateRandomCargoLocationTest(){
 		cargo.setLocation(cargo.generateRandomCargoLocation());

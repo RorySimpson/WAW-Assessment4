@@ -27,6 +27,7 @@ public class FlightPlanCompetitive_Tests {
 
 	}
 	
+	// FPC.1
 	@Test 
 	public void assignEntryPointTest1(){
 		flight1.setPlayer2(true);

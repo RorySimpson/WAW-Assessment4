@@ -27,6 +27,7 @@ public class AirspaceCompetitive_Tests {
 		
 	}
 	
+	// AC.1
 	@Test
 	public void resetAirspaceTest(){
 		airspace.resetAirspace();
@@ -48,6 +49,7 @@ public class AirspaceCompetitive_Tests {
 		
 	}
 	
+	// AC.2
 	@Test
 	public void createAndSetSeparationRulesTest(){
 		airspace.setSeparationRules(null);
@@ -55,6 +57,7 @@ public class AirspaceCompetitive_Tests {
 		assertNotNull(airspace.getSeparationRules());
 	}
 	
+	// AC.3.1
 	@Test
 	public void checkWhatPlayerNeedsFlightTest1(){
 		airspace.getListOfFlightsPlayer2().add(new FlightCompetitive(airspace, true));
@@ -62,6 +65,7 @@ public class AirspaceCompetitive_Tests {
 		assertTrue(airspace.isAddPlayer1FlightNext());
 	}
 	
+	// AC.3.2
 	@Test
 	public void checkWhatPlayerNeedsFlightTest2(){
 		airspace.getListOfFlightsPlayer1().add(new FlightCompetitive(airspace, true));
@@ -69,12 +73,15 @@ public class AirspaceCompetitive_Tests {
 		assertFalse(airspace.isAddPlayer1FlightNext());
 	}
 	
+	
+	// AC.3.3
 	@Test
 	public void checkWhatPlayerNeedsFlightTest3(){
 		airspace.checkWhatPlayerNeedsFlight();
 		assertTrue(airspace.isAddPlayer1FlightNext());
 	}
 	
+	// AC.4.1
 	@Test 
 	public void updateScoreTest1(){
 		flight1.setPlayer2(true);
@@ -84,6 +91,7 @@ public class AirspaceCompetitive_Tests {
 		
 	}
 	
+	// AC.4.2
 	@Test 
 	public void updateScoreTest2(){
 		flight1.setPlayer2(false);
@@ -93,6 +101,7 @@ public class AirspaceCompetitive_Tests {
 		
 	}
 	
+	// AC.5
 	@Test
 	public void throwbackIntoAirspaceTest(){
 		
@@ -102,6 +111,7 @@ public class AirspaceCompetitive_Tests {
 		assertTrue(flight1.getTargetHeading() >135 && flight1.getTargetHeading() < 225);
 	}
 	
+	// AC.6
 	@Test 
 	public void removeSpecificFlightTest1(){
 		assertEquals(0, airspace.getListOfFlightsPlayer2().size());

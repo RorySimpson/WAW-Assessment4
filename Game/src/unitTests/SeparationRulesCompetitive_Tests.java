@@ -31,6 +31,7 @@ public class SeparationRulesCompetitive_Tests {
 		
 	}
 	
+	// SRC.1
 	@Test
 	public void lateralDistanceBetweenFlightAndCargoTest1(){
 		airspace.getCargo().getLocation().setLocation(0,0);
@@ -40,6 +41,7 @@ public class SeparationRulesCompetitive_Tests {
 		
 	}
 	
+	// SRC.2
 	@Test
 	public void detectCargoPickUpTest1(){
 		airspace.getCargo().getLocation().setLocation(0,0);
@@ -52,6 +54,7 @@ public class SeparationRulesCompetitive_Tests {
 		
 	}
 	
+	// SRC.2.2
 	@Test
 	public void detectCargoPickUpTest2(){
 		airspace.getCargo().getLocation().setLocation(0,0);
@@ -64,6 +67,7 @@ public class SeparationRulesCompetitive_Tests {
 		
 	}
 	
+	// SRC.2.3
 	@Test
 	public void detectCargoPickUpTest3(){
 		airspace.getCargo().getLocation().setLocation(0,0);
@@ -82,6 +86,7 @@ public class SeparationRulesCompetitive_Tests {
 		
 	}
 	
+	// SRC.3.1
 	//Test: checkViolation for collisions between flights
 	@Test
 	public void checkViolationTest1(){
@@ -97,6 +102,7 @@ public class SeparationRulesCompetitive_Tests {
 		assertTrue(airspace.getSeparationRules().getGameOverViolation());
 	}
 	
+	// SRC.3.2
 	@Test
 	public void checkViolationTest2(){
 		// Tests that game over is not achieved when two flights aren't too close.
@@ -111,6 +117,7 @@ public class SeparationRulesCompetitive_Tests {
 		assertFalse(airspace.getSeparationRules().getGameOverViolation());
 	}
 	
+	// SRC.3.3
 	@Test
 	public void checkViolationTest3(){
 		// Tests that game over is not achieved when two flights aren't too close.
@@ -126,6 +133,7 @@ public class SeparationRulesCompetitive_Tests {
 
 	}
 	
+	// SRC.3.4
 	@Test
 	public void checkViolationTest4(){
 		
@@ -144,6 +152,7 @@ public class SeparationRulesCompetitive_Tests {
 		assertEquals(flight1.getY(), airspace.getCargo().getLocation().getY(), 0);
 	}
 	
+	// SRC.4.
 	@Test
 	public void removeCrashTest1(){
 		
