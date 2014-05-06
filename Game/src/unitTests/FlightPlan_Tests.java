@@ -107,7 +107,7 @@ public class FlightPlan_Tests {
 	@Test
 	public void buildRouteTest3(){
 		
-		// Testing that it doesn't build a route if no airspace has no waypoints
+		// Testing that it doesn't build a route if the airspace has no waypoints
 		
 		Airspace airspaceMissingExitPoints = new Airspace();
 		
@@ -137,7 +137,7 @@ public class FlightPlan_Tests {
 	@Test
 	public void buildRouteTest4(){
 		
-		// Testing that it doesn't build a route if no airspace has no exitpoints
+		// Testing that it doesn't build a route if the airspace has no exitpoints
 		
 		Airspace airspaceMissingWaypoints = new Airspace();
 		
