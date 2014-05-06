@@ -42,7 +42,7 @@ public class coopInfoState extends BasicGameState {
 		{
 			LoadingList loading = LoadingList.get();
 
-			loading.add(new DeferredFile("res/menu_graphics/new/versus.jpg"){
+			loading.add(new DeferredFile("res/menu_graphics/new/coop.jpg"){
 				public void loadFile(String filename) throws SlickException{
 					background = new Image(filename);
 				}

@@ -17,9 +17,8 @@ import util.DeferredFile;
 public class PauseCompetitiveState extends BasicGameState {
 	
 	private static Image
-		nextPageButton, previousPageButton, menuButton, menuButtonHover, quitButton, backButton,
-		nextPageButtonHover, previousPageButtonHover, quitButtonHover, backButtonHover,
-		pauseBackgroundPage1, pauseBackgroundPage2;
+		menuButton, menuButtonHover, quitButton, backButton,
+		quitButtonHover, backButtonHover, background;
 	//private static TrueTypeFont font;
 	
 	private int pageNumber;
@@ -37,21 +36,9 @@ public class PauseCompetitiveState extends BasicGameState {
 		{
 			LoadingList loading = LoadingList.get();
 
-			loading.add(new DeferredFile("res/menu_graphics/new/pause1.png"){
+			loading.add(new DeferredFile("res/menu_graphics/new/versus.jpg"){
 				public void loadFile(String filename) throws SlickException{
-					pauseBackgroundPage1 = new Image(filename);
-				}
-			});
-
-			loading.add(new DeferredFile("res/menu_graphics/new/pause2.png"){
-				public void loadFile(String filename) throws SlickException{
-					pauseBackgroundPage2 = new Image(filename);
-				}
-			});
-
-			loading.add(new DeferredFile("res/menu_graphics/new/next_page.png"){
-				public void loadFile(String filename) throws SlickException{
-					nextPageButton = new Image(filename);
+					background = new Image(filename);
 				}
 			});
 
@@ -67,23 +54,6 @@ public class PauseCompetitiveState extends BasicGameState {
 				}
 			});
 
-			loading.add(new DeferredFile("res/menu_graphics/new/next_page_hover.png"){
-				public void loadFile(String filename) throws SlickException{
-					nextPageButtonHover = new Image(filename);
-				}
-			});
-
-			loading.add(new DeferredFile("res/menu_graphics/new/previous_page.png"){
-				public void loadFile(String filename) throws SlickException{
-					previousPageButton = new Image(filename);
-				}
-			});
-
-			loading.add(new DeferredFile("res/menu_graphics/new/previous_page_hover.png"){
-				public void loadFile(String filename) throws SlickException{
-					previousPageButtonHover = new Image(filename);
-				}
-			});
 
 			loading.add(new DeferredFile("res/menu_graphics/new/menu_button.png"){
 				public void loadFile(String filename) throws SlickException{
@@ -120,27 +90,9 @@ public class PauseCompetitiveState extends BasicGameState {
 			posY = stateContainer.Game.MAXIMUMHEIGHT -Mouse.getY();
 		
 		// Render Pause Page 1
-		if (pageNumber == 1) {
 			
-			pauseBackgroundPage1.draw(0,0);
+        background.draw(0,0);
 			
-			// Render Next Page Button
-			if (posX>1020 && posX<1150 && posY>270 && posY<330)
-				nextPageButtonHover.draw(1030,280);
-			else nextPageButton.draw(1030,280);
-			
-		}
-		
-		// Render Pause Page 2
-		else if (pageNumber == 2){
-						
-			pauseBackgroundPage2.draw(0,0);
-			
-			// Render Previous Page Button
-			if (posX>50 && posX<240 && posY>280 && posY<320) 
-				previousPageButtonHover.draw(30,280);
-			else previousPageButton.draw(30,280);				
-		}
 		
 		// Render Back Button
 		if (posX>20 && posX<40 && posY>20 && posY<40) 
@@ -153,9 +105,9 @@ public class PauseCompetitiveState extends BasicGameState {
 		else quitButton.draw(1150,550);
 		
 		/* Menu button hovering */
-		if (posX>520 && posX<700 && posY>500 && posY < 600)
-			menuButtonHover.draw(535,533);
-		else menuButton.draw(535,533);
+		if (posX>540 && posX<720 && posY>500 && posY < 600)
+			menuButtonHover.draw(535,553);
+		else menuButton.draw(535,553);
 		
 	}
 	
@@ -185,22 +137,9 @@ public class PauseCompetitiveState extends BasicGameState {
 			if (posX>1150 && posX<1170 && posY>550 && posY<580) {
 				System.exit(0);
 			}
-
-			if (pageNumber == 1){
 				
-				// Selecting Next Page Button
-				if((posX > 1030 && posX < 1193) && (posY > 280 && posY < 315)) 
-					pageNumber = 2;			
-			}
-			else if (pageNumber == 2){
-				
-				// Selecting Previous Page Button
-				if (posX>30 && posX<241 && posY>280 && posY<315) 
-					pageNumber = 1;		
-			}
-			
 			/* If user has pressed to go back to main menu */
-			if (posX>520 && posX<700 && posY>500 && posY < 600){
+			if (posX>540 && posX<720 && posY>500 && posY < 600){
 				((Game)sbg).setGameEndedComp(true);
 				((Game)sbg).setPreviousCompetitiveModeWinner("Draw");
 				sbg.enterState(stateContainer.Game.GAMEOVERCOMPETITIVESTATE);
@@ -215,4 +154,3 @@ public class PauseCompetitiveState extends BasicGameState {
 		return stateContainer.Game.PAUSECOMPETITIVESTATE;
 	}
 }
-
